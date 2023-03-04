@@ -39,6 +39,8 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   resolve-url-loader: 5.0.0
+  sass: 1.58.3
+  sass-loader: 13.2.0
   storybook: ^7.0.0-beta.61
   style-loader: 3.3.1
   styled-components: 6.0.0-beta.2
@@ -56,7 +58,7 @@ dependencies:
   date-fns: 2.29.3
   dinero.js: 2.0.0-alpha.8
   ms: 3.0.0-canary.1
-  next: 13.2.2-canary.1_biqbaboplfbrettd7655fr4n2y
+  next: 13.2.2-canary.1_wiv434v7erz4aedd5whhdwmpv4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   styled-components: 6.0.0-beta.2_biqbaboplfbrettd7655fr4n2y
@@ -68,7 +70,7 @@ devDependencies:
   '@storybook/addon-links': 7.0.0-beta.61_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-postcss': 2.0.0
   '@storybook/blocks': 7.0.0-alpha.8_biqbaboplfbrettd7655fr4n2y
-  '@storybook/nextjs': 7.0.0-beta.61_fxyp5hvujtw55zfwoyhzky2e2y
+  '@storybook/nextjs': 7.0.0-beta.61_e563lygieqpz6o2gjm445x4fmq
   '@storybook/react': 7.0.0-beta.61_o4scbtliisanygemawej7x2d6i
   '@storybook/testing-library': 0.0.14-next.1
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.4
@@ -89,6 +91,8 @@ devDependencies:
   prettier: 2.8.1
   prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
   resolve-url-loader: 5.0.0
+  sass: 1.58.3
+  sass-loader: 13.2.0_sass@1.58.3
   storybook: 7.0.0-beta.61
   style-loader: 3.3.1
   tailwindcss: 3.2.4_postcss@8.4.20
@@ -4995,7 +4999,7 @@ packages:
     resolution: {integrity: sha512-02w0sgGZaK1agT050yCVhJ+o4rLHANWvLKWjQjeAsYbjneLC5ITt+3GDB4jRiWwJboZ8dHW1fGSK1Vg5fA34aQ==}
     dev: true
 
-  /@storybook/nextjs/7.0.0-beta.61_fxyp5hvujtw55zfwoyhzky2e2y:
+  /@storybook/nextjs/7.0.0-beta.61_e563lygieqpz6o2gjm445x4fmq:
     resolution: {integrity: sha512-muNTJJs6uLOEkQXlnJOM4b3OrOWU+aUAthI2+CaAvMgg/7xnkakCRh2JtgLLNIIo1suheekNzLAOFJnvnOo3pA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -5044,14 +5048,14 @@ packages:
       fs-extra: 11.1.0
       image-size: 1.0.2
       loader-utils: 3.2.1
-      next: 13.2.2-canary.1_biqbaboplfbrettd7655fr4n2y
+      next: 13.2.2-canary.1_wiv434v7erz4aedd5whhdwmpv4
       pnp-webpack-plugin: 1.7.0_typescript@4.9.4
       postcss: 8.4.21
       postcss-loader: 7.0.2_postcss@8.4.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       resolve-url-loader: 5.0.0
-      sass-loader: 12.6.0
+      sass-loader: 12.6.0_sass@1.58.3
       semver: 7.3.8
       style-loader: 3.3.1
       styled-jsx: 5.1.1_react@18.2.0
@@ -9055,6 +9059,9 @@ packages:
       queue: 6.0.2
     dev: true
 
+  /immutable/4.2.4:
+    resolution: {integrity: sha512-WDxL3Hheb1JkRN3sQkyujNlL/xRjAo3rJtaU5xeufUauG66JdMr32bLj4gF+vWl84DIA3Zxw7tiAjneYzRRw+w==}
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -10124,7 +10131,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /next/13.2.2-canary.1_biqbaboplfbrettd7655fr4n2y:
+  /next/13.2.2-canary.1_wiv434v7erz4aedd5whhdwmpv4:
     resolution: {integrity: sha512-O/zMVYCLcEY8fC8AmhybhCBQgGV47MYpD3l+cz3fxVXAy1fKwJrpiL/coqLvG9v/NiOL0eu3xLexNf3Ogn6G9w==}
     engines: {node: '>=14.6.0'}
     hasBin: true
@@ -10151,6 +10158,7 @@ packages:
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      sass: 1.58.3
       styled-jsx: 5.1.1_react@18.2.0
     optionalDependencies:
       '@next/swc-android-arm-eabi': 13.2.2-canary.1
@@ -11419,7 +11427,7 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass-loader/12.6.0:
+  /sass-loader/12.6.0_sass@1.58.3:
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -11440,7 +11448,41 @@ packages:
     dependencies:
       klona: 2.0.6
       neo-async: 2.6.2
+      sass: 1.58.3
     dev: true
+
+  /sass-loader/13.2.0_sass@1.58.3:
+    resolution: {integrity: sha512-JWEp48djQA4nbZxmgC02/Wh0eroSUutulROUusYJO9P9zltRbNN80JCBHqRGzjd4cmZCa/r88xgfkjGD0TXsHg==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      fibers: '>= 3.1.0'
+      node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      sass: ^1.3.0
+      sass-embedded: '*'
+      webpack: ^5.0.0
+    peerDependenciesMeta:
+      fibers:
+        optional: true
+      node-sass:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+    dependencies:
+      klona: 2.0.6
+      neo-async: 2.6.2
+      sass: 1.58.3
+    dev: true
+
+  /sass/1.58.3:
+    resolution: {integrity: sha512-Q7RaEtYf6BflYrQ+buPudKR26/lH+10EmO9bBqbmPh/KeLqv8bjpTNqxe71ocONqXq+jYiCbpPUmQMS+JJPk4A==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.2.4
+      source-map-js: 1.0.2
 
   /scheduler/0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}

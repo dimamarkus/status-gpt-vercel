@@ -1,7 +1,7 @@
 import { Layout } from '#/ui/examples/page-directory/layout';
 import { Inter, Karla } from 'next/font/google';
 import { AppProps } from 'next/app';
-import 'styles/globals.css';
+import '#/styles/globals.scss';
 
 // Using next/font instead of a manual setup, we get:
 // - significantly easier setup

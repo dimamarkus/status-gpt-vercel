@@ -1,4 +1,4 @@
-import '#/styles/globals.css';
+import '#/styles/globals.scss';
 import { AddressBar } from '#/ui/examples/address-bar';
 import { GlobalNav } from '#/ui/examples/global-nav';
 import { VercelLogo } from '#/ui/examples/vercel-logo';
