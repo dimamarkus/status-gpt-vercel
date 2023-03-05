@@ -1,5 +1,8 @@
-import { getProducts, IProduct } from '#/lib/page-directory/get-products';
-import { ProductCard } from '#/ui/product-card';
+import {
+  getProducts,
+  IProduct,
+} from '#/lib/examples/page-directory/get-products';
+import { ProductCard } from '#/ui/examples/product-card';
 
 export const getStaticProps = async () => {
   const products = await getProducts();

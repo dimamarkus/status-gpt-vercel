@@ -2,10 +2,10 @@ import {
   getProduct,
   getProducts,
   GetProduct,
-} from '#/lib/page-directory/get-products';
-import { Product } from '#/ui/page-directory/product';
-import { Reviews } from '#/ui/page-directory/reviews';
-import { SimilarProducts } from '#/ui/page-directory/similar-products';
+} from '#/lib/examples/page-directory/get-products';
+import { Product } from '#/ui/examples/page-directory/product';
+import { Reviews } from '#/ui/examples/page-directory/reviews';
+import { SimilarProducts } from '#/ui/examples/page-directory/similar-products';
 import {
   GetStaticProps,
   GetStaticPaths,

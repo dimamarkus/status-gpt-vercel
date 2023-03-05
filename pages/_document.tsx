@@ -29,7 +29,7 @@ export default function Document() {
         />
         <link href="/favicon/favicon.ico" rel="shortcut icon" />
       </Head>
-      <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')]">
+      <body className="overflow-y-scroll bg-gray-1100 bg-[url('/examples/grid.svg')]">
         <Main />
         <NextScript />
       </body>
