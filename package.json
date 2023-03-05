@@ -4,6 +4,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "autoDev": "next dev & node ./utils/autoComponent/index.js",
     "lint": "next lint",
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
@@ -12,7 +13,8 @@
     "test": "yarn prettier:check && yarn lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "component-watch": "node ./utils/autoComponent/index.js"
   },
   "git": {
     "pre-commit": "lint-staged"
@@ -52,6 +54,7 @@
     "@types/react-dom": "18.0.9",
     "@vercel/git-hooks": "1.0.0",
     "autoprefixer": "10.4.13",
+    "chokidar": "3.5.3",
     "css-loader": "6.7.3",
     "cypress": "12.7.0",
     "eslint": "8.30.0",
