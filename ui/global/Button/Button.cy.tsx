@@ -6,7 +6,7 @@ describe('<Button />', () => {
     // see: https://on.cypress.io/mounting-react
     cy.mount(<Button label={'Button'} primary />);
     cy.get('button').should('exist');
-    cy.get('button').should('have.class', 'storybook-button--primary');
+    cy.get('button').should('have.class', 'btn-primary');
     cy.get('button').should('have.text', 'Button');
     cy.get('button').should('have.attr', 'type', 'button');
     // cy.get('button').should('have.attr', 'aria-label', 'Button');
