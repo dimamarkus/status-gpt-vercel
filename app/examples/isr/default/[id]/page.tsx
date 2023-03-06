@@ -1,5 +1,6 @@
 import { RenderingInfo } from '#/ui/examples/rendering-info';
 
+// export const revalidate = 60;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
@@ -15,8 +16,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="grid grid-cols-6 gap-x-6 gap-y-3">
-      <div className="col-span-full space-y-3 lg:col-span-4">
-        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">
+      <div className="space-y-3 col-span-full lg:col-span-4">
+        <h1 className="text-2xl font-medium text-gray-200 capitalize truncate">
           {data.title}
         </h1>
         <p className="font-medium text-gray-500">{data.body}</p>

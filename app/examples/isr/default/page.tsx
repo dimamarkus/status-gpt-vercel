@@ -1,5 +1,8 @@
 import { ExternalLink } from '#/ui/examples/external-link';
 
+// cache this page for 1 minute
+export const revalidate = 60;
+
 export default function Page() {
   return (
     <div className="prose-sm prose prose-invert max-w-none">
@@ -15,10 +18,6 @@ export default function Page() {
           was rendered. Refresh the page after 10 seconds to trigger a
           revalidation for the next request. Refresh again to see the
           revalidated page.
-        </li>
-        <li>
-          Examples are provided for the default <strong>Fetch API</strong> or
-          for connecting to a <strong> Supabase</strong> database API
         </li>
       </ul>
 

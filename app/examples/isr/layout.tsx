@@ -1,4 +1,4 @@
-import { TabGroup } from '#/ui/examples/tab-group';
+import { Tab } from '#/ui/examples/tab';
 import React from 'react';
 
 export const metadata = {
@@ -6,23 +6,19 @@ export const metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const ids = [{ id: '1' }, { id: '2' }, { id: '3' }];
-
   return (
     <div className="space-y-9">
-      <TabGroup
-        path="/examples/isr"
-        items={[
-          {
-            text: 'Home',
-          },
-          ...ids.map((x) => ({
-            text: `Post ${x.id}`,
-            slug: x.id,
-          })),
-        ]}
-      />
-
+      <div className="flex flex-wrap items-center gap-2">
+        <Tab path="/examples/ssg" item={{ text: 'Home' }} />
+        <Tab
+          path="/examples/isr/"
+          item={{ text: 'Default', slug: 'default' }}
+        />
+        <Tab
+          path="/examples/isr/"
+          item={{ text: 'Supabase', slug: 'supabase' }}
+        />
+      </div>
       <div>{children}</div>
     </div>
   );
