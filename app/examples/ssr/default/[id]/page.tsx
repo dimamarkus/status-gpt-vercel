@@ -2,6 +2,9 @@
 
 import { RenderingInfo } from '#/ui/examples/rendering-info';
 
+// do not cache this page
+export const revalidate = 0;
+
 export default async function Page({ params }: { params: { id: string } }) {
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${params.id}`,

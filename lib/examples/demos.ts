@@ -45,6 +45,12 @@ export const demos: { name: string; items: Item[] }[] = [
     name: 'Data Fetching',
     items: [
       {
+        name: 'Realtime with Supabase',
+        slug: 'realtime',
+        description:
+          'Realtime responding to data changes on the Supabase database',
+      },
+      {
         name: 'Streaming with Suspense',
         slug: 'streaming',
         description:

@@ -1,16 +1,25 @@
-import { createSupabaseClient } from '#/lib/supabase-server';
+import { createServerSideSupabase } from '#/lib/supabase-server';
 import { notFound } from 'next/navigation';
 
+// Cache this page for 10 seconds (revalidate after)
 export const revalidate = 10;
 
-// This function is what makes this statically generated and not just server rendered.
-// https://supabase.com/blog/fetching-and-caching-supabase-data-in-next-js-server-components#static
+// During revalidation, generateStaticParams will not be called again.
 export async function generateStaticParams() {
-  const supabase = createSupabaseClient();
-  const { data: products } = await supabase.from('products').select('id');
+  const supabase = createServerSideSupabase();
+  const response = await supabase.from('products').select('id');
+  const products = response.data;
 
-  // Generates all pages at build time
-  return products?.map(({ id }) => ({
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  if (!products) {
+    notFound();
+  }
+
+  // Generates all products at build time
+  return products.map(({ id }) => ({
     id,
   }));
 }
@@ -20,7 +29,7 @@ export default async function Product({
 }: {
   params: { id: string };
 }) {
-  const supabase = createSupabaseClient();
+  const supabase = createServerSideSupabase();
   const { data: product } = await supabase
     .from('products')
     .select()

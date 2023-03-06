@@ -1,11 +1,14 @@
 'server-only';
 
-import { createSupabaseClient } from '#/lib/supabase-server';
+import { createServerSideSupabase } from '#/lib/supabase-server';
 import { RenderingInfo } from '#/ui/examples/rendering-info';
 import { notFound } from 'next/navigation';
 
+// do not cache this page
+export const revalidate = 0;
+
 export default async function Page({ params }: { params: { id: string } }) {
-  const supabase = createSupabaseClient();
+  const supabase = createServerSideSupabase();
   const { data: product } = await supabase
     .from('products')
     .select()
@@ -18,8 +21,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="grid grid-cols-6 gap-x-6 gap-y-3">
-      <div className="space-y-3 col-span-full lg:col-span-4">
-        <h1 className="text-2xl font-medium text-gray-200 capitalize truncate">
+      <div className="col-span-full space-y-3 lg:col-span-4">
+        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">
           {product.name}
         </h1>
         <p className="font-medium text-gray-500">

@@ -1,4 +1,4 @@
-import { createSupabaseClient } from '#/lib/supabase-server';
+import { createServerSideSupabase } from '#/lib/supabase-server';
 import { TabGroup } from '#/ui/examples/tab-group';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createSupabaseClient();
+  const supabase = createServerSideSupabase();
   const response = await supabase.from('products').select('id, name');
   const products = response.data;
 
