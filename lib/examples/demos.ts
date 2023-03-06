@@ -48,28 +48,34 @@ export const demos: { name: string; items: Item[] }[] = [
         name: 'Realtime with Supabase',
         slug: 'realtime',
         description:
-          'Realtime responding to data changes on the Supabase database',
+        'Realtime responding to data changes on the Supabase database',
+      },
+      {
+        name: 'Server-Side Rendering (SSR)',
+        slug: 'ssr',
+        description: 'Server-render pages',
+      },
+      {
+        name: 'Single Page App (SPA)',
+        slug: 'spa',
+        description:
+        'Client side rendering with data fetching from the client',
+      },
+      {
+        name: 'Static-Site Generation (SSG)',
+        slug: 'ssg',
+        description: 'Generate static pages',
+      },
+      {
+        name: 'Static-site Regeneratiom (ISR)',
+        slug: 'isr',
+        description: 'Get the best of both worlds between static & dynamic',
       },
       {
         name: 'Streaming with Suspense',
         slug: 'streaming',
         description:
           'Streaming data fetching from the server with React Suspense',
-      },
-      {
-        name: 'Static-Site Generation',
-        slug: 'ssg',
-        description: 'Generate static pages',
-      },
-      {
-        name: 'Server-Side Rendering',
-        slug: 'ssr',
-        description: 'Server-render pages',
-      },
-      {
-        name: 'Incremental Static Regeneration',
-        slug: 'isr',
-        description: 'Get the best of both worlds between static & dynamic',
       },
     ],
   },

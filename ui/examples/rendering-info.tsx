@@ -3,10 +3,13 @@ import { RenderedTimeAgo } from '#/ui/examples/rendered-time-ago';
 export function RenderingInfo({
   type,
 }: {
-  type: 'ssg' | 'ssgod' | 'ssr' | 'isr';
+  type: 'spa' | 'ssg' | 'ssgod' | 'ssr' | 'isr';
 }) {
   let msg = '';
   switch (type) {
+    case 'spa':
+      msg = 'Dynamically rendered on the client';
+      break;
     case 'ssg':
       msg = 'Statically pre-rendered at build time';
       break;
@@ -23,7 +26,7 @@ export function RenderingInfo({
   }
 
   return (
-    <div className="space-y-3 rounded-lg bg-gray-900 p-3">
+    <div className="p-3 space-y-3 bg-gray-900 rounded-lg">
       <div className="text-sm text-gray-300">{msg}</div>
 
       <div className="flex">
