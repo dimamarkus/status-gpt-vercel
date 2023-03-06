@@ -10,22 +10,20 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
+  const ids = [{ id: '1' }, { id: '2' }, { id: '3' }];
+
   return (
     <div className="space-y-9">
       <TabGroup
-        path="/examples/ssr"
+        path="/examples/ssr/default"
         items={[
           {
             text: 'Home',
           },
-          {
-            text: 'Default',
-            slug: 'default',
-          },
-          {
-            text: 'Supabase',
-            slug: 'supabase',
-          },
+          ...ids.map((x) => ({
+            text: `Post ${x.id}`,
+            slug: x.id,
+          })),
         ]}
       />
       <div>{children}</div>
