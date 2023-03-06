@@ -20,17 +20,13 @@ export default function Page() {
           Try navigating to each post and noting the timestamp of when the page
           was rendered.
         </li>
-        <li>
-          Examples are provided for the default <strong>Fetch API</strong> or
-          for connecting to a <strong> Supabase</strong> database API
-        </li>
       </ul>
 
       <div className="flex gap-2">
         <ExternalLink href="https://beta.nextjs.org/docs/data-fetching/fetching#static-data">
           Docs
         </ExternalLink>
-        <ExternalLink href="https://github.com/vercel/app-playground/tree/main/app/ssg">
+        <ExternalLink href="https://github.com/dimamarkus/status-nextjs/tree/main/app/ssg/default">
           Code
         </ExternalLink>
       </div>
