@@ -4,24 +4,28 @@ import { notFound } from 'next/navigation';
 // Cache this page for 10 seconds (revalidate after)
 export const revalidate = 10;
 
+//! TODO - Remove this once the error below is fixed
+export const dynamic = 'force-static';
+
 // During revalidation, generateStaticParams will not be called again.
 export async function generateStaticParams() {
-  const supabase = createServerSideSupabase();
-  const response = await supabase.from('products').select('id');
-  const products = response.data;
-
-  if (response.error) {
-    throw new Error(response.error.message);
-  }
-
-  if (!products) {
-    notFound();
-  }
-
-  // Generates all products at build time
-  return products.map(({ id }) => ({
-    id,
-  }));
+  //! TODO - figure out how to generate these params statically
+  //! This causes an error: Error: Invariant: Method expects to have requestAsyncStorage, none available
+  //! https://github.com/vercel/next.js/issues/46356
+  // const supabase = createServerSideSupabase();
+  // const response = await supabase.from('products').select('id');
+  // const products = response.data;
+  // if (response.error) {
+  //   throw new Error(response.error.message);
+  // }
+  // if (!products) {
+  //   notFound();
+  // }
+  // // Generates all products at build time
+  // return products.map(({ id }) => ({
+  //   id,
+  // }));
+  return [];
 }
 
 export default async function Product({
