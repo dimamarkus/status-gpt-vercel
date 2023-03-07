@@ -1,4 +1,4 @@
-import { Product } from '#/types/product';
+import { ExampleProduct } from '#/types/examples';
 import { ProductBestSeller } from '#/ui/examples/product-best-seller';
 import { ProductEstimatedArrival } from '#/ui/examples/product-estimated-arrival';
 import { ProductLowStockWarning } from '#/ui/examples/product-low-stock-warning';
@@ -13,17 +13,17 @@ export const ProductCard = ({
   product,
   href,
 }: {
-  product: Product;
+  product: ExampleProduct;
   href: string;
 }) => {
   const price = dinero(product.price as DineroSnapshot<number>);
 
   return (
-    <Link href={href} className="group block">
+    <Link href={href} className="block group">
       <div className="space-y-2">
         <div className="relative">
           {product.isBestSeller ? (
-            <div className="absolute top-2 left-2 z-10 flex">
+            <div className="absolute z-10 flex top-2 left-2">
               <ProductBestSeller />
             </div>
           ) : null}
@@ -38,7 +38,7 @@ export const ProductCard = ({
           />
         </div>
 
-        <div className="truncate text-sm font-medium text-white group-hover:text-vercel-cyan">
+        <div className="text-sm font-medium text-white truncate group-hover:text-vercel-cyan">
           {product.name}
         </div>
 

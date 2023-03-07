@@ -1,4 +1,4 @@
-import { Product } from '#/types/product';
+import { ExampleProduct } from '#/types/examples';
 import { ProductCurrencySymbol } from '#/ui/examples/product-currency-symbol';
 import { ProductDeal } from '#/ui/examples/product-deal';
 import { ProductLighteningDeal } from '#/ui/examples/product-lightening-deal';
@@ -10,7 +10,7 @@ function isDiscount(obj: any): obj is { percent: number; expires?: number } {
 
 function formatDiscount(
   price: Dinero<number>,
-  discountRaw: Product['discount'],
+  discountRaw: ExampleProduct['discount'],
 ) {
   return isDiscount(discountRaw)
     ? {
@@ -28,7 +28,7 @@ export const ProductPrice = ({
   discount: discountRaw,
 }: {
   price: Dinero<number>;
-  discount: Product['discount'];
+  discount: ExampleProduct['discount'];
 }) => {
   const discount = formatDiscount(price, discountRaw);
 

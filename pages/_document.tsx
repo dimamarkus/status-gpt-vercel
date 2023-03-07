@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
@@ -29,7 +29,7 @@ export default function Document() {
         />
         <link href="/favicon/favicon.ico" rel="shortcut icon" />
       </Head>
-      <body className="overflow-y-scroll bg-gray-1100 bg-[url('/examples/grid.svg')]">
+      <body className="body-loading overflow-y-scroll bg-gray-1100 bg-[url('/examples/grid.svg')]">
         <Main />
         <NextScript />
       </body>

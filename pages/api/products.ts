@@ -1,5 +1,5 @@
-import type { Product } from '#/types/product';
-import type { NextRequest } from 'next/server';
+import type {ExampleProduct} from '#/types/examples';
+import type {NextRequest} from 'next/server';
 
 export const config = {
   runtime: 'edge',
@@ -30,7 +30,7 @@ export default async function handler(req: NextRequest) {
         acc[field] = product[field];
 
         return acc;
-      }, {} as Product);
+      }, {} as ExampleProduct);
     }
 
     return new Response(JSON.stringify(product), {
@@ -56,7 +56,7 @@ export default async function handler(req: NextRequest) {
   });
 }
 
-const data: Product[] = [
+const data: ExampleProduct[] = [
   {
     id: '1',
     stock: 2,

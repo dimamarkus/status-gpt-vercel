@@ -1,4 +1,4 @@
-import type { Product } from '#/types/product';
+import type { ExampleProduct } from '#/types/examples';
 import { Ping } from '#/ui/examples/ping';
 import { ProductEstimatedArrival } from '#/ui/examples/product-estimated-arrival';
 import { ProductLowStockWarning } from '#/ui/examples/product-low-stock-warning';
@@ -37,7 +37,7 @@ async function UserSpecificDetails({ productId }: { productId: string }) {
     },
   );
 
-  const product = (await data.json()) as Product;
+  const product = (await data.json()) as ExampleProduct;
 
   const price = dinero(product.price as DineroSnapshot<number>);
 
@@ -59,13 +59,13 @@ export function Pricing({
   product,
   cartCount,
 }: {
-  product: Product;
+  product: ExampleProduct;
   cartCount: string;
 }) {
   const price = dinero(product.price as DineroSnapshot<number>);
 
   return (
-    <div className="space-y-4 rounded-lg bg-gray-900 p-3">
+    <div className="p-3 space-y-4 bg-gray-900 rounded-lg">
       <ProductPrice price={price} discount={product.discount} />
 
       <div className="relative">

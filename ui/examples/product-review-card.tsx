@@ -1,12 +1,12 @@
-import type { Review } from '#/types/review';
+import type { ExampleReview } from '#/types/examples';
 import { ProductRating } from '#/ui/examples/product-rating';
 
-export const ProductReviewCard = ({ review }: { review: Review }) => {
+export const ProductReviewCard = ({ review }: { review: ExampleReview }) => {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
         <div className="flex items-center gap-x-2">
-          <div className="h-6 w-6 rounded-full bg-gray-700" />
+          <div className="w-6 h-6 bg-gray-700 rounded-full" />
           <div className="text-sm text-white">{review.name}</div>
         </div>
 

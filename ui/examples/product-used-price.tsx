@@ -1,10 +1,10 @@
-import { Product } from '#/types/product';
+import { ExampleProduct } from '#/types/examples';
 import { dinero, toUnit, up, type DineroSnapshot } from 'dinero.js';
 
 export const ProductUsedPrice = ({
   usedPrice: usedPriceRaw,
 }: {
-  usedPrice: Product['usedPrice'];
+  usedPrice: ExampleProduct['usedPrice'];
 }) => {
   const usedPrice = dinero(usedPriceRaw as DineroSnapshot<number>);
 

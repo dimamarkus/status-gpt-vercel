@@ -4,7 +4,6 @@
 module.exports.WATCH_FOLDER = 'ui/*';
 
 // If a folder name is in this array, it will be ignored
-
 module.exports.IGNORED_NAMES = [
   '_base',
   'atoms',

@@ -1,11 +1,11 @@
 import { Pricing } from '#/app/examples/streaming/_components/pricing';
-import type { Product } from '#/types/product';
+import type { ExampleProduct } from '#/types/examples';
 import { ProductRating } from '#/ui/examples/product-rating';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 
 export const SingleProduct = async ({ data }: { data: Promise<Response> }) => {
-  const product = (await data.then((res) => res.json())) as Product;
+  const product = (await data.then((res) => res.json())) as ExampleProduct;
 
   // Get the cart count from the users cookies and pass it to the client
   // AddToCart component
@@ -55,8 +55,8 @@ export const SingleProduct = async ({ data }: { data: Promise<Response> }) => {
         </div>
       </div>
 
-      <div className="col-span-full space-y-4 lg:col-span-2">
-        <div className="truncate text-xl font-medium text-white lg:text-2xl">
+      <div className="space-y-4 col-span-full lg:col-span-2">
+        <div className="text-xl font-medium text-white truncate lg:text-2xl">
           {product.name}
         </div>
 

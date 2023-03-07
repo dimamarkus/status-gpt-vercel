@@ -1,4 +1,4 @@
-import { Product } from '#/types/product';
+import { ExampleProduct } from '#/types/examples';
 import { ProductCard } from '#/ui/examples/product-card';
 
 export async function RecommendedProducts({
@@ -8,7 +8,7 @@ export async function RecommendedProducts({
   path: string;
   data: Promise<Response>;
 }) {
-  const products = (await data.then((res) => res.json())) as Product[];
+  const products = (await data.then((res) => res.json())) as ExampleProduct[];
 
   return (
     <div className="space-y-6">
@@ -38,10 +38,10 @@ function ProductSkeleton() {
     <div className="col-span-4 space-y-4 lg:col-span-1">
       <div className={`relative h-[167px] rounded-xl bg-gray-900 ${shimmer}`} />
 
-      <div className="h-4 w-full rounded-lg bg-gray-900" />
-      <div className="h-6 w-1/3 rounded-lg bg-gray-900" />
-      <div className="h-4 w-full rounded-lg bg-gray-900" />
-      <div className="h-4 w-4/6 rounded-lg bg-gray-900" />
+      <div className="w-full h-4 bg-gray-900 rounded-lg" />
+      <div className="w-1/3 h-6 bg-gray-900 rounded-lg" />
+      <div className="w-full h-4 bg-gray-900 rounded-lg" />
+      <div className="w-4/6 h-4 bg-gray-900 rounded-lg" />
     </div>
   );
 }
