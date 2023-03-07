@@ -1,11 +1,12 @@
 'use client';
 
 import { Button } from '#/ui/global/buttons/Button/Button';
+import LandingLayout from '#/ui/global/layouts/LandingLayout/LandingLayout';
 import Link from 'next/link';
 
-export default function Page() {
+const InnerPage = () => {
   return (
-    <body className="space-y-8 body-loading">
+    <div>
       <h1 className="text-xl font-medium text-gray-300">Hello World</h1>
       <Button onClick={() => alert('Hello World')} text="Click Me" />
       <Link
@@ -32,6 +33,14 @@ export default function Page() {
       >
         Sign In
       </Link>
-    </body>
+    </div>
+  );
+};
+
+export default function Page() {
+  return (
+    <LandingLayout>
+      <InnerPage />
+    </LandingLayout>
   );
 }
