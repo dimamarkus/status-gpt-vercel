@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes, ChangeEvent } from 'react';
 import cn from 'classnames';
+import { ChangeEvent, InputHTMLAttributes } from 'react';
 
 import styles from './Input.module.css';
 
@@ -7,7 +7,7 @@ interface Props extends Omit<InputHTMLAttributes<any>, 'onChange'> {
   className?: string;
   onChange: (value: string) => void;
 }
-const Input = (props: Props) => {
+const SupabaseInput = (props: Props) => {
   const { className, children, onChange, ...rest } = props;
 
   const rootClassName = cn(styles.root, {}, className);
@@ -34,4 +34,4 @@ const Input = (props: Props) => {
   );
 };
 
-export default Input;
+export default SupabaseInput;

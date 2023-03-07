@@ -1,7 +1,5 @@
-import React from 'react';
-
-import { Button } from '#/ui/global/Button/Button';
 import '#/ui/global/Header/header.css';
+import Button from '#/ui/_base/BaseButton/BaseButton';
 
 type User = {
   name: string;
@@ -52,17 +50,12 @@ export const Header = ({
             <span className="welcome">
               Welcome, <b>{user.name}</b>!
             </span>
-            <Button size="sm" onClick={onLogout} label="Log out" />
+            <Button size="sm" onClick={onLogout} text="Log out" />
           </>
         ) : (
           <>
-            <Button size="sm" onClick={onLogin} label="Log in" />
-            <Button
-              primary
-              size="sm"
-              onClick={onCreateAccount}
-              label="Sign up"
-            />
+            <Button size="sm" onClick={onLogin} text="Log in" />
+            <Button size="sm" onClick={onCreateAccount} text="Sign up" />
           </>
         )}
       </div>

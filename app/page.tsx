@@ -1,13 +1,13 @@
 'use client';
 
-import { Button } from '#/ui/global/Button/Button';
+import { Button } from '#/ui/global/buttons/Button/Button';
 import Link from 'next/link';
 
 export default function Page() {
   return (
-    <body className="body-loading space-y-8">
+    <body className="space-y-8 body-loading">
       <h1 className="text-xl font-medium text-gray-300">Hello World</h1>
-      <Button onClick={() => alert('Hello World')} label="Click Me" primary />
+      <Button onClick={() => alert('Hello World')} text="Click Me" />
       <Link
         href={`/examples`}
         className="group block space-y-1.5 rounded-lg bg-gray-900 px-5 py-3 hover:bg-gray-800"
