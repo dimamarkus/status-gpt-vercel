@@ -1,6 +1,6 @@
 import { useAuthContext } from '#/lib/context/authContext';
 import { clientSideSupabase } from '#/lib/supabase-client';
-import Logo from '#/ui/atoms/icons/Logo';
+import Logo from '#/ui/atoms/icons/VercelLogo';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './Navbar.module.css';

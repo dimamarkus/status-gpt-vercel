@@ -1,4 +1,4 @@
-export const Logo = ({ className = '', ...props }) => (
+export const VercelLogo = ({ className = '', ...props }) => (
   <svg
     width="32"
     height="32"
@@ -18,4 +18,4 @@ export const Logo = ({ className = '', ...props }) => (
   </svg>
 );
 
-export default Logo;
+export default VercelLogo;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import GitHub from '#/ui/atoms/icons/GitHub';
-import Logo from '#/ui/atoms/icons/Logo';
+import Logo from '#/ui/atoms/icons/VercelLogo';
 
 export default function Footer() {
   return (

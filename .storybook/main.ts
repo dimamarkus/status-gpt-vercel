@@ -19,6 +19,7 @@ const config: StorybookConfig = {
       },
     },
   ],
+  staticDirs: ['../public', '../assets'],
   framework: {
     name: '@storybook/nextjs',
     options: {},
