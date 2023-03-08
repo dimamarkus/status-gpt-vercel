@@ -5,7 +5,7 @@ export const revalidate = 60;
 
 export default function Page() {
   return (
-    <div className="prose-sm prose prose-invert max-w-none">
+    <div className="prose-sm prose-invert prose max-w-none">
       <h1 className="text-xl font-bold">Incremental Static Regeneration</h1>
 
       <ul>

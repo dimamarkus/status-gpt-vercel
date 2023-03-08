@@ -1,9 +1,9 @@
 'use client';
 
-import {clientSideSupabase} from '#/lib/supabase-client';
-import {Product} from '#/types';
-import {TabGroup} from '#/ui/examples/tab-group';
-import React, {useEffect, useState} from 'react';
+import { clientSideSupabase } from '#/lib/supabase-client';
+import { Product } from '#/types';
+import { TabGroup } from '#/ui/examples/tab-group';
+import React, { useEffect, useState } from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);

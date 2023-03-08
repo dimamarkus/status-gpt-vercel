@@ -2,7 +2,7 @@ import { ExternalLink } from '#/ui/examples/external-link';
 
 export default async function Page() {
   return (
-    <div className="prose prose-sm prose-invert max-w-none">
+    <div className="prose-sm prose-invert prose max-w-none">
       <h1 className="text-xl font-bold">Streaming with Suspense</h1>
 
       <ul>

@@ -19,11 +19,11 @@ export const ProductCard = ({
   const price = dinero(product.price as DineroSnapshot<number>);
 
   return (
-    <Link href={href} className="block group">
+    <Link href={href} className="group block">
       <div className="space-y-2">
         <div className="relative">
           {product.isBestSeller ? (
-            <div className="absolute z-10 flex top-2 left-2">
+            <div className="absolute top-2 left-2 z-10 flex">
               <ProductBestSeller />
             </div>
           ) : null}
@@ -38,7 +38,7 @@ export const ProductCard = ({
           />
         </div>
 
-        <div className="text-sm font-medium text-white truncate group-hover:text-vercel-cyan">
+        <div className="truncate text-sm font-medium text-white group-hover:text-vercel-cyan">
           {product.name}
         </div>
 

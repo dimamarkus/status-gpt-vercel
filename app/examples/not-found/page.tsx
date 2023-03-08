@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Page() {
   return (
-    <div className="prose prose-sm prose-invert max-w-none">
+    <div className="prose-sm prose-invert prose max-w-none">
       <h1 className="text-xl font-bold">Not Found</h1>
 
       <ul>

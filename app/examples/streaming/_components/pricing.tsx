@@ -65,7 +65,7 @@ export function Pricing({
   const price = dinero(product.price as DineroSnapshot<number>);
 
   return (
-    <div className="p-3 space-y-4 bg-gray-900 rounded-lg">
+    <div className="space-y-4 rounded-lg bg-gray-900 p-3">
       <ProductPrice price={price} discount={product.discount} />
 
       <div className="relative">

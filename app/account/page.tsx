@@ -2,10 +2,10 @@
 
 import { useAuthContext } from '#/lib/context/authContext';
 import { postData } from '#/lib/helpers';
+import Card from '#/ui/atoms/Card/Card';
+import LandingLayout from '#/ui/atoms/layouts/LandingLayout/LandingLayout';
 import LoadingDots from '#/ui/examples/supabase/LoadingDots';
 import SupabaseButton from '#/ui/examples/supabase/SupabaseButton';
-import Card from '#/ui/global/Card/Card';
-import LandingLayout from '#/ui/global/layouts/LandingLayout/LandingLayout';
 import Link from 'next/link';
 import { useState } from 'react';
 

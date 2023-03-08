@@ -21,10 +21,10 @@ const shimmer = `relative overflow-hidden before:absolute before:inset-0 before:
 function Skeleton() {
   return (
     <div className="space-y-4">
-      <div className="w-2/6 h-6 bg-gray-900 rounded-lg" />
-      <div className="w-1/6 h-4 bg-gray-900 rounded-lg" />
-      <div className="w-full h-4 bg-gray-900 rounded-lg" />
-      <div className="w-4/6 h-4 bg-gray-900 rounded-lg" />
+      <div className="h-6 w-2/6 rounded-lg bg-gray-900" />
+      <div className="h-4 w-1/6 rounded-lg bg-gray-900" />
+      <div className="h-4 w-full rounded-lg bg-gray-900" />
+      <div className="h-4 w-4/6 rounded-lg bg-gray-900" />
     </div>
   );
 }

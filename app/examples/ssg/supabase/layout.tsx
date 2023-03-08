@@ -1,5 +1,5 @@
 import { createServerSideSupabase } from '#/lib/supabase-server';
-import { TabGroup } from '#/ui/examples/tab-group';
+import { TabGroup } from '#/ui/_examples/tab-group';
 import React from 'react';
 
 export default async function Layout({

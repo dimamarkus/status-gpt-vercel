@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className="prose prose-sm prose-invert mb-8 max-w-none">
+      <div className="prose-sm prose-invert prose mb-8 max-w-none">
         <ul>
           <li>
             Primary product information is loaded first as part of the initial

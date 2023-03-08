@@ -1,7 +1,7 @@
+import { CounterProvider } from '#/app/examples/context/counter-context';
 import { fetchCategories } from '#/lib/examples/get-categories';
 import { Boundary } from '#/ui/examples/boundary';
 import { TabGroup } from '#/ui/examples/tab-group';
-import { CounterProvider } from '#/app/examples/context/counter-context';
 import React from 'react';
 import ContextClickCounter from './context-click-counter';
 

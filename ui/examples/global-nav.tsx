@@ -2,10 +2,10 @@
 
 import { demos, type Item } from '#/lib/examples/demos';
 import { NextLogo } from '#/ui/examples/next-logo';
-import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
 import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import Link from 'next/link';
+import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 
 export function GlobalNav() {

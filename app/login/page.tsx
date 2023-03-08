@@ -3,10 +3,10 @@
 import { useAuthContext } from '#/lib/context/authContext';
 import { getURL } from '#/lib/helpers';
 import { clientSideSupabase } from '#/lib/supabase-client';
+import Card from '#/ui/atoms/Card/Card';
+import Logo from '#/ui/atoms/icons/Logo';
+import LandingLayout from '#/ui/atoms/layouts/LandingLayout/LandingLayout';
 import LoadingDots from '#/ui/examples/supabase/LoadingDots';
-import Card from '#/ui/global/Card/Card';
-import Logo from '#/ui/global/Icons/Logo';
-import LandingLayout from '#/ui/global/layouts/LandingLayout/LandingLayout';
 import { Auth as ReactAuth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useRouter } from 'next/navigation';

@@ -1,9 +1,9 @@
 'use client';
 
 import { useAuthContext, VIEWS } from '#/lib/context/authContext';
-import { Button } from '#/ui/global/buttons/Button/Button';
-import Card from '#/ui/global/Card/Card';
-import ResetPasswordForm from '#/ui/global/forms/ResetPasswordForm/ResetPasswordForm';
+import { Button } from '#/ui/atoms/buttons/Button/Button';
+import Card from '#/ui/atoms/Card/Card';
+import ResetPasswordForm from '#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm';
 import styles from './ResetPassword.module.scss';
 
 const ResetPassword = () => {

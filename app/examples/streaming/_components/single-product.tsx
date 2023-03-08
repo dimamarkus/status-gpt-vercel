@@ -55,8 +55,8 @@ export const SingleProduct = async ({ data }: { data: Promise<Response> }) => {
         </div>
       </div>
 
-      <div className="space-y-4 col-span-full lg:col-span-2">
-        <div className="text-xl font-medium text-white truncate lg:text-2xl">
+      <div className="col-span-full space-y-4 lg:col-span-2">
+        <div className="truncate text-xl font-medium text-white lg:text-2xl">
           {product.name}
         </div>
 

@@ -1,9 +1,9 @@
 'use client';
 
 import { useAuthContext, VIEWS } from '#/lib/context/authContext';
-import Button from '#/ui/global/buttons/Button/Button';
-import Card from '#/ui/global/Card/Card';
-import SignUpForm from '#/ui/global/forms/SignUpForm/SignUpForm';
+import Button from '#/ui/atoms/buttons/Button/Button';
+import Card from '#/ui/atoms/Card/Card';
+import SignUpForm from '#/ui/molecules/forms/SignUpForm/SignUpForm';
 import styles from './SignUp.module.scss';
 
 const SignUp = () => {

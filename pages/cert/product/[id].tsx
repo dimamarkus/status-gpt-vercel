@@ -1,17 +1,12 @@
 import {
   getProduct,
-  getProducts,
   GetProduct,
+  getProducts,
 } from '#/lib/examples/page-directory/get-products';
 import { Product } from '#/ui/examples/page-directory/product';
 import { Reviews } from '#/ui/examples/page-directory/reviews';
 import { SimilarProducts } from '#/ui/examples/page-directory/similar-products';
-import {
-  GetStaticProps,
-  GetStaticPaths,
-  GetServerSideProps,
-  InferGetStaticPropsType,
-} from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
 // ====================
 // 1. Static Data (SSG)

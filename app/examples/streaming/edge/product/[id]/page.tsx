@@ -1,4 +1,3 @@
-import { Ping } from '#/ui/examples/ping';
 import {
   RecommendedProducts,
   RecommendedProductsSkeleton,
@@ -8,6 +7,7 @@ import {
   ReviewsSkeleton,
 } from '#/app/examples/streaming/_components/reviews';
 import { SingleProduct } from '#/app/examples/streaming/_components/single-product';
+import { Ping } from '#/ui/examples/ping';
 import { Suspense } from 'react';
 
 export const runtime = 'experimental-edge';

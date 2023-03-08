@@ -1,7 +1,7 @@
 'server-only';
 
 import { createServerSideSupabase } from '#/lib/supabase-server';
-import { RenderingInfo } from '#/ui/examples/rendering-info';
+import { RenderingInfo } from '#/ui/_examples/rendering-info';
 import { notFound } from 'next/navigation';
 
 // do not cache this page
