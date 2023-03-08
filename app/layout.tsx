@@ -1,6 +1,9 @@
 import 'server-only';
 
-import { AuthContextProvider } from '#/lib/context/authContext';
+import { AssumptionsContextProvider } from '#/lib/contexts/AssumptionsContext';
+import { AuthContextProvider } from '#/lib/contexts/AuthContext';
+import { FeatureToggleContextProvider } from '#/lib/contexts/FeatureToggleContext';
+import { FullScreenContextProvider } from '#/lib/contexts/FullScreenContext';
 import { createServerSideSupabase } from '#/lib/supabase-server';
 import '#/styles/globals.scss';
 
@@ -30,7 +33,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <AuthContextProvider accessToken={accessToken}>
-        {children}
+        <FeatureToggleContextProvider>
+          <AssumptionsContextProvider>
+            <FullScreenContextProvider>{children}</FullScreenContextProvider>
+          </AssumptionsContextProvider>
+        </FeatureToggleContextProvider>
       </AuthContextProvider>
     </html>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthContext, VIEWS } from '#/lib/context/authContext';
+import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
 import LandingLayout from '#/ui/atoms/layouts/LandingLayout/LandingLayout';
 import Auth from '#/ui/modules/Auth/Auth';
 import Link from 'next/link';

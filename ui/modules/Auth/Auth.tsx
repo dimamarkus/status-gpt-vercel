@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthContext, VIEWS } from '#/lib/context/authContext';
+import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
 import ResetPassword from '#/ui/modules/Auth/ResetPassword/ResetPassword';
 import SignIn from '#/ui/modules/Auth/SignIn/SignIn';
 import SignUp from '#/ui/modules/Auth/SignUp/SignUp';

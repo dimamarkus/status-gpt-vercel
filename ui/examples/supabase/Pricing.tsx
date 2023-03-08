@@ -1,7 +1,7 @@
 'use client';
 
-import { useAuthContext } from '#/lib/context/authContext';
-import { postData } from '#/lib/helpers';
+import { useAuthContext } from '#/lib/contexts/AuthContext';
+import { postData } from '#/lib/helpers/helpers';
 import { getStripe } from '#/lib/stripe-client';
 import SupabaseButton from '#/ui/examples/supabase/SupabaseButton';
 import cn from 'classnames';

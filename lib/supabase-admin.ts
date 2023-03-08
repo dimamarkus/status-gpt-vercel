@@ -1,17 +1,15 @@
-import {createClient} from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
-
-import {toDateTime} from './helpers';
-import {stripe} from './stripe';
-
-import {Price, StripeProduct} from 'types/stripe';
-import type {Database} from 'types/supabase';
+import { Price, StripeProduct } from 'types/stripe';
+import type { Database } from 'types/supabase';
+import { toDateTime } from './helpers/datetime-helpers';
+import { stripe } from './stripe';
 
 // Note: supabaseAdmin uses the SERVICE_ROLE_KEY which you must only use in a secure server-side context
 // as it has admin priviliges and overwrites RLS policies!
 const supabaseAdmin = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+  process.env.SUPABASE_SERVICE_ROLE_KEY || '',
 );
 
 const upsertProductRecord = async (product: Stripe.Product) => {
@@ -21,7 +19,7 @@ const upsertProductRecord = async (product: Stripe.Product) => {
     name: product.name,
     description: product.description ?? undefined,
     image: product.images?.[0] ?? null,
-    metadata: product.metadata
+    metadata: product.metadata,
   };
 
   const { error } = await supabaseAdmin.from('products').upsert([productData]);
@@ -41,7 +39,7 @@ const upsertPriceRecord = async (price: Stripe.Price) => {
     interval: price.recurring?.interval,
     interval_count: price.recurring?.interval_count,
     trial_period_days: price.recurring?.trial_period_days,
-    metadata: price.metadata
+    metadata: price.metadata,
   };
 
   const { error } = await supabaseAdmin.from('prices').upsert([priceData]);
@@ -51,7 +49,7 @@ const upsertPriceRecord = async (price: Stripe.Price) => {
 
 const createOrRetrieveCustomer = async ({
   email,
-  uuid
+  uuid,
 }: {
   email: string;
   uuid: string;
@@ -66,8 +64,8 @@ const createOrRetrieveCustomer = async ({
     const customerData: { metadata: { supabaseUUID: string }; email?: string } =
       {
         metadata: {
-          supabaseUUID: uuid
-        }
+          supabaseUUID: uuid,
+        },
       };
     if (email) customerData.email = email;
     const customer = await stripe.customers.create(customerData);
@@ -87,7 +85,7 @@ const createOrRetrieveCustomer = async ({
  */
 const copyBillingDetailsToCustomer = async (
   uuid: string,
-  payment_method: Stripe.PaymentMethod
+  payment_method: Stripe.PaymentMethod,
 ) => {
   //Todo: check this assertion
   const customer = payment_method.customer as string;
@@ -99,7 +97,7 @@ const copyBillingDetailsToCustomer = async (
     .from('users')
     .update({
       billing_address: { ...address },
-      payment_method: { ...payment_method[payment_method.type] }
+      payment_method: { ...payment_method[payment_method.type] },
     })
     .eq('id', uuid);
   if (error) throw error;
@@ -108,7 +106,7 @@ const copyBillingDetailsToCustomer = async (
 const manageSubscriptionStatusChange = async (
   subscriptionId: string,
   customerId: string,
-  createAction = false
+  createAction = false,
 ) => {
   // Get customer's UUID from mapping table.
   const { data: customerData, error: noCustomerError } = await supabaseAdmin
@@ -121,7 +119,7 @@ const manageSubscriptionStatusChange = async (
   const { id: uuid } = customerData!;
 
   const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
-    expand: ['default_payment_method']
+    expand: ['default_payment_method'],
   });
   // Upsert the latest status of the subscription object.
   const subscriptionData: Database['public']['Tables']['subscriptions']['Insert'] =
@@ -142,10 +140,10 @@ const manageSubscriptionStatusChange = async (
         ? toDateTime(subscription.canceled_at).toISOString()
         : null,
       current_period_start: toDateTime(
-        subscription.current_period_start
+        subscription.current_period_start,
       ).toISOString(),
       current_period_end: toDateTime(
-        subscription.current_period_end
+        subscription.current_period_end,
       ).toISOString(),
       created: toDateTime(subscription.created).toISOString(),
       ended_at: subscription.ended_at
@@ -156,7 +154,7 @@ const manageSubscriptionStatusChange = async (
         : null,
       trial_end: subscription.trial_end
         ? toDateTime(subscription.trial_end).toISOString()
-        : null
+        : null,
     };
 
   const { error } = await supabaseAdmin
@@ -164,7 +162,7 @@ const manageSubscriptionStatusChange = async (
     .upsert([subscriptionData]);
   if (error) throw error;
   console.log(
-    `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`
+    `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`,
   );
 
   // For a new subscription copy the billing details to the customer object.
@@ -173,7 +171,7 @@ const manageSubscriptionStatusChange = async (
     //@ts-ignore
     await copyBillingDetailsToCustomer(
       uuid,
-      subscription.default_payment_method as Stripe.PaymentMethod
+      subscription.default_payment_method as Stripe.PaymentMethod,
     );
 };
 
@@ -181,5 +179,5 @@ export {
   upsertProductRecord,
   upsertPriceRecord,
   createOrRetrieveCustomer,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
 };

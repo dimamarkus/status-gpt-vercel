@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthContext } from '#/lib/context/authContext';
+import { useAuthContext } from '#/lib/contexts/AuthContext';
 
 export const SignOut = () => {
   const { signOut } = useAuthContext();

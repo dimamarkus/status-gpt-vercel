@@ -1,7 +1,7 @@
 'use client';
 
-import { useAuthContext } from '#/lib/context/authContext';
-import { getURL } from '#/lib/helpers';
+import { useAuthContext } from '#/lib/contexts/AuthContext';
+import { getURL } from '#/lib/helpers/helpers';
 import { clientSideSupabase } from '#/lib/supabase-client';
 import Card from '#/ui/atoms/Card/Card';
 import Logo from '#/ui/atoms/icons/VercelLogo';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthContext, VIEWS } from '#/lib/context/authContext';
+import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
 import { Button } from '#/ui/atoms/buttons/Button/Button';
 import Card from '#/ui/atoms/Card/Card';
 import ResetPasswordForm from '#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm';

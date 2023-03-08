@@ -1,4 +1,4 @@
-import { AuthContext } from '#/lib/context/authContext';
+import { AuthContext } from '#/lib/contexts/AuthContext';
 import { LOGGED_IN_USER } from '#/lib/fixtures/auth-fixtures';
 import { clientSideSupabase } from '#/lib/supabase-client';
 import { Decorator } from '@storybook/react';

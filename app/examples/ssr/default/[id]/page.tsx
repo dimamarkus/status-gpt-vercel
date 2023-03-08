@@ -1,6 +1,6 @@
 'server-only';
 
-import { RenderingInfo } from '#/ui/_examples/rendering-info';
+import { RenderingInfo } from '#/ui/examples/rendering-info';
 
 // do not cache this page
 export const revalidate = 0;

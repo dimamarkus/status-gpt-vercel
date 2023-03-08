@@ -1,4 +1,4 @@
-import { useAuthContext } from '#/lib/context/authContext';
+import { useAuthContext } from '#/lib/contexts/AuthContext';
 import { clientSideSupabase } from '#/lib/supabase-client';
 import Logo from '#/ui/atoms/icons/VercelLogo';
 import Link from 'next/link';

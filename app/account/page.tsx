@@ -1,7 +1,7 @@
 'use client';
 
-import { useAuthContext } from '#/lib/context/authContext';
-import { postData } from '#/lib/helpers';
+import { useAuthContext } from '#/lib/contexts/AuthContext';
+import { postData } from '#/lib/helpers/helpers';
 import Card from '#/ui/atoms/Card/Card';
 import LandingLayout from '#/ui/atoms/layouts/LandingLayout/LandingLayout';
 import LoadingDots from '#/ui/examples/supabase/LoadingDots';
