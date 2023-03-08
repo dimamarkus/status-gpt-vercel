@@ -27,7 +27,7 @@ export const globalTypes = {
     toolbar: {
       icon: 'circlehollow',
       // Array of plain string values or MenuItem shape (see below)
-      items: ['light', 'dark', 'business'],
+      items: ['light', 'dark', 'statusLight', 'business'],
       // Property that specifies if the name of the item will be displayed
       showName: true,
       // Change title based on selected value
