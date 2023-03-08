@@ -21,7 +21,7 @@ export const VIEWS = {
   UPDATE_PASSWORD: 'update_password',
 };
 
-type AuthContext = {
+export type AuthContextType = {
   initial: boolean;
   session: Session | null;
   user: User | null;
@@ -33,7 +33,7 @@ type AuthContext = {
   signOut: () => Promise<{ error: AuthError | null }>;
 };
 
-export const Context = createContext<AuthContext>({
+export const AuthContext = createContext<AuthContextType>({
   initial: false,
   session: null,
   user: null,
@@ -116,11 +116,11 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
     };
   }, [initial, isLoadingData, session, supabase, user, view]);
 
-  return <Context.Provider value={value} {...rest} />;
+  return <AuthContext.Provider value={value} {...rest} />;
 };
 
 export const useAuthContext = () => {
-  const context = useContext(Context);
+  const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
