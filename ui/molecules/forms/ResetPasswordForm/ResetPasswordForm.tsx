@@ -11,7 +11,7 @@ export type ResetPasswordFields = {
   email: string;
 };
 
-const ResetPasswordForm = () => {
+export const ResetPasswordForm = () => {
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const { register, handleSubmit, formState } = useForm<ResetPasswordFields>({

@@ -8,7 +8,7 @@ type ${name}Props = {
   children?: React.ReactNode;
 };
 
-const ${name} = (props: ${name}Props) => {
+export const ${name} = (props: ${name}Props) => {
   const { children = 'My new component' } = props;
   const innerChild = <div>{children}</div>;
 

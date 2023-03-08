@@ -31,7 +31,6 @@ https://beta.nextjs.org/docs
 
 https://github.com/vercel/next.js/discussions/41745
 
-
 # Next.js Subscription Payments Starter
 
 The all-in-one starter kit for high-performance SaaS applications.
@@ -211,4 +210,20 @@ npm run dev
 # or
 yarn
 yarn dev
+```
+
+## Dimas Notes
+
+### Storybook
+
+Storybook only autopopulates components if they are exported directly as consts and not as default exports.
+In order to maintain the mechanic of components having one default export, an export should be done twice, once for the component and once as the default export
+
+```typescript
+export const MyComponent = {
+  ...
+}
+
+// Export here at the bottom of the file as well
+export default MyComponent
 ```

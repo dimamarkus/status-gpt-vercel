@@ -33,7 +33,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   register?: UseFormRegister<any>;
 };
 
-const TextInput = (props: TextInputProps) => {
+export const TextInput = (props: TextInputProps) => {
   const {
     name,
     errors,

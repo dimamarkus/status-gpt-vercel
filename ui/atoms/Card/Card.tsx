@@ -10,7 +10,7 @@ type CardProps = {
   footer?: React.ReactNode;
 };
 
-const Card = (props: CardProps) => {
+export const Card = (props: CardProps) => {
   const { title, description, footer, children, className } = props;
   const tailwindClasses = 'card max-w-lg rounded bg-neutral-100';
   const titleChild = title ? (

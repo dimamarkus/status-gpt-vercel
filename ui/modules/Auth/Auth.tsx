@@ -10,7 +10,7 @@ type AuthProps = {
   view: string | null;
 };
 
-const Auth = ({ view: initialView }: AuthProps) => {
+export const Auth = ({ view: initialView }: AuthProps) => {
   let { view } = useAuthContext();
 
   if (initialView) {

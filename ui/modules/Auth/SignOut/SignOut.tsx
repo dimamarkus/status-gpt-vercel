@@ -2,7 +2,7 @@
 
 import { useAuthContext } from '#/lib/context/authContext';
 
-export default function SignOut() {
+export const SignOut = () => {
   const { signOut } = useAuthContext();
 
   async function handleSignOut() {
@@ -18,4 +18,6 @@ export default function SignOut() {
       Sign Out
     </button>
   );
-}
+};
+
+export default SignOut;

@@ -6,7 +6,7 @@ import Card from '#/ui/atoms/Card/Card';
 import SignUpForm from '#/ui/molecules/forms/SignUpForm/SignUpForm';
 import styles from './SignUp.module.scss';
 
-const SignUp = () => {
+export const SignUp = () => {
   const { setView } = useAuthContext();
 
   return (

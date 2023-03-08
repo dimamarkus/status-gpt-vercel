@@ -6,7 +6,7 @@ type LandingLayoutProps = {
   children?: React.ReactNode;
 };
 
-const LandingLayout = ({ children }: LandingLayoutProps) => {
+export const LandingLayout = ({ children }: LandingLayoutProps) => {
   return (
     <body className={styles.LandingLayout + 'body-loading space-y-8'}>
       <div className="flex min-h-screen flex-col items-center justify-center py-2">

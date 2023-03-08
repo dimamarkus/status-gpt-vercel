@@ -5,7 +5,7 @@ import Card from '#/ui/atoms/Card/Card';
 import SignInForm from '#/ui/molecules/forms/SignInForm/SignInForm';
 import styles from './SignIn.module.scss';
 
-const SignIn = () => {
+export const SignIn = () => {
   const { setView } = useAuthContext();
 
   return (

@@ -6,7 +6,7 @@ import Card from '#/ui/atoms/Card/Card';
 import ResetPasswordForm from '#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm';
 import styles from './ResetPassword.module.scss';
 
-const ResetPassword = () => {
+export const ResetPassword = () => {
   const { setView } = useAuthContext();
 
   return (

@@ -11,7 +11,7 @@ export type UpdatePasswordFields = {
   password: string;
 };
 
-const UpdatePasswordForm = () => {
+export const UpdatePasswordForm = () => {
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const { register, handleSubmit, formState } = useForm<UpdatePasswordFields>({

@@ -12,7 +12,7 @@ export type SignUpFields = {
   password: string;
 };
 
-const SignUpForm = () => {
+export const SignUpForm = () => {
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const { register, handleSubmit, formState } = useForm<SignUpFields>({
