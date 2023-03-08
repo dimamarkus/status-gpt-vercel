@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
+    "@hookform/resolvers": "2.9.11",
     "@stripe/stripe-js": "1.48.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
@@ -32,16 +33,18 @@
     "daisyui": "^2.51.3",
     "date-fns": "^2.29.3",
     "dinero.js": "2.0.0-alpha.8",
-    "encoding": "0.1.13",
+    "encoding": "^0.1.13",
     "ms": "3.0.0-canary.1",
     "next": "^13.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-merge-refs": "2.0.1",
-    "stripe": "11.13.0",
+    "react-hook-form": "^7.43.5",
+    "react-merge-refs": "^2.0.1",
+    "stripe": "^11.13.0",
     "styled-components": "6.0.0-beta.2",
     "swr": "2.0.4",
-    "use-count-up": "^3.0.1"
+    "use-count-up": "^3.0.1",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
