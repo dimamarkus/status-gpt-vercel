@@ -5,6 +5,7 @@ import { Session, User } from '@supabase/auth-helpers-nextjs';
 import { AuthError } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { Subscription } from 'types/stripe';
 
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
@@ -25,6 +26,9 @@ type AuthContext = {
   session: Session | null;
   user: User | null;
   view: string | null;
+  isLoading: boolean;
+  supabase: typeof clientSideSupabase;
+  subscription: Subscription | null;
   setView: (view: string) => void;
   signOut: () => Promise<{ error: AuthError | null }>;
 };
@@ -34,6 +38,9 @@ export const Context = createContext<AuthContext>({
   session: null,
   user: null,
   view: null,
+  isLoading: false,
+  subscription: null,
+  supabase: clientSideSupabase,
   setView: () => {},
   signOut: () => Promise.resolve({ error: null }),
 });
@@ -44,6 +51,9 @@ type AuthProviderProps = {
 };
 
 export const AuthContextProvider = (props: AuthProviderProps) => {
+  console.log(`AuthContextProvider`);
+  const [supabase] = useState(clientSideSupabase);
+  const [isLoadingData, setIsloadingData] = useState(false);
   const [initial, setInitial] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -53,15 +63,17 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
 
   useEffect(() => {
     async function getActiveSession() {
+      setIsloadingData(true);
       const {
         data: { session: activeSession },
       } = await clientSideSupabase.auth.getSession();
       setSession(activeSession);
       setUser(activeSession?.user ?? null);
       setInitial(false);
+      console.log('getActiveSession', activeSession);
     }
     getActiveSession();
-
+    console.log('about to listne', session);
     const {
       data: { subscription: authListener },
     } = clientSideSupabase.auth.onAuthStateChange((event, currentSession) => {
@@ -71,7 +83,7 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
 
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
-
+      setIsloadingData(false);
       switch (event) {
         case EVENTS.PASSWORD_RECOVERY:
           setView(VIEWS.UPDATE_PASSWORD);
@@ -88,7 +100,7 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
       authListener?.unsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [accessToken]);
 
   const value = useMemo(() => {
     return {
@@ -97,9 +109,12 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
       user,
       view,
       setView,
+      supabase,
+      subscription: null, // TODO
+      isLoading: isLoadingData,
       signOut: () => clientSideSupabase.auth.signOut(),
     };
-  }, [initial, session, user, view]);
+  }, [initial, isLoadingData, session, supabase, user, view]);
 
   return <Context.Provider value={value} {...rest} />;
 };

@@ -28,7 +28,7 @@ export default async function RootLayout({
   const accessToken = session?.access_token || null;
 
   return (
-    <html lang="en" className="[color-scheme:dark]">
+    <html lang="en">
       <AuthContextProvider accessToken={accessToken}>
         {children}
       </AuthContextProvider>

@@ -1,11 +1,12 @@
-import cn from 'classnames';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+'use client';
 
+import { useAuthContext } from '#/lib/context/authContext';
 import { postData } from '#/lib/helpers';
-import { useUser } from '#/lib/hooks/useUser';
 import { getStripe } from '#/lib/stripe-client';
 import SupabaseButton from '#/ui/examples/supabase/SupabaseButton';
+import cn from 'classnames';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { Price, ProductWithPrice } from 'types/stripe';
 
@@ -20,7 +21,7 @@ export default function Pricing({ products }: Props) {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>('month');
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
-  const { user, isLoading, subscription } = useUser();
+  const { user, isLoading, subscription } = useAuthContext();
 
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);

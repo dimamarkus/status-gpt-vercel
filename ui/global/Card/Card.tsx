@@ -5,7 +5,7 @@ import styles from './Card.module.scss';
 type CardProps = {
   children?: React.ReactNode;
   className?: string;
-  title: string;
+  title?: string;
   description?: string;
   footer?: React.ReactNode;
 };
