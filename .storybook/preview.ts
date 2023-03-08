@@ -1,5 +1,5 @@
 import '#/styles/globals.scss';
-import type {Preview} from '@storybook/react';
+import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
   parameters: {
@@ -12,6 +12,26 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+  },
+};
+
+export const globalTypes = {
+  themes: {
+    defaultValues: ['light', 'dark', 'business'],
+  },
+  theme: {
+    name: 'Theme',
+    description: 'Global theme for components',
+    defaultValue: 'light',
+    toolbar: {
+      icon: 'circlehollow',
+      // Array of plain string values or MenuItem shape (see below)
+      items: ['light', 'dark', 'business'],
+      // Property that specifies if the name of the item will be displayed
+      showName: true,
+      // Change title based on selected value
+      dynamicTitle: true,
     },
   },
 };

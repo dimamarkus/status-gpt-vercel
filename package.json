@@ -40,6 +40,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",
     "react-merge-refs": "^2.0.1",
+    "storybook-addon-theme-changer": "0.1.2",
     "stripe": "^11.13.0",
     "styled-components": "6.0.0-beta.2",
     "swr": "2.0.4",

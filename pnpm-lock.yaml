@@ -55,6 +55,7 @@ specifiers:
   sass-loader: ^13.2.0
   server-only: 0.0.1
   storybook: 7.0.0-beta.61
+  storybook-addon-theme-changer: 0.1.2
   stripe: ^11.13.0
   style-loader: ^3.3.1
   styled-components: 6.0.0-beta.2
@@ -83,6 +84,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.43.5_react@18.2.0
   react-merge-refs: 2.0.1
+  storybook-addon-theme-changer: 0.1.2_biqbaboplfbrettd7655fr4n2y
   stripe: 11.13.0
   styled-components: 6.0.0-beta.2_biqbaboplfbrettd7655fr4n2y
   swr: 2.0.4_react@18.2.0
@@ -13601,6 +13603,29 @@ packages:
         integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==,
       }
     dev: true
+
+  /storybook-addon-theme-changer/0.1.2_biqbaboplfbrettd7655fr4n2y:
+    resolution:
+      {
+        integrity: sha512-moN3hHg91W7Y4Gux8IsPuA0NUvqEliV3RBXCJ9Au6T7Gc5ME4fDy89eZVVSRs+1DTemQG1pYCikXtAR2p4dFfA==,
+      }
+    peerDependencies:
+      '@storybook/addons': ^6.4.0
+      '@storybook/api': ^6.4.0
+      '@storybook/components': ^6.4.0
+      '@storybook/core-events': ^6.4.0
+      '@storybook/theming': ^6.4.0
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /storybook/7.0.0-beta.61_encoding@0.1.13:
     resolution:
