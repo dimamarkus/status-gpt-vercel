@@ -51,7 +51,6 @@ type AuthProviderProps = {
 };
 
 export const AuthContextProvider = (props: AuthProviderProps) => {
-  console.log(`AuthContextProvider`);
   const [supabase] = useState(clientSideSupabase);
   const [isLoadingData, setIsloadingData] = useState(false);
   const [initial, setInitial] = useState(true);
@@ -70,10 +69,8 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
       setSession(activeSession);
       setUser(activeSession?.user ?? null);
       setInitial(false);
-      console.log('getActiveSession', activeSession);
     }
     getActiveSession();
-    console.log('about to listne', session);
     const {
       data: { subscription: authListener },
     } = clientSideSupabase.auth.onAuthStateChange((event, currentSession) => {
