@@ -61,7 +61,7 @@ import ${name} from './${name}';
 const meta: Meta<typeof ${name}> = {
   component: ${name},
   tags: ['autodocs'],
-  argTypes: {
+  args: {
   },
 };
 
