@@ -1,9 +1,10 @@
-'use client';
+"use client";
+import Link from "next/link";
 
-import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
-import LandingLayout from '#/ui/layouts/LandingLayout/LandingLayout';
-import Auth from '#/ui/modules/Auth/Auth';
-import Link from 'next/link';
+import { useAuthContext, VIEWS } from "#/lib/contexts/AuthContext";
+import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
+import Auth from "#/ui/modules/Auth/Auth";
+import Chat from "#/ui/modules/Chat/Chat";
 
 const InnerPage = () => {
   const { user, view, signOut } = useAuthContext();
@@ -27,7 +28,7 @@ const InnerPage = () => {
     );
   }
 
-  return <div></div>;
+  return <Chat />;
 };
 
 export default function Page() {

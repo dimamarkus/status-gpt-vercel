@@ -1,0 +1,12 @@
+.ChatBubble {
+  .chat-end .chat-image {
+    margin-right: -8px;
+    margin-left: -8px;
+  }
+
+  @media (min-width: 768px) {
+    .chat-end .chat-image {
+      margin-left: 0;
+    }
+  }
+}

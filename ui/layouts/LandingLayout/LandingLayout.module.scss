@@ -1,2 +1,6 @@
 .root {
+  --header-height: 96px;
+  main {
+    height: calc(100% - var(--header-height));
+  }
 }

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { demos, type Item } from '#/lib/examples/demos';
-import { NextLogo } from '#/ui/examples/next-logo';
-import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
-import { useState } from 'react';
+import { demos, type Item } from "#/lib/examples/demos";
+import { NextLogo } from "#/ui/examples/next-logo";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
+import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
+import { useState } from "react";
 
 export function GlobalNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,11 +15,7 @@ export function GlobalNav() {
   return (
     <div className="fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-black lg:bottom-0 lg:z-auto lg:w-72 lg:border-r lg:border-gray-800">
       <div className="flex h-14 items-center px-4 py-4 lg:h-auto">
-        <Link
-          href="/examples"
-          className="group flex w-full items-center gap-x-2.5"
-          onClick={close}
-        >
+        <Link href="/examples" className="group flex w-full items-center gap-x-2.5" onClick={close}>
           <div className="h-7 w-7 rounded-full border border-white/30 group-hover:border-white/50">
             <NextLogo />
           </div>
@@ -34,19 +30,17 @@ export function GlobalNav() {
         className="group absolute top-0 right-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="font-medium text-gray-100 group-hover:text-gray-400">
-          Menu
-        </div>
+        <div className="font-medium text-gray-100 group-hover:text-gray-400">Menu</div>
         {isOpen ? (
-          <XIcon className="block w-6 text-gray-400" />
+          <XMarkIcon className="block w-6 text-gray-400" />
         ) : (
-          <MenuAlt2Icon className="block w-6 text-gray-400" />
+          <Bars3Icon className="block w-6 text-gray-400" />
         )}
       </button>
 
       <div
-        className={clsx('overflow-y-auto lg:static lg:block', {
-          'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
+        className={clsx("overflow-y-auto lg:static lg:block", {
+          "fixed inset-x-0 bottom-0 top-14 mt-px bg-black": isOpen,
           hidden: !isOpen,
         })}
       >
@@ -72,13 +66,7 @@ export function GlobalNav() {
   );
 }
 
-function GlobalNavItem({
-  item,
-  close,
-}: {
-  item: Item;
-  close: () => false | void;
-}) {
+function GlobalNavItem({ item, close }: { item: Item; close: () => false | void }) {
   const segment = useSelectedLayoutSegment();
   const isActive = item.slug === segment;
 
@@ -86,13 +74,10 @@ function GlobalNavItem({
     <Link
       onClick={close}
       href={`/examples/${item.slug}`}
-      className={clsx(
-        'block rounded-md px-3 py-2 text-sm font-medium hover:text-gray-300',
-        {
-          'text-gray-400 hover:bg-gray-800': !isActive,
-          'text-white': isActive,
-        },
-      )}
+      className={clsx("block rounded-md px-3 py-2 text-sm font-medium hover:text-gray-300", {
+        "text-gray-400 hover:bg-gray-800": !isActive,
+        "text-white": isActive,
+      })}
     >
       {item.name}
     </Link>

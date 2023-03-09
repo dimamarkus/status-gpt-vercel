@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import TextField from "./TextField";
+import ChatWindow from "./ChatWindow";
 
-const meta: Meta<typeof TextField> = {
-  component: TextField,
+const meta: Meta<typeof ChatWindow> = {
+  component: ChatWindow,
   tags: ["autodocs"],
   args: {},
 };
 
 export default meta;
-type Story = StoryObj<typeof TextField>;
+type Story = StoryObj<typeof ChatWindow>;
 
 export const Default: Story = {
   args: {},

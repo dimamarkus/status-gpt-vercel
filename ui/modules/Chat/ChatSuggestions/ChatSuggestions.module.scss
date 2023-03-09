@@ -1,0 +1,26 @@
+/* Suggestions Scrollbar */
+/* ---------------------------------------------------------------- */
+
+.root::-webkit-scrollbar {
+  padding: 0 2px;
+  width: 10px;
+  margin: 0 2px;
+}
+
+.root::-webkit-scrollbar-track {
+  padding: 0 2px;
+  margin: 0 2px;
+  /* width of the entire scrollbar */
+  @apply bg-blue-50;
+}
+
+.root::-webkit-scrollbar-thumb {
+  padding: 0 2px;
+  margin: 0 2px;
+  /* width of the entire scrollbar */
+
+  border-radius: 16px;
+  border: 1px solid;
+  @apply border-blue-50;
+  @apply bg-neutral-300;
+}

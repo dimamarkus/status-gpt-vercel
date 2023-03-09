@@ -1,0 +1,39 @@
+.ChatWindow {
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform: rotate(180deg);
+  direction: rtl;
+  text-align: left;
+}
+
+.ChatWindow::-webkit-scrollbar {
+  padding: 0 2px;
+  width: 8px;
+  margin: 0 2px;
+  /* width of the entire scrollbar */
+}
+
+.ChatWindow::-webkit-scrollbar-track {
+  padding: 0 2px;
+  margin: 0 2px;
+  /* width of the entire scrollbar */
+  /* background: orange;        color of the tracking area */
+  @apply bg-base-100;
+}
+
+.ChatWindow::-webkit-scrollbar-thumb {
+  padding: 0 2px;
+  margin: 0 2px;
+  /* width of the entire scrollbar */
+
+  /* background-color: blue;    color of the scroll thumb */
+  border-radius: 16px;
+  border: 1px solid;
+  @apply border-base-100;
+  @apply bg-neutral-200;
+}
+
+.chatLog {
+  overflow: hidden;
+  transform: rotate(180deg);
+}

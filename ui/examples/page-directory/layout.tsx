@@ -1,8 +1,8 @@
-import { NextLogo } from '#/ui/examples/next-logo';
-import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/solid';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import { NextLogo } from "#/ui/examples/next-logo";
+import { MagnifyingGlassIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +19,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
                 <div className="relative flex-1">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <SearchIcon className="h-5 w-5 text-gray-300" />
+                    <MagnifyingGlassIcon className="h-5 w-5 text-gray-300" />
                   </div>
                   <input
                     aria-label="Search"

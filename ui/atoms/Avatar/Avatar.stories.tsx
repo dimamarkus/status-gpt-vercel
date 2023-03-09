@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Input from "./Input";
+import Avatar from "./Avatar";
 
-const meta: Meta<typeof Input> = {
-  component: Input,
+const meta: Meta<typeof Avatar> = {
+  component: Avatar,
   tags: ["autodocs"],
   args: {},
 };
 
 export default meta;
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof Avatar>;
 
 export const Default: Story = {
   args: {},

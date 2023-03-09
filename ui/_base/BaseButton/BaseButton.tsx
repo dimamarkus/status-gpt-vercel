@@ -1,12 +1,11 @@
-import { ButtonHTMLAttributes } from 'react';
-import styles from './BaseButton.module.scss';
+import { ButtonHTMLAttributes } from "react";
+import styles from "./BaseButton.module.scss";
 
-export interface BaseButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * How large should the button be?
    */
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   /**
    * Button text label
    */
@@ -22,25 +21,26 @@ export interface BaseButtonProps
  */
 export const BaseButton = ({
   text,
-  size = 'lg',
-  type = 'button',
+  size = "lg",
+  type = "button",
   fullWidth,
   className,
+  children,
   ...htmlButtonProps
 }: BaseButtonProps) => {
   return (
     <button
       className={[
         styles.BaseButton,
-        'btn',
+        "btn",
         `btn-${size}`,
-        fullWidth ? 'w-full' : '',
+        fullWidth ? "w-full" : "",
         className,
-      ].join(' ')}
+      ].join(" ")}
       type={type}
       {...htmlButtonProps}
     >
-      {text}
+      {text || children}
     </button>
   );
 };
