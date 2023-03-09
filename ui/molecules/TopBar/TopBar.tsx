@@ -2,6 +2,7 @@ import Hamburger from '#/ui/atoms/icons/Hamburger';
 import Logo from '#/ui/atoms/Logo/Logo';
 import AuthButtons from '#/ui/molecules/buttonGroups/AuthButtons/AuthButtons';
 import '#/ui/molecules/TopBar/TopBar.css';
+import Link from 'next/link';
 
 const navItems = (
   <>
@@ -17,6 +18,9 @@ const navItems = (
     <li>
       <a href="https://statusmoney.com/card">Card</a>
     </li>
+    <li>
+      <Link href="/admin">Admin</Link>
+    </li>
   </>
 );
 
@@ -28,7 +32,7 @@ const TopBar = () => {
       </label>
       <ul
         tabIndex={0}
-        className="p-2 mt-3 shadow dropdown-content menu rounded-box menu-compact w-52 bg-base-100"
+        className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
       >
         {navItems}
       </ul>
@@ -36,12 +40,11 @@ const TopBar = () => {
   );
   return (
     <header className="navbar">
-      <div className="navbar-start">
+      <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />
-        <ul className="px-1 menu menu-horizontal">{navItems}</ul>
+        <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
-      <div className="hidden navbar-center lg:flex"></div>
       <div className="navbar-end">
         <AuthButtons />
       </div>

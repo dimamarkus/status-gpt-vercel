@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styles from './Logo.module.scss';
 
@@ -8,12 +9,13 @@ type LogoProps = {
 
 export const Logo = (props: LogoProps) => {
   return (
-    <a
+    <Link
       className={
         styles.Logo +
         ' ' +
         'btn-ghost btn flex h-auto flex-col items-start p-0 py-1 text-left text-xl normal-case'
       }
+      href="https://statusmoney.com"
     >
       <Image
         className="relative -left-1 h-3 max-h-full w-auto max-w-full"
@@ -27,7 +29,7 @@ export const Logo = (props: LogoProps) => {
         <span className="boujee-text">AI</span>dvisor
         <small className="font-sans text-xs text-neutral-400">BETA</small>
       </h1>
-    </a>
+    </Link>
   );
 };
 export default Logo;

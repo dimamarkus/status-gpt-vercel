@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
-import Button from '#/ui/atoms/Button/Button';
+import Link from '#/ui/atoms/Link/Link';
 import BaseButtonGroup, {
   BaseButtonGroupProps,
 } from '#/ui/_base/BaseButtonGroup/BaseButtonGroup';
@@ -19,12 +19,26 @@ export const AuthButtons = (props: AuthButtonsProps) => {
       <span className="welcome">
         Welcome, <b>{user.user_metadata.name}</b>!
       </span>
-      <Button size="sm" onClick={signOut} text="Log out" />
+      <Link asButton text="Log out" href={'/logout'} onClick={signOut} />
     </BaseButtonGroup>
   ) : (
     <BaseButtonGroup>
-      <Button type="secondary" onClick={logIn} text="Log In" />
-      <Button type="primary" onClick={signUp} text="Sign Up" />
+      <Link
+        asButton
+        className="w-32"
+        type="secondary"
+        text="Log In"
+        href={'/login'}
+        onClick={logIn}
+      />
+      <Link
+        asButton
+        className="w-32"
+        type="primary"
+        text="Sign Up"
+        href={'https://statusmoney.com/register'}
+        onClick={signUp}
+      />
     </BaseButtonGroup>
   );
 };

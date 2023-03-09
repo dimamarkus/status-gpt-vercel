@@ -100,7 +100,9 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
     <div
       className={cn(
         styles.BaseButtonGroup,
-        'flex',
+        'flex items-center',
+        vertical ? 'space-y-4' : 'space-x-4',
+        vertical ? 'justify-center' : 'align-center',
         vertical && 'flex-col',
         reverseOrder && vertical
           ? 'flex-row-reverse'
