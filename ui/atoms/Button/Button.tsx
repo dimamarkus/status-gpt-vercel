@@ -1,20 +1,22 @@
-import cn from 'classnames';
+import cn from "classnames";
 
-import BaseButton, { BaseButtonProps } from '#/ui/_base/BaseButton/BaseButton';
+import Hamburger from "#/ui/atoms/icons/Hamburger";
+import BaseButton, { BaseButtonProps } from "#/ui/_base/BaseButton/BaseButton";
 
 export type ButtonType =
-  | 'button'
-  | 'submit'
-  | 'reset'
-  | 'accent'
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'link'
-  | 'default';
+  | "button"
+  | "submit"
+  | "reset"
+  | "accent"
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "link"
+  | "hamburger"
+  | "default";
 
 // export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-export interface ButtonProps extends Omit<BaseButtonProps, 'type'> {
+export interface ButtonProps extends Omit<BaseButtonProps, "type"> {
   /**
    * What flavor of button is it?
    */
@@ -29,7 +31,7 @@ export const Button = (props: ButtonProps) => {
 
   const buttonProps = {
     ...otherProps,
-    type: 'button',
+    type: "button",
   } as BaseButtonProps;
 
   const getBaseButtonWClasses = (classNames: string) => (
@@ -37,11 +39,11 @@ export const Button = (props: ButtonProps) => {
   );
 
   switch (type) {
-    case 'submit':
-      const text = buttonProps.text || 'Submit';
+    case "submit":
+      const text = buttonProps.text || "Submit";
       return (
         <BaseButton
-          className={cn('btn-primary', className)}
+          className={cn("btn-primary", className)}
           {...buttonProps}
           text={text}
           type="submit"
@@ -50,24 +52,32 @@ export const Button = (props: ButtonProps) => {
       );
       break;
 
-    case 'accent':
-      return getBaseButtonWClasses('btn-accent');
+    case "accent":
+      return getBaseButtonWClasses("btn-accent");
       break;
 
-    case 'secondary':
-      return getBaseButtonWClasses('btn-outline btn-primary');
+    case "secondary":
+      return getBaseButtonWClasses("btn-outline btn-primary");
       break;
 
-    case 'tertiary':
-      return getBaseButtonWClasses('btn-primary btn-link');
+    case "tertiary":
+      return getBaseButtonWClasses("btn-primary btn-link");
       break;
 
-    case 'link':
-      return getBaseButtonWClasses('btn-link');
+    case "link":
+      return getBaseButtonWClasses("btn-link");
+      break;
+
+    case "hamburger":
+      return (
+        <BaseButton className="btn-square">
+          <Hamburger />
+        </BaseButton>
+      );
       break;
 
     default:
-      return getBaseButtonWClasses('btn-primary');
+      return getBaseButtonWClasses("btn-primary");
       break;
   }
 };
