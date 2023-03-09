@@ -4,10 +4,6 @@ import styles from './BaseButton.module.scss';
 export interface BaseButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
    * How large should the button be?
    */
   size?: 'sm' | 'md' | 'lg';
@@ -19,25 +15,16 @@ export interface BaseButtonProps
    * Stretch the button to fill the width of its container
    */
   fullWidth?: boolean;
-  /**
-   * Additional class names to overwritte styles
-   */
-  className?: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
 }
 
 /**
  * Primary UI component for user interaction
  */
 export const BaseButton = ({
-  fullWidth,
-  size = 'lg',
-  backgroundColor,
   text,
+  size = 'lg',
   type = 'button',
+  fullWidth,
   className,
   ...htmlButtonProps
 }: BaseButtonProps) => {

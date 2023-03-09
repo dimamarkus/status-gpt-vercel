@@ -1,6 +1,6 @@
 import { PasswordSchema } from '#/lib/forms/schemas';
 import { clientSideSupabase } from '#/lib/supabase-client';
-import { Button } from '#/ui/atoms/buttons/Button/Button';
+import { Button } from '#/ui/atoms/Button/Button';
 import TextInput from '#/ui/atoms/inputs/TextInput/TextInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';

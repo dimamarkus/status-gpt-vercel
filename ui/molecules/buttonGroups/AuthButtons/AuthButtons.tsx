@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
-import Button from '#/ui/atoms/buttons/Button/Button';
+import Button from '#/ui/atoms/Button/Button';
 import BaseButtonGroup, {
   BaseButtonGroupProps,
 } from '#/ui/_base/BaseButtonGroup/BaseButtonGroup';

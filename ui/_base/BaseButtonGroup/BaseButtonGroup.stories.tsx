@@ -1,4 +1,4 @@
-import Button from '#/ui/atoms/buttons/Button/Button';
+import Button from '#/ui/atoms/Button/Button';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import BaseButtonGroup from './BaseButtonGroup';

@@ -1,7 +1,4 @@
-import Button, {
-  ButtonProps,
-  ButtonType,
-} from '#/ui/atoms/buttons/Button/Button';
+import Button, { ButtonProps, ButtonType } from '#/ui/atoms/Button/Button';
 import cn from 'classnames';
 import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from 'react';
 import styles from './BaseButtonGroup.module.scss';

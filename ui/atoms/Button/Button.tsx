@@ -51,7 +51,7 @@ export const Button = (props: ButtonProps) => {
       break;
 
     case 'accent':
-      return getBaseButtonWClasses('btn-outline btn-accent');
+      return getBaseButtonWClasses('btn-accent');
       break;
 
     case 'secondary':
