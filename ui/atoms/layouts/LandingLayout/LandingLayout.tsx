@@ -1,4 +1,5 @@
 import TopBar from '#/ui/molecules/TopBar/TopBar';
+import BaseLayout from '#/ui/_base/BaseLayout/BaseLayout';
 import React from 'react';
 import styles from './LandingLayout.module.scss';
 
@@ -8,14 +9,20 @@ type LandingLayoutProps = {
 
 export const LandingLayout = ({ children }: LandingLayoutProps) => {
   return (
-    <body className={styles.LandingLayout + 'body-loading space-y-8'}>
-      <div className="flex min-h-screen flex-col items-center justify-center py-2">
-        <main className="flex w-full flex-1 shrink-0 flex-col items-center justify-center px-8 text-center sm:px-20">
-          <TopBar />
-          {children}
+    <BaseLayout>
+      <div
+        className={
+          styles.LandingLayout + ' ' + 'drawer-content m-auto w-full max-w-6xl'
+        }
+      >
+        <TopBar />
+        <main role="main">
+          <div className="chat-container flex h-full max-h-full flex-col">
+            {children}
+          </div>
         </main>
       </div>
-    </body>
+    </BaseLayout>
   );
 };
 export default LandingLayout;

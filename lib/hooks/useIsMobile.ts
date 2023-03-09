@@ -1,4 +1,4 @@
-import { useWindowSize } from '@hooks/useWindowSize';
+import { useWindowSize } from '#/lib/hooks/useWindowSize';
 import { createContext, useContext } from 'react';
 
 export const useIsMobile = () => {

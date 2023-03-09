@@ -5,6 +5,7 @@ import LandingLayout from './LandingLayout';
 const meta: Meta<typeof LandingLayout> = {
   component: LandingLayout,
   tags: ['autodocs'],
+  argTypes: {},
 };
 
 export default meta;
