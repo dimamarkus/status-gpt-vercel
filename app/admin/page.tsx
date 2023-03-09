@@ -1,6 +1,6 @@
 'use client';
 
-import LandingLayout from '#/ui/atoms/layouts/LandingLayout/LandingLayout';
+import LandingLayout from '#/ui/layouts/LandingLayout/LandingLayout';
 import Link from 'next/link';
 
 export default function AdminPage() {

@@ -2,7 +2,7 @@
 
 import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
 import Button from '#/ui/atoms/Button/Button';
-import Card from '#/ui/atoms/Card/Card';
+import Card from '#/ui/containers/Card/Card';
 import SignInForm from '#/ui/molecules/forms/SignInForm/SignInForm';
 import styles from './SignIn.module.scss';
 

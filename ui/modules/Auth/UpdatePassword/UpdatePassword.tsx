@@ -1,6 +1,6 @@
 'use client';
 
-import Card from '#/ui/atoms/Card/Card';
+import Card from '#/ui/containers/Card/Card';
 import UpdatePasswordForm from '#/ui/molecules/forms/UpdatePasswordForm/UpdatePasswordForm';
 import styles from './UpdatePassword.module.scss';
 
