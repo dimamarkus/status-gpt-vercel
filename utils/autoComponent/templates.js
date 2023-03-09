@@ -1,4 +1,4 @@
-const { toTitleCase } = require('./utils');
+const { toTitleCase } = require("./utils");
 
 const ReactComponentTemplate = (name) =>
   `import React from 'react';
@@ -21,7 +21,7 @@ export const ${name} = (props: ${name}Props) => {
 export default ${name};`;
 
 const SassTemplate = (name) =>
-  `.root {
+  `.${name} {
 }`;
 
 const CypressTemplate = (name) =>
@@ -53,7 +53,7 @@ describe('<${name} />', () => {
 //     });
 //   });`
 
-const StoryTemplate = (name, folder = 'UI') =>
+const StoryTemplate = (name, folder = "UI") =>
   `import type { Meta, StoryObj } from '@storybook/react';
 
 import ${name} from './${name}';
