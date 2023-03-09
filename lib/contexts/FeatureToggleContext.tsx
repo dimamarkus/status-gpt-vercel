@@ -13,12 +13,14 @@ export type Font =
   | 'tiempos'
   | 'tiemposHeadline';
 export type Layout = 'vertical' | 'sidebar-left' | 'sidebar-right';
-export type Theme = 'statusMoney' | 'business';
+export type Theme = 'light' | 'dark' | 'statusLight' | 'business';
+export type Model = 'chat-gpt' | 'davinci';
 
 export type Features = {
   font: Font;
   layout: Layout;
   theme: Theme;
+  model: Model;
   promptDebug: boolean;
 };
 
