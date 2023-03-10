@@ -46,10 +46,10 @@ export const ChatBubble = ({ message, isTalking }: ChatMessageProps) => {
   }
 
   const {
-    features: { promptDebug },
+    features: { debugMode },
   } = useFeatureToggleContext();
 
-  const shouldHideMessage = !promptDebug && message?.role === "system";
+  const shouldHideMessage = !debugMode && message?.role === "system";
   if (shouldHideMessage) {
     return null;
   }

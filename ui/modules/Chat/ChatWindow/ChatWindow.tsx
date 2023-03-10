@@ -19,7 +19,7 @@ type ChatLogProps = {
 export const ChatWindow = (props: ChatLogProps) => {
   const { chatHistory, currentResponse, responseLoading, className } = props;
   const {
-    features: { promptDebug },
+    features: { debugMode },
   } = useFeatureToggleContext();
 
   const avatarClasses = "align-center chat-image flex h-16 w-16 justify-center text-center";
@@ -38,7 +38,7 @@ export const ChatWindow = (props: ChatLogProps) => {
             <motion.div className={cn(styles.chatLog, "my-4 h-full")}>
               {chatHistory.map(
                 (message, index) =>
-                  (promptDebug || message?.role !== "system") && (
+                  (debugMode || message?.role !== "system") && (
                     <ChatBubble key={index} message={message} />
                   ),
               )}

@@ -48,7 +48,7 @@ const FeaturesPanel = () => {
     return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
   }
 
-  const getOptionTogggle = (name: "promptDebug", title?: string) => {
+  const getOptionTogggle = (name: "debugMode", title?: string) => {
     const currentState = features[name];
     return (
       <div>
@@ -66,7 +66,7 @@ const FeaturesPanel = () => {
     );
   };
 
-  const getOptionDropdown = (name: keyof Omit<Features, "promptDebug">, options: string[]) => (
+  const getOptionDropdown = (name: keyof Omit<Features, "debugMode">, options: string[]) => (
     <div className="form-control">
       <label htmlFor={name} className="label">
         <span className="label-text uppercase text-base-100">{name}</span>
@@ -115,7 +115,7 @@ const FeaturesPanel = () => {
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
       {getOptionDropdown("font", FONTS)}
       {getOptionRadio("model", MODELS)}
-      {getOptionTogggle("promptDebug", "Prompt Debug")}
+      {getOptionTogggle("debugMode", "Prompt Debug")}
       {/* HACK: Empty div to force tailwind to create these font classes */}
       <div className="font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik hidden" />
     </div>

@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { DEFAULT_FEATURES } from '#/lib/constants/settings';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
+import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 
 export type Font =
-  | 'avenir'
-  | 'exo'
-  | 'montserrat'
-  | 'raleway'
-  | 'graphik'
-  | 'lato'
-  | 'tiempos'
-  | 'tiemposHeadline';
-export type Layout = 'vertical' | 'sidebar-left' | 'sidebar-right';
-export type Theme = 'light' | 'dark' | 'statusLight' | 'business';
-export type Model = 'chat-gpt' | 'davinci';
+  | "avenir"
+  | "exo"
+  | "montserrat"
+  | "raleway"
+  | "graphik"
+  | "lato"
+  | "tiempos"
+  | "tiemposHeadline";
+export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
+export type Theme = "light" | "dark" | "statusLight" | "business";
+export type Model = "chat-gpt" | "davinci";
 
 export type Features = {
   font: Font;
   layout: Layout;
   theme: Theme;
   model: Model;
-  promptDebug: boolean;
+  debugMode: boolean;
 };
 
 type ToggleContextType = {
@@ -38,9 +38,7 @@ export const DEFAULT_FEATURE_CONTEXT = {
   toggleShowFeatures: () => false,
 };
 
-export const FeatureToggleContext = createContext<ToggleContextType>(
-  DEFAULT_FEATURE_CONTEXT,
-);
+export const FeatureToggleContext = createContext<ToggleContextType>(DEFAULT_FEATURE_CONTEXT);
 
 type FeatureToggleProps = {
   children: any;
