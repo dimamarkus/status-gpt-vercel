@@ -7,18 +7,27 @@ import { ChatMessage } from "#/types";
 import ResizablePanel from "#/ui/containers/ResizablePanel/ResizablePanel";
 import ChatBubble from "#/ui/modules/Chat/ChatBubble/ChatBubble";
 import FullScreenToggleButton from "#/ui/molecules/actionButtons/FullScreenToggleButton/FullScreenToggleButton";
+import Mouth from "#/ui/atoms/Mouth/Mouth";
 
 type ChatLogProps = {
   chatHistory: ChatMessage[];
   currentResponse?: string;
   className?: string;
+  responseLoading?: boolean;
 };
 
 export const ChatWindow = (props: ChatLogProps) => {
-  const { chatHistory, currentResponse, className } = props;
+  const { chatHistory, currentResponse, responseLoading, className } = props;
   const {
     features: { promptDebug },
   } = useFeatureToggleContext();
+
+  const avatarClasses = "align-center chat-image flex h-16 w-16 justify-center text-center";
+  const avatarChild = (
+    <div className={cn(avatarClasses, "absolute bottom-4 left-4")}>
+      <Mouth animated={true} />
+    </div>
+  );
 
   return (
     <AvatarContextProvider {...DEFAULT_AVATAR_CONTEXT}>
@@ -41,8 +50,10 @@ export const ChatWindow = (props: ChatLogProps) => {
                     content: currentResponse,
                     timestamp: Date.now(),
                   }}
+                  isTalking={responseLoading}
                 />
               )}
+              {responseLoading && avatarChild}
             </motion.div>
           </AnimatePresence>
         </ResizablePanel>

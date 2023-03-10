@@ -54,11 +54,12 @@ export const Chat = (props: ChatProps) => {
         isFullScreen ? "absolute left-0 top-0 h-full w-full" : "",
       )}
     >
-      <div className="relative flex flex-col order-last h-full p-1 bg-blue-100 md:order-first md:p-4 lg:w-9/12">
+      <div className="relative order-last flex h-full flex-col bg-blue-100 p-1 md:order-first md:p-4 lg:w-9/12">
         <ChatWindow
           className="h-full"
           chatHistory={chatLog}
           currentResponse={streamedAnswer || error}
+          responseLoading={loading}
         />
         {/* {/* {isTablet && areAssumptionsShown && <ChatAssumptions />} */}
         {isTablet && !areAssumptionsShown && suggestionsChild}

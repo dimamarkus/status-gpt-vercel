@@ -1,5 +1,7 @@
+import cn from "classnames";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import styles from "./Avatar.module.scss";
 import { useAvatarContext } from "#/lib/contexts/AvatarContext";
 
 type AvatarProps = {
@@ -60,7 +62,12 @@ const Avatar = ({ isUserMessage }: AvatarProps) => {
     </div>
   ) : (
     <div
-      className={"align-center avatar justify-center" + " " + (!isLoading && "cursor-pointer")}
+      className={cn(
+        styles.Avatar,
+        "align-center avatar justify-center",
+        !isLoading && "cursor-pointer",
+        isLoading && "fixed",
+      )}
       onClick={handleClick}
     >
       <div className="flex w-12 rounded-full md:w-16">

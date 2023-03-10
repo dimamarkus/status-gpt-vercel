@@ -1,0 +1,347 @@
+.Mouth .monster_container {
+  /* Variables */
+  $bg: #1c27b5;
+  $blue: #3c47d7;
+  $blue-s: #07129c;
+  $black: #000000;
+  $yellow: #ffc333;
+
+  $red-1: #810332;
+  $red-2: #400018;
+  $pink: #dc1b50;
+  $white: #ffffff;
+  $mouthHeight: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  width: 90px;
+  height: 90px;
+  transform-origin: center;
+  scale: 0.75;
+  @apply bg-cyan-300;
+  border-radius: 20%;
+
+  .monster {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: -50px;
+    width: 50%;
+    height: $mouthHeight;
+    width: 200px;
+    scale: 0.4;
+    padding: 16px;
+
+    @media (max-width: 800px) {
+      transform: scale(0.7);
+    }
+
+    @media (max-width: 700px) {
+      transform: scale(0.6);
+    }
+
+    @media (max-width: 500px) {
+      transform: scale(0.5);
+    }
+
+    @media (max-width: 400px) {
+      transform: scale(0.3);
+    }
+
+    .monster__eyes {
+      display: flex;
+      justify-content: space-between;
+      width: 28%;
+      height: auto;
+      margin-bottom: 10px;
+      .monster__eye {
+        width: 17px;
+        height: 30px;
+        border-radius: 20px;
+        @apply bg-blue-900;
+      }
+    }
+
+    .monster__mouth {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 75%;
+      height: 0%;
+      overflow: hidden;
+      border: 15px solid;
+      @apply border-yellow-500;
+      border-radius: 100px;
+      background-color: $red-1;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 150px;
+        height: 80px;
+        border-radius: 100px;
+        background-color: $red-2;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        width: 160px;
+        height: 80px;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+        background-color: $pink;
+      }
+      .monster__top {
+        position: absolute;
+        top: -30px;
+        width: 170px;
+        height: 30px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: $white;
+        z-index: 100;
+      }
+
+      .monster__bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100px;
+        height: 30px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: $white;
+        z-index: 100;
+      }
+    }
+  }
+}
+
+.animated .monster__mouth {
+  animation: mouth 1.75s infinite;
+  &::after {
+    animation: tongue 1.75s infinite;
+  }
+  .monster__top {
+    animation: mouthTop 1.75s infinite;
+  }
+  .monster__bottom {
+    animation: mouthBottom 1.75s infinite;
+  }
+}
+
+/**/
+@keyframes mouthTop {
+  0%,
+  // 10%,
+  // 80%,
+  100% {
+    top: -30px;
+  }
+
+  20% {
+    top: 0px;
+  }
+
+  30% {
+    top: -20px;
+  }
+
+  40% {
+    top: -0px;
+  }
+
+  50% {
+    top: -25px;
+  }
+
+  70% {
+    top: 0px;
+  }
+
+  80% {
+    top: -15px;
+  }
+
+  90% {
+    top: -24px;
+  }
+}
+
+@keyframes mouthBottom {
+  // 0%,
+  // 10%,
+  // 80%,
+  // 100% {
+  0%,
+  100% {
+    bottom: -30px;
+  }
+
+  20% {
+    bottom: 0px;
+  }
+
+  30% {
+    bottom: -20px;
+  }
+
+  40% {
+    bottom: -0px;
+  }
+
+  50% {
+    bottom: -25px;
+  }
+
+  70% {
+    bottom: -10px;
+  }
+
+  80% {
+    bottom: -30px;
+  }
+
+  80% {
+    bottom: -15px;
+  }
+
+  90% {
+    bottom: -5px;
+  }
+}
+
+@keyframes mouth {
+  0%,
+  // 10%,
+  100% {
+    width: 65%;
+    height: 5%;
+  }
+
+  15% {
+    width: 75%;
+    height: 30%;
+  }
+
+  20% {
+    width: 50%;
+    height: 70%;
+  }
+
+  25% {
+    width: 70%;
+    height: 70%;
+  }
+
+  30% {
+    width: 80%;
+    height: 60%;
+  }
+
+  35% {
+    width: 60%;
+    height: 70%;
+  }
+
+  40% {
+    width: 55%;
+    height: 75%;
+  }
+
+  45% {
+    width: 50%;
+    height: 90%;
+  }
+
+  50% {
+    width: 40%;
+    height: 70%;
+  }
+
+  55% {
+    width: 70%;
+    height: 95%;
+  }
+
+  60% {
+    width: 40%;
+    height: 50%;
+  }
+
+  65% {
+    width: 80%;
+    height: 60%;
+  }
+
+  70% {
+    width: 78%;
+    height: 70%;
+  }
+
+  75% {
+    width: 78%;
+    height: 70%;
+  }
+
+  80% {
+    width: 50%;
+    height: 70%;
+  }
+
+  85% {
+    width: 85%;
+    height: 50%;
+  }
+
+  85% {
+    width: 40%;
+    height: 70%;
+  }
+
+  90% {
+    width: 75%;
+    height: 30%;
+  }
+
+  95% {
+    width: 80%;
+    height: 10%;
+  }
+}
+
+@keyframes tongue {
+  0%,
+  20%,
+  100% {
+    bottom: -30px;
+  }
+
+  30%,
+  90% {
+    bottom: -40px;
+  }
+
+  40% {
+    bottom: -45px;
+  }
+
+  50% {
+    bottom: -50px;
+  }
+
+  70% {
+    bottom: -80px;
+  }
+
+  90% {
+    bottom: -40px;
+  }
+}
