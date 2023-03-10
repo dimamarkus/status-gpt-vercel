@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import {STARTING_CHAT_LOG, TRAINING_MESSAGE} from "#/lib/constants/gpt-prompt";
-import {useAssumptionsContext} from "#/lib/contexts/AssumptionsContext";
-import {useFeatureToggleContext} from "#/lib/contexts/FeatureToggleContext";
-import {useGetStream} from "#/lib/hooks/useGetStream";
-import {ChatMessage} from "#/types";
-import {ChatFormFields} from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { STARTING_CHAT_LOG, TRAINING_MESSAGE } from "#/lib/constants/gpt-prompt";
+import { useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useGetStream } from "#/lib/hooks/useGetStream";
+import { ChatMessage } from "#/types";
+import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { useSuggestions } from "#/lib/hooks/useSuggestions";
 
-const LOG_LENGTH = 6;
+const CHAT_MEMORY = 6;
 export const CHATBOX_ID = "chatInput";
 
 type UseChatGptReturn = {
@@ -28,12 +29,20 @@ type UseChatGptReturn = {
    */
   loading: boolean;
   /**
+   * This is an array of suggestions that OpenAI will generate based on the last few messages exchanged
+   */
+  suggestions: string[] | null;
+  /**
+   * This will be true while waiting for the suggestions to come back from the OpenAI API
+   */
+  suggestionsLoading: boolean;
+  /**
    * This will be set if there is an error with the OpenAI API call
    */
   error: string;
   /**
-  * The return of useForm hook. Use this to create the user's chat input bot
-  */
+   * The return of useForm hook. Use this to create the user's chat input bot
+   */
   inputFormContext: UseFormReturn<ChatFormFields, any>;
   /**
    * Triggers a call to the OpenAI API to get an answer which comes back in the form of a 'stream' or 'answer'
@@ -51,16 +60,17 @@ export const useChatGpt = (): UseChatGptReturn => {
 
   const isChatGpt = features.model === "chat-gpt";
   const apiEndpoint = "api/" + (isChatGpt ? "generateChat" : "generate");
-  const {stream, loading, error, getStream} = useGetStream(apiEndpoint);
+  const { stream, loading, error, getStream } = useGetStream(apiEndpoint);
 
   const formContext = useForm<ChatFormFields>({});
-  const {getValues, setValue} = formContext
-  const chatInput = getValues(CHATBOX_ID)
-  const clearInput = () => setValue(CHATBOX_ID, '')
+  const { getValues, setValue } = formContext;
+  const chatInput = getValues(CHATBOX_ID);
+  const clearInput = () => setValue(CHATBOX_ID, "");
 
-  const {assumptions, areAssumptionsShown, setShowAssumptions} = useAssumptionsContext();
-  const assumptionsJson = JSON.stringify(assumptions);
-  const assumptionsDeclaration = `Consider everything going forward assuming the following things about me: ${assumptionsJson}`;
+  const { suggestions, loading: suggestionsLoading, getSuggestions } = useSuggestions();
+  // const { assumptions, areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();
+  // const assumptionsJson = JSON.stringify(assumptions);
+  // const assumptionsDeclaration = `Consider everything going forward assuming the following things about me: ${assumptionsJson}`;
 
   /**
    * This function makes the call to the OpenAI API and updates the stream state in real time
@@ -69,7 +79,6 @@ export const useChatGpt = (): UseChatGptReturn => {
    * @param systemMode Sends a message that will be logged in the chat log but not visible to the user
    */
   const getAnswer = async (query?: string, systemMode?: boolean) => {
-
     setAnswer("");
     clearInput();
 
@@ -82,28 +91,35 @@ export const useChatGpt = (): UseChatGptReturn => {
       timestamp: Date.now(),
     } as ChatMessage;
 
-    const assumptionsMessage = {
-      role: "system",
-      content: assumptionsDeclaration,
-      timestamp: Date.now(),
-    } as ChatMessage;
+    // const assumptionsMessage = {
+    //   role: "system",
+    //   content: assumptionsDeclaration,
+    //   timestamp: Date.now(),
+    // } as ChatMessage;
 
-    const recentMessages =
-      chatLog.length < LOG_LENGTH ? chatLog : chatLog.slice(1).slice(-LOG_LENGTH);
-    const tempPromptLog: ChatMessage[] = [TRAINING_MESSAGE, ...recentMessages, latestMessage];
+    const outOfMemory = chatLog.length > CHAT_MEMORY;
+    const recentMessages = outOfMemory ? chatLog.slice(1).slice(-CHAT_MEMORY) : chatLog;
     const nextChatLog: ChatMessage[] = [...chatLog, latestMessage];
-
-    setChatLog(nextChatLog);
-
-    const messages = tempPromptLog.map(({ role, content }) => ({ role, content }));
+    const messagesWithTimestamps: ChatMessage[] = [...recentMessages, latestMessage];
+    outOfMemory && messagesWithTimestamps.unshift(TRAINING_MESSAGE);
+    const messages = messagesWithTimestamps.map(({ role, content }) => ({ role, content }));
     const prompt = messages.map(({ content }) => content).join("\n");
     const requestBody = isChatGpt ? { messages } : { prompt };
+    setChatLog(nextChatLog);
+
+    console.log("--------------------------------------------------------");
+    console.log(`I'm asking ${features.model} a question:`, requestBody);
     const answer = await getStream(requestBody);
     setAnswer(answer);
 
     if (answer) {
-      // getSuggestions(JSON.stringify(answer));
-      setChatLog([...nextChatLog, { role: "assistant", content: answer, timestamp: Date.now() }]);
+      const finalChatLog = [
+        ...nextChatLog,
+        { role: "assistant", content: answer, timestamp: Date.now() } as ChatMessage,
+      ];
+      const lastFewMessages = finalChatLog.slice(1).slice(-5);
+      getSuggestions(lastFewMessages);
+      setChatLog(finalChatLog);
       setAnswer("");
     }
   };
@@ -112,6 +128,8 @@ export const useChatGpt = (): UseChatGptReturn => {
     getAnswer,
     answer,
     loading,
+    suggestions,
+    suggestionsLoading,
     error,
     chatLog,
     streamedAnswer: stream,

@@ -6,8 +6,8 @@ import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
 import { useChatGpt } from "#/lib/hooks/useChatGpt";
 import { useIsMobile, useIsTablet } from "#/lib/hooks/useIsMobile";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
-import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import ChatWindow from "#/ui/modules/Chat/ChatWindow/ChatWindow";
+import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 
 type ChatProps = {
   children?: React.ReactNode;
@@ -17,17 +17,24 @@ export const Chat = (props: ChatProps) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const { isFullScreen } = useFullScreenContext();
-  const { chatLog, streamedAnswer, loading, error, getAnswer, inputFormContext } = useChatGpt();
+  const {
+    chatLog,
+    streamedAnswer,
+    loading,
+    error,
+    getAnswer,
+    suggestions,
+    suggestionsLoading,
+    inputFormContext,
+  } = useChatGpt();
   const [showSuggestions, setShowSuggestions] = useState(true);
-  // const { suggestions, loading } = useSuggestions();
-
-  const { assumptions, areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();
+  const { areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();
   const toggleAssumptions = () => setShowAssumptions(!areAssumptionsShown);
 
   const suggestionsChild = (
     <ChatSuggestions
-      // questions={suggestions}
-      // loading={loading}
+      suggestions={suggestions}
+      loading={suggestionsLoading}
       onClick={getAnswer}
       className={
         "mt-auto max-h-24 overflow-y-auto sm:max-h-fit" + " " + (!showSuggestions && "hidden")

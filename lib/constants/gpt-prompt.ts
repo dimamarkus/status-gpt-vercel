@@ -5,9 +5,6 @@
 import { ChatMessage } from "#/types";
 
 export const EXAMPLE_PROMPTS = [
-  "Hi?",
-  "Are you there?",
-  "What is your name?",
   "Where can I plan my future?",
   "How much should I be saving each month to reach my retirement goals?",
   "How much do I need to have saved by retirement age to maintain my current lifestyle?",
@@ -15,6 +12,8 @@ export const EXAMPLE_PROMPTS = [
   "What investments should I consider to maximize my retirement savings?",
 ];
 export const MAIN_PROMPT = "What are 5 helpful websites for financial advice?";
+export const SUGGESTIONS_REQUEST = `Given our discussion, suggest 3 questions you think I should ask you (Stat) as follow up. Make them in the form of a JavaScript array of question strings with no other characters besides that whatsoever. For example: ["What is your name?", "What is your favorite food?"]`;
+export const PERMANENT_SUGGESTIONS = ["Reply with one word"];
 
 export const CURRENT_OFFERS = [
   {

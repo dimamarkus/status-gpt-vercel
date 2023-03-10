@@ -5,6 +5,9 @@ export function findArrayInString(str: string) {
   }
   try {
     const arrayString = str.slice(str.indexOf("["), str.lastIndexOf("]") + 1);
+    if (Array.isArray(arrayString)) {
+      return arrayString;
+    }
     const foundArray = parseJson(arrayString);
     return foundArray === false ? null : foundArray;
   } catch (error) {

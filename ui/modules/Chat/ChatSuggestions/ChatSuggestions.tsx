@@ -1,33 +1,33 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ChatSuggestions.module.scss";
-import { EXAMPLE_PROMPTS } from "#/lib/constants/gpt-prompt";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
+import { useSuggestions } from "#/lib/hooks/useSuggestions";
+import { PERMANENT_SUGGESTIONS } from "#/lib/constants/gpt-prompt";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 type ChatSuggestionsProps = {
-  query?: string;
-  questions?: string[] | null;
-  onClick: (question: string) => void;
+  suggestions: string[] | null;
   className?: string;
   loading?: boolean;
+  onClick: (question: string) => void;
 };
 
-const ChatSuggestions = ({
-  query,
-  questions,
-  onClick,
-  loading,
-  className = "",
-}: ChatSuggestionsProps) => {
-  // const [ suggestions, loading ] = useSuggestions(query);
-
+export const ChatSuggestions = (props: ChatSuggestionsProps) => {
+  const { suggestions, onClick, loading, className = "" } = props;
   const useIsTablet = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(!useIsTablet);
-  const [suggestions, setSuggestions] = useState<string[] | null>(EXAMPLE_PROMPTS);
+  const {
+    features: { debugMode },
+  } = useFeatureToggleContext();
 
-  if (suggestions === null) {
+  const displaySuggestions = !!debugMode
+    ? [...(suggestions || []), ...PERMANENT_SUGGESTIONS]
+    : suggestions;
+
+  if (displaySuggestions === null) {
     return null;
   }
 
@@ -46,11 +46,11 @@ const ChatSuggestions = ({
           <input
             type="checkbox"
             name="collapse"
-            className="min-h-0 peer"
+            className="peer min-h-0"
             checked={isExpanded}
             onChange={() => null}
           />
-          <div className="flex justify-between min-h-0 p-0 pt-0 pb-3 mb-1 font-semibold text-blue-900 uppercase collapse-title md:mb-0">
+          <div className="collapse-title mb-1 flex min-h-0 justify-between p-0 pt-0 pb-3 font-semibold uppercase text-blue-900 md:mb-0">
             Questions You Can Try
             <ChevronRightIcon
               className={
@@ -58,9 +58,9 @@ const ChatSuggestions = ({
               }
             />
           </div>
-          <ul className="p-0 space-y-2 collapse-content peer-checked:text-secondary-content">
-            {suggestions !== null &&
-              suggestions.map((prompt, index) => (
+          <ul className="collapse-content space-y-2 p-0 peer-checked:text-secondary-content">
+            {displaySuggestions !== null &&
+              displaySuggestions.map((prompt, index) => (
                 <li key={index} className="w-full">
                   <button
                     type="submit"
