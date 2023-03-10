@@ -1,35 +1,55 @@
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
-import { ChatGptStreamPayload } from "#/pages/api/generateChat";
-
-export interface OpenAIStreamPayload {
-  model: string;
-  prompt: string;
-  temperature: number;
-  top_p: number;
-  frequency_penalty: number;
-  presence_penalty: number;
-  max_tokens: number;
-  stream: boolean;
-  n: number;
-}
 
 export const DAVINCI_MODEL = "text-davinci-003";
 export const DAVINCI_URL = "https://api.openai.com/v1/completions";
+export const CHAT_GPT_MODEL = "gpt-3.5-turbo";
+export const CHAT_GPT_URL = "https://api.openai.com/v1/chat/completions";
 
-type OpenAiStreamPayload = OpenAIStreamPayload | ChatGptStreamPayload;
-export async function OpenAIStream(payload: OpenAiStreamPayload): Promise<ReadableStream> {
+export type GptMessage = {
+  role: "assistant" | "user" | "system";
+  content: string;
+};
+
+export type BasefetchOpenAiStreamPayload = {
+  model: typeof DAVINCI_MODEL | typeof CHAT_GPT_MODEL;
+  temperature?: number;
+  top_p?: number;
+  frequency_penalty?: number;
+  presence_penalty?: number;
+  max_tokens?: number;
+  n?: number;
+};
+
+export type CompletionStreamPayload = BasefetchOpenAiStreamPayload & {
+  prompt: string;
+};
+
+export type ChatStreamPayload = BasefetchOpenAiStreamPayload & {
+  messages: GptMessage[];
+};
+
+export type fetchOpenAiStreamPayload = CompletionStreamPayload | ChatStreamPayload;
+
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error("Missing env var from OpenAI");
+}
+
+export async function fetchOpenAiStream(
+  payload: fetchOpenAiStreamPayload,
+): Promise<ReadableStream> {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
   let counter = 0;
-
-  const res = await fetch(DAVINCI_URL, {
+  const isChatGpt = payload.model === CHAT_GPT_MODEL;
+  const url = payload.model === DAVINCI_MODEL ? DAVINCI_URL : CHAT_GPT_URL;
+  const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
     },
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ ...payload, stream: true }),
   });
 
   const stream = new ReadableStream({
@@ -45,7 +65,7 @@ export async function OpenAIStream(payload: OpenAiStreamPayload): Promise<Readab
           }
           try {
             const json = JSON.parse(data);
-            const text = json.choices[0].text;
+            const text = isChatGpt ? json.choices[0].delta.content : json.choices[0].text;
             // if (counter < 2 && (text.match(/\n/) || []).length) {
             //   // this is a prefix character (i.e., "\n\n"), do nothing
             //   return;

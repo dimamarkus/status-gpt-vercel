@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Features,
   Font,
@@ -6,28 +6,27 @@ import {
   Model,
   Theme,
   useFeatureToggleContext,
-} from '#/lib/contexts/FeatureToggleContext';
-import { capitalizeFirstLetter } from '#/lib/helpers/helpers';
-import { useOutsideClick } from '#/lib/hooks/useOutsideClick';
-import Button from '#/ui/atoms/Button/Button';
+} from "#/lib/contexts/FeatureToggleContext";
+import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
+import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
+import Button from "#/ui/atoms/Button/Button";
 
 const FONTS: Font[] = [
-  'avenir',
-  'exo',
-  'graphik',
-  'lato',
-  'raleway',
-  'montserrat',
-  'tiempos',
-  'tiemposHeadline',
+  "avenir",
+  "exo",
+  "graphik",
+  "lato",
+  "raleway",
+  "montserrat",
+  "tiempos",
+  "tiemposHeadline",
 ];
-const LAYOUTS: Layout[] = ['vertical', 'sidebar-left', 'sidebar-right'];
-const THEMES: Theme[] = ['light', 'dark', 'statusLight', 'business'];
-const MODELS: Model[] = ['chat-gpt', 'davinci'];
+const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
+const THEMES: Theme[] = ["light", "dark", "statusLight", "business"];
+const MODELS: Model[] = ["chat-gpt", "davinci"];
 
 const FeaturesPanel = () => {
-  const { toggleShowFeatures, areFeaturesShown, features, setFeatures } =
-    useFeatureToggleContext();
+  const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();
   const handleSetFeature = (key: string, value: string | boolean) => {
     const newFeatures = { ...features, [key]: value };
     setFeatures(newFeatures);
@@ -39,9 +38,9 @@ const FeaturesPanel = () => {
     <Button
       className="btn-ghost btn-square btn-sm btn relative opacity-30"
       onClick={() => toggleShowFeatures()}
-      title={(!areFeaturesShown ? 'Enter' : 'Exit') + ' Full-screen'}
+      title={(!areFeaturesShown ? "Enter" : "Exit") + " Full-screen"}
     >
-      {!areFeaturesShown ? '⚙️' : '❌'}
+      {!areFeaturesShown ? "⚙️" : "❌"}
     </Button>
   );
 
@@ -49,7 +48,7 @@ const FeaturesPanel = () => {
     return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
   }
 
-  const getOptionTogggle = (name: 'promptDebug', title?: string) => {
+  const getOptionTogggle = (name: "promptDebug", title?: string) => {
     const currentState = features[name];
     return (
       <div>
@@ -67,10 +66,7 @@ const FeaturesPanel = () => {
     );
   };
 
-  const getOptionDropdown = (
-    name: keyof Omit<Features, 'promptDebug'>,
-    options: string[],
-  ) => (
+  const getOptionDropdown = (name: keyof Omit<Features, "promptDebug">, options: string[]) => (
     <div className="form-control">
       <label htmlFor={name} className="label">
         <span className="label-text uppercase text-base-100">{name}</span>
@@ -90,7 +86,7 @@ const FeaturesPanel = () => {
     </div>
   );
 
-  const getOptionRadio = (name: 'model', options: Model[]) => {
+  const getOptionRadio = (name: "model", options: Model[]) => {
     const currentState = features[name];
     return options.map((option, i) => {
       const ischecked = currentState === option;
@@ -106,9 +102,7 @@ const FeaturesPanel = () => {
             className="radio-primary"
             value={option}
             checked={currentState === option}
-            onChange={(event) =>
-              handleSetFeature(name, !!event.target.value && option)
-            }
+            onChange={(event) => handleSetFeature(name, !!event.target.value && option)}
           />
         </div>
       );
@@ -117,22 +111,18 @@ const FeaturesPanel = () => {
 
   const menu = areFeaturesShown && (
     <div className="absolute top-0 left-0 z-0 flex flex-col gap-4 rounded-br-md bg-black/75 p-8 pt-4 pl-10">
-      {getOptionDropdown('theme', THEMES)}
+      {getOptionDropdown("theme", THEMES)}
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
-      {getOptionDropdown('font', FONTS)}
-      {getOptionRadio('model', MODELS)}
-      {getOptionTogggle('promptDebug', 'Prompt Debug')}
+      {getOptionDropdown("font", FONTS)}
+      {getOptionRadio("model", MODELS)}
+      {getOptionTogggle("promptDebug", "Prompt Debug")}
       {/* HACK: Empty div to force tailwind to create these font classes */}
       <div className="font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik hidden" />
     </div>
   );
 
   return (
-    <div
-      className="absolute top-0 left-0 z-10"
-      ref={ref}
-      data-theme="statusMoney"
-    >
+    <div className="absolute top-0 left-0 z-10" ref={ref} data-theme="statusMoney">
       {menu}
       {toggleButton}
     </div>

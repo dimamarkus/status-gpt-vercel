@@ -9,9 +9,6 @@ import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import ChatWindow from "#/ui/modules/Chat/ChatWindow/ChatWindow";
 
-export type OpenAIModel = "text-davinci-003" | "chatgpt-turbo-001";
-const DEFAULT_AI_MODEL = "text-davinci-003";
-
 type ChatProps = {
   children?: React.ReactNode;
 };

@@ -1,8 +1,4 @@
-import { DAVINCI_MODEL, OpenAIStream, OpenAIStreamPayload } from "#/lib/functions/OpenAIStream";
-
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error("Missing env var from OpenAI");
-}
+import { DAVINCI_MODEL, fetchOpenAiStream } from "#/lib/fetchers/fetchOpenAiStream";
 
 export const config = {
   runtime: "edge",
@@ -17,7 +13,7 @@ export default async function handler(req: Request, res: any) {
     return new Response("No prompt in the request", { status: 400 });
   }
 
-  const payload: OpenAIStreamPayload = {
+  const stream = await fetchOpenAiStream({
     model: DAVINCI_MODEL,
     prompt,
     temperature: 0.5,
@@ -25,10 +21,8 @@ export default async function handler(req: Request, res: any) {
     frequency_penalty: 0,
     presence_penalty: 0,
     max_tokens: 300,
-    stream: true,
     n: 1,
-  };
+  });
 
-  const stream = await OpenAIStream(payload);
   return new Response(stream);
 }

@@ -4,7 +4,7 @@ export function findArrayInString(str: string) {
     return firstParseAttempt;
   }
   try {
-    const arrayString = str.slice(str.indexOf('['), str.lastIndexOf(']') + 1);
+    const arrayString = str.slice(str.indexOf("["), str.lastIndexOf("]") + 1);
     const foundArray = parseJson(arrayString);
     return foundArray === false ? null : foundArray;
   } catch (error) {
@@ -24,17 +24,11 @@ export function getPunctuatedString(str: string) {
   let punctuationRegex = /[\.\?\!\,]/;
 
   if (punctuationRegex.test(str)) {
-    str += '.';
+    str += ".";
   }
   return str;
 }
 
 export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-export function toTitleCase(str: string) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
 }
