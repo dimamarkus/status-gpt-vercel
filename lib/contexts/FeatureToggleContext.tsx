@@ -4,14 +4,17 @@ import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 import { OpenAiModel } from "#/features/chat/openai";
 
 export type Font =
+  | "sans"
+  | "serif"
+  | "graphik"
+  | "tiempos"
+  | "tiemposHeadline"
   | "avenir"
   | "exo"
-  | "montserrat"
-  | "raleway"
-  | "graphik"
+  | "inter"
   | "lato"
-  | "tiempos"
-  | "tiemposHeadline";
+  | "montserrat"
+  | "raleway";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
 export type Theme = "light" | "dark" | "statusLight" | "business";
 

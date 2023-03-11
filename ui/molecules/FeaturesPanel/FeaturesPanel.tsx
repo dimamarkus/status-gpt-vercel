@@ -107,12 +107,12 @@ const FeaturesPanel = () => {
       {getOptionTogggle("useStream", "Stream Response")}
       {getOptionTogggle("debugMode", "Prompt Debug")}
       {/* HACK: Empty div to force tailwind to create these font classes */}
-      <div className="font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik hidden" />
+      <div className="hidden font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik" />
     </div>
   );
 
   return (
-    <div className="absolute top-0 left-0 z-10" ref={ref} data-theme="statusMoney">
+    <div className="absolute top-0 left-0 z-10" ref={ref}>
       {menu}
       {toggleButton}
     </div>

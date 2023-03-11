@@ -59,11 +59,11 @@ export const Chat = (props: ChatProps) => {
     <section
       className={cn(
         styles.Chat,
-        "flex h-full max-h-full flex-col overflow-hidden rounded border-2 border-blue-100 bg-blue-100 drop-shadow-lg lg:mb-16 lg:flex-row",
+        "flex h-full max-h-full flex-col overflow-hidden rounded border-2 border-blue-100 bg-blue-100 drop-shadow-lg dark:bg-blue-900 lg:mb-16 lg:flex-row",
         isFullScreen ? "absolute left-0 top-0 h-full w-full" : "",
       )}
     >
-      <div className="relative order-last flex h-full flex-col bg-blue-100 p-1 md:order-first md:p-4 lg:w-9/12">
+      <div className="relative order-last flex h-full flex-col p-1 md:order-first md:p-4 lg:w-9/12">
         <ChatWindow
           className="h-full"
           chatHistory={chatLog}
