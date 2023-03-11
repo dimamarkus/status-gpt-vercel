@@ -1,4 +1,4 @@
-import { GptMessage } from "#/lib/fetchers/fetchOpenAiStream";
+import { GptMessage } from "#/features/chat/openai";
 import { Database } from "#/types/supabase";
 
 export type DatabaseTables = Database["public"]["Tables"];

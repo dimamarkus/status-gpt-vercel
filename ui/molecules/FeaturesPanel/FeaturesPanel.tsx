@@ -1,29 +1,16 @@
 "use client";
+import { FONTS, MODELS, THEMES } from "#/lib/constants/settings";
 import {
   Features,
   Font,
   Layout,
-  Model,
   Theme,
   useFeatureToggleContext,
 } from "#/lib/contexts/FeatureToggleContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
+import { OpenAiModel } from "#/features/chat/openai";
 import Button from "#/ui/atoms/Button/Button";
-
-const FONTS: Font[] = [
-  "avenir",
-  "exo",
-  "graphik",
-  "lato",
-  "raleway",
-  "montserrat",
-  "tiempos",
-  "tiemposHeadline",
-];
-const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
-const THEMES: Theme[] = ["light", "dark", "statusLight", "business"];
-const MODELS: Model[] = ["chat-gpt", "davinci"];
 
 const FeaturesPanel = () => {
   const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();
@@ -48,7 +35,7 @@ const FeaturesPanel = () => {
     return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
   }
 
-  const getOptionTogggle = (name: "debugMode", title?: string) => {
+  const getOptionTogggle = (name: "debugMode" | "useStream", title?: string) => {
     const currentState = features[name];
     return (
       <div>
@@ -66,7 +53,10 @@ const FeaturesPanel = () => {
     );
   };
 
-  const getOptionDropdown = (name: keyof Omit<Features, "debugMode">, options: string[]) => (
+  const getOptionDropdown = (
+    name: keyof Omit<Features, "debugMode" | "useStream">,
+    options: string[],
+  ) => (
     <div className="form-control">
       <label htmlFor={name} className="label">
         <span className="label-text uppercase text-base-100">{name}</span>
@@ -86,10 +76,9 @@ const FeaturesPanel = () => {
     </div>
   );
 
-  const getOptionRadio = (name: "model", options: Model[]) => {
+  const getOptionRadio = (name: "model", options: OpenAiModel[]) => {
     const currentState = features[name];
     return options.map((option, i) => {
-      const ischecked = currentState === option;
       return (
         <div className="form-control flex flex-col" key={i}>
           <label htmlFor={name + option} className="label">
@@ -115,6 +104,7 @@ const FeaturesPanel = () => {
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
       {getOptionDropdown("font", FONTS)}
       {getOptionRadio("model", MODELS)}
+      {getOptionTogggle("useStream", "Stream Response")}
       {getOptionTogggle("debugMode", "Prompt Debug")}
       {/* HACK: Empty div to force tailwind to create these font classes */}
       <div className="font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik hidden" />

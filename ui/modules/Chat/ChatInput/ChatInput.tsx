@@ -2,7 +2,7 @@ import cn from "classnames";
 import { useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 import styles from "./ChatInput.module.scss";
-import { CHATBOX_ID } from "#/lib/hooks/useChatGpt";
+import { CHATBOX_ID } from "#/features/chat/hooks/useChatGpt";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import Button from "#/ui/atoms/Button/Button";
 import { FormTextarea } from "#/ui/atoms/inputs/Textarea/Textarea";

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { getActiveProductsWithPrices } from '#/lib/supabase-client';
-import Pricing from '#/ui/examples/supabase/Pricing';
-import LandingLayout from '#/ui/layouts/LandingLayout/LandingLayout';
+import { getActiveProductsWithPrices } from "#/lib/helpers/supabase-helpers/supabase-client";
+import Pricing from "#/ui/examples/supabase/Pricing";
+import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 
 export const revalidate = 60;
 

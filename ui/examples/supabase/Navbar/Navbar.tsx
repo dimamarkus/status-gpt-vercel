@@ -1,9 +1,9 @@
-import { useAuthContext } from '#/lib/contexts/AuthContext';
-import { clientSideSupabase } from '#/lib/supabase-client';
-import Logo from '#/ui/atoms/icons/VercelLogo';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import styles from './Navbar.module.css';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import styles from "./Navbar.module.css";
+import { useAuthContext } from "#/lib/contexts/AuthContext";
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
+import Logo from "#/ui/atoms/icons/VercelLogo";
 
 const Navbar = () => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const Navbar = () => {
                 className={styles.link}
                 onClick={async () => {
                   await clientSideSupabase.auth.signOut();
-                  router.push('/signin');
+                  router.push("/signin");
                 }}
               >
                 Sign out

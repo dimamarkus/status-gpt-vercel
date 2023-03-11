@@ -1,13 +1,14 @@
 import cn from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Chat.module.scss";
 import { useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
 import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
-import { useChatGpt } from "#/lib/hooks/useChatGpt";
+import { useChatGpt } from "#/features/chat/hooks/useChatGpt";
 import { useIsMobile, useIsTablet } from "#/lib/hooks/useIsMobile";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatWindow from "#/ui/modules/Chat/ChatWindow/ChatWindow";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
+import { useSuggestions } from "#/features/chat/hooks/useSuggestions";
 
 type ChatProps = {
   children?: React.ReactNode;
@@ -17,19 +18,23 @@ export const Chat = (props: ChatProps) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const { isFullScreen } = useFullScreenContext();
-  const {
-    chatLog,
-    streamedAnswer,
-    loading,
-    error,
-    getAnswer,
-    suggestions,
-    suggestionsLoading,
-    inputFormContext,
-  } = useChatGpt();
   const [showSuggestions, setShowSuggestions] = useState(true);
   const { areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();
-  const toggleAssumptions = () => setShowAssumptions(!areAssumptionsShown);
+  const { suggestions, loading: suggestionsLoading, getSuggestions } = useSuggestions();
+  const { chatLog, streamedAnswer, loading, error, answer, getAnswer, inputFormContext } =
+    useChatGpt();
+
+  const prevProp = useRef<string>();
+  useEffect(() => {
+    prevProp.current = answer;
+  });
+  const answerChanged = prevProp.current !== answer;
+
+  useEffect(() => {
+    if (answerChanged && !loading) {
+      getSuggestions(chatLog);
+    }
+  }, [answer, answerChanged, chatLog, getSuggestions, loading, streamedAnswer]);
 
   const suggestionsChild = (
     <ChatSuggestions
@@ -72,7 +77,7 @@ export const Chat = (props: ChatProps) => {
           onBlur={() => setShowSuggestions(true)}
           onFocus={() => isMobile && setShowSuggestions(false)}
           onSubmit={({ chatInput }) => getAnswer(chatInput)}
-          onHamburgerClick={isTablet ? toggleAssumptions : undefined}
+          onHamburgerClick={isTablet ? () => setShowAssumptions(!areAssumptionsShown) : undefined}
         />
       </div>
       {desktopSidebar}

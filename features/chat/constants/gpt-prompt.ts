@@ -1,3 +1,8 @@
+export const DAVINCI_MODEL = "text-davinci-003";
+export const DAVINCI_URL = "https://api.openai.com/v1/completions";
+export const CHAT_GPT_MODEL = "gpt-3.5-turbo";
+export const CHAT_GPT_URL = "https://api.openai.com/v1/chat/completions";
+
 // export const MAIN_PROMPT = "When Can I retire comfortably? How long can I live on assets after I retire?"
 // export const MAIN_PROMPT = "What is your name?"
 // export const MAIN_PROMPT = "Make a short list of things you can help me with."

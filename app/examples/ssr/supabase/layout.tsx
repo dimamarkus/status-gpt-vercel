@@ -1,18 +1,14 @@
-import { createServerSideSupabase } from '#/lib/supabase-server';
-import { TabGroup } from '#/ui/examples/tab-group';
-import React from 'react';
+import React from "react";
+import { createServerSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-server";
+import { TabGroup } from "#/ui/examples/tab-group";
 
 export const metadata = {
-  title: 'Server Side Rendering (SSR)',
+  title: "Server Side Rendering (SSR)",
 };
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   const supabase = createServerSideSupabase();
-  const response = await supabase.from('products').select('id, name');
+  const response = await supabase.from("products").select("id, name");
   const products = response.data;
 
   if (response.error) {
@@ -29,7 +25,7 @@ export default async function Layout({
         path="/examples/ssr/supabase"
         items={[
           {
-            text: 'Home',
+            text: "Home",
           },
           ...products.map((product) => ({
             text: `Product ${product.name}`,

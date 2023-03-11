@@ -1,8 +1,8 @@
-'server-only';
+import { notFound } from "next/navigation";
+("server-only");
 
-import { createServerSideSupabase } from '#/lib/supabase-server';
-import { RenderingInfo } from '#/ui/examples/rendering-info';
-import { notFound } from 'next/navigation';
+import { createServerSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-server";
+import { RenderingInfo } from "#/ui/examples/rendering-info";
 
 // do not cache this page
 export const revalidate = 0;
@@ -10,7 +10,7 @@ export const revalidate = 0;
 export default async function Page({ params }: { params: { id: string } }) {
   const supabase = createServerSideSupabase();
   const { data: product } = await supabase
-    .from('products')
+    .from("products")
     .select()
     .match({ id: params.id })
     .single();
@@ -22,9 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div className="grid grid-cols-6 gap-x-6 gap-y-3">
       <div className="col-span-full space-y-3 lg:col-span-4">
-        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">
-          {product.name}
-        </h1>
+        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">{product.name}</h1>
         <p className="font-medium text-gray-500">
           <pre>{JSON.stringify(product, null, 2)}</pre>
         </p>

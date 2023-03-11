@@ -1,3 +1,5 @@
+export const GENERATE_CHAT_AVATAR_URL = "/api/chat/generate-image";
+
 export default async function handler(req: Request, res: any) {
   const payload = {
     prompt:

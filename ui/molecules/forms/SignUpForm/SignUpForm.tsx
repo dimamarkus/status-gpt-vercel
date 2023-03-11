@@ -1,11 +1,11 @@
-import { SignUpSchema } from '#/lib/forms/schemas';
-import { clientSideSupabase } from '#/lib/supabase-client';
-import Button from '#/ui/atoms/Button/Button';
-import TextInput from '#/ui/atoms/inputs/TextInput/TextInput';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styles from './SignUpForm.module.scss';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import styles from "./SignUpForm.module.scss";
+import { SignUpSchema } from "#/lib/forms/schemas";
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
+import Button from "#/ui/atoms/Button/Button";
+import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
 
 export type SignUpFields = {
   email: string;
@@ -18,8 +18,8 @@ export const SignUpForm = () => {
   const { register, handleSubmit, formState } = useForm<SignUpFields>({
     resolver: yupResolver(SignUpSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -32,9 +32,7 @@ export const SignUpForm = () => {
     if (error) {
       setSubmissionError(error.message);
     } else {
-      setSuccessMsg(
-        'Success! Please check your email for further instructions.',
-      );
+      setSuccessMsg("Success! Please check your email for further instructions.");
     }
   }
 
@@ -46,7 +44,7 @@ export const SignUpForm = () => {
         autoComplete="username"
         touched={formState.touchedFields.email}
         errors={formState.errors.email?.message}
-        {...register('email')}
+        {...register("email")}
       />
       <TextInput
         label="Password"
@@ -54,7 +52,7 @@ export const SignUpForm = () => {
         autoComplete="new-password"
         touched={formState.touchedFields.password}
         errors={formState.errors.password?.message}
-        {...register('password')}
+        {...register("password")}
       />
       {submissionError && <div className="text-red-500">{submissionError}</div>}
       {successMsg && <div className="text-green-500">{successMsg}</div>}

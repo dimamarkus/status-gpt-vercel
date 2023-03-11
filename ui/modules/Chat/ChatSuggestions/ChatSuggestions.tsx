@@ -1,12 +1,11 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./ChatSuggestions.module.scss";
+import { PERMANENT_SUGGESTIONS } from "#/features/chat/constants/gpt-prompt";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
-import { useSuggestions } from "#/lib/hooks/useSuggestions";
-import { PERMANENT_SUGGESTIONS } from "#/lib/constants/gpt-prompt";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 type ChatSuggestionsProps = {
   suggestions: string[] | null;

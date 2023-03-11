@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { clientSideSupabase } from '#/lib/supabase-client';
-import { Product } from '#/types';
-import { TabGroup } from '#/ui/examples/tab-group';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
+import { Product } from "#/types";
+import { TabGroup } from "#/ui/examples/tab-group";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await clientSideSupabase.from('products').select();
+      const response = await clientSideSupabase.from("products").select();
 
       if (response.error) {
         throw new Error(response.error.message);
@@ -36,15 +37,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         path="/examples/spa/supabase"
         items={[
           {
-            text: 'Home',
+            text: "Home",
           },
           ...products.map((product) => ({
             text: `Product ${product.name}`,
             slug: product.id,
           })),
           {
-            text: 'Non-existant Product',
-            slug: 'prod_idontexit',
+            text: "Non-existant Product",
+            slug: "prod_idontexit",
           },
         ]}
       />

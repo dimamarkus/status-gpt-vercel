@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import { clientSideSupabase } from '#/lib/supabase-client';
-import { RenderingInfo } from '#/ui/examples/rendering-info';
-import { PostgrestSingleResponse } from '@supabase/supabase-js';
-import { notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { notFound } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
+import { RenderingInfo } from "#/ui/examples/rendering-info";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +14,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await clientSideSupabase
-        .from('products')
+        .from("products")
         .select()
         .match({ id: params.id })
         .single();
@@ -39,12 +40,8 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className="grid grid-cols-6 gap-x-6 gap-y-3">
       <div className="col-span-full space-y-3 lg:col-span-4">
-        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">
-          {product.name}
-        </h1>
-        <p className="font-medium text-gray-500 line-clamp-3">
-          {product.description}
-        </p>
+        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">{product.name}</h1>
+        <p className="font-medium text-gray-500 line-clamp-3">{product.description}</p>
       </div>
       <div className="-order-1 col-span-full lg:order-none lg:col-span-2">
         <RenderingInfo type="spa" />

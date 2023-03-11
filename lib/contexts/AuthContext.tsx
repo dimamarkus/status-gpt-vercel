@@ -1,24 +1,23 @@
-'use client';
-
-import { clientSideSupabase } from '#/lib/supabase-client';
-import { Session, User } from '@supabase/auth-helpers-nextjs';
-import { AuthError } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { Subscription } from 'types/stripe';
+"use client";
+import { Session, User } from "@supabase/auth-helpers-nextjs";
+import { AuthError } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { Subscription } from "types/stripe";
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
 
 export const EVENTS = {
-  PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
-  SIGNED_OUT: 'SIGNED_OUT',
-  USER_UPDATED: 'USER_UPDATED',
+  PASSWORD_RECOVERY: "PASSWORD_RECOVERY",
+  SIGNED_OUT: "SIGNED_OUT",
+  USER_UPDATED: "USER_UPDATED",
 };
 
 export const VIEWS = {
-  SIGN_IN: 'sign_in',
-  SIGN_UP: 'sign_up',
-  FORGOTTEN_PASSWORD: 'forgotten_password',
-  MAGIC_LINK: 'magic_link',
-  UPDATE_PASSWORD: 'update_password',
+  SIGN_IN: "sign_in",
+  SIGN_UP: "sign_up",
+  FORGOTTEN_PASSWORD: "forgotten_password",
+  MAGIC_LINK: "magic_link",
+  UPDATE_PASSWORD: "update_password",
 };
 
 export type AuthContextType = {
@@ -119,7 +118,7 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

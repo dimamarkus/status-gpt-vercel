@@ -1,10 +1,10 @@
-"server-only";
 import { Analytics } from "@vercel/analytics/react";
+("server-only");
 import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { AuthContextProvider } from "#/lib/contexts/AuthContext";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
-import { createServerSideSupabase } from "#/lib/supabase-server";
+import { createServerSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-server";
 import "#/styles/globals.scss";
 
 export const metadata = {

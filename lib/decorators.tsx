@@ -1,7 +1,7 @@
-import { AuthContext } from '#/lib/contexts/AuthContext';
-import { LOGGED_IN_USER } from '#/lib/fixtures/auth-fixtures';
-import { clientSideSupabase } from '#/lib/supabase-client';
-import { Decorator } from '@storybook/react';
+import { Decorator } from "@storybook/react";
+import { AuthContext } from "#/lib/contexts/AuthContext";
+import { LOGGED_IN_USER } from "#/lib/fixtures/auth-fixtures";
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
 
 export const LoggedInDecorator: Decorator<any> = (Story) => (
   <AuthContext.Provider

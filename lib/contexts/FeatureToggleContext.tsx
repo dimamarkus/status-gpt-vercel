@@ -1,7 +1,7 @@
 "use client";
-
 import { createContext, useContext, useState } from "react";
 import { DEFAULT_FEATURES } from "#/lib/constants/settings";
+import { OpenAiModel } from "#/features/chat/openai";
 
 export type Font =
   | "avenir"
@@ -14,14 +14,14 @@ export type Font =
   | "tiemposHeadline";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
 export type Theme = "light" | "dark" | "statusLight" | "business";
-export type Model = "chat-gpt" | "davinci";
 
 export type Features = {
   font: Font;
   layout: Layout;
   theme: Theme;
-  model: Model;
+  model: OpenAiModel;
   debugMode: boolean;
+  useStream: boolean;
 };
 
 type ToggleContextType = {

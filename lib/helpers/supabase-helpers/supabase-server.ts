@@ -1,6 +1,6 @@
-import {Database} from '#/types/supabase'
-import {createServerComponentSupabaseClient} from '@supabase/auth-helpers-nextjs'
-import {cookies, headers} from 'next/headers'
+import { Database } from "#/types/supabase";
+import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { cookies, headers } from "next/headers";
 
 export const createServerSideSupabase = () =>
   createServerComponentSupabaseClient<Database>({
@@ -8,4 +8,4 @@ export const createServerSideSupabase = () =>
     // supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     cookies,
     headers,
-  })
+  });

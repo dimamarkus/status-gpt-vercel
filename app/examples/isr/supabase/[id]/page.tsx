@@ -1,11 +1,11 @@
-import { createServerSideSupabase } from '#/lib/supabase-server';
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
+import { createServerSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-server";
 
 // Cache this page for 10 seconds (revalidate after)
 export const revalidate = 10;
 
 //! TODO - Remove this once the error below is fixed
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 // During revalidation, generateStaticParams will not be called again.
 export async function generateStaticParams() {
@@ -28,17 +28,9 @@ export async function generateStaticParams() {
   return [];
 }
 
-export default async function Product({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
+export default async function Product({ params: { id } }: { params: { id: string } }) {
   const supabase = createServerSideSupabase();
-  const { data: product } = await supabase
-    .from('products')
-    .select()
-    .match({ id })
-    .single();
+  const { data: product } = await supabase.from("products").select().match({ id }).single();
 
   if (!product) {
     notFound();

@@ -1,11 +1,11 @@
-import { SignInSchema } from '#/lib/forms/schemas';
-import { clientSideSupabase } from '#/lib/supabase-client';
-import Button from '#/ui/atoms/Button/Button';
-import TextInput from '#/ui/atoms/inputs/TextInput/TextInput';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styles from './SignInForm.module.scss';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import styles from "./SignInForm.module.scss";
+import { SignInSchema } from "#/lib/forms/schemas";
+import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
+import Button from "#/ui/atoms/Button/Button";
+import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
 
 export type SignInFields = {
   email: string;
@@ -18,8 +18,8 @@ export const SignInForm = () => {
   const { register, handleSubmit, formState } = useForm<SignInFields>({
     resolver: yupResolver(SignInSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -32,7 +32,7 @@ export const SignInForm = () => {
     if (error) {
       setSubmissionError(error.message);
     } else {
-      setSuccessMsg('Success! Logged in.');
+      setSuccessMsg("Success! Logged in.");
     }
   };
 

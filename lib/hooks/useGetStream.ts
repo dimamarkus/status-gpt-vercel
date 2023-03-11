@@ -1,26 +1,21 @@
 import { useState } from "react";
+import { makeRequest, post } from "#/lib/helpers/request-helpers/makeRequest";
+import { makeStreamRequest } from "#/lib/helpers/request-helpers/makeStreamRequest";
 
-export const useGetStream = <TBodyType>(endpoint: string) => {
+export const useGetStream = <TRequestType>(endpoint: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [stream, setStream] = useState<string | undefined>(undefined);
 
-  const getStream = async (requestBody: TBodyType) => {
+  const getStream = async (requestBody: TRequestType) => {
     setLoading(true);
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await makeStreamRequest(endpoint, "POST", requestBody);
 
       if (!response.ok) {
         throw new Error(response.statusText);
       }
 
-      // This stream is a ReadableStream
       const stream = response.body;
       if (!stream) {
         return;
