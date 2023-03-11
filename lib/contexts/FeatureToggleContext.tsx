@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 import { OpenAiModel } from "#/features/chat/openai";
+import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 
 export type Font =
   | "sans"
@@ -16,7 +16,7 @@ export type Font =
   | "montserrat"
   | "raleway";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
-export type Theme = "light" | "dark" | "statusLight" | "business";
+export type Theme = "light" | "dark" | "statusLight" | "statusDark" | "business";
 
 export type Features = {
   font: Font;

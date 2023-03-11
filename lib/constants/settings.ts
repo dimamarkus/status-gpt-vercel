@@ -6,7 +6,7 @@ export const DEFAULT_SIDEBAR = "landing-sidebar";
 
 export const MODELS = [CHAT_GPT_MODEL, DAVINCI_MODEL] as OpenAiModel[];
 export const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
-export const THEMES: Theme[] = ["light", "dark", "statusLight", "business"];
+export const THEMES: Theme[] = ["light", "dark", "statusLight", "statusDark", "business"];
 export const FONTS: Font[] = [
   "sans",
   "serif",
