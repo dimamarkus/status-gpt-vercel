@@ -5,7 +5,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthContext } from "#/lib/contexts/AuthContext";
-import { getURL } from "#/lib/helpers/helpers";
+import { getAppURL } from "#/lib/helpers/url-helpers";
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
 import Logo from "#/ui/atoms/icons/VercelLogo";
 import Card from "#/ui/containers/Card/Card";
@@ -35,7 +35,7 @@ const Login = () => {
               <ReactAuth
                 supabaseClient={clientSideSupabase}
                 providers={["github"]}
-                redirectTo={getURL()}
+                redirectTo={getAppURL()}
                 magicLink={true}
                 appearance={{
                   theme: ThemeSupa,

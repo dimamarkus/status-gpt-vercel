@@ -1,5 +1,4 @@
 import { RequestOptions } from "http";
-import { RequestInitWithBody } from "#/lib/helpers/request-helpers/makeRequest";
 
 /**
  * A wrapper around the fetch API to make requests
@@ -16,7 +15,7 @@ export const makeStreamRequest = async (
   data: any = null,
   headers: HeadersInit = {},
 ): Promise<Response> => {
-  const options: RequestInitWithBody = {
+  const options: RequestInit = {
     method,
     headers: {
       ...headers,

@@ -4,7 +4,11 @@ export type GptMessage = {
   role: "assistant" | "user" | "system";
   content: string;
 };
-export type OpenAiCompletionModel = "text-davinci-003" | "babbage" | "curie";
+export type OpenAiCompletionModel =
+  | "text-davinci-003"
+  | "text-babbage-001"
+  | "text-curie-001"
+  | "text-ada-001";
 export type OpenAiModel = OpenAiCompletionModel & "gpt-3.5-turbo";
 
 /**------------------------------------------------------------------------

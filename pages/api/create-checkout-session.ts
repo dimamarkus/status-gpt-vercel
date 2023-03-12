@@ -1,7 +1,7 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { NextApiHandler } from "next";
 
-import { getURL } from "#/lib/helpers/helpers";
+import { getAppURL } from "#/lib/helpers/url-helpers";
 import { stripe } from "#/lib/helpers/stripe-helpers/stripe";
 import { createOrRetrieveCustomer } from "#/lib/helpers/supabase-helpers/supabase-admin";
 
@@ -36,8 +36,8 @@ const CreateCheckoutSession: NextApiHandler = async (req, res) => {
           trial_from_plan: true,
           metadata,
         },
-        success_url: `${getURL()}/account`,
-        cancel_url: `${getURL()}/`,
+        success_url: `${getAppURL()}/account`,
+        cancel_url: `${getAppURL()}/`,
       });
 
       return res.status(200).json({ sessionId: session.id });

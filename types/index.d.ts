@@ -1,6 +1,8 @@
+import { Strapi } from "@strapi/strapi";
 import { GptMessage } from "#/features/chat/openai";
 import { Database } from "#/types/supabase";
 
+export type DateTimeValue = string;
 export type DatabaseTables = Database["public"]["Tables"];
 
 export type Customer = DatabaseTables["customers"]["Row"];

@@ -4,7 +4,7 @@ import {
   EXAMPLE_PROMPTS,
   SUGGESTIONS_REQUEST,
 } from "#/features/chat/constants/gpt-prompt";
-import { OpenAiCompletionResponse } from "#/features/chat/openai";
+import { GptMessage, OpenAiRequest } from "#/features/chat/openai";
 import { post } from "#/lib/helpers/request-helpers/makeRequest";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
@@ -27,7 +27,7 @@ export const useSuggestions = (): UseSuggestionsReturn => {
       {
         role: "user",
         content: SUGGESTIONS_REQUEST,
-      },
+      } as GptMessage,
     ];
 
     return messageQuery;
@@ -43,7 +43,7 @@ export const useSuggestions = (): UseSuggestionsReturn => {
       setSuggestions([]);
       const messages = createSuggestionsPrompt(suggestionContext);
       console.log(`I'm asking ${CHAT_GPT_MODEL} for suggestions:`, messages);
-      const result = await post<string>(GENERATE_CHAT_ENDPOINT, {
+      const result = await post<string, OpenAiRequest>(GENERATE_CHAT_ENDPOINT, {
         model: CHAT_GPT_MODEL,
         messages,
       });

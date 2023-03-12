@@ -1,45 +1,40 @@
-interface RequestOptions {
-  method: "GET" | "POST" | "PUT" | "DELETE";
-  headers: HeadersInit;
-  body?: BodyInit | null;
-}
-
-export interface RequestInitWithBody extends Omit<RequestInit, "body"> {
-  body: string;
-}
-
-type RequestInfo = Request | string;
+export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
  * A wrapper around the fetch API to make requests
  *
  * @param url request url
  * @param method HTTP request method (get, post, put, delete)
- * @param data request body
- * @param headers additional headers you may want to add
+ * @param body request body
+ * @param options Pass additional headers or other request options
  * @returns request response data or error
  */
-export const makeRequest = async <T>(
-  url: RequestInfo,
-  method: RequestOptions["method"] = "GET",
-  data: any = null,
+export const makeRequest = async <TResponse, TRequestBody>(
+  url: Request | string,
+  method: HTTPMethod = "GET",
+  body?: TRequestBody,
   headers: HeadersInit = {},
-): Promise<T> => {
-  const options: RequestInitWithBody = {
+  options?: RequestInit,
+): Promise<TResponse> => {
+  const request: RequestInit = {
     method,
     headers: {
       ...headers,
       "Content-Type": "application/json",
     },
-    body: data ? JSON.stringify(data) : "",
+    ...options,
   };
 
+  if (method !== "GET") {
+    request.body = body ? JSON.stringify(body) : "";
+  }
+
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url, request);
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
-    const responseData = (await response.json()) as T;
+    const responseData = (await response.json()) as TResponse;
     return responseData;
   } catch (error) {
     console.error(error);
@@ -50,21 +45,22 @@ export const makeRequest = async <T>(
 /**
  * A helper wrapper around the makeRequest function to make POST requests
  */
-export const post = async <T>(
-  url: RequestInfo,
-  data: any = null,
-  headers: HeadersInit = {},
-): Promise<T> => {
-  return makeRequest<T>(url, "POST", data, headers);
+export const post = async <TResponse, TRequestBody>(
+  url: Request | string,
+  body: TRequestBody,
+  headers?: HeadersInit,
+  options?: RequestInit,
+): Promise<TResponse> => {
+  return makeRequest<TResponse, TRequestBody>(url, "POST", body, headers, options);
 };
 
 /**
  * A helper wrapper around the makeRequest function to make GET requests
  */
-export const get = async <T>(
-  url: RequestInfo,
-  data: any = null,
-  headers: HeadersInit = {},
-): Promise<T> => {
-  return makeRequest<T>(url, "GET", data, headers);
+export const get = async <TResponse>(
+  url: Request | string,
+  headers?: HeadersInit,
+  options?: RequestInit,
+): Promise<TResponse> => {
+  return makeRequest<TResponse, {}>(url, "GET", undefined, headers, options);
 };

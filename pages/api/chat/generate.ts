@@ -15,7 +15,7 @@ export default async function handler({ body }: Request, res: any) {
 
   const authHeaders = { Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}` };
   const endpointUrl = isChatGpt ? CHAT_GPT_URL : DAVINCI_URL;
-  const response = await post<OpenAiResponse>(endpointUrl, payload, authHeaders);
+  const response = await post<OpenAiResponse, OpenAiRequest>(endpointUrl, payload, authHeaders);
 
   const result = isChatGpt ? response.choices[0].message?.content : response.choices[0].text;
 

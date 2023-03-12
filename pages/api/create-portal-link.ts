@@ -1,7 +1,7 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { NextApiHandler } from "next";
 
-import { getURL } from "#/lib/helpers/helpers";
+import { getAppURL } from "#/lib/helpers/url-helpers";
 import { stripe } from "#/lib/helpers/stripe-helpers/stripe";
 import { createOrRetrieveCustomer } from "#/lib/helpers/supabase-helpers/supabase-admin";
 
@@ -22,7 +22,7 @@ const CreatePortalLink: NextApiHandler = async (req, res) => {
       if (!customer) throw Error("Could not get customer");
       const { url } = await stripe.billingPortal.sessions.create({
         customer,
-        return_url: `${getURL()}/account`,
+        return_url: `${getAppURL()}/account`,
       });
 
       return res.status(200).json({ url });

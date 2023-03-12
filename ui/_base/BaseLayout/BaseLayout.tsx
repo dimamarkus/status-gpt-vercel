@@ -1,3 +1,4 @@
+"use client";
 import cn from "classnames";
 import { Inter } from "next/font/google";
 import React from "react";
@@ -18,6 +19,7 @@ import {
   montserratFont,
   ralewayFont,
 } from "#/app/fonts";
+
 type BaseLayoutProps = {
   children?: React.ReactNode;
   className?: string;
