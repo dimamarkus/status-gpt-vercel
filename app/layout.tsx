@@ -1,5 +1,4 @@
 import { Analytics } from "@vercel/analytics/react";
-("server-only");
 import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { AuthContextProvider } from "#/lib/contexts/AuthContext";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";

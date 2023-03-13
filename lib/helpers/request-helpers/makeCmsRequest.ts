@@ -47,6 +47,7 @@ export async function getResourcesFromCms<T extends StrapiResource>(
   urlParams?: string,
 ): Promise<StrapiArrayResponse<T>> {
   const endpoint = resource + (urlParams || "");
+
   return await makeCmsRequest<StrapiArrayResponse<T>, {}>(endpoint, "GET");
 }
 
@@ -55,6 +56,7 @@ export async function getResourceFromCms<T extends StrapiResource>(
   id?: string,
 ): Promise<StrapiSingleResponse<T>> {
   const endpoint = id ? `${resource}/${id}` : resource;
+
   return await makeCmsRequest<StrapiSingleResponse<T>, {}>(endpoint, "GET");
 }
 
@@ -65,9 +67,18 @@ export async function filterResourceFromCms<TResource extends StrapiResource>(
   operator?: StrapiOperator,
 ): Promise<StrapiArrayResponse<TResource>> {
   const queryParams = "?filters[" + param.toString() + "][" + (operator || "$eq") + "]=" + query;
+
   return await getResourcesFromCms<TResource>(resource, queryParams);
 }
 
-async function getData(slug: string) {
-  return filterResourceFromCms<Bot>("bots", "name", slug);
+export async function getResourceFieldsFromCms<TResource extends StrapiResource>(
+  resource: CmsResources,
+  fields: keyof TResource["attributes"] | (keyof TResource["attributes"])[],
+): Promise<StrapiArrayResponse<TResource>> {
+  const fieldsToFetch = Array.isArray(fields) ? fields : [fields];
+  const queryParams = fieldsToFetch
+    .map((field, index) => `?fields[${index}]=${field.toString()}`)
+    .join("&");
+
+  return await getResourcesFromCms<TResource>(resource, queryParams);
 }

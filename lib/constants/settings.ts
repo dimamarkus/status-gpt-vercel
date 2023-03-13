@@ -28,7 +28,7 @@ export const DEFAULT_FEATURES = {
   layout: "veritcal" as Layout,
   theme: "statusLight" as Theme,
   model: CHAT_GPT_MODEL as OpenAiModel,
-  debugMode: true,
+  debugMode: false,
   useStream: true,
 };
 
