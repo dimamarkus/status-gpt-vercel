@@ -4,6 +4,7 @@ import { Auth as ReactAuth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
 import { useAuthContext } from "#/lib/contexts/AuthContext";
 import { getAppURL } from "#/lib/helpers/url-helpers";
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
@@ -20,7 +21,7 @@ const Login = () => {
     if (user) {
       router.replace("/account");
     }
-  }, [user]);
+  }, [router, user]);
 
   if (!user) {
     return (

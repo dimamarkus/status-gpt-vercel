@@ -1,3 +1,5 @@
+import { StatusChatMessage } from "#/types";
+
 export const DAVINCI_MODEL = "text-davinci-003";
 export const DAVINCI_URL = "https://api.openai.com/v1/completions";
 export const CHAT_GPT_MODEL = "gpt-3.5-turbo";
@@ -6,8 +8,6 @@ export const CHAT_GPT_URL = "https://api.openai.com/v1/chat/completions";
 // export const MAIN_PROMPT = "When Can I retire comfortably? How long can I live on assets after I retire?"
 // export const MAIN_PROMPT = "What is your name?"
 // export const MAIN_PROMPT = "Make a short list of things you can help me with."
-
-import { ChatMessage } from "#/types";
 
 export const EXAMPLE_PROMPTS = [
   "Where can I plan my future?",
@@ -160,19 +160,19 @@ export const PROMPT_CONTEXT = {
   current_offers: CURRENT_OFFERS,
 };
 
-export const INTRO_MESSAGE: ChatMessage = {
+export const INTRO_MESSAGE: StatusChatMessage = {
   role: "assistant",
   content: "How can I help you today?",
   timestamp: Date.now(),
 };
 
-export const TRAINING_MESSAGE: ChatMessage = {
+export const TRAINING_MESSAGE: StatusChatMessage = {
   role: "system",
   content: "Here are your new rules" + JSON.stringify(BACKEND_CONTEXT),
   timestamp: Date.now(),
 };
 
-const USER_CONTEXT_MESSAGE: ChatMessage = {
+const USER_CONTEXT_MESSAGE: StatusChatMessage = {
   role: "system",
   content:
     "Here are some things to consider about the person you're talking to " +

@@ -1,4 +1,4 @@
-.ChatWindow {
+.ChatMessages {
   overflow-x: hidden;
   overflow-y: auto;
   transform: rotate(180deg);
@@ -6,14 +6,14 @@
   text-align: left;
 }
 
-.ChatWindow::-webkit-scrollbar {
+.ChatMessages::-webkit-scrollbar {
   padding: 0 2px;
   width: 8px;
   margin: 0 2px;
   /* width of the entire scrollbar */
 }
 
-.ChatWindow::-webkit-scrollbar-track {
+.ChatMessages::-webkit-scrollbar-track {
   padding: 0 2px;
   margin: 0 2px;
   /* width of the entire scrollbar */
@@ -21,7 +21,7 @@
   @apply bg-base-100;
 }
 
-.ChatWindow::-webkit-scrollbar-thumb {
+.ChatMessages::-webkit-scrollbar-thumb {
   padding: 0 2px;
   margin: 0 2px;
   /* width of the entire scrollbar */

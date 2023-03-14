@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
-import { Product } from "#/types";
+import { Product } from "#/types/db";
 import { TabGroup } from "#/ui/examples/tab-group";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

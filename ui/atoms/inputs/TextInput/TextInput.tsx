@@ -1,7 +1,6 @@
 import cn from "classnames";
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import styles from "./TextInput.module.scss";
-import { CommonSizes } from "#/types";
 import {
   DeepMap,
   FieldError,
@@ -10,6 +9,7 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
+import { CommonSizes } from "#/types";
 
 // export type TextInputProps<TFormValues extends FieldValues> = InputHTMLAttributes<HTMLInputElement> & {
 export type TextInputProps<TFormValues extends FieldValues> = Omit<

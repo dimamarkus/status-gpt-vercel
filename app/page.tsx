@@ -1,6 +1,6 @@
 "use client";
-import Link from "next/link";
 
+import Link from "next/link";
 import { useAuthContext, VIEWS } from "#/lib/contexts/AuthContext";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 import Auth from "#/ui/modules/Auth/Auth";

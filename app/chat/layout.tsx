@@ -1,26 +1,19 @@
 import React from "react";
-import { getResourcesFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { getResourceFieldsFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { Bot } from "#/types/cms";
 import { TabGroup } from "#/ui/examples/tab-group";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 
 export const metadata = {
-  title: "Strapi Test",
+  title: "AIdvisor Chat",
 };
-
-async function getData(slug: string) {
-  return getResourcesFromCms<Bot>("bots");
-}
 
 type StrapiPageProps = {
   children: React.ReactNode;
-  params: {
-    slug: Bot["attributes"]["slug"];
-  };
 };
 
-export default async function Layout({ children, params }: StrapiPageProps) {
-  const response = await getData(params.slug);
+export default async function Layout({ children }: StrapiPageProps) {
+  const response = await getResourceFieldsFromCms<Bot>("bots", ["name", "slug"]);
   const bots = response.data;
 
   if (!bots) {
@@ -28,7 +21,7 @@ export default async function Layout({ children, params }: StrapiPageProps) {
   }
 
   return (
-    <LandingLayout>
+    <LandingLayout ssr data-theme="light">
       <div className="space-y-9">
         <TabGroup
           path="/chat"
@@ -37,7 +30,7 @@ export default async function Layout({ children, params }: StrapiPageProps) {
               text: "Home",
             },
             ...bots.map((bot) => ({
-              text: `Bot ${bot.attributes.name}`,
+              text: `${bot.attributes.name}`,
               slug: bot.attributes.slug,
             })),
           ]}

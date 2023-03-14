@@ -6,7 +6,7 @@ import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
 import { useChatGpt } from "#/features/chat/hooks/useChatGpt";
 import { useIsMobile, useIsTablet } from "#/lib/hooks/useIsMobile";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
-import ChatWindow from "#/ui/modules/Chat/ChatWindow/ChatWindow";
+import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import { useSuggestions } from "#/features/chat/hooks/useSuggestions";
 
@@ -64,9 +64,9 @@ export const Chat = (props: ChatProps) => {
       )}
     >
       <div className="relative order-last flex h-full flex-col p-1 md:order-first md:p-4 lg:w-9/12">
-        <ChatWindow
+        <ChatMessages
           className="h-full"
-          chatHistory={chatLog}
+          messages={chatLog}
           currentResponse={streamedAnswer || error}
           responseLoading={loading}
         />

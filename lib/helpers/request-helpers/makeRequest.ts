@@ -14,7 +14,7 @@ export const makeRequest = async <TResponse, TRequestBody>(
   method: HTTPMethod = "GET",
   body?: TRequestBody,
   headers: HeadersInit = {},
-  options?: RequestInit,
+  options: RequestInit = {},
 ): Promise<TResponse> => {
   const request: RequestInit = {
     method,
@@ -32,9 +32,13 @@ export const makeRequest = async <TResponse, TRequestBody>(
   try {
     const response = await fetch(url, request);
     if (!response.ok) {
+      console.error("response", response);
+      console.error("response.body", response.body);
+      console.error("response.json()", response.json());
       throw new Error("Network response was not ok.");
     }
     const responseData = (await response.json()) as TResponse;
+    // console.log("responseData", responseData.data);
     return responseData;
   } catch (error) {
     console.error(error);

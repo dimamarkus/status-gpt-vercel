@@ -1,14 +1,9 @@
+"use server";
+
 import { HTTPMethod, makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { getCmsUrl } from "#/lib/helpers/url-helpers";
-import {
-  Bot,
-  CmsResources,
-  CmsResponse,
-  StrapiArrayResponse,
-  StrapiOperator,
-  StrapiResource,
-  StrapiSingleResponse,
-} from "#/types/cms";
+import { CmsResource, CmsResourceSlug, CmsResponse } from "#/types/cms";
+import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/types/strapi";
 
 // ============================================================================
 //  BASE
@@ -25,7 +20,7 @@ export async function makeCmsRequest<TResponse extends Response, TRequestBody ex
   return await makeRequest<TResponse, TRequestBody>(cmsUrl, method, body, authHeaders);
 }
 
-export async function postToCms<TResponse, TRequestBody extends Request>(
+export async function postToCms<TResponse extends CmsResource, TRequestBody extends Request>(
   endpoint: string,
   body: TRequestBody,
   headers?: HeadersInit,
@@ -42,42 +37,48 @@ export async function postToCms<TResponse, TRequestBody extends Request>(
 //  CMS REOURCES
 // ============================================================================
 
-export async function getResourcesFromCms<T extends StrapiResource>(
-  resource: CmsResources,
+export async function getResourcesFromCms<T extends CmsResource>(
+  resource: CmsResourceSlug,
   urlParams?: string,
+  populate?: boolean,
 ): Promise<StrapiArrayResponse<T>> {
-  const endpoint = resource + (urlParams || "");
+  // TODO  - PERFORMANCE ISSUE - fetches media with every request (should be optional)
+  const PERFORMANCE_HIT = (urlParams ? "&" : "?") + "populate=*";
+  const queryString = urlParams ? "?" + urlParams : "";
+  const endpoint = resource + queryString + (populate ? PERFORMANCE_HIT : "");
 
   return await makeCmsRequest<StrapiArrayResponse<T>, {}>(endpoint, "GET");
 }
 
-export async function getResourceFromCms<T extends StrapiResource>(
-  resource: CmsResources,
+export async function getResourceFromCms<T extends CmsResource>(
+  resource: CmsResourceSlug,
   id?: string,
+  populate?: boolean,
 ): Promise<StrapiSingleResponse<T>> {
-  const endpoint = id ? `${resource}/${id}` : resource;
+  const resourcePath = id ? `${resource}/${id}` : resource;
+  const endpoint = resourcePath + (populate ? "?populate=*" : "");
 
   return await makeCmsRequest<StrapiSingleResponse<T>, {}>(endpoint, "GET");
 }
 
-export async function filterResourceFromCms<TResource extends StrapiResource>(
-  resource: CmsResources,
-  param: keyof TResource["attributes"],
+export async function filterResourceFromCms<TResource extends CmsResource>(
+  resource: CmsResourceSlug,
+  param: keyof TResource,
   query: string | number,
   operator?: StrapiOperator,
 ): Promise<StrapiArrayResponse<TResource>> {
-  const queryParams = "?filters[" + param.toString() + "][" + (operator || "$eq") + "]=" + query;
+  const queryParams = "filters[" + param.toString() + "][" + (operator || "$eq") + "]=" + query;
 
-  return await getResourcesFromCms<TResource>(resource, queryParams);
+  return await getResourcesFromCms<TResource>(resource, queryParams, true);
 }
 
-export async function getResourceFieldsFromCms<TResource extends StrapiResource>(
-  resource: CmsResources,
-  fields: keyof TResource["attributes"] | (keyof TResource["attributes"])[],
+export async function getResourceFieldsFromCms<TResource extends CmsResource>(
+  resource: CmsResourceSlug,
+  fields: keyof TResource | (keyof TResource)[],
 ): Promise<StrapiArrayResponse<TResource>> {
   const fieldsToFetch = Array.isArray(fields) ? fields : [fields];
   const queryParams = fieldsToFetch
-    .map((field, index) => `?fields[${index}]=${field.toString()}`)
+    .map((field, index) => `fields[${index}]=${field.toString()}`)
     .join("&");
 
   return await getResourcesFromCms<TResource>(resource, queryParams);

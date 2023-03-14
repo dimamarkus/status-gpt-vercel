@@ -1,15 +1,14 @@
+import ChatMessage from "./ChatMessage";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import ChatBubble from "./ChatBubble";
-
-const meta: Meta<typeof ChatBubble> = {
-  component: ChatBubble,
+const meta: Meta<typeof ChatMessage> = {
+  component: ChatMessage,
   tags: ["autodocs"],
   args: {},
 };
 
 export default meta;
-type Story = StoryObj<typeof ChatBubble>;
+type Story = StoryObj<typeof ChatMessage>;
 
 export const Default: Story = {
   args: {},

@@ -8,36 +8,24 @@ import { GptMessage, OpenAiRequest } from "#/features/chat/openai";
 import { post } from "#/lib/helpers/request-helpers/makeRequest";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
-import { ChatMessage } from "#/types";
+import { createSuggestionsPrompt } from "#/features/chat/helpers/chat-helpers";
+import { StatusChatMessage } from "#/types";
 
 type UseSuggestionsReturn = {
   loading: boolean;
   suggestions: string[] | null;
-  getSuggestions: (suggestionContext?: ChatMessage[]) => Promise<void>;
+  getSuggestions: (suggestionContext?: StatusChatMessage[]) => Promise<void>;
 };
 
 export const useSuggestions = (): UseSuggestionsReturn => {
   const [suggestions, setSuggestions] = useState<string[] | null>(EXAMPLE_PROMPTS);
   const [loading, setLoading] = useState(false);
 
-  const createSuggestionsPrompt = (context: ChatMessage[]) => {
-    const messages = context.map(({ role, content }) => ({ role, content }));
-    const messageQuery = [
-      ...messages,
-      {
-        role: "user",
-        content: SUGGESTIONS_REQUEST,
-      } as GptMessage,
-    ];
-
-    return messageQuery;
-  };
-
   /**
    * Pass a chat context (conversation history) for OpenAI to use as a basis for suggestions
    * @param query This is query or message that the user is currently asking
    */
-  const getSuggestions = async (suggestionContext?: ChatMessage[]) => {
+  const getSuggestions = async (suggestionContext?: StatusChatMessage[]) => {
     setLoading(true);
     if (suggestionContext) {
       setSuggestions([]);

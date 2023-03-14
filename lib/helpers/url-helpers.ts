@@ -1,11 +1,12 @@
 import { Price } from "types/stripe";
+import { CmsResourceSlug } from "#/types/cms";
 
 const sanitizeUrl = (str: string) => {
   let url = str;
   // Make sure to include `https://` when not localhost.
   url = url.includes("http") ? url : `https://${url}`;
-  // Make sure to including trailing `/`.
-  url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
+  // Optionally including trailing `/`.
+  // url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
   return url;
 };
 
@@ -18,10 +19,17 @@ export function getAppURL() {
 }
 
 export function getStrapiUrl() {
-  let url = process?.env?.STRAPI_CMS_URL ?? "http://localhost:1337/";
+  let url = process?.env?.STRAPI_CMS_URL ?? "http://localhost:1337";
   return sanitizeUrl(url);
 }
 
 export function getCmsUrl(endpoint: string) {
-  return getStrapiUrl() + "api/" + endpoint;
+  return getStrapiUrl() + "/api/" + endpoint;
 }
+
+export function getMediaUrl(mediaPath: string) {
+  return getStrapiUrl() + mediaPath;
+}
+
+export const pluralizeCmsModel = (model: string) =>
+  (model === "chat-syntax" ? "chat-syntaxes" : model + "s") as CmsResourceSlug;

@@ -3,7 +3,6 @@
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
 import { RenderingInfo } from "#/ui/examples/rendering-info";
 
@@ -24,6 +23,7 @@ export default function Page({ params }: { params: { id: string } }) {
     };
 
     fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) return <div />;

@@ -1,7 +1,7 @@
 import { User } from "@supabase/auth-helpers-nextjs";
-import { ChatMessage } from "#/types";
+import { StatusChatMessage } from "#/types";
 
-export const EXAMPLE_CHAT_MESSAGE: ChatMessage = {
+export const EXAMPLE_CHAT_MESSAGE: StatusChatMessage = {
   role: "user",
   content: "Hello world!",
   timestamp: Date.now(),

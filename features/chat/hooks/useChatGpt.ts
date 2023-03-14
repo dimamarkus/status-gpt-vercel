@@ -11,8 +11,8 @@ import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useGetStream } from "#/lib/hooks/useGetStream";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
-import { ChatMessage } from "#/types";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { StatusChatMessage } from "#/types";
 
 const CHAT_MEMORY = 6;
 export const CHATBOX_ID = "chatInput";
@@ -21,7 +21,7 @@ type UseChatGptReturn = {
   /**
    * An array of all the messages that have been sent and received in the chat
    */
-  chatLog: ChatMessage[];
+  chatLog: StatusChatMessage[];
   /**
    * This is the answer streamed in real time.
    */
@@ -74,7 +74,7 @@ export const useChatGpt = (): UseChatGptReturn => {
   // const { assumptions, areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();
   // const assumptionsJson = JSON.stringify(assumptions);
   // const assumptionsDeclaration = `Consider everything going forward assuming the following things about me: ${assumptionsJson}`;
-  // const assumptionsMessage = { role: "system", content: assumptionsDeclaration, timestamp: Date.now() } as ChatMessage;
+  // const assumptionsMessage = { role: "system", content: assumptionsDeclaration, timestamp: Date.now() } as StatusChatMessage;
 
   const getAnswer = async (query?: string, systemMode?: boolean) => {
     setAnswer("");
@@ -83,12 +83,12 @@ export const useChatGpt = (): UseChatGptReturn => {
     const rawContent = query || chatInput;
     const containsPunctuation = !!rawContent && /[.;!?]$/.test(rawContent);
     const content = containsPunctuation ? query : `${query}.`;
-    const latestMessage = { role: "user", content, timestamp: Date.now() } as ChatMessage;
+    const latestMessage = { role: "user", content, timestamp: Date.now() } as StatusChatMessage;
 
     const outOfMemory = chatLog.length > CHAT_MEMORY;
     const recentMessages = outOfMemory ? chatLog.slice(1).slice(-CHAT_MEMORY) : chatLog;
-    const nextChatLog: ChatMessage[] = [...chatLog, latestMessage];
-    const messagesWithTimestamps: ChatMessage[] = [...recentMessages, latestMessage];
+    const nextChatLog: StatusChatMessage[] = [...chatLog, latestMessage];
+    const messagesWithTimestamps: StatusChatMessage[] = [...recentMessages, latestMessage];
     outOfMemory && messagesWithTimestamps.unshift(TRAINING_MESSAGE);
     const messages = messagesWithTimestamps.map(({ role, content }) => ({ role, content }));
     const prompt = messages.map(({ content }) => content).join("\n");
@@ -112,7 +112,7 @@ export const useChatGpt = (): UseChatGptReturn => {
         role: "assistant",
         content: response,
         timestamp: Date.now(),
-      } as ChatMessage;
+      } as StatusChatMessage;
       setChatLog([...nextChatLog, responseMessage]);
     }
   };

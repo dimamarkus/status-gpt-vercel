@@ -1,6 +1,4 @@
-"use client";
-
-import { getActiveProductsWithPrices } from "#/lib/helpers/supabase-helpers/supabase-client";
+import { getActiveProductsWithPrices } from "#/lib/helpers/supabase-helpers/supabase-server";
 import Pricing from "#/ui/examples/supabase/Pricing";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 
