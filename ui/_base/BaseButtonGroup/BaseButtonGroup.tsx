@@ -1,7 +1,7 @@
-import Button, { ButtonProps, ButtonType } from '#/ui/atoms/Button/Button';
-import cn from 'classnames';
-import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from 'react';
-import styles from './BaseButtonGroup.module.scss';
+import cn from "classnames";
+import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from "react";
+import styles from "./BaseButtonGroup.module.scss";
+import Button, { ButtonProps, ButtonType } from "#/ui/atoms/buttons/Button/Button";
 
 type BasicButton = {
   text: string;
@@ -9,11 +9,7 @@ type BasicButton = {
   type?: ButtonType;
 };
 
-const DEFAULT_BUTTON_TYPES = [
-  'primary',
-  'secondary',
-  'tertiary',
-] as ButtonType[];
+const DEFAULT_BUTTON_TYPES = ["primary", "secondary", "tertiary"] as ButtonType[];
 
 export interface BaseButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -69,14 +65,10 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
 
   // Prep the third button
   // ---------------------------------------------------------------------------------------------
-  const splitClass = props.vertical
-    ? 'mt-auto'
-    : reverseOrder
-    ? 'mr-auto'
-    : 'ml-auto';
+  const splitClass = props.vertical ? "mt-auto" : reverseOrder ? "mr-auto" : "ml-auto";
 
   const secondaryChild = secondaryButton
-    ? cloneElement(secondaryButton, { type: 'secondary' } as ButtonProps)
+    ? cloneElement(secondaryButton, { type: "secondary" } as ButtonProps)
     : null;
 
   const tertiaryButtonProps = {
@@ -100,13 +92,11 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
     <div
       className={cn(
         styles.BaseButtonGroup,
-        'flex items-center',
-        vertical ? 'space-y-4' : 'space-x-4',
-        vertical ? 'justify-center' : 'align-center',
-        vertical && 'flex-col',
-        reverseOrder && vertical
-          ? 'flex-row-reverse'
-          : reverseOrder && 'flex-column-reverse',
+        "flex items-center",
+        vertical ? "space-y-4" : "space-x-4",
+        vertical ? "justify-center" : "align-center",
+        vertical && "flex-col",
+        reverseOrder && vertical ? "flex-row-reverse" : reverseOrder && "flex-column-reverse",
       )}
     >
       {children}

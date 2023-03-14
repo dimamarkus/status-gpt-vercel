@@ -1,5 +1,5 @@
-import { OpenAiModel } from "#/features/chat/openai";
-import { CmsResource } from "#/types/cms";
+import { OpenAiModel } from "#/app/chat/lib/openai";
+import { CmsResource } from "#/lib/types/cms";
 
 // ================================================================================================
 //  SCHEMA

@@ -1,8 +1,8 @@
 import cn from "classnames";
 import styles from "./ChatMessages.module.scss";
-import { createChatBotMessage } from "#/features/chat/helpers/chat-helpers";
-import { StatusChatMessage } from "#/types";
-import Mouth from "#/ui/atoms/Mouth/Mouth";
+import { createChatBotMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { StatusChatMessage } from "#/lib/types";
+import Mouth from "#/ui/atoms/decorations/Mouth/Mouth";
 import { ChatMessage } from "#/ui/modules/Chat/ChatMessage/ChatMessage";
 
 type ChatMessagesProps = {

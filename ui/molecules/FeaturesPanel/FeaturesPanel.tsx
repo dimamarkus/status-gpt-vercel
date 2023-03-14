@@ -1,10 +1,10 @@
 "use client";
-import { OpenAiModel } from "#/features/chat/openai";
+import { OpenAiModel } from "#/app/chat/lib/openai";
 import { FONTS, MODELS, THEMES } from "#/lib/constants/settings";
 import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
-import Button from "#/ui/atoms/Button/Button";
+import Button from "#/ui/atoms/buttons/Button/Button";
 
 const FeaturesPanel = () => {
   const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();

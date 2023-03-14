@@ -2,8 +2,8 @@
 
 import { HTTPMethod, makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { getCmsUrl } from "#/lib/helpers/url-helpers";
-import { CmsResource, CmsResourceSlug, CmsResponse } from "#/types/cms";
-import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/types/strapi";
+import { CmsResource, CmsResourceSlug, CmsResponse } from "#/lib/types/cms";
+import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/lib/types/strapi";
 
 // ============================================================================
 //  BASE

@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Chat.module.scss";
 import { useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
 import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
-import { useChatGpt } from "#/features/chat/hooks/useChatGpt";
+import { useChatGpt } from "#/app/chat/lib/hooks/useChatGpt";
 import { useIsMobile, useIsTablet } from "#/lib/hooks/useIsMobile";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
-import { useSuggestions } from "#/features/chat/hooks/useSuggestions";
+import { useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 
 type ChatProps = {
   children?: React.ReactNode;

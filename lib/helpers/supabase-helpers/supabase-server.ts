@@ -1,7 +1,7 @@
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
-import { Database } from "#/types/supabase";
-import { ProductWithPrice } from "#/types/stripe";
+import { Database } from "#/lib/types/supabase";
+import { ProductWithPrice } from "#/lib/types/stripe";
 
 export const createServerSideSupabase = () =>
   createServerComponentSupabaseClient<Database>({

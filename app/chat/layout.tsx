@@ -1,6 +1,6 @@
 import React from "react";
 import { getResourceFieldsFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
-import { Bot } from "#/types/cms";
+import { Bot } from "#/lib/types/cms";
 import { TabGroup } from "#/ui/examples/tab-group";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 

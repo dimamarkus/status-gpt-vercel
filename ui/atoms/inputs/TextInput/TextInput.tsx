@@ -9,7 +9,7 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
-import { CommonSizes } from "#/types";
+import { CommonSizes } from "#/lib/types";
 
 // export type TextInputProps<TFormValues extends FieldValues> = InputHTMLAttributes<HTMLInputElement> & {
 export type TextInputProps<TFormValues extends FieldValues> = Omit<

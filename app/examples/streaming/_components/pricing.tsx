@@ -1,13 +1,13 @@
-import type { ExampleProduct } from '#/types/examples';
-import { Ping } from '#/ui/examples/ping';
-import { ProductEstimatedArrival } from '#/ui/examples/product-estimated-arrival';
-import { ProductLowStockWarning } from '#/ui/examples/product-low-stock-warning';
-import { ProductPrice } from '#/ui/examples/product-price';
-import { ProductSplitPayments } from '#/ui/examples/product-split-payments';
-import { ProductUsedPrice } from '#/ui/examples/product-used-price';
-import { dinero, type DineroSnapshot } from 'dinero.js';
-import { Suspense } from 'react';
-import { AddToCart } from './add-to-cart';
+import { Suspense } from "react";
+import { AddToCart } from "./add-to-cart";
+import type { ExampleProduct } from "#/lib/types/examples";
+import { Ping } from "#/ui/examples/ping";
+import { ProductEstimatedArrival } from "#/ui/examples/product-estimated-arrival";
+import { ProductLowStockWarning } from "#/ui/examples/product-low-stock-warning";
+import { ProductPrice } from "#/ui/examples/product-price";
+import { ProductSplitPayments } from "#/ui/examples/product-split-payments";
+import { ProductUsedPrice } from "#/ui/examples/product-used-price";
+import { dinero, type DineroSnapshot } from "dinero.js";
 
 function LoadingDots() {
   return (
@@ -33,7 +33,7 @@ async function UserSpecificDetails({ productId }: { productId: string }) {
     {
       // We intentionally disable Next.js Cache to better demo
       // streaming
-      cache: 'no-store',
+      cache: "no-store",
     },
   );
 
@@ -44,24 +44,14 @@ async function UserSpecificDetails({ productId }: { productId: string }) {
   return (
     <>
       <ProductSplitPayments price={price} />
-      {product.usedPrice ? (
-        <ProductUsedPrice usedPrice={product.usedPrice} />
-      ) : null}
+      {product.usedPrice ? <ProductUsedPrice usedPrice={product.usedPrice} /> : null}
       <ProductEstimatedArrival leadTime={product.leadTime} hasDeliveryTime />
-      {product.stock <= 1 ? (
-        <ProductLowStockWarning stock={product.stock} />
-      ) : null}
+      {product.stock <= 1 ? <ProductLowStockWarning stock={product.stock} /> : null}
     </>
   );
 }
 
-export function Pricing({
-  product,
-  cartCount,
-}: {
-  product: ExampleProduct;
-  cartCount: string;
-}) {
+export function Pricing({ product, cartCount }: { product: ExampleProduct; cartCount: string }) {
   const price = dinero(product.price as DineroSnapshot<number>);
 
   return (

@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import {
-  CHAT_GPT_MODEL,
-  STARTING_CHAT_LOG,
-  TRAINING_MESSAGE,
-} from "#/features/chat/constants/gpt-prompt";
-import { useSuggestions } from "#/features/chat/hooks/useSuggestions";
+import { CHAT_GPT_MODEL, STARTING_CHAT_LOG, TRAINING_MESSAGE } from "#/app/chat/lib/constants";
+import { useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 import { CHAT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useGetStream } from "#/lib/hooks/useGetStream";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
-import { StatusChatMessage } from "#/types";
+import { StatusChatMessage } from "#/lib/types";
 
 const CHAT_MEMORY = 6;
 export const CHATBOX_ID = "chatInput";

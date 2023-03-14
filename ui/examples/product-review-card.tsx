@@ -1,5 +1,5 @@
-import type { ExampleReview } from '#/types/examples';
-import { ProductRating } from '#/ui/examples/product-rating';
+import type { ExampleReview } from "#/lib/types/examples";
+import { ProductRating } from "#/ui/examples/product-rating";
 
 export const ProductReviewCard = ({ review }: { review: ExampleReview }) => {
   return (

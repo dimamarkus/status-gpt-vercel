@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import styles from "./SignInForm.module.scss";
 import { SignInSchema } from "#/lib/forms/schemas";
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
-import Button from "#/ui/atoms/Button/Button";
+import Button from "#/ui/atoms/buttons/Button/Button";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
 
 export type SignInFields = {

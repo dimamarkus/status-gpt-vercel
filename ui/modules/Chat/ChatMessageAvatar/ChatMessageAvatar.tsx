@@ -2,8 +2,8 @@ import cn from "classnames";
 import Image from "next/image";
 import React from "react";
 import styles from "./ChatMessageAvatar.module.scss";
-import Avatar from "#/ui/atoms/Avatar/Avatar";
-import Mouth from "#/ui/atoms/Mouth/Mouth";
+import Avatar from "#/ui/atoms/decorations/Avatar/Avatar";
+import Mouth from "#/ui/atoms/decorations/Mouth/Mouth";
 
 type ChatMessageAvatarProps = {
   avatarUrl?: string;

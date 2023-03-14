@@ -1,5 +1,5 @@
-import { BaseOpenAiResponse, OpenAiRequest, OpenAiResponse } from "#/features/chat/openai";
-import { CHAT_GPT_MODEL, CHAT_GPT_URL, DAVINCI_URL } from "#/features/chat/constants/gpt-prompt";
+import { BaseOpenAiResponse, OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
+import { CHAT_GPT_MODEL, CHAT_GPT_URL, DAVINCI_URL } from "#/app/chat/lib/constants";
 import { makeRequest, post } from "#/lib/helpers/request-helpers/makeRequest";
 
 export const GENERATE_CHAT_ENDPOINT = "/api/chat/generate";

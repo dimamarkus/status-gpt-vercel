@@ -1,6 +1,6 @@
 import { createBrowserSupabaseClient, User } from "@supabase/auth-helpers-nextjs";
-import { ProductWithPrice } from "types/stripe";
-import type { Database } from "types/supabase";
+import { ProductWithPrice } from "#/lib/types/stripe";
+import type { Database } from "#/lib/types/supabase";
 
 export const clientSideSupabase = createBrowserSupabaseClient<Database>();
 

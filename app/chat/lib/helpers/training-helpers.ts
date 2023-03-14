@@ -1,5 +1,11 @@
 import { BOT_TRAINING_ORDER } from "#/lib/constants/settings";
-import { Bot, BotTraining, BotTrainingMap, CmsMultiRelation, CmsSingleRelation } from "#/types/cms";
+import {
+  Bot,
+  BotTraining,
+  BotTrainingMap,
+  CmsMultiRelation,
+  CmsSingleRelation,
+} from "#/lib/types/cms";
 
 export const getManyTrainingContents = (
   trainings?: CmsMultiRelation<BotTraining>,

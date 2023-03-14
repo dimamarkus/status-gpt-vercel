@@ -1,5 +1,5 @@
 import { User } from "@supabase/auth-helpers-nextjs";
-import { StatusChatMessage } from "#/types";
+import { StatusChatMessage } from "#/lib/types";
 
 export const EXAMPLE_CHAT_MESSAGE: StatusChatMessage = {
   role: "user",

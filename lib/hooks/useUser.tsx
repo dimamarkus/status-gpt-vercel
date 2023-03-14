@@ -1,9 +1,8 @@
 "use client";
-
 import { User, useSessionContext, useUser as useSupaUser } from "@supabase/auth-helpers-react";
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { Subscription, UserDetails } from "types/stripe";
+import { Subscription, UserDetails } from "#/lib/types/stripe";
 
 type UserContextType = {
   accessToken: string | null;

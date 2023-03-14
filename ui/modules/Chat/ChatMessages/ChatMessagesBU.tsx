@@ -3,11 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import styles from "./ChatMessages.module.scss";
 import { AvatarContextProvider, DEFAULT_AVATAR_CONTEXT } from "#/lib/contexts/AvatarContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import Mouth from "#/ui/atoms/Mouth/Mouth";
+import Mouth from "#/ui/atoms/decorations/Mouth/Mouth";
 import ResizablePanel from "#/ui/containers/ResizablePanel/ResizablePanel";
 import { ChatMessage } from "#/ui/modules/Chat/ChatMessage/ChatMessage";
 import FullScreenToggleButton from "#/ui/molecules/actionButtons/FullScreenToggleButton/FullScreenToggleButton";
-import { StatusChatMessage } from "#/types";
+import { StatusChatMessage } from "#/lib/types";
 
 type ChatMessagesProps = {
   messages: StatusChatMessage[];

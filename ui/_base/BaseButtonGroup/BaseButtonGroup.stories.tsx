@@ -1,11 +1,10 @@
-import Button from '#/ui/atoms/Button/Button';
-import type { Meta, StoryObj } from '@storybook/react';
-
-import BaseButtonGroup from './BaseButtonGroup';
+import BaseButtonGroup from "./BaseButtonGroup";
+import Button from "#/ui/atoms/buttons/Button/Button";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof BaseButtonGroup> = {
   component: BaseButtonGroup,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
     primaryButton: <Button text="Primary" onClick={() => {}} />,
   },
@@ -44,15 +43,15 @@ export const FromButtonMap: Story = {
   args: {
     buttonMap: [
       {
-        text: 'Button 1',
+        text: "Button 1",
         onClick: () => {},
       },
       {
-        text: 'Button 2',
+        text: "Button 2",
         onClick: () => {},
       },
       {
-        text: 'Button 3',
+        text: "Button 3",
         onClick: () => {},
       },
     ],
@@ -65,15 +64,15 @@ export const Combined: Story = {
     tertiaryButton: <Button text="Tertiary" type="tertiary" />,
     buttonMap: [
       {
-        text: 'From map 1',
+        text: "From map 1",
         onClick: () => {},
       },
       {
-        text: 'From map 2',
+        text: "From map 2",
         onClick: () => {},
       },
       {
-        text: 'From map 3',
+        text: "From map 3",
         onClick: () => {},
       },
     ],

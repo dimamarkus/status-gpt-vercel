@@ -5,7 +5,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import styles from "./CopyButton.module.scss";
 
-import Button, { ButtonProps } from "#/ui/atoms/Button/Button";
+import Button, { ButtonProps } from "#/ui/atoms/buttons/Button/Button";
 
 type CopyButtonProps = ButtonProps & {
   content: string;

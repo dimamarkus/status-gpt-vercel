@@ -1,21 +1,15 @@
-import { ExampleProduct } from '#/types/examples';
-import { ProductBestSeller } from '#/ui/examples/product-best-seller';
-import { ProductEstimatedArrival } from '#/ui/examples/product-estimated-arrival';
-import { ProductLowStockWarning } from '#/ui/examples/product-low-stock-warning';
-import { ProductPrice } from '#/ui/examples/product-price';
-import { ProductRating } from '#/ui/examples/product-rating';
-import { ProductUsedPrice } from '#/ui/examples/product-used-price';
-import { dinero, type DineroSnapshot } from 'dinero.js';
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import { ExampleProduct } from "#/lib/types/examples";
+import { ProductBestSeller } from "#/ui/examples/product-best-seller";
+import { ProductEstimatedArrival } from "#/ui/examples/product-estimated-arrival";
+import { ProductLowStockWarning } from "#/ui/examples/product-low-stock-warning";
+import { ProductPrice } from "#/ui/examples/product-price";
+import { ProductRating } from "#/ui/examples/product-rating";
+import { ProductUsedPrice } from "#/ui/examples/product-used-price";
+import { dinero, type DineroSnapshot } from "dinero.js";
 
-export const ProductCard = ({
-  product,
-  href,
-}: {
-  product: ExampleProduct;
-  href: string;
-}) => {
+export const ProductCard = ({ product, href }: { product: ExampleProduct; href: string }) => {
   const price = dinero(product.price as DineroSnapshot<number>);
 
   return (
@@ -48,15 +42,11 @@ export const ProductCard = ({
 
         {/* <ProductSplitPayments price={price} /> */}
 
-        {product.usedPrice ? (
-          <ProductUsedPrice usedPrice={product.usedPrice} />
-        ) : null}
+        {product.usedPrice ? <ProductUsedPrice usedPrice={product.usedPrice} /> : null}
 
         <ProductEstimatedArrival leadTime={product.leadTime} />
 
-        {product.stock <= 1 ? (
-          <ProductLowStockWarning stock={product.stock} />
-        ) : null}
+        {product.stock <= 1 ? <ProductLowStockWarning stock={product.stock} /> : null}
       </div>
     </Link>
   );

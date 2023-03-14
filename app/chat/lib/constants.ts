@@ -1,4 +1,4 @@
-import { StatusChatMessage } from "#/types";
+import { StatusChatMessage } from "#/lib/types";
 
 export const DAVINCI_MODEL = "text-davinci-003";
 export const DAVINCI_URL = "https://api.openai.com/v1/completions";

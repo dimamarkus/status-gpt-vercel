@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import styles from './Logo.module.scss';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import styles from "./Logo.module.scss";
 
 type LogoProps = {
   children?: React.ReactNode;
@@ -12,8 +12,8 @@ export const Logo = (props: LogoProps) => {
     <Link
       className={
         styles.Logo +
-        ' ' +
-        'btn-ghost btn flex h-auto flex-col items-start p-0 py-1 text-left text-xl normal-case'
+        " " +
+        "btn-ghost btn flex h-auto flex-col items-start p-0 py-1 text-left text-xl normal-case"
       }
       // href="https://statusmoney.com"
       href="/"
@@ -22,7 +22,7 @@ export const Logo = (props: LogoProps) => {
         className="relative -left-1 h-3 max-h-full w-auto max-w-full"
         src="/logo-cyan.svg"
         alt="Status Money Logo"
-        width={'0'}
+        width={"0"}
         height={0}
         priority
       />

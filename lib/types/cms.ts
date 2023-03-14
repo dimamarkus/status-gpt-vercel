@@ -1,4 +1,4 @@
-import { OpenAiModel } from "#/features/chat/openai";
+import { OpenAiModel } from "#/app/chat/lib/openai";
 import {
   BaseStrapiResource,
   SchemaUID,
@@ -7,7 +7,7 @@ import {
   StrapiMediaAttribute,
   StrapiResponse,
   StrapiSingleResponse,
-} from "#/types/strapi";
+} from "#/lib/types/strapi";
 
 // The CMS is currently Strapi but should be able to be switched out to anything using this interface
 // No one outside of this file should know what Strapi is

@@ -1,15 +1,15 @@
-import { Pricing } from '#/app/examples/streaming/_components/pricing';
-import type { ExampleProduct } from '#/types/examples';
-import { ProductRating } from '#/ui/examples/product-rating';
-import { cookies } from 'next/headers';
-import Image from 'next/image';
+import { cookies } from "next/headers";
+import Image from "next/image";
+import { Pricing } from "#/app/examples/streaming/_components/pricing";
+import type { ExampleProduct } from "#/lib/types/examples";
+import { ProductRating } from "#/ui/examples/product-rating";
 
 export const SingleProduct = async ({ data }: { data: Promise<Response> }) => {
   const product = (await data.then((res) => res.json())) as ExampleProduct;
 
   // Get the cart count from the users cookies and pass it to the client
   // AddToCart component
-  const cartCount = cookies().get('_cart_count')?.value || '0';
+  const cartCount = cookies().get("_cart_count")?.value || "0";
 
   return (
     <div className="grid grid-cols-4 gap-6">
@@ -56,9 +56,7 @@ export const SingleProduct = async ({ data }: { data: Promise<Response> }) => {
       </div>
 
       <div className="col-span-full space-y-4 lg:col-span-2">
-        <div className="truncate text-xl font-medium text-white lg:text-2xl">
-          {product.name}
-        </div>
+        <div className="truncate text-xl font-medium text-white lg:text-2xl">{product.name}</div>
 
         <ProductRating rating={product.rating} />
 

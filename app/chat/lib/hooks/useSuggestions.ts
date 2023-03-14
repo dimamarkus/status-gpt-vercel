@@ -1,15 +1,11 @@
 import { useState } from "react";
-import {
-  CHAT_GPT_MODEL,
-  EXAMPLE_PROMPTS,
-  SUGGESTIONS_REQUEST,
-} from "#/features/chat/constants/gpt-prompt";
-import { GptMessage, OpenAiRequest } from "#/features/chat/openai";
+import { CHAT_GPT_MODEL, EXAMPLE_PROMPTS, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
+import { GptMessage, OpenAiRequest } from "#/app/chat/lib/openai";
 import { post } from "#/lib/helpers/request-helpers/makeRequest";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
-import { createSuggestionsPrompt } from "#/features/chat/helpers/chat-helpers";
-import { StatusChatMessage } from "#/types";
+import { createSuggestionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
+import { StatusChatMessage } from "#/lib/types";
 
 type UseSuggestionsReturn = {
   loading: boolean;

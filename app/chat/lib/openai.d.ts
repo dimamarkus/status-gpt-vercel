@@ -1,4 +1,8 @@
-import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "./constants/gpt-prompt.ts";
+import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "./constants.ts";
+
+// ============================================================================
+//  OPENAI API TYPES
+// ============================================================================
 
 export type GptMessage = {
   role: "assistant" | "user" | "system";
@@ -11,9 +15,8 @@ export type OpenAiCompletionModel =
   | "text-ada-001";
 export type OpenAiModel = OpenAiCompletionModel & "gpt-3.5-turbo";
 
-/**------------------------------------------------------------------------
- *  OpenAI Requests
- *------------------------------------------------------------------------**/
+//  REQUESTS
+// ============================================================================
 
 export type BaseOpenAiRequest = {
   temperature?: number;
@@ -37,9 +40,8 @@ export type OpenAiChatRequest = BaseOpenAiRequest & {
 
 export type OpenAiRequest = OpenAiCompletionRequest | OpenAiChatRequest;
 
-/**------------------------------------------------------------------------
- *  OpenAI Responses
- *------------------------------------------------------------------------**/
+//  RESPONSES
+// ============================================================================
 
 type OpenAiCompletionResponseChoice = {
   text: string;

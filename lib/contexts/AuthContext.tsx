@@ -3,7 +3,7 @@ import { Session, User } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { Subscription } from "types/stripe";
+import { Subscription } from "#/lib/types/stripe";
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
 
 export const EVENTS = {
