@@ -1,5 +1,5 @@
-import { Price } from "types/stripe";
-import { CmsResourceSlug } from "#/types/cms";
+import { Price } from "#/lib/types/stripe";
+import { CmsResourceSlug } from "#/lib/types/cms";
 
 const sanitizeUrl = (str: string) => {
   let url = str;

@@ -1,5 +1,5 @@
-import type { ExampleReview } from '#/types/examples';
-import { ProductReviewCard } from '#/ui/examples/product-review-card';
+import type { ExampleReview } from "#/lib/types/examples";
+import { ProductReviewCard } from "#/ui/examples/product-review-card";
 
 export async function Reviews({ data }: { data: Promise<Response> }) {
   const reviews = (await data.then((res) => res.json())) as ExampleReview[];

@@ -1,5 +1,5 @@
-import { GptMessage } from "#/features/chat/openai";
-import { Database } from "#/types/supabase";
+import { GptMessage } from "#/app/chat/lib/openai";
+import { Database } from "#/lib/types/supabase";
 
 export type DatabaseTables = Database["public"]["Tables"];
 export type Customer = DatabaseTables["customers"]["Row"];

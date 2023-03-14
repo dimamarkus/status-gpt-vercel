@@ -1,7 +1,7 @@
-import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/features/chat/constants/gpt-prompt";
-import { OpenAiModel } from "#/features/chat/openai";
+import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
+import { OpenAiModel } from "#/app/chat/lib/openai";
 import { Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
-import { Bot, BotTrainingMap } from "#/types/cms";
+import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
 

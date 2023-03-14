@@ -2,8 +2,8 @@ import cn from "classnames";
 import dynamic from "next/dynamic";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
 import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAvatar";
-import ParsedMarkdown from "#/ui/modules/Chat/ParsedMarkdown/ParsedMarkdown";
-import { StatusChatMessage } from "#/types";
+import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
+import { StatusChatMessage } from "#/lib/types";
 
 type ChatMessageProps = {
   avatarUrl?: string;

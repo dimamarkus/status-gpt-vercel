@@ -1,8 +1,14 @@
-import { SUGGESTIONS_REQUEST } from "#/features/chat/constants/gpt-prompt";
-import { GptMessage } from "#/features/chat/openai";
+import { SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
+import { GptMessage } from "#/app/chat/lib/openai";
 import { BOT_TRAINING_ORDER } from "#/lib/constants/settings";
-import { StatusChatMessage } from "#/types";
-import { Bot, BotTraining, BotTrainingMap, CmsMultiRelation, CmsSingleRelation } from "#/types/cms";
+import { StatusChatMessage } from "#/lib/types";
+import {
+  Bot,
+  BotTraining,
+  BotTrainingMap,
+  CmsMultiRelation,
+  CmsSingleRelation,
+} from "#/lib/types/cms";
 
 export const createChatMessage = (
   role: GptMessage["role"],

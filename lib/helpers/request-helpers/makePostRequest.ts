@@ -1,4 +1,4 @@
-import { Price } from "types/stripe";
+import { Price } from "#/lib/types/stripe";
 import { makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
 
 /**

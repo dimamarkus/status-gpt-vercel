@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import Button from './Button';
+import Button from "./Button";
 
 const meta: Meta<typeof Button> = {
   component: Button,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
-    text: 'Click Me',
+    text: "Click Me",
   },
   argTypes: {},
 };
@@ -20,18 +20,18 @@ export const Default: Story = {
 
 export const Submit: Story = {
   args: {
-    type: 'submit',
+    type: "submit",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    type: 'secondary',
+    type: "secondary",
   },
 };
 
 export const Tertiary: Story = {
   args: {
-    type: 'tertiary',
+    type: "tertiary",
   },
 };

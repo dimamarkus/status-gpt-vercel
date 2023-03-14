@@ -1,7 +1,7 @@
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
-import { OpenAiRequest } from "#/features/chat/openai";
+import { OpenAiRequest } from "#/app/chat/lib/openai";
 import { makeStreamRequest } from "#/lib/helpers/request-helpers/makeStreamRequest";
-import { CHAT_GPT_MODEL, CHAT_GPT_URL, DAVINCI_URL } from "#/features/chat/constants/gpt-prompt";
+import { CHAT_GPT_MODEL, CHAT_GPT_URL, DAVINCI_URL } from "#/app/chat/lib/constants";
 
 export const config = {
   runtime: "edge",

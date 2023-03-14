@@ -1,7 +1,7 @@
 import { ArrowsPointingInIcon, ArrowsPointingOutIcon } from "@heroicons/react/24/solid";
 import styles from "./FullScreenToggleButton.module.scss";
 import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
-import Button from "#/ui/atoms/Button/Button";
+import Button from "#/ui/atoms/buttons/Button/Button";
 
 export const FullScreenToggleButton = () => {
   const { isFullScreen, toggleFullScreen } = useFullScreenContext();

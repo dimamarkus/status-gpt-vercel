@@ -1,5 +1,5 @@
-import { ExampleProduct } from '#/types/examples';
-import { ProductCard } from '#/ui/examples/product-card';
+import { ExampleProduct } from "#/lib/types/examples";
+import { ProductCard } from "#/ui/examples/product-card";
 
 export async function RecommendedProducts({
   path,
@@ -13,12 +13,8 @@ export async function RecommendedProducts({
   return (
     <div className="space-y-6">
       <div>
-        <div className="text-lg font-medium text-white">
-          Recommended Products for You
-        </div>
-        <div className="text-sm text-gray-400">
-          Based on your preferences and shopping habits
-        </div>
+        <div className="text-lg font-medium text-white">Recommended Products for You</div>
+        <div className="text-sm text-gray-400">Based on your preferences and shopping habits</div>
       </div>
       <div className="grid grid-cols-4 gap-6">
         {products.map((product) => (

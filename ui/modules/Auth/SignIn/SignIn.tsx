@@ -1,10 +1,10 @@
-'use client';
+"use client";
+import styles from "./SignIn.module.scss";
 
-import { useAuthContext, VIEWS } from '#/lib/contexts/AuthContext';
-import Button from '#/ui/atoms/Button/Button';
-import Card from '#/ui/containers/Card/Card';
-import SignInForm from '#/ui/molecules/forms/SignInForm/SignInForm';
-import styles from './SignIn.module.scss';
+import { useAuthContext, VIEWS } from "#/lib/contexts/AuthContext";
+import Button from "#/ui/atoms/buttons/Button/Button";
+import Card from "#/ui/containers/Card/Card";
+import SignInForm from "#/ui/molecules/forms/SignInForm/SignInForm";
 
 export const SignIn = () => {
   const { setView } = useAuthContext();

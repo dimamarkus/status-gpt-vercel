@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-import { OpenAiModel } from "#/features/chat/openai";
+import { OpenAiModel } from "#/app/chat/lib/openai";
 import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 
 export type Font =

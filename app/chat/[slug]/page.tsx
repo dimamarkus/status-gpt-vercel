@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { createChatBotMessage } from "#/features/chat/helpers/chat-helpers";
-import { collateBotTraining } from "#/features/chat/helpers/training-helpers";
+import { createChatBotMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
 import {
   filterResourceFromCms,
   getResourceFieldsFromCms,
 } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
-import { Bot } from "#/types/cms";
+import { Bot } from "#/lib/types/cms";
 import { RenderingInfo } from "#/ui/examples/rendering-info";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 
