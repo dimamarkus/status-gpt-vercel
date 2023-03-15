@@ -32,16 +32,13 @@ export const makeRequest = async <TResponse, TRequestBody>(
   try {
     const response = await fetch(url, request);
     if (!response.ok) {
-      console.error("response", response);
-      console.error("response.body", response.body);
-      console.error("response.json()", response.json());
+      console.error("Error on request.url", url);
+      console.error("Error on response.body", response.body);
       throw new Error("Network response was not ok.");
     }
     const responseData = (await response.json()) as TResponse;
-    // console.log("responseData", responseData.data);
     return responseData;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

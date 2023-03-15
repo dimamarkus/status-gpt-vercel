@@ -58,8 +58,9 @@ export const collateBotTraining = (bot: Bot): string => {
   };
 
   const trainingArray = BOT_TRAINING_ORDER.map((item) => trainingObject[item]).flat();
-  const filteredArray = trainingArray.filter(Boolean);
-  const result = filteredArray.join(" ");
+  const trainingInstructions = trainingArray.filter(Boolean);
+  const nameInstruction = `Your name is ${bot.name}.`;
+  const result = [nameInstruction, ...trainingInstructions].join(" ");
 
   return result;
 };

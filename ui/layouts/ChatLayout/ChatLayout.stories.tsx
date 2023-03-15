@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Chat from "./Chat";
+import ChatLayout from "./ChatLayout";
 
-const meta: Meta<typeof Chat> = {
-  component: Chat,
+const meta: Meta<typeof ChatLayout> = {
+  component: ChatLayout,
   tags: ["autodocs"],
   args: {},
 };
 
 export default meta;
-type Story = StoryObj<typeof Chat>;
+type Story = StoryObj<typeof ChatLayout>;
 
 export const Default: Story = {
   args: {},

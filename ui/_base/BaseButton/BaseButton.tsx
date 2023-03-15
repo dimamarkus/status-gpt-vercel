@@ -21,7 +21,7 @@ export interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
  */
 export const BaseButton = ({
   text,
-  size = "lg",
+  size,
   type = "button",
   fullWidth,
   className,
@@ -33,7 +33,7 @@ export const BaseButton = ({
       className={[
         styles.BaseButton,
         "btn",
-        `btn-${size}`,
+        size ? `btn-${size}` : "",
         fullWidth ? "w-full" : "",
         className,
       ].join(" ")}

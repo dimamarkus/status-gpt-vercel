@@ -1,19 +1,17 @@
+"use client";
 import cn from "classnames";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import styles from "./ChatInput.module.scss";
 import { CHATBOX_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import Button from "#/ui/atoms/buttons/Button/Button";
 import { FormTextarea } from "#/ui/atoms/inputs/Textarea/Textarea";
+import { useChatContext } from "#/lib/contexts/ChatContext";
+import { useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 
 type ChatInputProps = {
   className?: string;
-  onHamburgerClick?: () => void;
-  onSubmit: (chatInput: ChatFormFields) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  inputFormContext: UseFormReturn<ChatFormFields, any>;
 };
 
 export type ChatFormFields = {
@@ -21,7 +19,9 @@ export type ChatFormFields = {
 };
 
 export const ChatInput = (props: ChatInputProps) => {
-  const { inputFormContext, onSubmit, onFocus, onBlur, onHamburgerClick, className } = props;
+  const { className } = props;
+  // const { inputFormContext, onSubmit, onFocus, onBlur, onHamburgerClick, className } = props;
+  const { inputFormContext, getAnswer, setShowSuggestions } = useChatContext();
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const ChatInput = (props: ChatInputProps) => {
     formState: { errors },
   } = inputFormContext;
 
-  const submitMessage = handleSubmit(onSubmit);
+  const submitMessage = handleSubmit(({ chatInput }) => getAnswer(chatInput));
 
   return (
     <form
@@ -53,14 +53,14 @@ export const ChatInput = (props: ChatInputProps) => {
         }
       }}
     >
-      {onHamburgerClick && (
+      {/* {onHamburgerClick && (
         <Button
           type="hamburger"
           className="absolute right-20 top-1 md:right-1"
           title="Show Assumptions that Stat the AI coach should consider..."
-          onClick={onHamburgerClick}
+          onClick={isTablet ? () => setShowAssumptions(!areAssumptionsShown) : undefined}
         />
-      )}
+      )} */}
       <label className="input-sizer stacked">
         <FormTextarea<ChatFormFields>
           id={CHATBOX_ID}
@@ -70,8 +70,8 @@ export const ChatInput = (props: ChatInputProps) => {
           className="text-md h-full w-full cursor-text rounded-none border-0 bg-neutral-100 leading-[150%] placeholder-neutral-500 outline-offset-2 focus:placeholder-gray-400 md:w-auto lg:min-w-full"
           rules={{ required: "You must write a message first." }}
           errors={errors}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          onFocus={() => isMobile && setShowSuggestions(false)}
+          onBlur={() => setShowSuggestions(true)}
           rows={1}
           required
           autoFocus

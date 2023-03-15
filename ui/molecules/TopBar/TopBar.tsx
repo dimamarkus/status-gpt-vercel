@@ -18,9 +18,6 @@ const navItems = (
     <li>
       <a href="https://statusmoney.com/card">Card</a>
     </li>
-    <li>
-      <Link href="/admin">Admin</Link>
-    </li>
   </>
 );
 
