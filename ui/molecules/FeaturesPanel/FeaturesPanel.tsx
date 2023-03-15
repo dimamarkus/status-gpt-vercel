@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { OpenAiModel } from "#/app/chat/lib/openai";
 import { FONTS, MODELS, THEMES } from "#/lib/constants/settings";
 import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
@@ -97,11 +98,10 @@ const FeaturesPanel = () => {
       {getOptionDropdown("theme", THEMES)}
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
       {getOptionDropdown("font", FONTS)}
-      {getOptionRadio("model", MODELS)}
+      {/* {getOptionRadio("model", MODELS)} */}
       {getOptionTogggle("useStream", "Stream Response")}
       {getOptionTogggle("debugMode", "Prompt Debug")}
-      {/* HACK: Empty div to force tailwind to create these font classes */}
-      <div className="hidden font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik" />
+      <Link href="/chat">All Bots</Link>
     </div>
   );
 

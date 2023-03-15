@@ -24,7 +24,6 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
       className={cn(
         styles.ChatMessageAvatar,
         "align-center chat-image flex h-16 w-16 justify-center text-center",
-        isTalking && "invisible",
         className,
       )}
     >

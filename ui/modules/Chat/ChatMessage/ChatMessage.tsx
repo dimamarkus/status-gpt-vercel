@@ -1,39 +1,32 @@
 "use client";
 import cn from "classnames";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import styles from "./ChatMessage.module.scss";
+import { StatusChatMessage } from "#/lib/types";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
 import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAvatar";
 import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
-import { StatusChatMessage } from "#/lib/types";
-import { ReviewsSkeleton } from "#/app/examples/streaming/_components/reviews";
 
 type ChatMessageProps = {
   avatarUrl?: string;
   message: StatusChatMessage;
   isTalking?: boolean;
+  parseMarkdown?: boolean;
 };
 
-export const ChatMessage = ({ avatarUrl, message, isTalking }: ChatMessageProps) => {
+export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: ChatMessageProps) => {
   const { role, content } = message;
   const currentDateTime = new Date();
   const time = currentDateTime.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit" });
+
   const isUserMessage = role === "user";
   const chatClass = isUserMessage ? "chat-end" : "chat-start";
   const chatBg = isUserMessage ? "bg-blue-50" : "bg-neutral-50";
 
-  // const {
-  //   features: { debugMode },
-  // } = useFeatureToggleContext();
+  const Timestamp = dynamic(() => import("./Timestamp"), { ssr: true });
 
-  // const shouldHideMessage = !debugMode && message?.role === "system";
-  // if (shouldHideMessage) {
-  //   return null;
-  // }
-
-  const Timestamp = dynamic(() => import("./Timestamp"), { ssr: false });
   return (
-    <div dir="ltr" className={"chat m-0 p-4" + " " + chatClass}>
+    <div dir="ltr" className={cn(styles.ChatMessage, "chat m-0 p-4", chatClass)}>
       <ChatMessageAvatar
         avatarUrl={avatarUrl}
         isUserMessage={isUserMessage}
@@ -43,9 +36,11 @@ export const ChatMessage = ({ avatarUrl, message, isTalking }: ChatMessageProps)
       <div
         className={`chat-bubble text-neutral-900 ${chatBg} flex max-w-full flex-col transition hover:bg-gray-100`}
       >
-        <Suspense fallback={<ReviewsSkeleton />}>
+        {parseMarkdown ? (
           <ParsedMarkdown content={content} className="text-sm md:text-base" />
-        </Suspense>
+        ) : (
+          <div>{content}</div>
+        )}
         <CopyButton
           type="link"
           text="Copy"

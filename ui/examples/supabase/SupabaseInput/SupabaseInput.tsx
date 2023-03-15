@@ -1,16 +1,15 @@
-import cn from 'classnames';
-import { ChangeEvent, InputHTMLAttributes } from 'react';
+import cn from "classnames";
+import { ChangeEvent, InputHTMLAttributes } from "react";
+import styles from "./Input.module.css";
 
-import styles from './Input.module.css';
-
-interface Props extends Omit<InputHTMLAttributes<any>, 'onChange'> {
+interface Props extends Omit<InputHTMLAttributes<any>, "onChange"> {
   className?: string;
   onChange: (value: string) => void;
 }
 const SupabaseInput = (props: Props) => {
   const { className, children, onChange, ...rest } = props;
 
-  const rootClassName = cn(styles.root, {}, className);
+  const rootClassName = cn(styles.SupbaseInput, {}, className);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {

@@ -1,7 +1,7 @@
-.root {
+.SupabaseInput {
   @apply w-full appearance-none border border-zinc-500 bg-black py-2 px-3 text-zinc-200 transition duration-150 ease-in-out;
 }
 
-.root:focus {
+.SupabaseInput:focus {
   @apply outline-none;
 }

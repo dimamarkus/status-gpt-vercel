@@ -1,27 +1,25 @@
-import { getResourceFieldsFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
-import { Bot } from "#/lib/types/cms";
-import { TabGroup } from "#/ui/examples/tab-group";
+import { Suspense } from "react";
+import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
+import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
 
 type StrapiPageProps = {
   children: React.ReactNode;
 };
 
-export default async function Layout({ children }: StrapiPageProps) {
-  const botMenuResults = await getResourceFieldsFromCms<Bot>("bots", ["name", "slug"]);
-  const botNames = botMenuResults.data || [];
+export const revalidate = 0;
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const bot = await fetchBot(params.slug);
+  const name = bot?.name || "AIdvisor Chat";
+  return { title: name + " | Status AIdvisor" };
+}
+
+export default async function Layout({ children }: StrapiPageProps) {
   return (
     <LandingLayout data-theme="light">
-      <TabGroup
-        path="/chat"
-        items={[
-          ...botNames.map((bot) => ({
-            text: `${bot.attributes.name}`,
-            slug: bot.attributes.slug,
-          })),
-        ]}
-      />
+      {/* @ts-expect-error Async Server Component */}
+      <ChatBotMenu />
       {children}
     </LandingLayout>
   );

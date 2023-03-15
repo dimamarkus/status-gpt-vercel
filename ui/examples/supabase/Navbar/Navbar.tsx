@@ -10,7 +10,7 @@ const Navbar = () => {
   const { user } = useAuthContext();
 
   return (
-    <nav className={styles.root}>
+    <nav className={styles.Navbar}>
       <a href="#skip" className="sr-only focus:not-sr-only">
         Skip to content
       </a>

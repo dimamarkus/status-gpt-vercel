@@ -1,20 +1,20 @@
 /* Suggestions Scrollbar */
 /* ---------------------------------------------------------------- */
 
-.root::-webkit-scrollbar {
+.ChatSuggestions::-webkit-scrollbar {
   padding: 0 2px;
   width: 10px;
   margin: 0 2px;
 }
 
-.root::-webkit-scrollbar-track {
+.ChatSuggestions::-webkit-scrollbar-track {
   padding: 0 2px;
   margin: 0 2px;
   /* width of the entire scrollbar */
   @apply bg-blue-50;
 }
 
-.root::-webkit-scrollbar-thumb {
+.ChatSuggestions::-webkit-scrollbar-thumb {
   padding: 0 2px;
   margin: 0 2px;
   /* width of the entire scrollbar */

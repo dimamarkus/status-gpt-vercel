@@ -66,6 +66,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
           <div className="collapse-title mb-1 flex min-h-0 justify-between p-0 pt-0 pb-3 font-semibold uppercase text-blue-900 md:mb-0">
             Questions You Can Try
             <ChevronRightIcon
+              width={20}
               className={
                 "h-5 w-5 text-inherit transition md:hidden" + " " + (isExpanded && "rotate-90")
               }

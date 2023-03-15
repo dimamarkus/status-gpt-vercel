@@ -1,4 +1,4 @@
-.root {
+.Navbar {
   @apply sticky top-0 z-40 bg-black transition-all duration-150;
 }
 
