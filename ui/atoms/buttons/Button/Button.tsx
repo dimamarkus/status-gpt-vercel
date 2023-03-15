@@ -50,23 +50,18 @@ export const Button = (props: ButtonProps) => {
           role="submit"
         />
       );
-      break;
 
     case "accent":
       return getBaseButtonWClasses("btn-accent");
-      break;
 
     case "secondary":
       return getBaseButtonWClasses("btn-outline btn-primary");
-      break;
 
     case "tertiary":
       return getBaseButtonWClasses("btn-primary btn-link");
-      break;
 
     case "link":
-      return getBaseButtonWClasses("btn-link");
-      break;
+      return getBaseButtonWClasses("btn-link display-block min-h-0 p-0 w-fit h-auto");
 
     case "hamburger":
       return (
@@ -74,11 +69,9 @@ export const Button = (props: ButtonProps) => {
           <Hamburger />
         </BaseButton>
       );
-      break;
 
     default:
       return getBaseButtonWClasses("btn-primary");
-      break;
   }
 };
 
