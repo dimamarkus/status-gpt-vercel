@@ -27,7 +27,12 @@ export const BaseLayout = ({
       data-theme={theme || "light"}
       onKeyDown={onKeyDown}
     >
-      <input className="drawer-toggle" type="checkbox" id={DEFAULT_SIDEBAR} />
+      <input
+        className="drawer-toggle"
+        type="checkbox"
+        id={DEFAULT_SIDEBAR}
+        aria-label="Show/hide main sidebar"
+      />
       {children}
       <aside className="drawer-side">
         <label className="drawer-overlay" htmlFor={DEFAULT_SIDEBAR}>

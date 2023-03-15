@@ -61,6 +61,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
             className="peer min-h-0"
             checked={isExpanded}
             onChange={() => null}
+            aria-label="Show/hide chat suggestions"
           />
           <div className="collapse-title mb-1 flex min-h-0 justify-between p-0 pt-0 pb-3 font-semibold uppercase text-blue-900 md:mb-0">
             Questions You Can Try
@@ -76,7 +77,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
                 <li key={index} className="w-full">
                   <button
                     type="submit"
-                    className="text-left text-blue-500"
+                    className="text-left text-blue-600"
                     title={"Ask: '" + prompt + "'"}
                     onClick={(e) => getAnswer(prompt)}
                   >

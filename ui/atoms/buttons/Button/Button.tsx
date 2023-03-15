@@ -47,7 +47,6 @@ export const Button = (props: ButtonProps) => {
           {...buttonProps}
           text={text}
           type="submit"
-          role="submit"
         />
       );
 
