@@ -1,21 +1,22 @@
+"use client";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./ChatSuggestions.module.scss";
 import { PERMANENT_SUGGESTIONS } from "#/app/chat/lib/constants";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
+import { useChatContext } from "#/lib/contexts/ChatContext";
+import loading from "#/app/chat/loading";
 
 type ChatSuggestionsProps = {
-  suggestions: string[] | null;
   className?: string;
-  loading?: boolean;
-  onClick: (question: string) => void;
 };
 
-export const ChatSuggestions = (props: ChatSuggestionsProps) => {
-  const { suggestions, onClick, loading, className = "" } = props;
+export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
+  const { chatLog, suggestions, answer, getAnswer, getSuggestions, suggestionsLoading } =
+    useChatContext();
   const useIsTablet = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(!useIsTablet);
   const {
@@ -26,7 +27,19 @@ export const ChatSuggestions = (props: ChatSuggestionsProps) => {
     ? [...(suggestions || []), ...PERMANENT_SUGGESTIONS]
     : suggestions;
 
-  if (displaySuggestions === null) {
+  const prevProp = useRef<string>();
+  useEffect(() => {
+    prevProp.current = answer;
+  });
+  const answerChanged = prevProp.current !== answer;
+
+  useEffect(() => {
+    if (answerChanged && !loading && chatLog) {
+      getSuggestions(chatLog);
+    }
+  }, [answerChanged, chatLog, getSuggestions]);
+
+  if (!displaySuggestions || displaySuggestions === null) {
     return null;
   }
 
@@ -38,7 +51,7 @@ export const ChatSuggestions = (props: ChatSuggestionsProps) => {
         className,
       )}
     >
-      {loading ? (
+      {suggestionsLoading ? (
         <LoadingDots />
       ) : (
         <div className="collapse" onClick={() => useIsTablet && setIsExpanded(!isExpanded)}>
@@ -65,7 +78,7 @@ export const ChatSuggestions = (props: ChatSuggestionsProps) => {
                     type="submit"
                     className="text-left text-blue-500"
                     title={"Ask: '" + prompt + "'"}
-                    onClick={(e) => onClick(prompt)}
+                    onClick={(e) => getAnswer(prompt)}
                   >
                     {prompt}
                   </button>

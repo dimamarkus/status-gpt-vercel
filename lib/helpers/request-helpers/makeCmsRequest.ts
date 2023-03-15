@@ -2,7 +2,7 @@
 
 import { HTTPMethod, makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { getCmsUrl } from "#/lib/helpers/url-helpers";
-import { CmsResource, CmsResourceSlug, CmsResponse } from "#/lib/types/cms";
+import { Bot, CmsResource, CmsResourceSlug, CmsResponse } from "#/lib/types/cms";
 import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/lib/types/strapi";
 
 // ============================================================================
@@ -34,7 +34,7 @@ export async function postToCms<TResponse extends CmsResource, TRequestBody exte
 }
 
 // ============================================================================
-//  CMS REOURCES
+//  GENERIC
 // ============================================================================
 
 export async function getResourcesFromCms<T extends CmsResource>(
@@ -82,4 +82,19 @@ export async function getResourceFieldsFromCms<TResource extends CmsResource>(
     .join("&");
 
   return await getResourcesFromCms<TResource>(resource, queryParams);
+}
+
+// ============================================================================
+//  REOURCES
+// ============================================================================
+export async function fetchBot(slug: Bot["slug"]): Promise<Bot | null> {
+  const botSearchResults = await filterResourceFromCms<Bot>("bots", "slug", slug);
+
+  if (!botSearchResults?.data || botSearchResults.data.length === 0) {
+    return null;
+  }
+
+  const bot = botSearchResults?.data[0].attributes;
+
+  return bot;
 }

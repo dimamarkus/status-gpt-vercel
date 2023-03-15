@@ -1,4 +1,5 @@
 import { SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
+import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
 import { GptMessage } from "#/app/chat/lib/openai";
 import { BOT_TRAINING_ORDER } from "#/lib/constants/settings";
 import { StatusChatMessage } from "#/lib/types";
@@ -33,4 +34,14 @@ export const createSuggestionsPrompt = (context: StatusChatMessage[]) => {
   const messageQuery = [...messages, createChatUserMessage(SUGGESTIONS_REQUEST)];
 
   return messageQuery;
+};
+
+export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | null => {
+  if (!bot) return null;
+
+  const trainingContent = collateBotTraining(bot);
+  const trainingMessage = createChatSystemMessage(trainingContent);
+  const startingChatLog = [trainingMessage, createChatBotMessage(bot.welcome_message || "")];
+
+  return startingChatLog;
 };

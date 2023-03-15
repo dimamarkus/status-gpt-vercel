@@ -1,8 +1,6 @@
 "use client";
 import cn from "classnames";
 import React from "react";
-import { Toaster } from "react-hot-toast";
-
 import {
   avenirFont,
   exoFont,
@@ -14,11 +12,10 @@ import {
   tiemposFont,
   tiemposHeadlineFont,
 } from "#/app/fonts";
-import { DEFAULT_SIDEBAR } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
 import { useSidebarContext } from "#/lib/contexts/SidebarContext";
-import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
+import BaseLayout from "#/ui/_base/BaseLayout/BaseLayout";
 
 type BaseSpaLayoutProps = {
   children?: React.ReactNode;
@@ -39,10 +36,11 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
   };
 
   return (
-    <body
-      className={cn("drawer drawer-end", globalFont, className, darkMode && "dark")}
+    <BaseLayout
+      className={cn(globalFont, className, darkMode && "dark")}
       data-theme={features.theme}
       onKeyDown={handleKeyDown}
+      sidebar={sidebar}
     >
       <style jsx global>
         {`
@@ -60,17 +58,8 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
           }
         `}
       </style>
-      <FeaturesPanel />
-      <Toaster position="bottom-right" reverseOrder={false} toastOptions={{ duration: 2000 }} />
-      <input className="drawer-toggle" type="checkbox" id={DEFAULT_SIDEBAR} />
       {children}
-      <aside className="drawer-side">
-        <label className="drawer-overlay" htmlFor={DEFAULT_SIDEBAR}>
-          Close
-        </label>
-        {sidebar}
-      </aside>
-    </body>
+    </BaseLayout>
   );
 };
 export default BaseSpaLayout;

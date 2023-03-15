@@ -1,9 +1,12 @@
+"use client";
 import cn from "classnames";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
 import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAvatar";
 import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
 import { StatusChatMessage } from "#/lib/types";
+import { ReviewsSkeleton } from "#/app/examples/streaming/_components/reviews";
 
 type ChatMessageProps = {
   avatarUrl?: string;
@@ -40,13 +43,15 @@ export const ChatMessage = ({ avatarUrl, message, isTalking }: ChatMessageProps)
       <div
         className={`chat-bubble text-neutral-900 ${chatBg} flex max-w-full flex-col transition hover:bg-gray-100`}
       >
-        <ParsedMarkdown content={content} className="text-sm md:text-base" />
+        <Suspense fallback={<ReviewsSkeleton />}>
+          <ParsedMarkdown content={content} className="text-sm md:text-base" />
+        </Suspense>
         <CopyButton
           type="link"
           text="Copy"
           content={content}
           className={cn(
-            "text-xs text-neutral-300 transition hover:text-blue-500",
+            "underline-none py-1 text-xs capitalize text-neutral-300 no-underline transition hover:text-blue-500",
             isUserMessage ? "text-left" : "text-right",
           )}
         />
