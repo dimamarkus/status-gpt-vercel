@@ -20,7 +20,6 @@ export type ChatFormFields = {
 
 export const ChatInput = (props: ChatInputProps) => {
   const { className } = props;
-  // const { inputFormContext, onSubmit, onFocus, onBlur, onHamburgerClick, className } = props;
   const { inputFormContext, getAnswer, setShowSuggestions } = useChatContext();
   const isMobile = useIsMobile();
 

@@ -1,0 +1,21 @@
+{
+  "name": "StatusMoney AIdvisor",
+  "short_name": "AIDvisor",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000030",
+  "theme_color": "#3172F5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

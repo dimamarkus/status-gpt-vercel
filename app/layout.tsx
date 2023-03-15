@@ -15,6 +15,12 @@ export const metadata = {
   description: "Your personal financial advisor powered by AI",
   favicon: "/favicon/favicon.ico",
   icons: {
+    other: [
+      {
+        rel: "apple-touch-icon",
+        url: "/favicon/apple-touch-icon.png",
+      },
+    ],
     appleIcon: "/favicon/apple-touch-icon.png",
     appleIcon120: "/favicon/apple-touch-icon-120x120.png",
     appleIcon152: "/favicon/apple-touch-icon-152x152.png",
@@ -30,6 +36,8 @@ export const metadata = {
     msTileImage: "/favicon/mstile-144x144.png",
     msTileColor: "#000030",
   },
+  manifest: "/manifest.json",
+  themeColor: "#000030",
   openGraph: {
     title: "AI Financial Coach | StatusMoney",
     description: "Your personal financial advisor powered by AI.",
