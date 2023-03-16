@@ -15,13 +15,9 @@ export const LandingLayout = ({ children, ssr, className }: LandingLayoutProps) 
   const Component = ssr ? BaseLayout : BaseSpaLayout;
   return (
     <Component>
-      <div
-        className={cn(styles.LandingLayout, "drawer-content m-auto w-full max-w-6xl", className)}
-      >
+      <div className={cn(styles.root, "drawer-content", className)}>
         <TopBar />
-        <main role="main">
-          <div className="chat-container flex h-full max-h-full flex-col">{children}</div>
-        </main>
+        <main role="main">{children}</main>
       </div>
     </Component>
   );

@@ -1,6 +1,14 @@
-.LandingLayout {
+.root {
   --header-height: 96px;
+
+  @apply m-auto;
+  @apply w-full;
+  @apply max-w-6xl;
+
   main {
+    @apply flex;
+    @apply max-h-full;
+    @apply flex-col;
     height: calc(100% - var(--header-height));
   }
 }

@@ -8,6 +8,7 @@ import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import ResizablePanel from "#/ui/containers/ResizablePanel/ResizablePanel";
 import { ChatMessage } from "#/ui/modules/Chat/ChatMessage/ChatMessage";
 import FullScreenToggleButton from "#/ui/molecules/actionButtons/FullScreenToggleButton/FullScreenToggleButton";
+import ChatMessageStreamed from "#/ui/modules/Chat/ChatMessageStreamed/ChatMessageStreamed";
 
 type ChatMessagesProps = {
   botAvatarUrl?: string;
@@ -35,32 +36,16 @@ export const ChatMessages = (props: ChatMessagesProps) => {
       )
     : "No chatbot found";
 
-  const innerChild = (
-    <>
-      {messagesChild}
-      {!!streamedAnswer && (
-        <ChatMessage
-          avatarUrl={botAvatarUrl}
-          key="streamedAnswer"
-          message={createChatBotMessage(streamedAnswer)}
-          parseMarkdown
-          isTalking={loading}
-        />
-      )}
-    </>
-  );
-
   return (
-    <div className={cn(styles.ChatMessages, className)}>
-      {animated ? (
-        <ResizablePanel>
-          <AnimatePresence mode="wait">
-            <motion.div className={cn(styles.chatLog, "my-4 h-full")}>{innerChild}</motion.div>
-          </AnimatePresence>
-        </ResizablePanel>
-      ) : (
-        <div className={cn(styles.chatLog, "h-full")}>{innerChild}</div>
-      )}
+    <div className={cn(styles.root, className)}>
+      {messagesChild}
+      <ChatMessageStreamed
+        avatarUrl={botAvatarUrl}
+        key="streamedAnswer"
+        content={streamedAnswer}
+        parseMarkdown
+        isTalking={loading}
+      />
     </div>
   );
 };

@@ -27,14 +27,14 @@ export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: Ch
   const Timestamp = dynamic(() => import("./Timestamp"), { ssr: true });
 
   return (
-    <div dir="ltr" className={cn(styles.ChatMessage, "chat m-0 p-4", chatClass)}>
-      <ChatMessageAvatar
+    <div className={cn(styles.root, "chat m-0 p-4", chatClass)} dir="ltr">
+      {/* <ChatMessageAvatar
         avatarUrl={avatarUrl}
         isUserMessage={isUserMessage}
         isTalking={isTalking}
         className={role === "system" ? "hidden" : ""}
-      />
-      { !isSystemMessage && <Timestamp time={time} /> }
+      /> */}
+      {!isSystemMessage && <Timestamp time={time} />}
       <div
         className={cn(
           `chat-bubble text-neutral-900 ${chatBg} flex max-w-full flex-col transition`,

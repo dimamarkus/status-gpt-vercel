@@ -1,4 +1,9 @@
 .root {
+  @apply chat;
+  @apply chat-start;
+  @apply m-0;
+  @apply p-4;
+
   .chat-end .chat-image {
     margin-right: -8px;
     margin-left: -8px;

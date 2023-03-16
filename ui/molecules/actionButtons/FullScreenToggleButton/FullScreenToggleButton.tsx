@@ -8,7 +8,7 @@ export const FullScreenToggleButton = () => {
 
   return (
     <button
-      className={styles.FullScreenToggleButton}
+      className={styles.root}
       onClick={() => toggleFullScreen()}
       title={(!isFullScreen ? "Enter" : "Exit") + " Full-screen"}
     >

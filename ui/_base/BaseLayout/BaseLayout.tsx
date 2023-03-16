@@ -23,7 +23,7 @@ export const BaseLayout = ({
 }: BaseLayoutProps) => {
   return (
     <body
-      className={cn(styles.BaseLayout, "drawer drawer-end", className)}
+      className={cn(styles.root, "drawer drawer-end", className)}
       data-theme={theme || "light"}
       onKeyDown={onKeyDown}
     >

@@ -1,4 +1,4 @@
-.ChatMessages {
+.root {
   // display: flex;
   // align-items: flex-end;
   color: inherit;
@@ -11,14 +11,14 @@
   @apply bg-base-100;
 }
 
-.ChatMessages::-webkit-scrollbar {
+.root::-webkit-scrollbar {
   padding: 0 2px;
   width: 8px;
   margin: 0 2px;
   /* width of the entire scrollbar */
 }
 
-.ChatMessages::-webkit-scrollbar-track {
+.root::-webkit-scrollbar-track {
   padding: 0 2px;
   margin: 0 2px;
   /* width of the entire scrollbar */
@@ -26,7 +26,7 @@
   @apply bg-base-100;
 }
 
-.ChatMessages::-webkit-scrollbar-thumb {
+.root::-webkit-scrollbar-thumb {
   padding: 0 2px;
   margin: 0 2px;
   /* width of the entire scrollbar */

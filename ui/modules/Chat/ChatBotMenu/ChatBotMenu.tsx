@@ -11,16 +11,17 @@ export async function ChatBotMenu() {
   const botNames = botMenuResults.data || [];
 
   return (
-    <TabGroup
-      className={styles.ChatBotMenu}
-      path="/chat"
-      items={[
-        ...botNames.map((bot) => ({
-          text: `${bot.attributes.name}`,
-          slug: bot.attributes.slug,
-        })),
-      ]}
-    />
+    <nav className="root">
+      <TabGroup
+        path="/chat"
+        items={[
+          ...botNames.map((bot) => ({
+            text: `${bot.attributes.name}`,
+            slug: bot.attributes.slug,
+          })),
+        ]}
+      />
+    </nav>
   );
 }
 

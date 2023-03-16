@@ -1,26 +1,52 @@
 /* Suggestions Scrollbar */
 /* ---------------------------------------------------------------- */
-
-.ChatSuggestions::-webkit-scrollbar {
-  padding: 0 2px;
-  width: 10px;
-  margin: 0 2px;
-}
-
-.ChatSuggestions::-webkit-scrollbar-track {
-  padding: 0 2px;
-  margin: 0 2px;
-  /* width of the entire scrollbar */
+.root {
+  @apply flex-shrink-0;
+  @apply border-neutral-200;
   @apply bg-blue-50;
-}
+  @apply p-4;
+  @apply pb-0;
+  @apply text-sm;
+  @apply md:shadow-none;
+  @apply lg:bg-inherit;
+  @apply lg:p-0;
 
-.ChatSuggestions::-webkit-scrollbar-thumb {
-  padding: 0 2px;
-  margin: 0 2px;
-  /* width of the entire scrollbar */
+  h3 {
+    @apply collapse-title;
+    @apply mb-1;
+    @apply flex;
+    @apply min-h-0;
+    @apply justify-between;
+    @apply p-0;
+    @apply pt-0;
+    @apply pb-3;
+    @apply font-semibold;
+    @apply uppercase;
+    @apply text-blue-900;
+    @apply md:mb-0;
+  }
 
-  border-radius: 16px;
-  border: 1px solid;
-  @apply border-blue-50;
-  @apply bg-neutral-300;
+  &::-webkit-scrollbar {
+    padding: 0 2px;
+    width: 10px;
+    margin: 0 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    padding: 0 2px;
+    margin: 0 2px;
+    /* width of the entire scrollbar */
+    @apply bg-blue-50;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    padding: 0 2px;
+    margin: 0 2px;
+    /* width of the entire scrollbar */
+
+    border-radius: 16px;
+    border: 1px solid;
+    @apply border-blue-50;
+    @apply bg-neutral-300;
+  }
 }

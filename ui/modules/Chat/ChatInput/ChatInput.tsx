@@ -1,7 +1,6 @@
 "use client";
 import cn from "classnames";
 import { useEffect, useState } from "react";
-import { UseFormReturn } from "react-hook-form";
 import styles from "./ChatInput.module.scss";
 import { CHATBOX_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
@@ -44,7 +43,7 @@ export const ChatInput = (props: ChatInputProps) => {
 
   return (
     <form
-      className={cn(styles.ChatInput, "form-control relative flex-row md:flex-col", className)}
+      className={cn(styles.root, className)}
       onSubmit={submitMessage}
       onKeyDown={(e) => {
         if (e.key === "Enter" && !e.shiftKey) {

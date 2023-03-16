@@ -41,7 +41,8 @@ export default async function Page({ params }: BotPageProps) {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      <ChatSuggestions className="mt-auto max-h-24 overflow-y-auto sm:max-h-fit" />
+      {/* <ChatSuggestions className="mt-auto max-h-24 overflow-y-auto sm:max-h-fit" /> */}
+      <ChatSuggestions />
     </>
   );
 

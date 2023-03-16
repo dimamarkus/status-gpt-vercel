@@ -44,13 +44,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   }
 
   return (
-    <div
-      className={cn(
-        styles.ChatSuggestions,
-        "max-h-48 flex-shrink-0 border-neutral-200 bg-blue-50 p-4 pb-0 text-sm md:shadow-none lg:bg-inherit lg:p-0",
-        className,
-      )}
-    >
+    <div className={cn(styles.root, className)}>
       {suggestionsLoading ? (
         <LoadingDots />
       ) : (
@@ -63,15 +57,13 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
             onChange={() => null}
             aria-label="Show/hide chat suggestions"
           />
-          <div className="collapse-title mb-1 flex min-h-0 justify-between p-0 pt-0 pb-3 font-semibold uppercase text-blue-900 md:mb-0">
+          <h3>
             Questions You Can Try
             <ChevronRightIcon
               width={20}
-              className={
-                "h-5 w-5 text-inherit transition md:hidden" + " " + (isExpanded && "rotate-90")
-              }
+              className={cn("h-5 w-5 text-inherit transition md:hidden", isExpanded && "rotate-90")}
             />
-          </div>
+          </h3>
           <ul className="collapse-content space-y-2 p-0 peer-checked:text-secondary-content">
             {displaySuggestions !== null &&
               displaySuggestions.map((prompt, index) => (

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import React from 'react';
-import useMeasure from 'react-use-measure';
-import styles from './ResizablePanel.module.scss';
+import { motion } from "framer-motion";
+import React from "react";
+import useMeasure from "react-use-measure";
+import styles from "./ResizablePanel.module.scss";
 
 type ResizablePanelProps = {
   children?: React.ReactNode;
@@ -15,14 +15,12 @@ export const ResizablePanel = (props: ResizablePanelProps) => {
 
   return (
     <motion.div
-      className={
-        styles.ResizablePanel + ' ' + 'relative w-full overflow-hidden'
-      }
+      className={styles.root + " " + "relative w-full overflow-hidden"}
       animate={height ? { height } : {}}
       style={height ? { height } : {}}
-      transition={{ type: 'tween', duration: 0.5 }}
+      transition={{ type: "tween", duration: 0.5 }}
     >
-      <div ref={ref} className={height ? 'absolute inset-x-0' : 'relative'}>
+      <div ref={ref} className={height ? "absolute inset-x-0" : "relative"}>
         {children}
       </div>
     </motion.div>
