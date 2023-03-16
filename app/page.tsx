@@ -18,13 +18,11 @@ type BotPageProps = {
 
 export default async function Page({ params }: BotPageProps) {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
-  console.log("Default bot:", bot);
 
   const botAvatarUrl = !!bot?.avatar?.data
     ? getMediaUrl(bot.avatar.data.attributes.url)
     : undefined;
   const startingChatLog = bot ? getStartingChatLog(bot) : null;
-  console.log("startingChatLog", startingChatLog);
 
   const sidebar = (
     <>
@@ -34,7 +32,7 @@ export default async function Page({ params }: BotPageProps) {
   );
 
   return (
-    <LandingLayout data-theme="light">
+    <LandingLayout>
       <ChatContextProvider startingChatLog={startingChatLog}>
         <ChatLayout sidebar={sidebar}>
           <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />

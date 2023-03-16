@@ -7,27 +7,27 @@ export const DEFAULT_SIDEBAR = "sidebar-pane";
 
 export const MODELS = [CHAT_GPT_MODEL, DAVINCI_MODEL] as OpenAiModel[];
 export const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
-export const THEMES: Theme[] = ["light", "dark", "statusLight", "statusDark", "business"];
+export const THEMES: Theme[] = ["light", "dark", "statusAlt1", "statusAlt2", "statusAlt3"];
 export const FONTS: Font[] = [
   "sans",
   "serif",
 
-  "graphik",
-  "tiempos",
-  "tiemposHeadline",
+  // "graphik",
+  // "tiempos",
+  // "tiemposHeadline",
 
-  "avenir",
-  "exo",
-  "inter",
-  "lato",
-  "raleway",
-  "montserrat",
+  // "avenir",
+  // "exo",
+  // "inter",
+  // "lato",
+  // "raleway",
+  // "montserrat",
 ];
 
 export const DEFAULT_FEATURES = {
   font: "graphik" as Font,
   layout: "veritcal" as Layout,
-  theme: "statusLight" as Theme,
+  theme: "light" as Theme,
   model: CHAT_GPT_MODEL as OpenAiModel,
   debugMode: false,
   useStream: true,

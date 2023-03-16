@@ -24,7 +24,7 @@ export const createChatUserMessage = (content: GptMessage["content"]): StatusCha
 
 export const createSuggestionsPrompt = (context: StatusChatMessage[]) => {
   const messages = context.map(({ role, content }) => ({ role, content }));
-  const messageQuery = [...messages, createChatUserMessage(SUGGESTIONS_REQUEST)];
+  const messageQuery = [...messages, { role: "user", content: SUGGESTIONS_REQUEST } as GptMessage];
 
   return messageQuery;
 };

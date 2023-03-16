@@ -16,7 +16,7 @@ export type Font =
   | "montserrat"
   | "raleway";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
-export type Theme = "light" | "dark" | "statusLight" | "statusDark" | "business";
+export type Theme = "light" | "dark" | "statusAlt1" | "statusAlt2" | "statusAlt3";
 
 export type Features = {
   font: Font;

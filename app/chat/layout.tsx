@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function Layout({ children }: StrapiPageProps) {
   return (
-    <LandingLayout data-theme="light">
+    <LandingLayout>
       {/* @ts-expect-error Async Server Component */}
       <ChatBotMenu />
       {children}

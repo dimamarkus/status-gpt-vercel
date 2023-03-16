@@ -8,6 +8,7 @@ import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
 import { useChatContext } from "#/lib/contexts/ChatContext";
+import Spinner from "#/ui/atoms/icons/Spinner";
 
 type ChatSuggestionsProps = {
   className?: string;
@@ -41,11 +42,13 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   if (!displaySuggestions || displaySuggestions === null) {
     return null;
   }
-
+  const shimmer = `relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent`;
   return (
     <div className={cn(styles.root, className)}>
-      {suggestionsLoading ? (
-        <LoadingDots />
+      {loading || suggestionsLoading ? (
+        <div className="m-4 mb-8 ml-0 text-blue-400">
+          <Spinner />
+        </div>
       ) : (
         <div className="collapse" onClick={() => useIsTablet && setIsExpanded(!isExpanded)}>
           <input

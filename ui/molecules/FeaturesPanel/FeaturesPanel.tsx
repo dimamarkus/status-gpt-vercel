@@ -1,11 +1,10 @@
 "use client";
-import Link from "next/link";
 import { OpenAiModel } from "#/app/chat/lib/openai";
-import { FONTS, MODELS, THEMES } from "#/lib/constants/settings";
 import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import Button from "#/ui/atoms/buttons/Button/Button";
+import Link from "next/link";
 
 const FeaturesPanel = () => {
   const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();
@@ -30,21 +29,20 @@ const FeaturesPanel = () => {
     return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
   }
 
-  const getOptionTogggle = (name: "debugMode" | "useStream", title?: string) => {
+  const getOptionCheckbox = (name: "debugMode" | "useStream", title?: string) => {
     const currentState = features[name];
     return (
-      <div>
-        <label htmlFor={name} className="label">
-          <span className="label-text uppercase text-base-100">{title}</span>
-        </label>
+      <label htmlFor={name} className="label cursor-pointer">
+        <span className="label-text uppercase text-base-100">{title}</span>
         <input
+          id={name}
           name={name}
           type="checkbox"
-          className="checkbox-primary"
+          className="checkbox-primary checkbox"
           checked={currentState}
           onChange={(event) => handleSetFeature(name, !currentState)}
         />
-      </div>
+      </label>
     );
   };
 
@@ -92,15 +90,27 @@ const FeaturesPanel = () => {
       );
     });
   };
-
+  const darkMode = features.theme === "dark";
   const menu = areFeaturesShown && (
     <div className="absolute top-0 left-0 z-0 flex flex-col gap-4 rounded-br-md bg-black/75 p-8 pt-4 pl-10">
-      {getOptionDropdown("theme", THEMES)}
+      <label htmlFor="darkMode" className="label cursor-pointer">
+        <span className="label-text uppercase text-base-100">☀️</span>
+        <input
+          id="darkMode"
+          name="darkMode"
+          type="checkbox"
+          className="toggle-primary toggle"
+          checked={darkMode}
+          onChange={(event) => handleSetFeature("theme", darkMode ? "light" : "dark")}
+        />
+        <span className="label-text uppercase text-base-100">🌙</span>
+      </label>
+      {/* {getOptionDropdown("theme", THEMES)} */}
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
-      {getOptionDropdown("font", FONTS)}
+      {/* {getOptionDropdown("font", FONTS)} */}
       {/* {getOptionRadio("model", MODELS)} */}
-      {getOptionTogggle("useStream", "Stream Response")}
-      {getOptionTogggle("debugMode", "Prompt Debug")}
+      {getOptionCheckbox("useStream", "Stream?")}
+      {getOptionCheckbox("debugMode", "Debug?")}
       <Link href="/chat" className="btn-link btn">
         All Bots
       </Link>

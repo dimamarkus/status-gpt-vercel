@@ -36,7 +36,7 @@ const TopBar = () => {
     </div>
   );
   return (
-    <header className="navbar" data-theme="light">
+    <header className="navbar">
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />

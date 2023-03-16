@@ -16,18 +16,18 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
-        serif: ["var(--font-inter)", ...fontFamily.serif],
+        serif: ["var(--font-tiemposHeadline)", ...fontFamily.serif],
 
-        tiempos: ["var(--font-tiempos)", ...fontFamily.serif],
-        graphik: ["var(--font-graphik)", ...fontFamily.sans],
-        tiemposHeadline: ["var(--font-tiemposHeadline)", ...fontFamily.serif],
+        // tiempos: ["var(--font-tiempos)", ...fontFamily.serif],
+        // graphik: ["var(--font-graphik)", ...fontFamily.sans],
+        // tiemposHeadline: ["var(--font-tiemposHeadline)", ...fontFamily.serif],
 
-        avenir: ["var(--font-avenir)", ...fontFamily.sans],
-        exo: ["var(--font-exo)", ...fontFamily.sans],
-        inter: ["var(--font-inter)", ...fontFamily.sans],
-        lato: ["var(--font-lato)", ...fontFamily.sans],
-        raleway: ["var(--font-raleway)", ...fontFamily.sans],
-        montserrat: ["var(--font-montserrat)", ...fontFamily.sans],
+        // avenir: ["var(--font-avenir)", ...fontFamily.sans],
+        // exo: ["var(--font-exo)", ...fontFamily.sans],
+        // inter: ["var(--font-inter)", ...fontFamily.sans],
+        // lato: ["var(--font-lato)", ...fontFamily.sans],
+        // raleway: ["var(--font-raleway)", ...fontFamily.sans],
+        // montserrat: ["var(--font-montserrat)", ...fontFamily.sans],
       },
       // https://vercel.com/design/color
       colors: {

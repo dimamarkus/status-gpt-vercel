@@ -13,7 +13,7 @@ type ChatLayoutProps = {
 const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const { isFullScreen } = useFullScreenContext();
   return (
-    <section className={cn(styles.root, isFullScreen && styles.fullScreen)}>
+    <section className={cn(styles.root, isFullScreen && styles.fullScreen, "dark:bg-blue-900")}>
       <div>
         <FullScreenToggleButton />
         {children}

@@ -1,12 +1,12 @@
-import '#/styles/globals.scss';
-import type { Preview } from '@storybook/react';
+import "#/styles/globals.scss";
+import type { Preview } from "@storybook/react";
 
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: 'light',
+      default: "light",
     },
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -18,16 +18,16 @@ const preview: Preview = {
 
 export const globalTypes = {
   themes: {
-    defaultValues: ['light', 'dark', 'business'],
+    defaultValues: ["light", "dark"],
   },
   theme: {
-    name: 'Theme',
-    description: 'Global theme for components',
-    defaultValue: 'light',
+    name: "Theme",
+    description: "Global theme for components",
+    defaultValue: "light",
     toolbar: {
-      icon: 'circlehollow',
+      icon: "circlehollow",
       // Array of plain string values or MenuItem shape (see below)
-      items: ['light', 'dark', 'statusLight', 'business'],
+      items: ["light", "dark", "statusAlt1", "statusAlt2", "statusAlt3"],
       // Property that specifies if the name of the item will be displayed
       showName: true,
       // Change title based on selected value

@@ -70,7 +70,7 @@ export const ChatInput = (props: ChatInputProps) => {
           errors={errors}
           onFocus={() => isMobile && setShowSuggestions(false)}
           onBlur={() => setShowSuggestions(true)}
-          rows={1}
+          rows={2}
           required
           autoFocus
           register={register}
