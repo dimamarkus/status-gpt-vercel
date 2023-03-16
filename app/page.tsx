@@ -3,20 +3,13 @@ import { DEFAULT_CHAT_BOT } from "#/lib/constants/settings";
 import { ChatContextProvider } from "#/lib/contexts/ChatContext";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
-import { Bot } from "#/lib/types/cms";
 import ChatLayout from "#/ui/layouts/ChatLayout/ChatLayout";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 
-type BotPageProps = {
-  params: {
-    slug: keyof Bot;
-  };
-};
-
-export default async function Page({ params }: BotPageProps) {
+export default async function Page() {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
 
   const botAvatarUrl = !!bot?.avatar?.data

@@ -35,7 +35,7 @@ export const DEFAULT_FEATURES = {
 
 export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
 
-export const CHAT_BOT_INPUT_MAX_CHARS = 750;
+export const CHAT_BOT_INPUT_MAX_CHARS = 1000;
 
 export const CHAT_GPT_SETTINGS = {
   temperature: 0.5,

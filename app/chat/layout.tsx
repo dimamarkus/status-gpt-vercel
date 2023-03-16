@@ -10,7 +10,7 @@ type StrapiPageProps = {
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const bot = await fetchBot(params.slug);
+  const bot = !!params.slug ? await fetchBot(params.slug) : null;
   const name = bot?.name || "AIdvisor Chat";
   return { title: name + " | Status AIdvisor" };
 }

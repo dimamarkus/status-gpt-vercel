@@ -54,7 +54,7 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
     name: name,
     "aria-label": label,
     "aria-invalid": !!(errors && errorMessages),
-    maxlength: CHAT_BOT_INPUT_MAX_CHARS,
+    maxLength: CHAT_BOT_INPUT_MAX_CHARS,
     onChange,
     ...props,
   };
