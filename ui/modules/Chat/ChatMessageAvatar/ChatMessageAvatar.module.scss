@@ -1,2 +1,13 @@
 .ChatMessageAvatar {
+  // @apply items-center;
+  @apply chat-image;
+  @apply flex;
+  @apply h-16;
+  @apply w-16;
+  // @apply justify-start;
+  @apply text-center;
+  align-self: auto;
+  margin-top: 20px;
+  border-radius: 20%;
+  overflow: hidden;
 }

@@ -1,14 +1,10 @@
 "use client";
-import cn from "classnames";
-import { AnimatePresence, motion } from "framer-motion";
-import styles from "./ChatMessages.module.scss";
 import { createChatBotMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import ResizablePanel from "#/ui/containers/ResizablePanel/ResizablePanel";
 import { ChatMessage } from "#/ui/modules/Chat/ChatMessage/ChatMessage";
-import FullScreenToggleButton from "#/ui/molecules/actionButtons/FullScreenToggleButton/FullScreenToggleButton";
-import ChatMessageStreamed from "#/ui/modules/Chat/ChatMessageStreamed/ChatMessageStreamed";
+import cn from "classnames";
+import styles from "./ChatMessages.module.scss";
 
 type ChatMessagesProps = {
   botAvatarUrl?: string;
@@ -17,11 +13,10 @@ type ChatMessagesProps = {
 
 export const ChatMessages = (props: ChatMessagesProps) => {
   const { botAvatarUrl, className } = props;
-  const animated = true;
   const { features } = useFeatureToggleContext();
-
   const { chatLog, streamedAnswer, loading } = useChatContext();
   const shouldParseMarkdown = !!chatLog && chatLog?.length > 2;
+
   const messagesChild = chatLog
     ? chatLog.map(
         (message, index) =>
@@ -39,12 +34,12 @@ export const ChatMessages = (props: ChatMessagesProps) => {
   return (
     <div className={cn(styles.root, className)}>
       {messagesChild}
-      <ChatMessageStreamed
+      <ChatMessage
+        key="lastMessage"
+        message={streamedAnswer ? createChatBotMessage(streamedAnswer) : null}
         avatarUrl={botAvatarUrl}
-        key="streamedAnswer"
-        content={streamedAnswer}
-        parseMarkdown
-        isTalking={loading}
+        parseMarkdown={shouldParseMarkdown}
+        className={!streamedAnswer ? "hidden" : ""}
       />
     </div>
   );

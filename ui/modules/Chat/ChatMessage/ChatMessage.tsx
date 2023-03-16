@@ -1,20 +1,25 @@
 "use client";
 import cn from "classnames";
-import dynamic from "next/dynamic";
 import styles from "./ChatMessage.module.scss";
 import { StatusChatMessage } from "#/lib/types";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
+import Timestamp from "#/ui/modules/Chat/ChatMessage/Timestamp";
 import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAvatar";
 import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
 
 type ChatMessageProps = {
   avatarUrl?: string;
-  message: StatusChatMessage;
+  message: StatusChatMessage | null;
   isTalking?: boolean;
   parseMarkdown?: boolean;
+  className?: string;
 };
 
-export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: ChatMessageProps) => {
+export const ChatMessage = (props: ChatMessageProps) => {
+  const { avatarUrl, message, isTalking, parseMarkdown, className } = props;
+  if (!message) {
+    return null;
+  }
   const { role, content } = message;
   const currentDateTime = new Date();
   const time = currentDateTime.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit" });
@@ -24,16 +29,14 @@ export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: Ch
   const chatClass = isUserMessage ? "chat-end" : "chat-start";
   const chatBg = isUserMessage ? "bg-blue-50" : "bg-neutral-50";
 
-  const Timestamp = dynamic(() => import("./Timestamp"), { ssr: true });
-
   return (
-    <div className={cn(styles.root, "chat m-0 p-4", chatClass)} dir="ltr">
-      {/* <ChatMessageAvatar
+    <div className={cn(styles.root, "chat m-0 p-4", chatClass, className)} dir="ltr">
+      <ChatMessageAvatar
         avatarUrl={avatarUrl}
         isUserMessage={isUserMessage}
         isTalking={isTalking}
         className={role === "system" ? "hidden" : ""}
-      /> */}
+      />
       {!isSystemMessage && <Timestamp time={time} />}
       <div
         className={cn(
@@ -41,11 +44,7 @@ export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: Ch
           isSystemMessage ? "bg-orange-100" : "",
         )}
       >
-        {parseMarkdown ? (
-          <ParsedMarkdown content={content} className="text-sm md:text-base" />
-        ) : (
-          <div>{content}</div>
-        )}
+        <ParsedMarkdown content={content} className="text-sm md:text-base" />
         <CopyButton
           type="link"
           text="Copy"

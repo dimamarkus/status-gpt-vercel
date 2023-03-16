@@ -1,9 +1,9 @@
 "use client";
-
 import cn from "classnames";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./Avatar.module.scss";
+
 import { useAvatarContext } from "#/lib/contexts/AvatarContext";
 
 type AvatarProps = {
@@ -58,7 +58,7 @@ const Avatar = ({ isUserMessage }: AvatarProps) => {
 
   return isUserMessage ? (
     <div className="placeholder avatar flex-shrink-0">
-      <div className="rounded-full bg-blue-50 text-neutral md:w-16">
+      <div className="rounded-md bg-blue-100 text-blue-900 md:w-16">
         <strong>You</strong>
       </div>
     </div>
@@ -72,7 +72,7 @@ const Avatar = ({ isUserMessage }: AvatarProps) => {
       )}
       onClick={handleClick}
     >
-      <div className="flex w-12 rounded-full md:w-16">
+      <div className="flex w-12 rounded-md md:w-16">
         {/* ! TODO - Fix the progrss bar without Daisy ui */}
         <div
         // value={progress}

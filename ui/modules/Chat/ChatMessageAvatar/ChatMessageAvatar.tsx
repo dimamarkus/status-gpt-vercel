@@ -15,18 +15,18 @@ type ChatMessageAvatarProps = {
 export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
   const { avatarUrl, isUserMessage, isTalking, className } = props;
   const botAvatar = avatarUrl ? (
-    <Image src={avatarUrl} alt="avatar" width={64} height={64} className="aspect-square" />
+    <Image
+      src={avatarUrl}
+      alt="avatar"
+      width={64}
+      height={64}
+      className="aspect-square object-cover"
+    />
   ) : (
     <Mouth animated={!!isTalking} />
   );
   return (
-    <div
-      className={cn(
-        styles.ChatMessageAvatar,
-        "align-center chat-image flex h-16 w-16 justify-center text-center",
-        className,
-      )}
-    >
+    <div className={cn(styles.ChatMessageAvatar, className)}>
       {isUserMessage ? <Avatar isUserMessage /> : botAvatar}
     </div>
   );
