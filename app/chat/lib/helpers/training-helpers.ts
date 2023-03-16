@@ -54,7 +54,7 @@ export const collateBotTraining = (bot: Bot): string => {
     syntax: getTrainingContent(chat_syntax_id),
     style: getTrainingContent(chat_style_id),
     training,
-    json_training: JSON.stringify(json_training),
+    json_training: !!json_training ? JSON.stringify(json_training) : "",
   };
 
   const trainingArray = BOT_TRAINING_ORDER.map((item) => trainingObject[item]).flat();

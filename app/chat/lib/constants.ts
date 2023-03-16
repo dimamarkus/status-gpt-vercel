@@ -16,6 +16,7 @@ export const EXAMPLE_PROMPTS = [
   "What tax implications should I consider when planning my retirement?",
   "What investments should I consider to maximize my retirement savings?",
 ];
+
 export const MAIN_PROMPT = "What are 5 helpful websites for financial advice?";
 export const SUGGESTIONS_REQUEST = `Given our discussion, suggest 3 questions you think I should ask you (Stat) as follow up. Make them in the form of a JavaScript array of question strings with no other characters besides that whatsoever. For example: ["What is your name?", "What is your favorite food?"]`;
 export const PERMANENT_SUGGESTIONS = ["Reply with one word"];
@@ -142,42 +143,3 @@ export const BACKEND_CONTEXT = [
   "rewrite all links in markdown without me having to ask you",
   // "output all links in markdown",
 ];
-
-// Use a different API token with a different model to return a summary.
-export const UTILITY_PROMPT = ["Summarize  "];
-
-const EXAMPLE_CHAT_LOG = [
-  "Rules", // ~ 2000 tokens (4 cents)
-  "Bot: Hi",
-  "Me: help",
-  "Bot: with what?",
-  "Me: ",
-];
-
-export const PROMPT_CONTEXT = {
-  backend_instructions: BACKEND_CONTEXT,
-  user_context: USER_CONTEXT,
-  current_offers: CURRENT_OFFERS,
-};
-
-export const INTRO_MESSAGE: StatusChatMessage = {
-  role: "assistant",
-  content: "How can I help you today?",
-  timestamp: Date.now(),
-};
-
-export const TRAINING_MESSAGE: StatusChatMessage = {
-  role: "system",
-  content: "Here are your new rules" + JSON.stringify(BACKEND_CONTEXT),
-  timestamp: Date.now(),
-};
-
-const USER_CONTEXT_MESSAGE: StatusChatMessage = {
-  role: "system",
-  content:
-    "Here are some things to consider about the person you're talking to " +
-    JSON.stringify(USER_CONTEXT),
-  timestamp: Date.now(),
-};
-
-export const STARTING_CHAT_LOG = [TRAINING_MESSAGE, USER_CONTEXT_MESSAGE, INTRO_MESSAGE];

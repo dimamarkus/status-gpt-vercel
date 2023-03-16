@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { CHAT_GPT_MODEL, TRAINING_MESSAGE } from "#/app/chat/lib/constants";
+import { CHAT_GPT_MODEL } from "#/app/chat/lib/constants";
 import { CHAT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useGetStream } from "#/lib/hooks/useGetStream";
@@ -8,6 +8,7 @@ import { StatusChatMessage } from "#/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { createChatSystemMessage } from "#/app/chat/lib/helpers/chat-helpers";
 
 const CHAT_MEMORY = 6;
 export const CHATBOX_ID = "chatInput";
@@ -48,6 +49,7 @@ export const useChatGpt = (startingChatLog: StatusChatMessage[] | null): UseChat
   const [chatLog, setChatLog] = useState(startingChatLog);
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const { features } = useFeatureToggleContext();
+  const trainingMessage = chatLog ? createChatSystemMessage(chatLog[0].content) : null;
 
   const isChatGpt = features.model === CHAT_GPT_MODEL;
   const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
@@ -71,7 +73,7 @@ export const useChatGpt = (startingChatLog: StatusChatMessage[] | null): UseChat
     const recentMessages = outOfMemory ? chatLog.slice(1).slice(-CHAT_MEMORY) : chatLog;
     const nextChatLog: StatusChatMessage[] = [...(chatLog || []), latestMessage];
     const messagesWithTimestamps: StatusChatMessage[] = [...(recentMessages || []), latestMessage];
-    outOfMemory && messagesWithTimestamps.unshift(TRAINING_MESSAGE);
+    outOfMemory && trainingMessage && messagesWithTimestamps.unshift(trainingMessage);
     const messages = messagesWithTimestamps.map(({ role, content }) => ({ role, content }));
     const prompt = messages.map(({ content }) => content).join("\n");
     const requestBody = isChatGpt ? { messages } : { prompt };
