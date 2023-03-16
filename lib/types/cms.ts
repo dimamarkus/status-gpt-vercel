@@ -44,7 +44,7 @@ export type Bot = {
   avatar?: StrapiMediaAttribute<StrapiMedia>;
   welcome_message: string | null;
   training: string;
-  training_json: JSON;
+  json_training: JSON;
   ai_model: OpenAiModel;
   max_tokens: number | null;
   temperature: number | null;
@@ -69,5 +69,5 @@ export type BotTrainingMap = {
   syntax: string | null;
   style: string | null;
   training: string | null;
-  training_json: string | null;
+  json_training: string | null;
 };

@@ -54,5 +54,5 @@ export const BOT_TRAINING_ORDER: (keyof BotTrainingMap)[] = [
   "userInfo",
   "training",
   "syntax",
-  "training_json",
+  "json_training",
 ];
