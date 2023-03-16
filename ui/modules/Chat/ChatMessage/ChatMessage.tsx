@@ -19,6 +19,7 @@ export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: Ch
   const currentDateTime = new Date();
   const time = currentDateTime.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit" });
 
+  const isSystemMessage = role === "system";
   const isUserMessage = role === "user";
   const chatClass = isUserMessage ? "chat-end" : "chat-start";
   const chatBg = isUserMessage ? "bg-blue-50" : "bg-neutral-50";
@@ -31,10 +32,14 @@ export const ChatMessage = ({ avatarUrl, message, isTalking, parseMarkdown }: Ch
         avatarUrl={avatarUrl}
         isUserMessage={isUserMessage}
         isTalking={isTalking}
+        className={role === "system" ? "hidden" : ""}
       />
-      <Timestamp time={time} />
+      { !isSystemMessage && <Timestamp time={time} /> }
       <div
-        className={`chat-bubble text-neutral-900 ${chatBg} flex max-w-full flex-col transition hover:bg-gray-100`}
+        className={cn(
+          `chat-bubble text-neutral-900 ${chatBg} flex max-w-full flex-col transition`,
+          isSystemMessage ? "bg-orange-100" : "",
+        )}
       >
         {parseMarkdown ? (
           <ParsedMarkdown content={content} className="text-sm md:text-base" />

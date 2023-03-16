@@ -7,12 +7,8 @@ export const FullScreenToggleButton = () => {
   const { isFullScreen, toggleFullScreen } = useFullScreenContext();
 
   return (
-    <Button
-      className={
-        styles.FullScreenToggleButton +
-        " " +
-        "btn-ghost btn-square btn-sm btn absolute top-3 right-3 z-10 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 md:top-6 md:right-6"
-      }
+    <button
+      className={styles.FullScreenToggleButton}
       onClick={() => toggleFullScreen()}
       title={(!isFullScreen ? "Enter" : "Exit") + " Full-screen"}
     >
@@ -21,7 +17,7 @@ export const FullScreenToggleButton = () => {
       ) : (
         <ArrowsPointingInIcon className="h-5 w-5 text-inherit" />
       )}
-    </Button>
+    </button>
   );
 };
 

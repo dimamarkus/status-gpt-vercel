@@ -101,7 +101,9 @@ const FeaturesPanel = () => {
       {/* {getOptionRadio("model", MODELS)} */}
       {getOptionTogggle("useStream", "Stream Response")}
       {getOptionTogggle("debugMode", "Prompt Debug")}
-      <Link href="/chat">All Bots</Link>
+      <Link href="/chat" className="btn-link btn">
+        All Bots
+      </Link>
     </div>
   );
 

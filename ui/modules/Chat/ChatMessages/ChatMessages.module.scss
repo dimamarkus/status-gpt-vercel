@@ -1,9 +1,14 @@
 .ChatMessages {
-  overflow-x: hidden;
+  // display: flex;
+  // align-items: flex-end;
+  color: inherit;
+  // overflow-x: hidden;
   overflow-y: auto;
-  transform: rotate(180deg);
-  direction: rtl;
-  text-align: left;
+  // transform: rotate(180deg);
+  // direction: rtl;
+  // text-align: left;
+  transform: scaleX(1);
+  @apply bg-base-100;
 }
 
 .ChatMessages::-webkit-scrollbar {
@@ -31,9 +36,4 @@
   border: 1px solid;
   @apply border-base-100;
   @apply bg-neutral-200;
-}
-
-.chatLog {
-  overflow: hidden;
-  transform: rotate(180deg);
 }

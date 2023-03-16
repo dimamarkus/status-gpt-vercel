@@ -16,7 +16,7 @@ type ChatMessagesProps = {
 
 export const ChatMessages = (props: ChatMessagesProps) => {
   const { botAvatarUrl, className } = props;
-  const animated = false;
+  const animated = true;
   const { features } = useFeatureToggleContext();
 
   const { chatLog, streamedAnswer, loading } = useChatContext();
@@ -37,7 +37,6 @@ export const ChatMessages = (props: ChatMessagesProps) => {
 
   const innerChild = (
     <>
-      <FullScreenToggleButton />
       {messagesChild}
       {!!streamedAnswer && (
         <ChatMessage
@@ -52,21 +51,17 @@ export const ChatMessages = (props: ChatMessagesProps) => {
   );
 
   return (
-    <div className={cn(styles.ChatMessages, "rounded-b border-t bg-base-100 ", className)}>
+    <div className={cn(styles.ChatMessages, className)}>
       {animated ? (
-        <AnimatedHeight>{innerChild}</AnimatedHeight>
+        <ResizablePanel>
+          <AnimatePresence mode="wait">
+            <motion.div className={cn(styles.chatLog, "my-4 h-full")}>{innerChild}</motion.div>
+          </AnimatePresence>
+        </ResizablePanel>
       ) : (
-        <div className={cn(styles.chatLog, "my-4 h-full")}>{innerChild}</div>
+        <div className={cn(styles.chatLog, "h-full")}>{innerChild}</div>
       )}
     </div>
   );
 };
 export default ChatMessages;
-
-export const AnimatedHeight = ({ children }: { children: React.ReactNode }) => (
-  <ResizablePanel>
-    <AnimatePresence mode="wait">
-      <motion.div className={cn(styles.chatLog, "my-4 h-full")}>{children}</motion.div>
-    </AnimatePresence>
-  </ResizablePanel>
-);

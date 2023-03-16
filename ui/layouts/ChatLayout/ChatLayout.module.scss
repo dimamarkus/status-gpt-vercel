@@ -1,2 +1,49 @@
 .ChatLayout {
+  @apply flex;
+  @apply h-full;
+  @apply max-h-full;
+  @apply flex-col;
+  @apply overflow-hidden;
+  @apply rounded;
+  @apply border-2;
+  @apply border-blue-100;
+  @apply bg-blue-100;
+  @apply drop-shadow-lg;
+  @apply dark:bg-blue-900;
+  @apply lg:mb-16;
+  @apply lg:flex-row;
+
+  & > div {
+    @apply relative;
+    @apply order-last;
+    @apply flex;
+    @apply h-full;
+    @apply flex-col;
+    @apply p-1;
+    @apply md:order-first;
+    @apply md:p-4;
+    @apply lg:w-9/12;
+  }
+
+  & > aside {
+    @apply flex;
+    @apply flex-col;
+    @apply justify-start;
+    @apply p-2;
+    @apply pr-1;
+    @apply md:justify-end;
+    @apply lg:w-3/12;
+    @apply lg:p-0;
+    @apply lg:pl-1;
+    @apply lg:pr-5;
+    @apply lg:pt-2;
+  }
+
+  &.fullScreen {
+    @apply absolute;
+    @apply left-0;
+    @apply top-0;
+    @apply h-full;
+    @apply w-full;
+  }
 }
