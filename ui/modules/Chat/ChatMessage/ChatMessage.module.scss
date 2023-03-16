@@ -1,12 +1,36 @@
 .root {
-  .chat-end .chat-image {
-    margin-right: -8px;
-    margin-left: -8px;
+  // .chat-end .chat-image {
+  //   margin-right: -8px;
+  //   margin-left: -8px;
+  // }
+
+  // @media (min-width: 768px) {
+  //   .chat-end .chat-image {
+  //     margin-left: 0;
+  //   }
+  // }
+
+  &.alignRight {
+    div.chatBubble {
+      border-top-right-radius: 0;
+      border-top-left-radius: var(--rounded-box, 1rem);
+      border-bottom-right-radius: var(--rounded-box, 1rem);
+      &:before {
+        transform: scaleY(-1);
+        bottom: auto;
+        top: 0;
+      }
+    }
   }
 
-  @media (min-width: 768px) {
-    .chat-end .chat-image {
-      margin-left: 0;
+  div.chatBubble {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: var(--rounded-box, 1rem);
+
+    &:before {
+      transform: scaleY(-1);
+      bottom: auto;
+      top: 0;
     }
   }
 }

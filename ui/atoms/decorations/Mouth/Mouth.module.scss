@@ -19,7 +19,7 @@
   position: relative;
   width: 90px;
   height: 90px;
-  transform-origin: center;
+  transform-origin: top left;
   scale: 0.75;
   @apply bg-cyan-300;
   border-radius: 20%;
@@ -30,7 +30,8 @@
     align-items: center;
     flex-direction: column;
     position: absolute;
-    top: -50px;
+    margin-left: -4px;
+    top: -54px;
     width: 50%;
     height: $mouthHeight;
     width: 200px;

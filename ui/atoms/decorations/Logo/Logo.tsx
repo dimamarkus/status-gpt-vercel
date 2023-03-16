@@ -13,7 +13,7 @@ export const Logo = (props: LogoProps) => {
       className={
         styles.Logo +
         " " +
-        "btn-ghost btn flex h-auto flex-col items-start p-0 py-1 text-left text-xl normal-case"
+        "flex h-auto flex-col items-start p-0 py-1 text-left text-xl normal-case"
       }
       // href="https://statusmoney.com"
       href="/"
@@ -26,9 +26,9 @@ export const Logo = (props: LogoProps) => {
         height={0}
         priority
       />
-      <h1 className="logo font-tiemposHeadline text-2xl font-bold">
+      <h1 className="logo m-0 font-tiemposHeadline text-2xl font-bold">
         <span className="boujee-text">AI</span>dvisor
-        <small className="font-sans text-xs text-neutral-400">BETA</small>
+        <small className="font-sans text-xs text-neutral-400"> BETA</small>
       </h1>
     </Link>
   );

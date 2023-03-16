@@ -10,7 +10,7 @@ type MouthProps = {
 export const Mouth = (props: MouthProps) => {
   const { animated } = props;
   return (
-    <div className={cn(styles.Mouth, "avatar items-center justify-center")}>
+    <div className={cn(styles.Mouth)}>
       <div className={cn(styles.monster_container, !!animated && styles.animated)}>
         <div className={styles.monster}>
           <div className={styles.monster__eyes}>

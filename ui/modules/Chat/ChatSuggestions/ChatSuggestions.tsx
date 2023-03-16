@@ -8,14 +8,13 @@ import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import loading from "#/app/chat/loading";
 
 type ChatSuggestionsProps = {
   className?: string;
 };
 
 export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
-  const { chatLog, suggestions, answer, getAnswer, getSuggestions, suggestionsLoading } =
+  const { chatLog, suggestions, answer, getAnswer, getSuggestions, suggestionsLoading, loading } =
     useChatContext();
   const useIsTablet = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(!useIsTablet);
@@ -37,7 +36,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
     if (answerChanged && !loading && chatLog) {
       getSuggestions(chatLog);
     }
-  }, [answerChanged, chatLog, getSuggestions]);
+  }, [answerChanged, chatLog, getSuggestions, loading]);
 
   if (!displaySuggestions || displaySuggestions === null) {
     return null;

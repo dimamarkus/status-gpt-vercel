@@ -11,12 +11,11 @@ type ChatMessageProps = {
   avatarUrl?: string;
   message: StatusChatMessage | null;
   isTalking?: boolean;
-  parseMarkdown?: boolean;
   className?: string;
 };
 
 export const ChatMessage = (props: ChatMessageProps) => {
-  const { avatarUrl, message, isTalking, parseMarkdown, className } = props;
+  const { avatarUrl, message, isTalking, className } = props;
   if (!message) {
     return null;
   }
@@ -26,7 +25,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const isSystemMessage = role === "system";
   const isUserMessage = role === "user";
-  const chatClass = isUserMessage ? "chat-end" : "chat-start";
+  const chatClass = isUserMessage ? [styles.alignRight, "chat-end"] : "chat-start";
   const chatBg = isUserMessage ? "bg-blue-50" : "bg-neutral-50";
 
   return (
@@ -40,6 +39,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
       {!isSystemMessage && <Timestamp time={time} />}
       <div
         className={cn(
+          styles.chatBubble,
           `chat-bubble text-neutral-900 ${chatBg} flex max-w-full flex-col transition`,
           isSystemMessage ? "bg-orange-100" : "",
         )}

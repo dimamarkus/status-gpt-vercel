@@ -1,3 +1,4 @@
+import cn from "classnames";
 import React from "react";
 import styles from "./ChatBotMenu.module.scss";
 import { getResourceFieldsFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
@@ -11,7 +12,7 @@ export async function ChatBotMenu() {
   const botNames = botMenuResults.data || [];
 
   return (
-    <nav className="root">
+    <nav className={cn(styles.root, "root m-4")}>
       <TabGroup
         path="/chat"
         items={[
