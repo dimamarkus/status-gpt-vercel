@@ -28,6 +28,12 @@ export function getCmsUrl(endpoint: string) {
 }
 
 export function getMediaUrl(mediaPath: string) {
+  // If the media path is already a URL, return it.
+  const pattern = /^((http|https|ftp):\/\/)/;
+  if (pattern.test(mediaPath)) {
+    return mediaPath;
+  }
+
   return getStrapiUrl() + mediaPath;
 }
 
