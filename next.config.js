@@ -7,7 +7,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["localhost"],
+    domains: ["localhost", "statusmoney.com", "cms.statusmoney.com", "ai.statusmoney.com"],
   },
 };
 
