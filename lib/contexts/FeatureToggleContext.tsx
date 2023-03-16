@@ -6,15 +6,15 @@ import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 export type Font =
   | "sans"
   | "serif"
-  | "graphik"
-  | "tiempos"
-  | "tiemposHeadline"
-  | "avenir"
-  | "exo"
-  | "inter"
-  | "lato"
-  | "montserrat"
-  | "raleway";
+  // | "graphik"
+  // | "tiempos"
+  // | "tiemposHeadline"
+  // | "avenir"
+  // | "exo"
+  // | "inter"
+  // | "lato"
+  // | "montserrat"
+  // | "raleway";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
 export type Theme = "light" | "dark" | "statusAlt1" | "statusAlt2" | "statusAlt3";
 

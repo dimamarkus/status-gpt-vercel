@@ -26,7 +26,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const isSystemMessage = role === "system";
   const isUserMessage = role === "user";
   const chatClass = isUserMessage ? [styles.alignRight, "chat-end"] : "chat-start";
-  const chatBg = isUserMessage ? "bg-blue-50" : "bg-neutral-50";
+  const chatBg = isUserMessage ? "bg-blue-50 dark:bg-blue-900" : "bg-neutral-50 dark:bg-base-200";
 
   return (
     <div className={cn(styles.root, "chat m-0 p-4", chatClass, className)} dir="ltr">

@@ -15,7 +15,6 @@ type BaseSpaLayoutProps = {
 export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) => {
   const { sidebar } = useSidebarContext();
   const { features } = useFeatureToggleContext();
-  console.log("features", features);
   const { isFullScreen, toggleFullScreen } = useFullScreenContext();
   const darkMode = features.theme === "dark";
   const globalFont = "font-" + features.font;
@@ -42,7 +41,7 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
         `}
       </style>
       {/* HACK: Empty div to force tailwind to create these font classes */}
-      <div className="font-tiempos font-tiemposHeadline font-exo font-avenir font-montserrat font-raleway font-lato font-graphik hidden" />
+      <div className="font-tiemposHeadline font-inter hidden" />
       {children}
     </BaseLayout>
   );

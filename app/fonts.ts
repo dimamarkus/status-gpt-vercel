@@ -17,23 +17,23 @@ export const interFont = Inter({
 // // -Regular -------------------------------------------------------------------
 // export const exoFont = Exo({
 //   subsets: ["latin"],
-//   variable: "--font-inter",
+//   variable: "--font-exo",
 // });
 
 // export const montserratFont = Montserrat({
 //   subsets: ["latin"],
-//   variable: "--font-inter",
+//   variable: "--font-montserrat",
 // });
 
 // export const ralewayFont = Raleway({
 //   subsets: ["latin"],
-//   variable: "--font-inter",
+//   variable: "--font-raleway",
 // });
 
 // export const latoFont = Lato({
 //   subsets: ["latin"],
 //   weight: "400",
-//   variable: "--font-inter",
+//   variable: "--font-lato",
 // });
 
 //  Local Fonts

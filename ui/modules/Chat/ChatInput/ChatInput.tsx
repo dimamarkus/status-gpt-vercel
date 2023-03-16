@@ -59,28 +59,25 @@ export const ChatInput = (props: ChatInputProps) => {
           onClick={isTablet ? () => setShowAssumptions(!areAssumptionsShown) : undefined}
         />
       )} */}
-      <label className="input-sizer stacked">
-        <FormTextarea<ChatFormFields>
-          id={CHATBOX_ID}
-          name={CHATBOX_ID}
-          label="Chat Input"
-          placeholder="Write your message"
-          className="text-md h-full w-full cursor-text rounded-none border-0 bg-neutral-100 leading-[150%] placeholder-neutral-500 outline-offset-2 focus:placeholder-gray-400 md:w-auto lg:min-w-full"
-          rules={{ required: "You must write a message first." }}
-          errors={errors}
-          onFocus={() => isMobile && setShowSuggestions(false)}
-          onBlur={() => setShowSuggestions(true)}
-          rows={2}
-          required
-          autoFocus
-          register={register}
-        />
-      </label>
+      <FormTextarea<ChatFormFields>
+        id={CHATBOX_ID}
+        name={CHATBOX_ID}
+        label="Chat Input"
+        placeholder="Write your message"
+        rules={{ required: "You must write a message first." }}
+        errors={errors}
+        onFocus={() => isMobile && setShowSuggestions(false)}
+        onBlur={() => setShowSuggestions(true)}
+        rows={2}
+        required
+        autoFocus
+        register={register}
+      />
 
       <Button
         type="submit"
         text={!isMobile ? "Send Message" : "Send"}
-        className="h-full rounded-none md:h-auto md:rounded-t-none"
+        className="h-full rounded md:h-auto md:rounded-t-none"
       />
     </form>
   );

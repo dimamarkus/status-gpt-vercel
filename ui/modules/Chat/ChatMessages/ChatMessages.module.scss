@@ -9,6 +9,8 @@
   // text-align: left;
   transform: scaleX(1);
   @apply bg-base-100;
+  @apply rounded;
+  @apply rounded-b-none;
 }
 
 .root::-webkit-scrollbar {

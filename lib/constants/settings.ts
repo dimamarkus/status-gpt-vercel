@@ -25,7 +25,7 @@ export const FONTS: Font[] = [
 ];
 
 export const DEFAULT_FEATURES = {
-  font: "graphik" as Font,
+  font: "sans" as Font,
   layout: "veritcal" as Layout,
   theme: "light" as Theme,
   model: CHAT_GPT_MODEL as OpenAiModel,
@@ -34,6 +34,8 @@ export const DEFAULT_FEATURES = {
 };
 
 export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
+
+export const CHAT_BOT_INPUT_MAX_CHARS = 750;
 
 export const CHAT_GPT_SETTINGS = {
   temperature: 0.5,
