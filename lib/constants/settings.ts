@@ -1,5 +1,5 @@
 import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
-import { OpenAiModel } from "#/app/chat/lib/openai";
+import { BaseOpenAiRequest, OpenAiModel } from "#/app/chat/lib/openai";
 import { Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
@@ -37,13 +37,15 @@ export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
 
 export const CHAT_BOT_INPUT_MAX_CHARS = 1000;
 
-export const CHAT_GPT_SETTINGS = {
+export const DEFAULT_GPT_SETTINGS: BaseOpenAiRequest = {
+  model: CHAT_GPT_MODEL as OpenAiModel,
   temperature: 0.5,
   top_p: 1,
   frequency_penalty: 0,
   presence_penalty: 0,
   max_tokens: 300,
   n: 1,
+  stream: true,
 };
 
 export const BOT_TRAINING_ORDER: (keyof BotTrainingMap)[] = [

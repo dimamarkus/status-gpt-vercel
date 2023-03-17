@@ -6,6 +6,7 @@ import { useSuggestions, UseSuggestionsReturn } from "#/app/chat/lib/hooks/useSu
 import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
 import { AvatarContextProvider } from "#/lib/contexts/AvatarContext";
+import { Bot } from "#/lib/types/cms";
 
 export type ChatContext = UseChatGptReturn &
   Omit<UseSuggestionsReturn, "loading"> & {
@@ -36,11 +37,11 @@ export const Context = createContext<ChatContext>(DEFAULT_CHAT_CONTEXT);
 
 type ChatProps = {
   children: any;
-  startingChatLog: StatusChatMessage[] | null;
+  bot: Bot | null;
 };
 
-export const ChatContextProvider = ({ startingChatLog, children }: ChatProps) => {
-  const context = useChatGpt(startingChatLog);
+export const ChatContextProvider = ({ bot, children }: ChatProps) => {
+  const context = useChatGpt(bot);
   const { loading: suggestionsLoading, ...useSuggestionContext } = useSuggestions();
 
   // const { assumptions, areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();

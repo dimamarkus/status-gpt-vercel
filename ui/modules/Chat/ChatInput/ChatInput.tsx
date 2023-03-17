@@ -2,7 +2,7 @@
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import styles from "./ChatInput.module.scss";
-import { CHATBOX_ID } from "#/app/chat/lib/hooks/useChatGpt";
+import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import Button from "#/ui/atoms/buttons/Button/Button";
 import { FormTextarea } from "#/ui/atoms/inputs/Textarea/Textarea";
@@ -25,7 +25,7 @@ export const ChatInput = (props: ChatInputProps) => {
   useEffect(() => {
     // Autofocus textarea on render
     if (typeof window === "object") {
-      document.getElementById(CHATBOX_ID)?.focus();
+      document.getElementById(USER_INPUT_FIELD_ID)?.focus();
     }
   }, []);
 
@@ -60,8 +60,8 @@ export const ChatInput = (props: ChatInputProps) => {
         />
       )} */}
       <FormTextarea<ChatFormFields>
-        id={CHATBOX_ID}
-        name={CHATBOX_ID}
+        id={USER_INPUT_FIELD_ID}
+        name={USER_INPUT_FIELD_ID}
         label="Chat Input"
         placeholder="Write your message"
         rules={{ required: "You must write a message first." }}

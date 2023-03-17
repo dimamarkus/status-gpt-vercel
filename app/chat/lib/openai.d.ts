@@ -19,6 +19,7 @@ export type OpenAiModel = OpenAiCompletionModel & "gpt-3.5-turbo";
 // ============================================================================
 
 export type BaseOpenAiRequest = {
+  model: OpenAiModel;
   temperature?: number;
   top_p?: number;
   frequency_penalty?: number;

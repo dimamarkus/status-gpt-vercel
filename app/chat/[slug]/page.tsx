@@ -37,7 +37,6 @@ export default async function Page({ params }: BotPageProps) {
     ? getMediaUrl(currentBot.avatar.data.attributes.url)
     : undefined;
 
-  const startingChatLog = currentBot ? getStartingChatLog(currentBot) : null;
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
@@ -47,7 +46,7 @@ export default async function Page({ params }: BotPageProps) {
   );
 
   return (
-    <ChatContextProvider startingChatLog={startingChatLog}>
+    <ChatContextProvider bot={currentBot}>
       <ChatLayout sidebar={sidebar}>
         <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />
         <ChatInput />

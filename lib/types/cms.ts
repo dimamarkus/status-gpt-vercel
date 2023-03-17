@@ -45,7 +45,7 @@ export type Bot = {
   welcome_message: string | null;
   training: string;
   json_training: JSON;
-  ai_model: OpenAiModel;
+  model: OpenAiModel;
   max_tokens: number | null;
   temperature: number | null;
   top_p: number | null;

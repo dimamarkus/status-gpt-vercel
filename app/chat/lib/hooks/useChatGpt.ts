@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { CHAT_GPT_MODEL } from "#/app/chat/lib/constants";
-import { CHAT_GPT_SETTINGS } from "#/lib/constants/settings";
+import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
+import {
+  compileChatMessages,
+  createChatBotMessage,
+  getStartingChatLog,
+} from "#/app/chat/lib/helpers/chat-helpers";
+import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useGetStream } from "#/lib/hooks/useGetStream";
 import { StatusChatMessage } from "#/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
-import { createChatSystemMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { Bot } from "#/lib/types/cms";
+import { BaseOpenAiRequest, OpenAiModel } from "#/app/chat/lib/openai";
 
 const CHAT_MEMORY = 6;
-export const CHATBOX_ID = "chatInput";
+export const USER_INPUT_FIELD_ID = "chatInput";
 
 export type UseChatGptReturn = {
   /**
@@ -45,69 +51,73 @@ export type UseChatGptReturn = {
   getAnswer: (query?: string, systemMode?: boolean) => Promise<void>;
 };
 
-export const useChatGpt = (startingChatLog: StatusChatMessage[] | null): UseChatGptReturn => {
-  const [chatLog, setChatLog] = useState(startingChatLog);
+export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
+  const startingChatLog = bot ? getStartingChatLog(bot) : null;
+
+  //  1. Prep State
+  // ============================================================================
+  const [messages, setMessages] = useState(startingChatLog);
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const { features } = useFeatureToggleContext();
-  const trainingMessage = chatLog ? createChatSystemMessage(chatLog[0].content) : null;
 
-  const isChatGpt = features.model === CHAT_GPT_MODEL;
+  const getGptParam = (param: keyof Omit<BaseOpenAiRequest, "stream" | "n">) =>
+    (!!bot && bot[param]) || DEFAULT_GPT_SETTINGS[param];
+
+  const isDavinci = getGptParam("model") === (DAVINCI_MODEL as OpenAiModel);
   const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
   const { stream, loading, error, getStream } = useGetStream(endpointUrl);
 
   const formContext = useForm<ChatFormFields>({});
   const { getValues, setValue } = formContext;
-  const chatInput = getValues(CHATBOX_ID);
-  const clearInput = () => setValue(CHATBOX_ID, "");
+  const chatInput = getValues(USER_INPUT_FIELD_ID);
 
   const getAnswer = async (query?: string, systemMode?: boolean) => {
+    const chatMessages = compileChatMessages(messages, query || chatInput);
+
+    //  2. Update the state after user click
+    // ============================================================================
+    setValue(USER_INPUT_FIELD_ID, "");
     setAnswer("");
-    clearInput();
+    setMessages(chatMessages.all);
 
-    const rawContent = query || chatInput;
-    const containsPunctuation = !!rawContent && /[.;!?]$/.test(rawContent);
-    const content = containsPunctuation ? query : `${query}.`;
-    const latestMessage = { role: "user", content, timestamp: Date.now() } as StatusChatMessage;
+    //  3. Prep the API Call
+    // ============================================================================
+    const prompt = chatMessages.toSend.map(({ content }) => content).join("\n");
+    const messagesToSend = isDavinci ? { prompt } : { messages: chatMessages.toSend };
+    const tokens = getGptParam("max_tokens")?.toString();
+    const max_tokens = !!tokens ? parseInt(tokens, 10) : DEFAULT_GPT_SETTINGS["max_tokens"];
+    const requestBody = {
+      ...messagesToSend,
+      model: getGptParam("model"),
+      temperature: getGptParam("temperature"),
+      top_p: getGptParam("top_p"),
+      frequency_penalty: getGptParam("frequency_penalty"),
+      presence_penalty: getGptParam("presence_penalty"),
+      max_tokens,
+      n: DEFAULT_GPT_SETTINGS["n"],
+    };
 
-    const outOfMemory = chatLog && chatLog.length > CHAT_MEMORY;
-    const recentMessages = outOfMemory ? chatLog.slice(1).slice(-CHAT_MEMORY) : chatLog;
-    const nextChatLog: StatusChatMessage[] = [...(chatLog || []), latestMessage];
-    const messagesWithTimestamps: StatusChatMessage[] = [...(recentMessages || []), latestMessage];
-    outOfMemory && trainingMessage && messagesWithTimestamps.unshift(trainingMessage);
-    const messages = messagesWithTimestamps.map(({ role, content }) => ({ role, content }));
-    const prompt = messages.map(({ content }) => content).join("\n");
-    const requestBody = isChatGpt ? { messages } : { prompt };
-
-    setChatLog(nextChatLog);
-
+    //  4. Make the API Call
+    // ============================================================================
     console.log("============================================================");
-    console.log(`I'm asking ${features.model} a question:`, requestBody);
+    console.log(`I'm asking ${getGptParam("model")} a question:`, requestBody);
+    const response = await getStream(requestBody);
 
-    const response = await getStream({
-      model: features.model,
-      ...requestBody,
-      ...CHAT_GPT_SETTINGS,
-    });
-
-    setAnswer(response);
-
+    //  4. Handle response
+    // ============================================================================
     if (response) {
-      const responseMessage = {
-        role: "assistant",
-        content: response,
-        timestamp: Date.now(),
-      } as StatusChatMessage;
-      setChatLog([...nextChatLog, responseMessage]);
+      setAnswer(response);
+      setMessages([...chatMessages.all, createChatBotMessage(response)]);
     }
   };
 
   return {
     getAnswer,
     answer,
+    streamedAnswer: stream,
     loading,
     error,
-    chatLog,
-    streamedAnswer: stream,
+    chatLog: messages,
     inputFormContext: formContext || null,
   };
 };

@@ -13,12 +13,10 @@ export const revalidate = 0;
 
 export default async function Page() {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
-  console.log("Home bot", bot);
 
   const botAvatarUrl = !!bot?.avatar?.data
     ? getMediaUrl(bot.avatar.data.attributes.url)
     : undefined;
-  const startingChatLog = bot ? getStartingChatLog(bot) : null;
 
   const sidebar = (
     <>
@@ -29,7 +27,7 @@ export default async function Page() {
 
   return (
     <LandingLayout>
-      <ChatContextProvider startingChatLog={startingChatLog}>
+      <ChatContextProvider bot={bot}>
         <ChatLayout sidebar={sidebar}>
           <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />
           <ChatInput />
