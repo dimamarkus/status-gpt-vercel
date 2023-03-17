@@ -9,8 +9,11 @@ import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 
+export const revalidate = 0;
+
 export default async function Page() {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
+  console.log("Home bot", bot);
 
   const botAvatarUrl = !!bot?.avatar?.data
     ? getMediaUrl(bot.avatar.data.attributes.url)

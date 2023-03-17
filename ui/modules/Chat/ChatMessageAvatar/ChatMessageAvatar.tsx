@@ -8,15 +8,13 @@ import Mouth from "#/ui/atoms/decorations/Mouth/Mouth";
 
 type ChatMessageAvatarProps = {
   avatarUrl?: string;
-  isUserMessage?: boolean;
   isTalking?: React.ReactNode;
   role?: string;
   className?: string;
 };
 
 export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
-  const { avatarUrl, isUserMessage, isTalking, role, className } = props;
-  console.log("role", role);
+  const { avatarUrl, isTalking, role, className } = props;
   const botAvatar = avatarUrl ? (
     <Image
       src={avatarUrl}
@@ -29,14 +27,14 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
     <Mouth animated={!!isTalking} />
   );
 
-  const innerAvatar =
-    role === "system" ? (
-      <Cog8ToothIcon className="h-16 w-16" />
-    ) : isUserMessage ? (
-      <Avatar isUserMessage />
-    ) : (
-      botAvatar
-    );
+  let innerAvatar = botAvatar;
+
+  if (role === "system") {
+    innerAvatar = <Cog8ToothIcon className="h-16 w-16" />;
+  } else if (role === "user") {
+    innerAvatar = <Avatar isUserMessage />;
+  }
+
   return <div className={cn(styles.ChatMessageAvatar, className)}>{innerAvatar}</div>;
 };
 
