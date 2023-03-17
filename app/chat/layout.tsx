@@ -1,3 +1,4 @@
+import { get } from "@vercel/edge-config";
 import { Suspense } from "react";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
