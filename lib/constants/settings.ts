@@ -47,12 +47,12 @@ export const CHAT_GPT_SETTINGS = {
 };
 
 export const BOT_TRAINING_ORDER: (keyof BotTrainingMap)[] = [
+  "syntax",
   "contents",
   "style",
   "intentions",
   "promotions",
-  "userInfo",
   "training",
-  "syntax",
+  "userInfo",
   "json_training",
 ];

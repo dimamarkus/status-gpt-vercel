@@ -30,10 +30,8 @@
     @apply pr-1;
     @apply md:justify-end;
     @apply lg:w-3/12;
-    @apply lg:p-0;
-    @apply lg:pl-1;
-    @apply lg:pr-5;
-    @apply lg:pt-2;
+    @apply md:p-4;
+    @apply md:pl-2;
   }
 
   &.fullScreen {

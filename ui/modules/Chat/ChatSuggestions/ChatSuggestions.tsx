@@ -46,7 +46,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   return (
     <div className={cn(styles.root, className)}>
       {loading || suggestionsLoading ? (
-        <div className="m-4 mb-8 ml-0 text-blue-400">
+        <div className="m-4 mb-8 text-blue-400">
           <Spinner />
         </div>
       ) : (

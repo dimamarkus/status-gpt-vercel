@@ -45,18 +45,18 @@ export const collateBotTraining = (bot: Bot): string => {
     chat_user_info_ids,
   } = bot;
 
-  // Control the order of the prompt by arranging this order
   const trainingObject: BotTrainingMap = {
     contents: getManyTrainingContents(chat_content_ids),
     intentions: getManyTrainingContents(chat_intention_ids),
     promotions: getManyTrainingContents(promotion_ids),
-    userInfo: getManyTrainingContents(chat_user_info_ids),
     syntax: getTrainingContent(chat_syntax_id),
     style: getTrainingContent(chat_style_id),
+    userInfo: getManyTrainingContents(chat_user_info_ids),
     training,
     json_training: !!json_training ? JSON.stringify(json_training) : "",
   };
 
+  // Control the order of the prompt by arranging BOT_TRAINING_ORDER
   const trainingArray = BOT_TRAINING_ORDER.map((item) => trainingObject[item]).flat();
   const trainingInstructions = trainingArray.filter(Boolean);
   const nameInstruction = `Your name is ${bot.name}.`;

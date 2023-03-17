@@ -1,3 +1,4 @@
+import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 import cn from "classnames";
 import Image from "next/image";
 import React from "react";
@@ -9,11 +10,13 @@ type ChatMessageAvatarProps = {
   avatarUrl?: string;
   isUserMessage?: boolean;
   isTalking?: React.ReactNode;
+  role?: string;
   className?: string;
 };
 
 export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
-  const { avatarUrl, isUserMessage, isTalking, className } = props;
+  const { avatarUrl, isUserMessage, isTalking, role, className } = props;
+  console.log("role", role);
   const botAvatar = avatarUrl ? (
     <Image
       src={avatarUrl}
@@ -25,11 +28,16 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
   ) : (
     <Mouth animated={!!isTalking} />
   );
-  return (
-    <div className={cn(styles.ChatMessageAvatar, className)}>
-      {isUserMessage ? <Avatar isUserMessage /> : botAvatar}
-    </div>
-  );
+
+  const innerAvatar =
+    role === "system" ? (
+      <Cog8ToothIcon className="h-16 w-16" />
+    ) : isUserMessage ? (
+      <Avatar isUserMessage />
+    ) : (
+      botAvatar
+    );
+  return <div className={cn(styles.ChatMessageAvatar, className)}>{innerAvatar}</div>;
 };
 
 export default ChatMessageAvatar;
