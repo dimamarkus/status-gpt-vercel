@@ -1,6 +1,7 @@
 import { CHAT_MODELS, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
 import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
 import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
+import { DEFAULT_BOT_MEMORY } from "#/lib/constants/settings";
 import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
 
@@ -41,11 +42,10 @@ export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | null
   return startingChatLog;
 };
 
-const CHAT_MEMORY = 6;
-
 export const compileChatMessages = (
   messages: StatusChatMessage[] | null,
   prompt: string,
+  memory?: number,
 ): {
   /**
    * The system training message along with a slice of the most recent messages.
@@ -59,7 +59,8 @@ export const compileChatMessages = (
    */
   all: StatusChatMessage[];
 } => {
-  const overLimit = messages && messages.length > CHAT_MEMORY;
+  const sliceLength = memory || DEFAULT_BOT_MEMORY;
+  const overLimit = messages && messages.length > sliceLength;
 
   // Sanitize the input and create the latest message from the user
   const containsPunctuation = !!prompt && /[.;!?]$/.test(prompt);
@@ -67,7 +68,7 @@ export const compileChatMessages = (
   const latestMessage = createChatUserMessage(content);
 
   // Create slice of the chat history to send as a prompt to OpenAI.
-  const recentMessages = overLimit ? messages.slice(1).slice(-CHAT_MEMORY) : messages;
+  const recentMessages = overLimit ? messages.slice(1).slice(-sliceLength) : messages;
   const latestChatMessages: StatusChatMessage[] = [...(messages || []), latestMessage];
   const messagesWithTimestamps: StatusChatMessage[] = [...(recentMessages || []), latestMessage];
 

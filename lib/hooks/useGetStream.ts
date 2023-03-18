@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { makeRequest, post } from "#/lib/helpers/request-helpers/makeRequest";
-import { makeStreamRequest } from "#/lib/helpers/request-helpers/makeStreamRequest";
+import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
+import { makeServerRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
 
 export const useGetStream = <TRequestType>(endpoint: string) => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ export const useGetStream = <TRequestType>(endpoint: string) => {
   const getStream = async (requestBody: TRequestType) => {
     setLoading(true);
     try {
-      const response = await makeStreamRequest(endpoint, "POST", requestBody);
+      const response = await makeServerRequest(endpoint, "POST", requestBody);
 
       if (!response.ok) {
         throw new Error(response.statusText);

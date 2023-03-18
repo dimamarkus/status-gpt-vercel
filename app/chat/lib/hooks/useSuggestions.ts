@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { CHAT_GPT_MODEL, EXAMPLE_PROMPTS } from "#/app/chat/lib/constants";
 import { createSuggestionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
-import { OpenAiRequest } from "#/app/chat/lib/openai";
-import { post } from "#/lib/helpers/request-helpers/makeRequest";
+import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
 import { StatusChatMessage } from "#/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
+import { makePostRequest } from "#/lib/helpers/request-helpers/makePostRequest";
+import { makeServerPostRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
 
 export type UseSuggestionsReturn = {
   /**
@@ -33,7 +34,7 @@ export const useSuggestions = (): UseSuggestionsReturn => {
       setSuggestions([]);
       const messages = createSuggestionsPrompt(suggestionContext);
       console.log(`I'm asking ${CHAT_GPT_MODEL} for suggestions:`, messages);
-      const result = await post<string, OpenAiRequest>(GENERATE_CHAT_ENDPOINT, {
+      const result = await makeServerPostRequest<string, OpenAiRequest>(GENERATE_CHAT_ENDPOINT, {
         model: CHAT_GPT_MODEL,
         messages,
       });

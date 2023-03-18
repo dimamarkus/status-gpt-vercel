@@ -37,6 +37,8 @@ export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
 
 export const CHAT_BOT_INPUT_MAX_CHARS = 1000;
 
+export const DEFAULT_BOT_MEMORY = 6;
+
 export const DEFAULT_GPT_SETTINGS: OpenAiRequest = {
   model: CHAT_GPT_MODEL as OpenAiModel,
   temperature: 0.5,

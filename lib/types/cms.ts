@@ -51,6 +51,7 @@ export type Bot = {
   top_p: number | null;
   frequency_penalty: number | null;
   presence_penalty: number | null;
+  memory: number;
   publishedAt: string;
   createdBy: SchemaUID;
   chat_style_id?: CmsSingleRelation<BotTraining>;

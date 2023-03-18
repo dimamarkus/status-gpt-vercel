@@ -1,3 +1,5 @@
+import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
+
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
@@ -16,53 +18,8 @@ export const makeRequest = async <TResponse, TRequestBody>(
   headers: HeadersInit = {},
   options: RequestInit = {},
 ): Promise<TResponse> => {
-  const request: RequestInit = {
-    method,
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    ...options,
-  };
+  const response = await makeBaseRequest(url, method, body, headers, options);
+  const responseData = (await response.json()) as TResponse;
 
-  if (method !== "GET") {
-    request.body = body ? JSON.stringify(body) : "";
-  }
-
-  try {
-    const response = await fetch(url, request);
-    if (!response.ok) {
-      console.warn("Error status", response.status);
-      console.warn("Error on request.url", url);
-      console.warn("Error on response.body", response.body);
-      throw new Error("Network response was not ok.");
-    }
-    const responseData = (await response.json()) as TResponse;
-    return responseData;
-  } catch (error) {
-    throw error;
-  }
-};
-
-/**
- * A helper wrapper around the makeRequest function to make POST requests
- */
-export const post = async <TResponse, TRequestBody>(
-  url: Request | string,
-  body: TRequestBody,
-  headers?: HeadersInit,
-  options?: RequestInit,
-): Promise<TResponse> => {
-  return makeRequest<TResponse, TRequestBody>(url, "POST", body, headers, options);
-};
-
-/**
- * A helper wrapper around the makeRequest function to make GET requests
- */
-export const get = async <TResponse>(
-  url: Request | string,
-  headers?: HeadersInit,
-  options?: RequestInit,
-): Promise<TResponse> => {
-  return makeRequest<TResponse, {}>(url, "GET", undefined, headers, options);
+  return responseData;
 };

@@ -11,12 +11,11 @@ import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useGetStream } from "#/lib/hooks/useGetStream";
 import { StatusChatMessage } from "#/lib/types";
-import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { Bot } from "#/lib/types/cms";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
+import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 
-const CHAT_MEMORY = 6;
 export const USER_INPUT_FIELD_ID = "chatInput";
 
 export type UseChatGptReturn = {
@@ -63,10 +62,7 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
   const getGptParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
     (!!bot && bot[param]) || DEFAULT_GPT_SETTINGS[param];
 
-  const model = getGptParam("model") as OpenAiModel;
-  const isDavinci = !isChatModel(model);
   const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
-  //   const endpointUrl = isChatModel(model) ? GENERATE_CHAT_ENDPOINT : GENERATE_CHAT_STREAM_ENDPOINT;
   const { stream, loading, error, getStream } = useGetStream(endpointUrl);
 
   const formContext = useForm<ChatFormFields>({});
@@ -74,7 +70,7 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
   const chatInput = getValues(USER_INPUT_FIELD_ID);
 
   const getAnswer = async (query?: string, systemMode?: boolean) => {
-    const chatMessages = compileChatMessages(messages, query || chatInput);
+    const chatMessages = compileChatMessages(messages, query || chatInput, bot?.memory);
 
     //  2. Update the state after user click
     // ============================================================================
@@ -85,7 +81,8 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
     //  3. Prep the API Call
     // ============================================================================
     const prompt = chatMessages.toSend.map(({ content }) => content).join("\n");
-    const messagesToSend = isDavinci ? { prompt } : { messages: chatMessages.toSend };
+    const model = getGptParam("model") as OpenAiModel;
+    const messagesToSend = isChatModel(model) ? { messages: chatMessages.toSend } : { prompt };
     const tokens = getGptParam("max_tokens")?.toString();
     const max_tokens = !!tokens ? parseInt(tokens, 10) : DEFAULT_GPT_SETTINGS["max_tokens"];
     const requestBody = {

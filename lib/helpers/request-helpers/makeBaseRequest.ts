@@ -1,40 +1,45 @@
-import { RequestOptions } from "http";
+export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
  * A wrapper around the fetch API to make requests
  *
  * @param url request url
  * @param method HTTP request method (get, post, put, delete)
- * @param data request body
- * @param headers additional headers you may want to add
+ * @param body request body
+ * @param options Pass additional headers or other request options
  * @returns request response data or error
  */
-export const makeStreamRequest = async (
-  url: RequestInfo,
-  method: RequestOptions["method"] = "GET",
-  data: any = null,
+export const makeBaseRequest = async <TRequestBody>(
+  url: Request | string,
+  method: HTTPMethod = "GET",
+  body?: TRequestBody,
   headers: HeadersInit = {},
+  options: RequestInit = {},
 ): Promise<Response> => {
-  const options: RequestInit = {
+  const request: RequestInit = {
     method,
     headers: {
       ...headers,
       "Content-Type": "application/json",
     },
-    body: data ? JSON.stringify(data) : "",
+    ...options,
   };
 
+  if (method !== "GET") {
+    request.body = body ? JSON.stringify(body) : "";
+  }
+
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url, request);
     if (!response.ok) {
       console.warn("Error status", response.status);
       console.warn("Error on request.url", url);
       console.warn("Error on response.body", response.body);
       throw new Error("Network response was not ok.");
     }
+
     return response;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
