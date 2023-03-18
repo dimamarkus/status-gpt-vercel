@@ -1,8 +1,10 @@
-import { SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
+import { CHAT_MODELS, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
 import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
-import { GptMessage } from "#/app/chat/lib/openai";
+import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
 import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
+
+export const isChatModel = (model: OpenAiModel) => CHAT_MODELS.includes(model as OpenAiChatModel);
 
 export const createChatMessage = (
   role: GptMessage["role"],

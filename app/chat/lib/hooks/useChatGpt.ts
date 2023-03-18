@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
 import {
   compileChatMessages,
   createChatBotMessage,
   getStartingChatLog,
+  isChatModel,
 } from "#/app/chat/lib/helpers/chat-helpers";
+import { OpenAiModel, OpenAiRequest } from "#/app/chat/lib/openai";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useGetStream } from "#/lib/hooks/useGetStream";
 import { StatusChatMessage } from "#/lib/types";
-import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
-import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { Bot } from "#/lib/types/cms";
-import { BaseOpenAiRequest, OpenAiModel } from "#/app/chat/lib/openai";
+import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
+import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 
 const CHAT_MEMORY = 6;
 export const USER_INPUT_FIELD_ID = "chatInput";
@@ -60,11 +60,13 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const { features } = useFeatureToggleContext();
 
-  const getGptParam = (param: keyof Omit<BaseOpenAiRequest, "stream" | "n">) =>
+  const getGptParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
     (!!bot && bot[param]) || DEFAULT_GPT_SETTINGS[param];
 
-  const isDavinci = getGptParam("model") === (DAVINCI_MODEL as OpenAiModel);
+  const model = getGptParam("model") as OpenAiModel;
+  const isDavinci = !isChatModel(model);
   const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
+  //   const endpointUrl = isChatModel(model) ? GENERATE_CHAT_ENDPOINT : GENERATE_CHAT_STREAM_ENDPOINT;
   const { stream, loading, error, getStream } = useGetStream(endpointUrl);
 
   const formContext = useForm<ChatFormFields>({});
@@ -95,6 +97,7 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
       presence_penalty: getGptParam("presence_penalty"),
       max_tokens,
       n: DEFAULT_GPT_SETTINGS["n"],
+      stream: features.useStream,
     };
 
     //  4. Make the API Call

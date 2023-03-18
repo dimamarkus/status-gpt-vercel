@@ -1,7 +1,7 @@
 export const Spinner = ({ ...props }) => {
   return (
     <svg
-      className="-ml-1 mr-3 h-5 w-5 animate-spin currentColor"
+      className="currentColor -ml-1 mr-3 h-5 w-5 animate-spin"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -12,7 +12,7 @@ export const Spinner = ({ ...props }) => {
         cy="12"
         r="10"
         stroke="currentColor"
-        stroke-width="4"
+        strokeWidth="4"
       ></circle>
       <path
         className="opacity-75"

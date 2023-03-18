@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { CHAT_GPT_MODEL, EXAMPLE_PROMPTS, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
-import { GptMessage, OpenAiRequest } from "#/app/chat/lib/openai";
+import { CHAT_GPT_MODEL, EXAMPLE_PROMPTS } from "#/app/chat/lib/constants";
+import { createSuggestionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
+import { OpenAiRequest } from "#/app/chat/lib/openai";
 import { post } from "#/lib/helpers/request-helpers/makeRequest";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
-import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
-import { createSuggestionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
 import { StatusChatMessage } from "#/lib/types";
+import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 
 export type UseSuggestionsReturn = {
   /**

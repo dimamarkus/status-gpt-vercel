@@ -1,7 +1,7 @@
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 import { OpenAiRequest } from "#/app/chat/lib/openai";
 import { makeStreamRequest } from "#/lib/helpers/request-helpers/makeStreamRequest";
-import { CHAT_GPT_MODEL, CHAT_GPT_URL, DAVINCI_URL } from "#/app/chat/lib/constants";
+import { CHAT_GPT_MODEL, GPT_CHAT_URL, GPT_COMPLETIONS_URL } from "#/app/chat/lib/constants";
 
 export const config = {
   runtime: "edge",
@@ -19,7 +19,7 @@ export default async function handler(req: Request, res: any) {
   }
 
   const requestBody = { ...payload, stream: true };
-  const endpointUrl = isChatGpt ? CHAT_GPT_URL : DAVINCI_URL;
+  const endpointUrl = isChatGpt ? GPT_CHAT_URL : GPT_COMPLETIONS_URL;
   const authHeaders = { Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}` };
   const response = await makeStreamRequest(endpointUrl, "POST", requestBody, authHeaders);
 

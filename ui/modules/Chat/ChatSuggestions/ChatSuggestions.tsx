@@ -3,7 +3,7 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ChatSuggestions.module.scss";
-import { PERMANENT_SUGGESTIONS } from "#/app/chat/lib/constants";
+import { DEBUG_SUGGESTIONS } from "#/app/chat/lib/constants";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
@@ -24,7 +24,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   } = useFeatureToggleContext();
 
   const displaySuggestions = !!debugMode
-    ? [...(suggestions || []), ...PERMANENT_SUGGESTIONS]
+    ? [...(suggestions || []), ...DEBUG_SUGGESTIONS]
     : suggestions;
 
   const prevProp = useRef<string>();

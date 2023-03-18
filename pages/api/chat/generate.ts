@@ -1,6 +1,6 @@
-import { BaseOpenAiResponse, OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
-import { CHAT_GPT_MODEL, CHAT_GPT_URL, DAVINCI_URL } from "#/app/chat/lib/constants";
-import { makeRequest, post } from "#/lib/helpers/request-helpers/makeRequest";
+import { CHAT_GPT_MODEL, GPT_CHAT_URL, GPT_COMPLETIONS_URL } from "#/app/chat/lib/constants";
+import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
+import { post } from "#/lib/helpers/request-helpers/makeRequest";
 
 export const GENERATE_CHAT_ENDPOINT = "/api/chat/generate";
 
@@ -14,7 +14,7 @@ export default async function handler({ body }: Request, res: any) {
   }
 
   const authHeaders = { Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}` };
-  const endpointUrl = isChatGpt ? CHAT_GPT_URL : DAVINCI_URL;
+  const endpointUrl = isChatGpt ? GPT_CHAT_URL : GPT_COMPLETIONS_URL;
   const response = await post<OpenAiResponse, OpenAiRequest>(endpointUrl, payload, authHeaders);
 
   const result = isChatGpt ? response.choices[0].message?.content : response.choices[0].text;
