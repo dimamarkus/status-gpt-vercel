@@ -1,4 +1,4 @@
-import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
+import { makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -10,11 +10,9 @@ export const makeServerRequest = async <TRequestBody>(
   endpoint: Request | string,
   method: HTTPMethod = "GET",
   body?: TRequestBody,
-  headers: HeadersInit = {},
-  options: RequestInit = {},
 ): Promise<Response> => {
   const url = (process.env.APP_API_URL || "/api") + endpoint;
-  const response = await makeBaseRequest(url, method, body, headers, options);
+  const response = await makeRequest(url, method, body);
 
   return response;
 };
@@ -23,10 +21,8 @@ export const makeAsyncServerRequest = async <TResponse, TRequestBody>(
   endpoint: Request | string,
   method: HTTPMethod = "GET",
   body?: TRequestBody,
-  headers: HeadersInit = {},
-  options: RequestInit = {},
 ): Promise<TResponse> => {
-  const response = await makeServerRequest(endpoint, method, body, headers, options);
+  const response = await makeServerRequest(endpoint, method, body);
 
   const responseData = (await response.json()) as TResponse;
 
@@ -37,12 +33,16 @@ export const makeAsyncServerRequest = async <TResponse, TRequestBody>(
 //  WRAPPERS
 // ============================================================================
 
+export const makeServerGetRequest = async <TResponse, TRequestBody>(
+  endpoint: Request | string,
+  body?: TRequestBody,
+): Promise<TResponse> => {
+  return makeAsyncServerRequest<TResponse, TRequestBody>(endpoint, "GET", body);
+};
+
 export const makeServerPostRequest = async <TResponse, TRequestBody>(
   endpoint: Request | string,
   body?: TRequestBody,
-  async: boolean = false,
-  headers: HeadersInit = {},
-  options: RequestInit = {},
 ): Promise<TResponse> => {
   return makeAsyncServerRequest<TResponse, TRequestBody>(endpoint, "POST", body);
 };

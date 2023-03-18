@@ -5,7 +5,6 @@ import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
 import { StatusChatMessage } from "#/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
-import { makePostRequest } from "#/lib/helpers/request-helpers/makePostRequest";
 import { makeServerPostRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
 
 export type UseSuggestionsReturn = {

@@ -1,6 +1,6 @@
 "use server";
 
-import { HTTPMethod, makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
+import { HTTPMethod, makeAsyncRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { getCmsUrl } from "#/lib/helpers/url-helpers";
 import { Bot, CmsResource, CmsResourceSlug, CmsResponse } from "#/lib/types/cms";
 import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/lib/types/strapi";
@@ -17,7 +17,7 @@ export async function makeCmsRequest<TResponse extends Response, TRequestBody ex
   const cmsUrl = getCmsUrl(endpoint);
   const authHeaders = { Authorization: `Bearer ${process.env.STRAPI_API_KEY ?? ""}` };
 
-  return await makeRequest<TResponse, TRequestBody>(cmsUrl, method, body, authHeaders);
+  return await makeAsyncRequest<TResponse, TRequestBody>(cmsUrl, method, body, authHeaders);
 }
 
 export async function postToCms<TResponse extends CmsResource, TRequestBody extends Request>(

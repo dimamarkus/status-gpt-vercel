@@ -1,15 +1,14 @@
-"use client";
-
 import cn from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+("use client");
 
 import { useAuthContext } from "#/lib/contexts/AuthContext";
-import { postData } from "#/lib/helpers/request-helpers/makePostRequest";
 import { getStripe } from "#/lib/helpers/stripe-helpers/stripe-client";
 import SupabaseButton from "#/ui/examples/supabase/SupabaseButton";
 
 import { Price, ProductWithPrice } from "#/lib/types/stripe";
+import { postData } from "#/lib/helpers/request-helpers/makeRequest";
 
 interface Props {
   products: ProductWithPrice[];

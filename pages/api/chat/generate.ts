@@ -1,27 +1,20 @@
-import { CHAT_GPT_MODEL, GPT_CHAT_URL, GPT_COMPLETIONS_URL } from "#/app/chat/lib/constants";
+import { GPT_CHAT_URL, GPT_COMPLETIONS_URL } from "#/app/chat/lib/constants";
 import { isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import {
-  OpenAiChatModel,
   OpenAiChatRequest,
   OpenAiChatResponse,
-  OpenAiCompletionModel,
   OpenAiCompletionRequest,
   OpenAiCompletionResponse,
-  OpenAiModel,
   OpenAiRequest,
   OpenAiResponse,
 } from "#/app/chat/lib/openai";
-import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
-import { makePostRequest } from "#/lib/helpers/request-helpers/makePostRequest";
+import { makePostRequest } from "#/lib/helpers/request-helpers/makeRequest";
 
 export const GENERATE_CHAT_ENDPOINT = "/chat/generate";
 
 export default async function handler({ body }: Request, res: any) {
-  console.log("-----------------------------------------------------------");
   const payload = { ...body } as OpenAiRequest;
-  console.log("payload prompt", payload);
   const useChatApi = isChatModel(payload.model);
-  console.log("useChatApi prompt", useChatApi);
 
   if (useChatApi && !(payload as OpenAiChatRequest).messages) {
     return new Response("No 'messages' in the request", { status: 400 });
