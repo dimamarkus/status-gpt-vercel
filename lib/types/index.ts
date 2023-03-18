@@ -5,3 +5,5 @@ export type StatusChatMessage = GptMessage & {
 };
 
 export type CommonSizes = "xs" | "sm" | "md" | "lg" | "xl";
+
+export type Language = "English" | "Spanish" | "French" | "Russian";

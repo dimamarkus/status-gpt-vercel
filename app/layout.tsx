@@ -1,9 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
-import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { AuthContextProvider } from "#/lib/contexts/AuthContext";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
-import { createServerSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-server";
+import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
 import "#/styles/globals.scss";
 
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
@@ -94,7 +93,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <Analytics />
       <AuthContextProvider accessToken={null}>
         <FeatureToggleContextProvider>
-          <FullScreenContextProvider>{children}</FullScreenContextProvider>
+          <LanguageContextProvider>
+            <FullScreenContextProvider>{children}</FullScreenContextProvider>
+          </LanguageContextProvider>
         </FeatureToggleContextProvider>
       </AuthContextProvider>
     </html>

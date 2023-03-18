@@ -18,4 +18,5 @@ export const ChatModels = () => {
     <div>No models found</div>
   );
 };
+
 export default ChatModels;

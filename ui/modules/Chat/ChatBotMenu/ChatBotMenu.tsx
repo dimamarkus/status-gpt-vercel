@@ -8,7 +8,7 @@ import { TabGroup } from "#/ui/examples/tab-group";
 
 export const revalidate = 0;
 
-export async function ChatBotMenu() {
+export async function ChatBotMenu({ path = "/chat" }: { path: string }) {
   const botMenuResults = await getResourceFieldsFromCms<Bot>("bots", ["name", "slug"]);
   const botNames = botMenuResults.data || [];
   const hiddenBots = (await get("hiddenBots")) as string[];
@@ -18,7 +18,7 @@ export async function ChatBotMenu() {
   return (
     <nav className={cn(styles.root, "root m-4")}>
       <TabGroup
-        path="/chat"
+        path={path}
         items={[
           ...botNames
             .filter((bot) => !isBotHidden(bot.attributes.slug))

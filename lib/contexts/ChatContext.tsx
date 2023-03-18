@@ -7,6 +7,7 @@ import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
 import { AvatarContextProvider } from "#/lib/contexts/AvatarContext";
 import { Bot } from "#/lib/types/cms";
+import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
 
 export type ChatContext = UseChatGptReturn &
   Omit<UseSuggestionsReturn, "loading"> & {

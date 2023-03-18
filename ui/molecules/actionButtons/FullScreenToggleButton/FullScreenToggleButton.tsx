@@ -3,7 +3,7 @@ import styles from "./FullScreenToggleButton.module.scss";
 import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
 import Button from "#/ui/atoms/buttons/Button/Button";
 
-export const FullScreenToggleButton = () => {
+export const FullScreenToggleButton = ({ className }: { className?: string }) => {
   const { isFullScreen, toggleFullScreen } = useFullScreenContext();
 
   return (

@@ -2,7 +2,7 @@ import { CHAT_MODELS, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
 import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
 import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
 import { DEFAULT_BOT_MEMORY } from "#/lib/constants/settings";
-import { StatusChatMessage } from "#/lib/types";
+import { Language, StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
 
 export const isChatModel = (model: OpenAiModel) => CHAT_MODELS.includes(model as OpenAiChatModel);
@@ -46,6 +46,7 @@ export const compileChatMessages = (
   messages: StatusChatMessage[] | null,
   prompt: string,
   memory?: number,
+  language?: Language,
 ): {
   /**
    * The system training message along with a slice of the most recent messages.
