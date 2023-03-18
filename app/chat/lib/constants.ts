@@ -3,6 +3,7 @@ import { StatusChatMessage } from "#/lib/types";
 
 //  ENDPOINTS
 // ============================================================================
+export const GPT_MODELS_URL = "https://api.openai.com/v1/models";
 export const GPT_CHAT_URL = "https://api.openai.com/v1/chat/completions";
 export const GPT_COMPLETIONS_URL = "https://api.openai.com/v1/completions";
 

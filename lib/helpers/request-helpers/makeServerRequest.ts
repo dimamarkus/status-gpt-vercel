@@ -1,4 +1,6 @@
+import { OpenAiModelResponse } from "#/app/chat/lib/openai";
 import { makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
+import { MODELS_ENDPOINT } from "#/pages/api/chat/models";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -30,7 +32,7 @@ export const makeAsyncServerRequest = async <TResponse, TRequestBody>(
 };
 
 // ============================================================================
-//  WRAPPERS
+//  GENERIC
 // ============================================================================
 
 export const makeServerGetRequest = async <TResponse, TRequestBody>(
@@ -45,4 +47,11 @@ export const makeServerPostRequest = async <TResponse, TRequestBody>(
   body?: TRequestBody,
 ): Promise<TResponse> => {
   return makeAsyncServerRequest<TResponse, TRequestBody>(endpoint, "POST", body);
+};
+
+// ============================================================================
+//  WRAPPERS
+// ============================================================================
+export const fetchModels = () => {
+  return makeAsyncServerRequest<OpenAiModelResponse, {}>(MODELS_ENDPOINT, "GET");
 };

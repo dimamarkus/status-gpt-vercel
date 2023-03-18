@@ -36,6 +36,15 @@ export type OpenAiModel = OpenAiCompletionModel | OpenAiChatModel;
 
 //  META
 // ============================================================================
+export type OpenAiModelResponse = {
+  data: {
+    id: OpenAiChatModel;
+    object: "model";
+    owned_by: "organization-owner";
+    // permission: [...]
+  }[];
+  obejct: "list";
+};
 
 export type GptMessage = {
   role: GptRoles;

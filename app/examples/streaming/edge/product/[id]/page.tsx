@@ -1,24 +1,19 @@
+import { Suspense } from "react";
 import {
   RecommendedProducts,
   RecommendedProductsSkeleton,
-} from '#/app/examples/streaming/_components/recommended-products';
-import {
-  Reviews,
-  ReviewsSkeleton,
-} from '#/app/examples/streaming/_components/reviews';
-import { SingleProduct } from '#/app/examples/streaming/_components/single-product';
-import { Ping } from '#/ui/examples/ping';
-import { Suspense } from 'react';
+} from "#/app/examples/streaming/_components/recommended-products";
+import { Reviews, ReviewsSkeleton } from "#/app/examples/streaming/_components/reviews";
+import { SingleProduct } from "#/app/examples/streaming/_components/single-product";
+import { Ping } from "#/ui/examples/ping";
 
-export const runtime = 'experimental-edge';
+export const runtime = "edge";
 
 export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div className="space-y-8 lg:space-y-14">
       {/* @ts-expect-error Async Server Component */}
-      <SingleProduct
-        data={fetch(`https://app-dir.vercel.app/api/products?id=${params.id}`)}
-      />
+      <SingleProduct data={fetch(`https://app-dir.vercel.app/api/products?id=${params.id}`)} />
 
       <div className="relative">
         <div className="absolute top-2 -left-4">
@@ -37,7 +32,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             {
               // We intentionally disable Next.js Cache to better demo
               // streaming
-              cache: 'no-store',
+              cache: "no-store",
             },
           )}
         />
@@ -59,7 +54,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             {
               // We intentionally disable Next.js Cache to better demo
               // streaming
-              cache: 'no-store',
+              cache: "no-store",
             },
           )}
         />

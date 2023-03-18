@@ -1,7 +1,7 @@
+"use client";
 import cn from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-("use client");
 
 import { useAuthContext } from "#/lib/contexts/AuthContext";
 import { getStripe } from "#/lib/helpers/stripe-helpers/stripe-client";

@@ -4,7 +4,7 @@ import { isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { OpenAiChatRequest, OpenAiCompletionRequest, OpenAiRequest } from "#/app/chat/lib/openai";
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
 
-export const runtime = "experimental-edge";
+export const runtime = "edge";
 
 export const GENERATE_CHAT_STREAM_ENDPOINT = "/chat/generate-stream";
 
