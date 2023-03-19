@@ -3,11 +3,7 @@ import { AuthContextProvider } from "#/lib/contexts/AuthContext";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
 import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
-import "#/styles/globals.scss";
-import "#/styles/_text.scss";
-import "#/styles/colors.scss";
-import "#/styles/colors-tailwind.scss";
-import "#/styles/chrome-bug.css";
+import "#/styles/index.scss";
 
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
 // export const revalidate = 0;

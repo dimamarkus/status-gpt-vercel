@@ -120,7 +120,7 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
   };
 
   return (
-    <div className={cn(styles.TextInput, "form-control", className)}>
+    <div className={cn(styles.root, "form-control", className)}>
       <div className="label">
         {labelChild}
         {topRightChild}

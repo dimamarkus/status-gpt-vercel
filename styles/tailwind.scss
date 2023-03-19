@@ -1,5 +1,13 @@
-// [UPDATE] Tailwind CSS 3.2.4
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+// Not sure why tailwind's class doesnt work
+.invisible {
+  visibility: hidden;
+}
+
+// [UPDATE] Tailwind CSS 3.2.4
 $slate-50: #f8fafc;
 $slate-100: #f1f5f9;
 $slate-200: #e2e8f0;

@@ -1,0 +1,32 @@
+@use "./tailwind";
+// Tailwind should go first, so that it can be overridden by the rest of the styles.
+@use "./_reset";
+@use "./_colors";
+@use "./_mixins";
+@use "./_utilities";
+@use "./_text";
+
+body.drawer,
+body {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+  height: 100.001vh;
+}
+
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.height-screen-helper {
+  height: calc(100vh - 80px);
+}

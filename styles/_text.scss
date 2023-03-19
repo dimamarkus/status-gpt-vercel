@@ -1,3 +1,71 @@
+// ================================================================================================
+// TYPOGRAPHY
+// ================================================================================================
+
+// Generated partially by: https://www.fluid-type-scale.com/
+
+// Scale
+// ------------------------------------------------------------------------------------------------
+
+:root {
+  --font-size-xs: clamp(12.64px, -0.28vw + 13.68px, 10.13px);
+  --font-size-sm: clamp(14.22px, -0.08vw + 14.52px, 13.5px);
+  --font-size-base: clamp(16px, 0.22vw + 15.17px, 18px);
+  --font-size-md: clamp(18px, 0.66vw + 15.52px, 23.99px);
+  --font-size-lg: clamp(20.25px, 1.3vw + 15.39px, 31.98px);
+  --font-size-xl: clamp(22.78px, 2.19vw + 14.55px, 42.63px);
+  --font-size-xxl: clamp(25.63px, 3.45vw + 12.7px, 56.83px);
+}
+
+// Defaults
+// ------------------------------------------------------------------------------------------------
+
+h1 {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.2;
+}
+h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  line-height: 1.2;
+}
+h4 {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  line-height: 1.3;
+}
+h5 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  line-height: 1.4;
+}
+h6 {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.5;
+}
+p {
+  font-size: var(--font-size-base);
+  // line-height: 1.5;
+}
+label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1;
+}
+small {
+  font-size: var(--font-size-xs);
+}
+
+// Special Text
+// ------------------------------------------------------------------------------------------------
+
 .boujee-text {
   --bg-size: 400%;
   /* --color-one: hsl(15 90% 55%); */

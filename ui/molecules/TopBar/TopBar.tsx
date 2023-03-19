@@ -2,7 +2,7 @@ import Link from "next/link";
 import Hamburger from "#/ui/atoms/icons/Hamburger";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
 import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
-import "#/ui/molecules/TopBar/TopBar.css";
+import styles from "./TopBar.module.scss";
 
 const navItems = (
   <>

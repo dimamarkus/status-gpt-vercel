@@ -1,22 +1,18 @@
-import '#/styles/globals.scss';
-import { AddressBar } from '#/ui/examples/address-bar';
-import { GlobalNav } from '#/ui/examples/global-nav';
-import { VercelLogo } from '#/ui/examples/vercel-logo';
+import "#/styles/index.scss";
+import { AddressBar } from "#/ui/examples/address-bar";
+import { GlobalNav } from "#/ui/examples/global-nav";
+import { VercelLogo } from "#/ui/examples/vercel-logo";
 
 export const metadata = {
   title: {
-    default: 'Next.js App Router',
-    template: '%s | Next.js App Router',
+    default: "Next.js App Router",
+    template: "%s | Next.js App Router",
   },
   description:
-    'A playground to explore new Next.js App Router features such as nested layouts, instant loading states, streaming, and component level data fetching.',
+    "A playground to explore new Next.js App Router features such as nested layouts, instant loading states, streaming, and component level data fetching.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <body className="overflow-y-scroll bg-gray-1100 bg-[url('/examples/grid.svg')]">
       <GlobalNav />
@@ -65,7 +61,7 @@ function Byline() {
         >
           View code
         </a>
-        {' or '}
+        {" or "}
         <a
           className="underline decoration-dotted underline-offset-4 hover:text-gray-400"
           href="https://vercel.com/templates/next.js/app-directory"
