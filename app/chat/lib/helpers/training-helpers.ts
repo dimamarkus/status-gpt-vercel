@@ -1,8 +1,10 @@
 import { BOT_TRAINING_ORDER } from "#/lib/constants/settings";
 import {
   Bot,
+  BotPromotion,
   BotTraining,
   BotTrainingMap,
+  BotTrigger,
   CmsMultiRelation,
   CmsSingleRelation,
 } from "#/lib/types/cms";
@@ -17,6 +19,38 @@ export const getManyTrainingContents = (
     return data.map((training) => (!!training ? training.attributes.content : null));
   } catch (error) {
     console.error("Could not parse bot relation data");
+  }
+  return [];
+};
+
+export const getCustomTriggerContents = (triggers?: BotTrigger[]): (string | null)[] => {
+  if (!triggers || triggers?.length < 1) return [];
+  try {
+    return triggers.map(
+      (trigger) => `If the user mentions ${trigger.phrase}, respond with: ${trigger.response}`,
+    );
+  } catch (error) {
+    console.error("Could not parse bot trigger data");
+  }
+  return [];
+};
+
+export const getPromotionTrainingContents = (
+  promotions?: CmsMultiRelation<BotPromotion>,
+): (string | null)[] => {
+  if (!promotions?.data) return [];
+  try {
+    const { data } = promotions;
+
+    return data.map((promotion) => {
+      if (!promotion) return null;
+      const {
+        attributes: { content, name, category, url },
+      } = promotion;
+      return `When it makes sense, on the topick of ${category}, you can promote ${name} at ${url} with the following ${content}.`;
+    });
+  } catch (error) {
+    console.error("Could not parse bot promotion data");
   }
   return [];
 };
@@ -51,12 +85,12 @@ export const collateBotTraining = (bot: Bot): string => {
   const trainingObject: BotTrainingMap = {
     contents: getManyTrainingContents(chat_content_ids),
     intentions: getManyTrainingContents(chat_intention_ids),
-    promotions: getManyTrainingContents(promotion_ids),
     syntax: getManyTrainingContents(chat_syntax_ids),
     styles: getManyTrainingContents(chat_style_ids),
     userInfo: getManyTrainingContents(chat_user_info_ids),
     triggers: getManyTrainingContents(trigger_ids),
-    custom_triggers: getManyTrainingContents(custom_triggers),
+    promotions: getPromotionTrainingContents(promotion_ids),
+    custom_triggers: getCustomTriggerContents(custom_triggers),
     general_training,
     training,
     json_training: !!json_training ? JSON.stringify(json_training) : "",

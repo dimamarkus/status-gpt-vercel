@@ -38,6 +38,20 @@ export type BotTraining = {
   bot_ids?: CmsMultiRelation<Bot>;
 };
 
+export type BotTrigger = {
+  id: number;
+  phrase: string;
+  response?: string;
+};
+
+export type BotPromotion = {
+  name: string;
+  content: string;
+  category?: string;
+  url?: string;
+  bot_ids?: CmsMultiRelation<Bot>;
+};
+
 export type Bot = {
   slug: string;
   name: string;
@@ -60,9 +74,9 @@ export type Bot = {
   chat_intention_ids?: CmsMultiRelation<BotTraining>;
   chat_user_info_ids?: CmsMultiRelation<BotTraining>;
   chat_content_ids?: CmsMultiRelation<BotTraining>;
-  promotion_ids?: CmsMultiRelation<BotTraining>;
+  promotion_ids?: CmsMultiRelation<BotPromotion>;
   trigger_ids?: CmsMultiRelation<BotTraining>;
-  custom_triggers?: CmsMultiRelation<BotTraining>;
+  custom_triggers?: BotTrigger[];
 };
 
 export type BotTrainingMap = {
