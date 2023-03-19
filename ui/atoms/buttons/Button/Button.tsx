@@ -35,7 +35,9 @@ export const Button = (props: ButtonProps) => {
   } as BaseButtonProps;
 
   const getBaseButtonWClasses = (classNames: string) => (
-    <BaseButton className={cn(classNames, className)} {...buttonProps} />
+    <BaseButton className={cn(classNames, className)} {...buttonProps}>
+      {children}
+    </BaseButton>
   );
 
   switch (type) {

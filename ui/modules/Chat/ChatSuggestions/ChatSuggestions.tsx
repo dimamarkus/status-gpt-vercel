@@ -52,7 +52,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   }
 
   return (
-    <div className={cn(styles.root, className, !showSuggestions && "hidden")}>
+    <div className={cn(styles.root, className, !showSuggestions || (!useIsTablet && "hidden"))}>
       {loading || suggestionsLoading ? (
         <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
           <Spinner />

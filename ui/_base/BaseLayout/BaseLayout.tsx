@@ -40,7 +40,6 @@ export const BaseLayout = ({
         </label>
         {sidebar}
       </aside>
-      <FeaturesPanel />
       <Notifications />
     </body>
   );

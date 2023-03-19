@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
 import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
+import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
 
 type StrapiPageProps = {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function Layout({ children }: StrapiPageProps) {
   return (
     <LandingLayout>
+      <FeaturesPanel />
       {/* @ts-expect-error Async Server Component */}
       <ChatBotMenu />
       {children}

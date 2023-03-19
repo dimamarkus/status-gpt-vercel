@@ -1,10 +1,10 @@
 "use client";
+import Link from "next/link";
 import { OpenAiModel } from "#/app/chat/lib/openai";
 import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import Button from "#/ui/atoms/buttons/Button/Button";
-import Link from "next/link";
 
 const FeaturesPanel = () => {
   const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();
@@ -20,9 +20,8 @@ const FeaturesPanel = () => {
       className="btn-ghost btn-square btn-sm btn relative opacity-30"
       onClick={() => toggleShowFeatures()}
       title={(!areFeaturesShown ? "Enter" : "Exit") + " Full-screen"}
-    >
-      {!areFeaturesShown ? "⚙️" : "❌"}
-    </Button>
+      text={!areFeaturesShown ? "⚙️" : "❌"}
+    />
   );
 
   if (!areFeaturesShown) {

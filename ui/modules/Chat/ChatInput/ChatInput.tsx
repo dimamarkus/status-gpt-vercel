@@ -77,7 +77,7 @@ export const ChatInput = (props: ChatInputProps) => {
       <Button type="submit" className="h-full rounded-none md:h-auto md:rounded-b-md">
         {
           <>
-            Send <span className="hidden md:visible">Message</span>
+            Send <span className="hidden md:block">&nbsp;Message</span>
           </>
         }
       </Button>

@@ -41,7 +41,7 @@ export default async function Page({ params }: BotPageProps) {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      <ChatSuggestions className="hidden md:visible" />
+      <ChatSuggestions className="hidden md:block" />
     </>
   );
 

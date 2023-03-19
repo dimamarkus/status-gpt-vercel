@@ -40,7 +40,8 @@ export const BaseButton = ({
       type={type}
       {...htmlButtonProps}
     >
-      {text || children}
+      {text}
+      {children}
     </button>
   );
 };

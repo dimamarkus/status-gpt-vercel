@@ -34,7 +34,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         avatarUrl={avatarUrl}
         isTalking={isTalking}
         role={role}
-        className="hidden md:visible"
+        className="hidden md:block"
       />
       {!isSystemMessage && <Timestamp time={time} />}
       <div
