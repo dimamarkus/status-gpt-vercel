@@ -11,7 +11,6 @@ export interface AuthButtonsProps extends BaseButtonGroupProps {
 
 export const AuthButtons = (props: AuthButtonsProps) => {
   const isMobile = useIsMobile();
-  console.log('isMobile', isMobile)
   const { user, setView, signOut } = useAuthContext();
   const logIn = () => setView(VIEWS.SIGN_IN);
   const signUp = () => setView(VIEWS.SIGN_UP);

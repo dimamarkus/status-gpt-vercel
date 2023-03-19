@@ -1,5 +1,5 @@
 @import "styles/mixins.scss";
-@import "styles/colors.scss";
+@import "styles/colors-tailwind.scss";
 
 /* Suggestions Scrollbar */
 /* ---------------------------------------------------------------- */
@@ -19,6 +19,7 @@
   @apply mt-auto;
   @apply max-h-24;
   @apply overflow-y-scroll;
+  @apply md:overflow-y-auto;
   @apply md:shadow-none;
   @apply md:max-h-fit;
   @apply lg:bg-inherit;
@@ -41,6 +42,10 @@
     @apply md:mb-0;
     @apply cursor-pointer;
     @apply md:cursor-default;
+  }
+
+  ul {
+    padding-bottom: 0 !important;
   }
 
   // &::-webkit-scrollbar {

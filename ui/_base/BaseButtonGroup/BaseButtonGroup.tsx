@@ -95,7 +95,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
   // ---------------------------------------------------------------------------------------------
   const classNames = cn(
     styles.BaseButtonGroup,
-    "flex items-center",
+    "flex items-center space-x-4",
     vertical ? `space-y-${sizeMap[gap]}` : `space-x-${sizeMap[gap]}`,
     vertical ? "justify-center" : "align-center",
     vertical && "flex-col",

@@ -17,7 +17,9 @@ export const LandingLayout = ({ children, ssr, className }: LandingLayoutProps) 
     <Component>
       <div className={cn(styles.root, "drawer-content", className)}>
         <TopBar />
-        <main role="main">{children}</main>
+        <main role="main" className="md:pt-4">
+          {children}
+        </main>
       </div>
     </Component>
   );
