@@ -21,7 +21,7 @@ export default async function Page() {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      <ChatSuggestions className="mt-auto max-h-24 overflow-y-auto sm:max-h-fit" />
+      <ChatSuggestions className="hidden md:block" />
     </>
   );
 
@@ -30,6 +30,7 @@ export default async function Page() {
       <ChatContextProvider bot={bot}>
         <ChatLayout sidebar={sidebar}>
           <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />
+          <ChatSuggestions className="lg:hidden" />
           <ChatInput />
         </ChatLayout>
       </ChatContextProvider>

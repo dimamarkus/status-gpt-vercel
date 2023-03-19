@@ -29,17 +29,22 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const chatBg = isUserMessage ? "bg-blue-50 dark:bg-blue-900" : "bg-neutral-50 dark:bg-base-200";
 
   return (
-    <div className={cn(styles.root, "chat m-0 p-4",chatClass, className)} dir="ltr">
-      <ChatMessageAvatar avatarUrl={avatarUrl} isTalking={isTalking} role={role} />
+    <div className={cn(styles.root, "chat m-0 p-4", chatClass, className)} dir="ltr">
+      <ChatMessageAvatar
+        avatarUrl={avatarUrl}
+        isTalking={isTalking}
+        role={role}
+        className="hidden md:visible"
+      />
       {!isSystemMessage && <Timestamp time={time} />}
       <div
         className={cn(
           styles.chatBubble,
           `chat-bubble ${chatBg} flex max-w-full flex-col transition`,
-          isSystemMessage ? "bg-neutral-900 text-neutral-100 w-full" : "text-neutral-900",
+          isSystemMessage ? "w-full bg-neutral-900 text-neutral-100" : "text-neutral-900",
         )}
       >
-        <ParsedMarkdown content={content} className="text-sm md:text-base w-full" />
+        <ParsedMarkdown content={content} className="w-full text-sm md:text-base" />
         <CopyButton
           type="link"
           text="Copy"

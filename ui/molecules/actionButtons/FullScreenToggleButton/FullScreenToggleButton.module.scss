@@ -3,10 +3,6 @@ button.root {
   @apply btn-sm;
   @apply btn-ghost;
   @apply btn-square;
-  @apply absolute;
-  @apply top-3;
-  @apply right-3;
-  @apply z-10;
   @apply text-neutral-400;
   @apply hover:bg-neutral-100;
   @apply hover:text-neutral-600;

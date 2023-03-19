@@ -27,7 +27,7 @@ export interface ButtonProps extends Omit<BaseButtonProps, "type"> {
  * Primary UI component for user interaction
  */
 export const Button = (props: ButtonProps) => {
-  const { type, className, ...otherProps } = props;
+  const { children, type, className, ...otherProps } = props;
 
   const buttonProps = {
     ...otherProps,
@@ -40,14 +40,16 @@ export const Button = (props: ButtonProps) => {
 
   switch (type) {
     case "submit":
-      const text = buttonProps.text || "Submit";
+      const text = !children ? buttonProps.text || "Submit" : undefined;
       return (
         <BaseButton
           className={cn("btn-primary", className)}
           {...buttonProps}
           text={text}
           type="submit"
-        />
+        >
+          {children}
+        </BaseButton>
       );
 
     case "accent":

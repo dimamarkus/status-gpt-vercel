@@ -40,8 +40,7 @@ export default async function Page({ params }: BotPageProps) {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      {/* <ChatSuggestions className="mt-auto max-h-24 overflow-y-auto sm:max-h-fit" /> */}
-      <ChatSuggestions />
+      <ChatSuggestions className="hidden md:visible" />
     </>
   );
 
@@ -49,6 +48,7 @@ export default async function Page({ params }: BotPageProps) {
     <ChatContextProvider bot={currentBot}>
       <ChatLayout sidebar={sidebar}>
         <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />
+        <ChatSuggestions className="lg:hidden" />
         <ChatInput />
       </ChatLayout>
     </ChatContextProvider>

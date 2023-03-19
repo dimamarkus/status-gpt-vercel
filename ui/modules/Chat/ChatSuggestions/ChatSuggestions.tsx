@@ -15,8 +15,16 @@ type ChatSuggestionsProps = {
 };
 
 export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
-  const { chatLog, suggestions, answer, getAnswer, getSuggestions, suggestionsLoading, loading } =
-    useChatContext();
+  const {
+    chatLog,
+    suggestions,
+    answer,
+    getAnswer,
+    getSuggestions,
+    suggestionsLoading,
+    showSuggestions,
+    loading,
+  } = useChatContext();
   const useIsTablet = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(!useIsTablet);
   const {
@@ -42,11 +50,11 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   if (!displaySuggestions || displaySuggestions === null) {
     return null;
   }
-  const shimmer = `relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent`;
+
   return (
-    <div className={cn(styles.root, className)}>
+    <div className={cn(styles.root, className, !showSuggestions && "hidden")}>
       {loading || suggestionsLoading ? (
-        <div className="m-4 mb-8 text-blue-400">
+        <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
           <Spinner />
         </div>
       ) : (

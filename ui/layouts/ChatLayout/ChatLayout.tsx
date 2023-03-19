@@ -21,10 +21,10 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
       )}
     >
       <div>
-        <FullScreenToggleButton />
+        <FullScreenToggleButton className="absolute top-0 right-0 z-10 md:top-3 md:right-3" />
         {children}
       </div>
-      <aside>{sidebar}</aside>
+      <aside className="md:display-flex hidden">{sidebar}</aside>
     </section>
   );
 };

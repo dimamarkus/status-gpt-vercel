@@ -10,13 +10,19 @@
   @apply lg:mb-16;
   @apply lg:flex-row;
 
+  & > .fullScreenToggle {
+    @apply absolute;
+    @apply top-3;
+    @apply right-3;
+    @apply z-10;
+  }
+
   & > div {
     @apply relative;
     @apply order-last;
     @apply flex;
     @apply h-full;
     @apply flex-col;
-    @apply p-1;
     @apply md:order-first;
     @apply md:p-4;
     @apply lg:w-9/12;

@@ -23,7 +23,7 @@ export const Logo = (props: LogoProps) => {
       />
       <h1 className="logo m-0 font-serif text-2xl font-bold">
         <span className="boujee-text">AI</span>dvisor
-        <small className="font-sans text-xs text-neutral-400"> BETA</small>
+        <small className="display-block font-sans text-xs text-neutral-400"> BETA</small>
       </h1>
     </Link>
   );

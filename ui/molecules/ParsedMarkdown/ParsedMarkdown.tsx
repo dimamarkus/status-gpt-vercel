@@ -40,7 +40,7 @@ export const ParsedMarkdown = ({ content, className }: ParsedMarkdownProps) => {
     <div
       id="dangerous-html"
       dangerouslySetInnerHTML={{ __html: mdContent }}
-      className={cn(styles.ParsedMarkdown, "prose text-inherit", className)}
+      className={cn(styles.ParsedMarkdown, "prose", className)}
     />
   );
 };

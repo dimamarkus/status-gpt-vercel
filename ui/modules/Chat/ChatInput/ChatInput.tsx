@@ -74,11 +74,13 @@ export const ChatInput = (props: ChatInputProps) => {
         register={register}
       />
 
-      <Button
-        type="submit"
-        text={!isMobile ? "Send Message" : "Send"}
-        className="h-full rounded md:h-auto md:rounded-t-none"
-      />
+      <Button type="submit" className="h-full rounded-none md:h-auto md:rounded-b-md">
+        {
+          <>
+            Send <span className="hidden md:visible">Message</span>
+          </>
+        }
+      </Button>
     </form>
   );
 };

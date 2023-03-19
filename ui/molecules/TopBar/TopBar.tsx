@@ -40,11 +40,9 @@ const TopBar = () => {
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />
-        <ul className="menu menu-horizontal px-1">{navItems}</ul>
+        <ul className="menu menu-horizontal hidden px-1 lg:visible">{navItems}</ul>
       </div>
-      <div className="navbar-end">
-        <AuthButtons />
-      </div>
+      <AuthButtons className="navbar-end" />
     </header>
   );
 };

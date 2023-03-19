@@ -1,6 +1,7 @@
 import cn from "classnames";
 import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from "react";
 import styles from "./BaseButtonGroup.module.scss";
+import { sizeMap } from "#/lib/constants/maps";
 import Button, { ButtonProps, ButtonType } from "#/ui/atoms/buttons/Button/Button";
 
 type BasicButton = {
@@ -42,7 +43,9 @@ export interface BaseButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
    * Although it should be used in place of the primary, secondary, and tertiary buttons,
    * they can be used together and the ButtonMap will render after the main buttons.
    */
+  gap?: "none" | "sm" | "md" | "lg" | "xl";
   buttonMap?: BasicButton[];
+  className?: string;
   children?: ReactNode;
 }
 export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
@@ -57,6 +60,8 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
     reverseOrder,
     split,
     vertical,
+    gap = "sm",
+    className,
   } = props;
 
   const renderButtonFromMap = (button: BasicButton, index: number) => (
@@ -86,19 +91,22 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
   const comboArray = [...arrayFromProps, ...arrayFromMap];
   const finalArray = reverseOrder ? comboArray.reverse() : comboArray;
 
+  // Prepare css classes
+  // ---------------------------------------------------------------------------------------------
+  const classNames = cn(
+    styles.BaseButtonGroup,
+    "flex items-center",
+    vertical ? `space-y-${sizeMap[gap]}` : `space-x-${sizeMap[gap]}`,
+    vertical ? "justify-center" : "align-center",
+    vertical && "flex-col",
+    reverseOrder && vertical ? "flex-row-reverse" : reverseOrder && "flex-column-reverse",
+    className,
+  );
+
   // RENDER
   // ---------------------------------------------------------------------------------------------
   return (
-    <div
-      className={cn(
-        styles.BaseButtonGroup,
-        "flex items-center",
-        vertical ? "space-y-4" : "space-x-4",
-        vertical ? "justify-center" : "align-center",
-        vertical && "flex-col",
-        reverseOrder && vertical ? "flex-row-reverse" : reverseOrder && "flex-column-reverse",
-      )}
-    >
+    <div className={classNames}>
       {children}
       {finalArray}
     </div>

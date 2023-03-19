@@ -4,6 +4,7 @@ import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContex
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
 import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
 import "#/styles/globals.scss";
+import "#/styles/chrome-bug.css";
 
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
 // export const revalidate = 0;
