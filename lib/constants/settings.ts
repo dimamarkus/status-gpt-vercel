@@ -54,11 +54,14 @@ export const DEFAULT_GPT_SETTINGS: OpenAiRequest = {
 
 export const BOT_TRAINING_ORDER: (keyof BotTrainingMap)[] = [
   "syntax",
+  "general_training",
+  "training",
   "contents",
-  "styles",
   "intentions",
   "promotions",
-  "training",
-  "userInfo",
+  "styles",
+  "triggers",
+  "custom_triggers",
   "json_training",
+  "userInfo",
 ];

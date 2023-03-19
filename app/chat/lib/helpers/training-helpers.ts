@@ -36,6 +36,7 @@ export const collateBotTraining = (bot: Bot): string => {
   if (!bot) return "";
   const {
     training,
+    general_training,
     json_training,
     chat_intention_ids,
     promotion_ids,
@@ -43,6 +44,8 @@ export const collateBotTraining = (bot: Bot): string => {
     chat_syntax_ids,
     chat_style_ids,
     chat_user_info_ids,
+    trigger_ids,
+    custom_triggers,
   } = bot;
 
   const trainingObject: BotTrainingMap = {
@@ -52,6 +55,9 @@ export const collateBotTraining = (bot: Bot): string => {
     syntax: getManyTrainingContents(chat_syntax_ids),
     styles: getManyTrainingContents(chat_style_ids),
     userInfo: getManyTrainingContents(chat_user_info_ids),
+    triggers: getManyTrainingContents(trigger_ids),
+    custom_triggers: getManyTrainingContents(custom_triggers),
+    general_training,
     training,
     json_training: !!json_training ? JSON.stringify(json_training) : "",
   };

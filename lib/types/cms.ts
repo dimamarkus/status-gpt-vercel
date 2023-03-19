@@ -44,6 +44,7 @@ export type Bot = {
   avatar?: StrapiMediaAttribute<StrapiMedia>;
   welcome_message: string | null;
   training: string;
+  general_training: string;
   json_training: JSON;
   model: OpenAiModel;
   max_tokens: number | null;
@@ -60,6 +61,8 @@ export type Bot = {
   chat_user_info_ids?: CmsMultiRelation<BotTraining>;
   chat_content_ids?: CmsMultiRelation<BotTraining>;
   promotion_ids?: CmsMultiRelation<BotTraining>;
+  trigger_ids?: CmsMultiRelation<BotTraining>;
+  custom_triggers?: CmsMultiRelation<BotTraining>;
 };
 
 export type BotTrainingMap = {
@@ -69,6 +72,9 @@ export type BotTrainingMap = {
   userInfo: (string | null)[];
   syntax: (string | null)[];
   styles: (string | null)[];
+  triggers: (string | null)[];
+  custom_triggers: (string | null)[];
   training: string | null;
+  general_training: string | null;
   json_training: string | null;
 };
