@@ -12,17 +12,31 @@ import "#/styles/chrome-bug.css";
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
 // export const revalidate = 0;
 
-const devIcon = process.env.NODE_ENV === "development" ? "🚧 " : "";
+const getFavicon = () => {
+  if (process.env.NODE_ENV === "development") {
+    return "/favicon/favicon-dev.ico";
+  } else if (process.env.NODE_ENV === "test") {
+    return "/favicon/favicon-test.ico";
+  }
+  return "/favicon/favicon.ico";
+};
+
 export const metadata = {
-  title: devIcon + "AI Financial Coach | StatusMoney",
+  title: "AI Financial Coach | StatusMoney",
   // template: "%s | Next.js App Router",
   description: "Your personal financial advisor powered by AI",
-  favicon: "/favicon/favicon.ico",
+  favicon: getFavicon(),
   icons: {
+    favicon: getFavicon(),
     other: [
       {
         rel: "apple-touch-icon",
         url: "/favicon/apple-touch-icon.png",
+      },
+      {
+        rel: "icon",
+        url: getFavicon(),
+        type: "image/x-icon",
       },
     ],
     appleIcon: "/favicon/apple-touch-icon.png",
