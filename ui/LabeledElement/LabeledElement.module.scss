@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  &.labeled {
+  }
+  &.invert {
+  }
+  &.horizontal {
+    flex-direction: column;
+  }
+  &.centered {
+  }
+}

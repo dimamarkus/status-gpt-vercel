@@ -1,8 +1,9 @@
+import cn from "classnames";
 import Link from "next/link";
 import Hamburger from "#/ui/atoms/icons/Hamburger";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
 import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
-import "#/ui/molecules/TopBar/TopBar.css";
+import styles from "./TopBar.module.scss";
 
 const navItems = (
   <>
@@ -48,7 +49,7 @@ const TopBar = () => {
     </div>
   );
   return (
-    <header className="navbar">
+    <header className={cn(styles.root, "navbar")}>
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />

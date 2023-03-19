@@ -4,8 +4,7 @@ import { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { useState } from "react";
 import { MyUserContextProvider } from "#/lib/hooks/useUser";
-import "#/styles/chrome-bug.css";
-import "#/styles/globals.scss";
+import "#/styles/index.scss";
 import { Database } from "#/lib/types/supabase";
 import { Layout } from "#/ui/examples/page-directory/layout";
 

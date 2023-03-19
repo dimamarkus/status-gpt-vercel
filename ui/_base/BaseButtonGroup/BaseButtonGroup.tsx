@@ -37,7 +37,7 @@ export interface BaseButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Pushes the Tertiary button away from the others
    */
-  split?: boolean;
+  spread?: boolean;
   /**
    * The ButtonMap is a shorthand way to create buttons from an array of simple objects.
    * Although it should be used in place of the primary, secondary, and tertiary buttons,
@@ -58,7 +58,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
     secondaryButton,
     tertiaryButton,
     reverseOrder,
-    split,
+    spread,
     vertical,
     gap = "sm",
     className,
@@ -70,14 +70,14 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
 
   // Prep the third button
   // ---------------------------------------------------------------------------------------------
-  const splitClass = props.vertical ? "mt-auto" : reverseOrder ? "mr-auto" : "ml-auto";
+  const spreadClass = props.vertical ? "mt-auto" : reverseOrder ? "mr-auto" : "ml-auto";
 
   const secondaryChild = secondaryButton
     ? cloneElement(secondaryButton, { type: "secondary" } as ButtonProps)
     : null;
 
   const tertiaryButtonProps = {
-    className: split ? splitClass : null,
+    className: spread ? spreadClass : null,
   };
 
   const tertiaryChild = tertiaryButton
