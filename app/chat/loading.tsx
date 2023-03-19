@@ -1,5 +1,5 @@
 import Button from "#/ui/atoms/buttons/Button/Button";
-import ChatLayout from "#/ui/layouts/ChatLayout/ChatLayout";
+import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 
 export default function Loading() {
   const shimmer = `relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent`;

@@ -1,7 +1,7 @@
 import { get } from "@vercel/edge-config";
 import { Suspense } from "react";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
-import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
+import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
 import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
 

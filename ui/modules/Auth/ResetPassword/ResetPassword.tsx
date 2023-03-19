@@ -3,7 +3,7 @@ import styles from "./ResetPassword.module.scss";
 
 import { useAuthContext, VIEWS } from "#/lib/contexts/AuthContext";
 import { Button } from "#/ui/atoms/buttons/Button/Button";
-import Card from "#/ui/containers/Card/Card";
+import Card from "#/ui/atoms/containers/Card/Card";
 import ResetPasswordForm from "#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm";
 
 export const ResetPassword = () => {

@@ -4,8 +4,8 @@ import { fetchBot, getResourceFieldsFromCms } from "#/lib/helpers/request-helper
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
 import { Bot } from "#/lib/types/cms";
 import { TabGroup } from "#/ui/examples/tab-group";
-import { LanguageSelect } from "#/ui/LanguageSelect/LanguageSelect";
-import ChatLayout from "#/ui/layouts/ChatLayout/ChatLayout";
+import { LanguageSelect } from "#/ui/atoms/inputs/LanguageSelect/LanguageSelect";
+import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";

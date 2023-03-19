@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import ResizablePanel from './ResizablePanel';
+import ResizablePanel from "./ResizablePanel";
 
 const meta: Meta<typeof ResizablePanel> = {
   component: ResizablePanel,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {},
 };
 

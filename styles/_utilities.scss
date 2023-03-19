@@ -1,0 +1,13 @@
+/* These can be thought of as extensions to Tailwind utility classes */
+
+/* To be used with */
+/*  'background-image: linear-gradient + conic-gradient' */
+.text-gradient {
+  @apply bg-neutral;
+  background-size: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}

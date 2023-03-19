@@ -9,9 +9,9 @@ import { useAuthContext } from "#/lib/contexts/AuthContext";
 import { getAppURL } from "#/lib/helpers/url-helpers";
 import { clientSideSupabase } from "#/lib/helpers/supabase-helpers/supabase-client";
 import Logo from "#/ui/atoms/icons/VercelLogo";
-import Card from "#/ui/containers/Card/Card";
+import Card from "#/ui/atoms/containers/Card/Card";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
-import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
+import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 
 const Login = () => {
   const router = useRouter();

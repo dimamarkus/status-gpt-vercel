@@ -1,11 +1,11 @@
 "use client";
 
 import { useAuthContext } from "#/lib/contexts/AuthContext";
-import {postData} from "#/lib/helpers/request-helpers/makeRequest";
-import Card from "#/ui/containers/Card/Card";
+import { postData } from "#/lib/helpers/request-helpers/makeRequest";
+import Card from "#/ui/atoms/containers/Card/Card";
 import LoadingDots from "#/ui/examples/supabase/LoadingDots";
 import SupabaseButton from "#/ui/examples/supabase/SupabaseButton";
-import LandingLayout from "#/ui/layouts/LandingLayout/LandingLayout";
+import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import Link from "next/link";
 import { useState } from "react";
 

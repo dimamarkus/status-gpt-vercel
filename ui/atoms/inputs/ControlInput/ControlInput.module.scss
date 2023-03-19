@@ -1,0 +1,87 @@
+.root {
+  position: relative;
+
+  & label span {
+    margin-bottom: -4px;
+    font-size: 14px;
+  }
+
+  & input[type="text"] {
+    font-size: 16px;
+    max-width: 100%;
+    padding-top: 18px;
+    padding-bottom: 26px;
+  }
+  & input:focus {
+    outline: none;
+    @apply border-blue-500;
+    @apply ring-transparent;
+  }
+
+  & input:focus ~ label > span {
+    @apply text-blue-500;
+  }
+
+  & input:focus ~ input[type="range"] {
+    @apply border-blue-500;
+  }
+
+  & input[type="range"] {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    border-bottom-left-radius: var(--rounded-btn, 0.5rem);
+    border-bottom-right-radius: var(--rounded-btn, 0.5rem);
+    overflow: visible;
+    @apply bg-neutral-100;
+    border: 1px solid #dddddd;
+    border-top: 0;
+  }
+
+  /* Special styling for WebKit/Blink */
+  & input[type="range"]::-webkit-slider-thumb:hover {
+    transition: scale 0.1s ease-in-out;
+    scale: 1.2;
+    @apply bg-blue-300;
+  }
+  & input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid;
+    height: 16px;
+    width: 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    @apply bg-blue-50;
+    @apply border-blue-400;
+    @apply shadow;
+  }
+
+  /* All the same stuff for Firefox */
+  & input[type="range"]::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    border: 1px solid;
+    height: 16px;
+    width: 8px;
+    border-radius: 3px;
+    @apply bg-neutral-50;
+    @apply border-blue-400;
+    @apply shadow;
+    cursor: pointer;
+  }
+
+  /* All the same stuff for IE */
+  & input[type="range"]::-ms-thumb {
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    border: 1px solid;
+    height: 16px;
+    width: 8px;
+    border-radius: 3px;
+    @apply bg-neutral-50;
+    @apply border-blue-400;
+    @apply shadow;
+    cursor: pointer;
+  }
+}

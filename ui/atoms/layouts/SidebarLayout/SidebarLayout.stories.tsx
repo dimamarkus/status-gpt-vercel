@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import SidebarLayout from './SidebarLayout';
+import SidebarLayout from "./SidebarLayout";
 
 const meta: Meta<typeof SidebarLayout> = {
   component: SidebarLayout,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
 };
 

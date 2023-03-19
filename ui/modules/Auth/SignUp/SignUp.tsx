@@ -3,7 +3,7 @@ import styles from "./SignUp.module.scss";
 
 import { useAuthContext, VIEWS } from "#/lib/contexts/AuthContext";
 import Button from "#/ui/atoms/buttons/Button/Button";
-import Card from "#/ui/containers/Card/Card";
+import Card from "#/ui/atoms/containers/Card/Card";
 import SignUpForm from "#/ui/molecules/forms/SignUpForm/SignUpForm";
 
 export const SignUp = () => {

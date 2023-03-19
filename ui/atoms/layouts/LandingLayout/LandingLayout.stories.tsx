@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import LandingLayout from './LandingLayout';
+import LandingLayout from "./LandingLayout";
 
 const meta: Meta<typeof LandingLayout> = {
   component: LandingLayout,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
 };
 
