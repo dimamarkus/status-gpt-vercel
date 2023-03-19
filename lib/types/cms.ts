@@ -54,8 +54,8 @@ export type Bot = {
   memory: number;
   publishedAt: string;
   createdBy: SchemaUID;
-  chat_style_id?: CmsSingleRelation<BotTraining>;
-  chat_syntax_id?: CmsSingleRelation<BotTraining>;
+  chat_style_ids?: CmsMultiRelation<BotTraining>;
+  chat_syntax_ids?: CmsMultiRelation<BotTraining>;
   chat_intention_ids?: CmsMultiRelation<BotTraining>;
   chat_user_info_ids?: CmsMultiRelation<BotTraining>;
   chat_content_ids?: CmsMultiRelation<BotTraining>;
@@ -67,8 +67,8 @@ export type BotTrainingMap = {
   promotions: (string | null)[];
   contents: (string | null)[];
   userInfo: (string | null)[];
-  syntax: string | null;
-  style: string | null;
+  syntax: (string | null)[];
+  styles: (string | null)[];
   training: string | null;
   json_training: string | null;
 };

@@ -40,8 +40,8 @@ export const collateBotTraining = (bot: Bot): string => {
     chat_intention_ids,
     promotion_ids,
     chat_content_ids,
-    chat_syntax_id,
-    chat_style_id,
+    chat_syntax_ids,
+    chat_style_ids,
     chat_user_info_ids,
   } = bot;
 
@@ -49,8 +49,8 @@ export const collateBotTraining = (bot: Bot): string => {
     contents: getManyTrainingContents(chat_content_ids),
     intentions: getManyTrainingContents(chat_intention_ids),
     promotions: getManyTrainingContents(promotion_ids),
-    syntax: getTrainingContent(chat_syntax_id),
-    style: getTrainingContent(chat_style_id),
+    syntax: getManyTrainingContents(chat_syntax_ids),
+    styles: getManyTrainingContents(chat_style_ids),
     userInfo: getManyTrainingContents(chat_user_info_ids),
     training,
     json_training: !!json_training ? JSON.stringify(json_training) : "",

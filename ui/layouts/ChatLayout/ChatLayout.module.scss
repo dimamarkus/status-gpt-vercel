@@ -4,7 +4,7 @@
   @apply max-h-full;
   @apply flex-col;
   @apply overflow-hidden;
-  @apply rounded;
+  @apply md:rounded;
   @apply bg-blue-100;
   @apply drop-shadow-lg;
   @apply lg:flex-row;
@@ -43,7 +43,9 @@
     @apply absolute;
     @apply left-0;
     @apply top-0;
-    @apply h-full;
-    @apply w-full;
+    // @apply h-full;
+    // @apply w-full;
+    height: 100vh;
+    width: 100wh;
   }
 }
