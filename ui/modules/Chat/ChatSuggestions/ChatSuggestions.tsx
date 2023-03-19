@@ -50,9 +50,10 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   if (!displaySuggestions || displaySuggestions === null) {
     return null;
   }
+  const shouldHIdeSuggestions = !showSuggestions || !useIsTablet || (chatLog && chatLog.length < 3);
 
   return (
-    <div className={cn(styles.root, className, !showSuggestions || (!useIsTablet && "hidden"))}>
+    <div className={cn(styles.root, className, shouldHIdeSuggestions && "hidden")}>
       {loading || suggestionsLoading ? (
         <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
           <Spinner />

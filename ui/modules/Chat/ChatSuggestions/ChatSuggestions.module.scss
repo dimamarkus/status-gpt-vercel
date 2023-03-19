@@ -6,12 +6,9 @@
 .root {
   box-shadow: 0px 5px 9px 7px #2563eb1f;
   z-index: 2;
-  // border-top: 1px solid;
   @include scrollbars(8px, $blue-300, $blue-100);
   @apply border-blue-200;
   @apply flex-shrink-0;
-  @apply border-t;
-  @apply border-neutral-100;
   // @apply bg-blue-50;
   @apply p-3;
   @apply pb-0;

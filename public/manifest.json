@@ -1,6 +1,6 @@
 {
   "name": "StatusMoney AIdvisor",
-  "short_name": "AIDvisor",
+  "short_name": "AIvisor",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000030",
