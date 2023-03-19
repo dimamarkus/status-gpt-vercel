@@ -1,5 +1,6 @@
 "use client";
 import cn from "classnames";
+import { useEffect } from "react";
 import styles from "./ChatMessages.module.scss";
 import { createChatBotMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { useChatContext } from "#/lib/contexts/ChatContext";
@@ -15,6 +16,15 @@ export const ChatMessages = (props: ChatMessagesProps) => {
   const { botAvatarUrl, className } = props;
   const { features } = useFeatureToggleContext();
   const { chatLog, streamedAnswer, loading } = useChatContext();
+
+  useEffect(() => {
+    // TODO! Doenst work
+    // A little hack to keep the scrolling at the bottom during chat
+    // https://css-tricks.com/books/greatest-css-tricks/pin-scrolling-to-bottom/
+    if (document.scrollingElement) {
+      document.scrollingElement.scroll(0, 1);
+    }
+  }, []);
 
   const messagesChild = chatLog
     ? chatLog.map(
@@ -35,6 +45,7 @@ export const ChatMessages = (props: ChatMessagesProps) => {
         className={!streamedAnswer ? "hidden" : ""}
         isTalking={loading}
       />
+      <div className={styles.scrollAnchor} />
     </div>
   );
 };

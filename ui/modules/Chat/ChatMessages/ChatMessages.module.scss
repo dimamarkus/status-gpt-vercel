@@ -1,16 +1,17 @@
 .root {
-  // display: flex;
-  // align-items: flex-end;
   color: inherit;
-  // overflow-x: hidden;
   overflow-y: auto;
-  // transform: rotate(180deg);
-  // direction: rtl;
-  // text-align: left;
-  transform: scaleX(1);
   @apply bg-base-100;
   @apply rounded;
   @apply rounded-b-none;
+
+  & * {
+    overflow-anchor: none;
+  }
+  & .scrollAnchor {
+    overflow-anchor: auto;
+    height: 1px;
+  }
 }
 
 .root::-webkit-scrollbar {
