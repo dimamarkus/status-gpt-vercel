@@ -18,6 +18,18 @@ const navItems = (
     <li>
       <a href="https://statusmoney.com/card">Card</a>
     </li>
+    <li>
+      <a href="https://statusmoney.com/login">Login</a>
+    </li>
+    <li>
+      <Link
+        type="primary"
+        href="https://statusmoney.com/onboarding/register"
+        className="text-primary"
+      >
+        Join Now
+      </Link>
+    </li>
   </>
 );
 
