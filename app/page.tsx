@@ -1,4 +1,3 @@
-import { getStartingChatLog } from "#/app/chat/lib/helpers/chat-helpers";
 import { DEFAULT_CHAT_BOT } from "#/lib/constants/settings";
 import { ChatContextProvider } from "#/lib/contexts/ChatContext";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";

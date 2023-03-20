@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { OpenAiModel } from "#/app/chat/lib/openai";
 import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
@@ -110,9 +109,6 @@ const FeaturesPanel = () => {
       {/* {getOptionRadio("model", MODELS)} */}
       {getOptionCheckbox("useStream", "Stream?")}
       {getOptionCheckbox("debugMode", "Debug?")}
-      <Link href="/chat" className="btn-link btn">
-        All Bots
-      </Link>
     </div>
   );
 

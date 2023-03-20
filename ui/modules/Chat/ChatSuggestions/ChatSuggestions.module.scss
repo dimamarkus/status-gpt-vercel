@@ -1,12 +1,9 @@
-@import "styles/mixins.scss";
-@import "styles/tailwind.scss";
-
 /* Suggestions Scrollbar */
 /* ---------------------------------------------------------------- */
 .root {
   box-shadow: 0px 5px 9px 7px #2563eb1f;
   z-index: 2;
-  @include scrollbars(8px, $blue-300, $blue-100);
+  // @include scrollbars(8px, $blue-300, $blue-100);
   @apply border-blue-200;
   @apply flex-shrink-0;
   // @apply bg-blue-50;

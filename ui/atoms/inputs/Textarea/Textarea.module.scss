@@ -41,7 +41,7 @@
     /* box-shadow: 4px 4px 0px blue; */
   }
   &:focus-within > span {
-    color: blue;
+    color: hsl(var(--primary) / var(--tw-text-opacity));
   }
   &:focus-within textarea:focus,
   &:focus-within input:focus {

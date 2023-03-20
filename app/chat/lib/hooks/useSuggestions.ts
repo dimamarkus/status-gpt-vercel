@@ -7,6 +7,14 @@ import { StatusChatMessage } from "#/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { makeServerPostRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
 
+export const DEFAULT_SUGGESTIONS_RETURN: UseSuggestionsReturn = {
+  loading: false,
+  suggestions: [],
+  showSuggestions: false,
+  getSuggestions: async () => {},
+  setShowSuggestions: () => {},
+};
+
 export type UseSuggestionsReturn = {
   /**
    * This is an array of suggestions that OpenAI will generate based on the last few messages exchanged
