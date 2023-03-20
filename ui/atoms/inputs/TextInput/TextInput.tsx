@@ -53,6 +53,10 @@ export type TextInputProps<TFormValues extends FieldValues> = Omit<
    */
   rules?: RegisterOptions;
   /**
+   * Determines if the label is nested inside the input or not
+   */
+  compact?: boolean;
+  /**
    * Add classes to the root wrapper of the lable and input
    */
   className?: string;
@@ -79,30 +83,19 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     rules,
     size = "md",
     className,
+    compact,
     ...inputProps
   } = props;
 
-  const labelChild = !!label && (
-    <label className="label-text" htmlFor={name}>
-      {label}
-    </label>
-  );
-  const hintChild = !!hint && <span className="label-text">{hint}</span>;
-  const isString = typeof topRight === "string";
-  const topRightChild = isString ? <span className="label-text-alt">{topRight}</span> : topRight;
-  const errorsArray = Array.isArray(errors) ? errors : [errors];
-  const errorsChild = !!errors && touched && (
-    <span className="label-text-alt text-red-500">
-      {errorsArray.map((error, i) => (
-        <span key={i}>
-          {error}
-          <br />
-        </span>
-      ))}
-    </span>
-  );
-
   // Using maps so that the full Tailwind classes can be seen for purging
+  // see https://tailwindcss.com/docs/optimizing-for-production#writing-purgeable-html
+  const labelSizeMap: { [key in CommonSizes]: string } = {
+    xs: "text-xs",
+    sm: "text-xs",
+    md: "text-sm",
+    lg: "text-md",
+    xl: "text-lg",
+  };
   // see https://tailwindcss.com/docs/optimizing-for-production#writing-purgeable-html
   const sizeMap: { [key in CommonSizes]: string } = {
     xs: "p-1 text-xs",
@@ -111,26 +104,52 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     lg: "p-4 text-md",
     xl: "p-5 text-lg",
   };
+
+  const labelChild = !!label && (
+    <span className={cn("label-text", labelSizeMap[size])}>{label}</span>
+  );
+  const isString = typeof topRight === "string";
+  const hintChild = !!hint && <small className="label">{hint}</small>;
+  const topRightChild = isString ? <div className="label-text-alt">{topRight}</div> : topRight;
+  const errorsArray = Array.isArray(errors) ? errors : [errors];
+  const errorsChild = !!errors && touched && (
+    <div className="label">
+      <span className="label-text-alt text-red-500">
+        {errorsArray.map((error, i) => (
+          <span key={i}>
+            {error}
+            <br />
+          </span>
+        ))}
+      </span>
+    </div>
+  );
+
   const fieldProps: InputHTMLAttributes<HTMLInputElement> = {
     ...inputProps,
     name,
     id: name,
     // className: "relative inline-flex w-full rounded border border-gray-300 bg-gray-50 leading-none text-gray-700 placeholder-gray-500 transition-colors ease-in-out hover:border-blue-400 focus:border-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-30",
-    className: cn(sizeMap[size], "input-bordered input"),
+    className: cn(sizeMap[size], "input-bordered input h-auto"),
   };
 
+  console.log("errors", errors);
+  console.log("errorsArray", errorsArray);
+
   return (
-    <div className={cn(styles.root, "form-control", className)}>
-      <div className="label">
+    <div className={cn(styles.root, "form-control", compact && styles.compact, className)}>
+      <label className="label pb-0" htmlFor={name}>
         {labelChild}
         {topRightChild}
-      </div>
+      </label>
+      {!compact && hintChild}
       {!!register ? (
         <input {...register(name, rules)} {...fieldProps} />
       ) : (
         <input name={name} {...fieldProps} />
       )}
-      <div className="label">{errorsChild || hintChild}</div>
+      {hintChild}
+      {errorsChild || (compact && hintChild)}
     </div>
   );
 };

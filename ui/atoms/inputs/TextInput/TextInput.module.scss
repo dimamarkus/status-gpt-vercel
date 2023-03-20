@@ -1,3 +1,52 @@
 .root {
-  color: inherit;
+  @apply text-neutral-600;
+  @apply ring-blue-500;
+
+  label {
+    @apply text-inherit;
+  }
+
+  // Hints under the label
+  small {
+    @apply py-0;
+    font-size: 0.75em;
+  }
+
+  input {
+    font-weight: 500;
+    margin-top: 0.25em;
+    @apply outline-none;
+    @apply ring-blue-200;
+  }
+
+  &:focus-within {
+    label span:first-child {
+      @apply text-primary;
+    }
+  }
+}
+
+.root.compact {
+  input {
+    padding-top: 0.75em;
+    padding-bottom: 0.5em;
+    // font-size: var(--font-size-base);
+  }
+  label {
+    line-height: 1;
+    width: fit-content;
+    position: relative;
+    top: 0.8em;
+    left: 5px 8px;
+    padding: 0.35em 0.6em;
+    padding-bottom: 0px;
+    border-radius: 12%;
+    & > span {
+      font-size: var(--font-size-xs);
+      line-height: 1;
+      font-weight: 600;
+    }
+    @apply bg-base-100;
+    margin-left: 0.35em;
+  }
 }
