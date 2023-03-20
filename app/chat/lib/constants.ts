@@ -19,10 +19,13 @@ export const EXAMPLE_PROMPTS = [
   "What investments should I consider to maximize my retirement savings?",
 ];
 
-export const SUGGESTIONS_REQUEST = `Given our discussion, suggest 3 questions you think I should ask you (Stat) as follow up. Make them in the form of a JavaScript array of question strings with no other characters besides that whatsoever. For example: ["What is your name?", "What is your favorite food?"]`;
+export const SUBMISSIONS_REQUEST = `Given your last reply, if theres any infromation you asked for from the me, please reply with only a json object I can fill out. Do not write anything else besides that json object whatsoever in this message. `;
+export const DEFAULT_SUBMISSIONS = { assets: "", income: "" };
+export const SUGGESTIONS_REQUEST = `Given our discussion, suggest 3 short questions you think I should ask you (Stat) as follow up. Make them in the form of a JavaScript array of question strings with no other characters besides that whatsoever. For example: ["What is your name?", "What is your favorite food?"]`;
 export const DEBUG_SUGGESTIONS = [
   "Reply with one word",
   "What are 5 helpful websites for financial advice?",
+  "Give me a succinct list of 3 pieces of info you could use from me.",
 ];
 
 //  AI MODELS

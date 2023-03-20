@@ -1,4 +1,4 @@
-import { CHAT_MODELS, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
+import { CHAT_MODELS, SUBMISSIONS_REQUEST, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
 import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
 import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
 import { DEFAULT_BOT_MEMORY } from "#/lib/constants/settings";
@@ -28,6 +28,13 @@ export const createChatUserMessage = (content: GptMessage["content"]): StatusCha
 export const createSuggestionsPrompt = (context: StatusChatMessage[]) => {
   const messages = context.map(({ role, content }) => ({ role, content }));
   const messageQuery = [...messages, { role: "user", content: SUGGESTIONS_REQUEST } as GptMessage];
+
+  return messageQuery;
+};
+
+export const createSubmissionsPrompt = (context: StatusChatMessage[]) => {
+  const messages = context.map(({ role, content }) => ({ role, content }));
+  const messageQuery = [...messages, { role: "user", content: SUBMISSIONS_REQUEST } as GptMessage];
 
   return messageQuery;
 };
