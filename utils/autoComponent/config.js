@@ -16,7 +16,6 @@ module.exports.IGNORED_NAMES = [
   "molecules",
   "organisms",
   "pages",
-  "supabase",
   "templates",
   "quarks",
 ];

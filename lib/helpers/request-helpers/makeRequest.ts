@@ -1,5 +1,4 @@
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
-import { Price } from "#/lib/types/stripe";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -51,26 +50,3 @@ export const makePostRequest = async <TResponse, TRequestBody>(
 ): Promise<TResponse> => {
   return await makeAsyncRequest<TResponse, TRequestBody>(url, "POST", data, headers);
 };
-
-// ============================================================================
-//  EXAMPLE GARBAGE
-// ============================================================================
-// TODO - DELETE THIS. Used in the old example code
-export async function postData(req: { url: string; data?: { price: Price } }) {
-  const { url, data } = req;
-
-  const res: Response = await fetch(url, {
-    method: "POST",
-    headers: new Headers({ "Content-Type": "application/json" }),
-    credentials: "same-origin",
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) {
-    console.log("Error in postData", { url, data, res });
-
-    throw Error(res.statusText);
-  }
-
-  return res.json();
-}

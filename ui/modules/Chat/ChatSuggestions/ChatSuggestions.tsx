@@ -6,7 +6,6 @@ import styles from "./ChatSuggestions.module.scss";
 import { DEBUG_SUGGESTIONS } from "#/app/chat/lib/constants";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
-import LoadingDots from "#/ui/examples/supabase/LoadingDots";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import Spinner from "#/ui/atoms/icons/Spinner";
 

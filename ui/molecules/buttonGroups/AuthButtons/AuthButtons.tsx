@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuthContext, VIEWS } from "#/lib/contexts/AuthContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import Link from "#/ui/atoms/Link/Link";
 import BaseButtonGroup, { BaseButtonGroupProps } from "#/ui/_base/BaseButtonGroup/BaseButtonGroup";
@@ -11,15 +10,13 @@ export interface AuthButtonsProps extends BaseButtonGroupProps {
 
 export const AuthButtons = (props: AuthButtonsProps) => {
   const isMobile = useIsMobile();
-  const { user, setView, signOut } = useAuthContext();
-  const logIn = () => setView(VIEWS.SIGN_IN);
-  const signUp = () => setView(VIEWS.SIGN_UP);
+  const user = false;
   return user ? (
     <BaseButtonGroup {...props}>
       <span className="welcome">
-        Welcome, <b>{user.user_metadata.name}</b>!
+        Welcome, <b>{user}</b>!
       </span>
-      <Link asButton text="Log out" href={"/logout"} onClick={signOut} />
+      <Link asButton text="Log out" href={"/logout"} />
     </BaseButtonGroup>
   ) : (
     <BaseButtonGroup gap={isMobile ? "none" : "sm"}>
@@ -30,7 +27,6 @@ export const AuthButtons = (props: AuthButtonsProps) => {
         type="default"
         text="Log In"
         href={"https://statusmoney.com/login"}
-        onClick={logIn}
       />
       <Link
         asButton
@@ -38,7 +34,6 @@ export const AuthButtons = (props: AuthButtonsProps) => {
         type="secondary"
         text="Learn More"
         href={"https://statusmoney.com/onboarding/register"}
-        onClick={signUp}
       />
     </BaseButtonGroup>
   );

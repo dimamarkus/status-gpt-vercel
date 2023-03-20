@@ -1,5 +1,4 @@
 import { Analytics } from "@vercel/analytics/react";
-import { AuthContextProvider } from "#/lib/contexts/AuthContext";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
 import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
 import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
@@ -97,21 +96,14 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // const supabase = createServerSideSupabase();
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-  // const accessToken = session?.access_token || null;
   return (
     <html lang="en">
       <Analytics />
-      <AuthContextProvider accessToken={null}>
-        <FeatureToggleContextProvider>
-          <LanguageContextProvider>
-            <FullScreenContextProvider>{children}</FullScreenContextProvider>
-          </LanguageContextProvider>
-        </FeatureToggleContextProvider>
-      </AuthContextProvider>
+      <FeatureToggleContextProvider>
+        <LanguageContextProvider>
+          <FullScreenContextProvider>{children}</FullScreenContextProvider>
+        </LanguageContextProvider>
+      </FeatureToggleContextProvider>
     </html>
   );
 }

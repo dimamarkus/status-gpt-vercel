@@ -1,6 +1,6 @@
 import { sizeMap } from "#/lib/constants/maps";
 import { CommonSpacings } from "#/lib/types";
-import cn from "classnames";
+import clsx from "clsx";
 import { HTMLAttributes } from "react";
 export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -33,7 +33,7 @@ export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
 export const Duo = (props: DuoProps) => {
   const { children, reverseOrder, centered, vertical, gap = "sm" } = props;
 
-  const classNames = cn(
+  const classNames = clsx(
     "flex",
     vertical && "flex-col",
     centered && "items-center",

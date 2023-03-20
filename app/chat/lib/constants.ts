@@ -58,3 +58,9 @@ export const CHAT_MODELS: OpenAiChatModel[] = [
   GPT4_32K_MODEL,
   GPT4_32K_0314_MODEL,
 ];
+
+export const EXAMPLE_CHAT_MESSAGE: StatusChatMessage = {
+  role: "user",
+  content: "Hello world!",
+  timestamp: Date.now(),
+};

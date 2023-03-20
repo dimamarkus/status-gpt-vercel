@@ -106,7 +106,7 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
   };
 
   const labelChild = !!label && (
-    <span className={cn("label-text", labelSizeMap[size])}>{label}</span>
+    <span className={clsx("label-text", labelSizeMap[size])}>{label}</span>
   );
   const isString = typeof topRight === "string";
   const hintChild = !!hint && <small className="label">{hint}</small>;

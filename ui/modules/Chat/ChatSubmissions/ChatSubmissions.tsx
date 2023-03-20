@@ -1,12 +1,11 @@
 "use client";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import cn from "classnames";
+import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ChatSubmissions.module.scss";
 import { DEFAULT_SUBMISSIONS } from "#/app/chat/lib/constants";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
-import LoadingDots from "#/ui/examples/supabase/LoadingDots";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import Spinner from "#/ui/atoms/icons/Spinner";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
@@ -57,12 +56,12 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
   // const shouldHideSubmissions = !showSubmissions || !useIsTablet || (chatLog && chatLog.length < 3);
   const shouldHideSubmissions = false;
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: Record<string, any>) => {
     console.log("data", data);
   };
 
   return (
-    <div className={cn(styles.root, className, shouldHideSubmissions && "hidden")}>
+    <div className={clsx(styles.root, className, shouldHideSubmissions && "hidden")}>
       {loading || submissionsLoading ? (
         <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
           <Spinner />
@@ -73,7 +72,10 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
             Quick Entry
             <ChevronRightIcon
               width={20}
-              className={cn("h-5 w-5 text-inherit transition md:hidden", isExpanded && "rotate-90")}
+              className={clsx(
+                "h-5 w-5 text-inherit transition md:hidden",
+                isExpanded && "rotate-90",
+              )}
             />
           </h4>
           <ul className="flex flex-row space-x-4">

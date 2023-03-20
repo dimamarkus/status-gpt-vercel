@@ -1,6 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
 import clsx from "clsx";
-import get from "lodash.get";
 import { DetailedHTMLProps, TextareaHTMLAttributes, useCallback } from "react";
 import styles from "./Textarea.module.scss";
 import {
@@ -33,8 +32,7 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
   className,
   ...props
 }: FormTextareaProps<TFormValues>): JSX.Element => {
-  // If the name is in a FieldArray, it will be 'fields.index.fieldName' and errors[name] won't return anything, so we are using lodash get
-  const errorMessages = !!errors ? get(errors, name) : null;
+  const errorMessages = !!errors ? errors[name] : null;
   const hasError = !!(errors && errorMessages);
   const hookFieldProps = register?.(name, rules);
 

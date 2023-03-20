@@ -1,10 +1,9 @@
-import { LoggedInDecorator } from '#/lib/decorators';
-import type { Meta, StoryObj } from '@storybook/react';
-import AuthButtons from './AuthButtons';
+import type { Meta, StoryObj } from "@storybook/react";
+import AuthButtons from "./AuthButtons";
 
 const meta: Meta<typeof AuthButtons> = {
   component: AuthButtons,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
 };
 
@@ -17,5 +16,3 @@ export const Default: Story = {
 export const LoggedIn: Story = {
   args: {},
 };
-
-LoggedIn.decorators = [LoggedInDecorator];

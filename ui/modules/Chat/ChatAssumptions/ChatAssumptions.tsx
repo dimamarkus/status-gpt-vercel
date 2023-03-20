@@ -1,5 +1,5 @@
 import { Assumptions, useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import styles from "./ChatAssumptions.module.scss";
@@ -22,7 +22,7 @@ export const ChatAssumptions = ({ className }: ChatAssumptionsProps) => {
     <FormProvider {...methods}>
       <form
         id="SMChatAsssumptions"
-        className={cn(
+        className={clsx(
           styles.ChatAssumptions,
           "bg-blend-darke mt-2 w-full max-w-lg space-y-8",
           className,

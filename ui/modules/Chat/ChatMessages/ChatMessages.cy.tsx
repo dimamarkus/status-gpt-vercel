@@ -1,6 +1,6 @@
 import ChatMessages from "./ChatMessages";
-import { EXAMPLE_CHAT_MESSAGE } from "#/lib/fixtures/auth-fixtures";
 import ChatMessage from "#/ui/modules/Chat/ChatMessage/ChatMessage";
+import { EXAMPLE_CHAT_MESSAGE } from "#/app/chat/lib/constants";
 
 describe("<ChatMessages />", () => {
   it("renders", () => {
