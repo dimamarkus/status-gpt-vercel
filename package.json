@@ -53,13 +53,13 @@
     "remark-html": "^15.0.2",
     "storybook-addon-theme-changer": "^0.1.2",
     "stripe": "^11.14.0",
-    "styled-components": "6.0.0-beta.13",
     "swr": "2.0.4",
     "use-count-up": "^3.0.1",
     "yup": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
+    "@next/bundle-analyzer": "13.2.4",
     "@storybook/addon-essentials": "7.0.0-rc.4",
     "@storybook/addon-interactions": "7.0.0-rc.4",
     "@storybook/addon-links": "7.0.0-rc.4",
