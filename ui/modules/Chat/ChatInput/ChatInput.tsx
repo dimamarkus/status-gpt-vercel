@@ -76,9 +76,9 @@ export const ChatInput = (props: ChatInputProps) => {
 
       <Button type="submit" className="h-full rounded-none md:h-auto md:rounded-b-md">
         {
-          <>
-            Send <span className="hidden md:block">&nbsp;Message</span>
-          </>
+          <span className="pt-1 md:pt-0">
+            Send <span className="hidden md:inline">Message</span>
+          </span>
         }
       </Button>
     </form>

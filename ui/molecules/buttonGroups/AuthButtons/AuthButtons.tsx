@@ -25,7 +25,7 @@ export const AuthButtons = (props: AuthButtonsProps) => {
     <BaseButtonGroup gap={isMobile ? "none" : "sm"}>
       <Link
         asButton
-        className="btn-link btn-sm w-20 md:btn-md md:w-32"
+        className={"btn-link btn-sm w-20 md:btn-md md:w-28" + " " + (isMobile && "hidden")}
         // type={isMobile ? "default" : "secondary"}
         type="default"
         text="Log In"
@@ -34,9 +34,9 @@ export const AuthButtons = (props: AuthButtonsProps) => {
       />
       <Link
         asButton
-        className="btn-sm w-20 px-2 md:btn-md md:w-32"
+        className="btn-sm w-28 px-2 md:btn-md md:w-32"
         type="secondary"
-        text="Sign Up"
+        text="Learn More"
         href={"https://statusmoney.com/onboarding/register"}
         onClick={signUp}
       />
