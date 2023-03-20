@@ -5,7 +5,7 @@ const meta: Meta<typeof Duo> = {
   component: Duo,
   tags: ["autodocs"],
   args: {
-    primaryElement: <h1>Primary</h1>,
+    // primaryElement: <h1>Primary</h1>,
   },
   argTypes: {},
 };
@@ -13,27 +13,11 @@ const meta: Meta<typeof Duo> = {
 export default meta;
 type Story = StoryObj<typeof Duo>;
 
+const label = <label className="bg-yellow-300">Label</label>;
+const value = <a className="link-primary link bg-green-300">Element</a>;
+const innards: [React.ReactNode, React.ReactNode] = [label, value];
+
 export const Default: Story = {
   args: {},
-};
-
-export const TwoElements: Story = {
-  args: {
-    secondaryElement: <h1>Secondary</h1>,
-  },
-};
-
-export const ThreeElements: Story = {
-  args: {
-    secondaryElement: <h1>Secondary</h1>,
-    tertiaryElement: <h1>Tertiary</h1>,
-  },
-};
-
-export const ThreeElementsReverse: Story = {
-  args: {
-    secondaryElement: <h1>Secondary</h1>,
-    tertiaryElement: <h1>Tertiary</h1>,
-    reverseOrder: true,
-  },
+  render: (args) => <Duo {...args}>{innards}</Duo>,
 };

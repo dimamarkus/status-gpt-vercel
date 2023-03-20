@@ -1,113 +1,58 @@
-import cn from "classnames";
-import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from "react";
-import styles from "./Duo.module.scss";
 import { sizeMap } from "#/lib/constants/maps";
-
-type BasicElement = {
-  text: string;
-  onClick: () => void;
-  type?: ElementType;
-};
-
-const DEFAULT_BUTTON_TYPES = ["primary", "secondary", "tertiary"] as ElementType[];
-
+import { CommonSpacings } from "#/lib/types";
+import cn from "classnames";
+import { HTMLAttributes } from "react";
 export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
   /**
-   * Most prominantly colored and will appear first
-   */
-  primaryElement?: ReactElement<typeof Element>;
-  /**
-   * Middle button
-   */
-  secondaryElement?: ReactElement<typeof Element>;
-  /**
-   * Usually a text link or subdued
-   */
-  tertiaryElement?: ReactElement<typeof Element>;
-  /**
-   * Reverse the order that buttons are rendered
+   * Reverse the order of the elements
    */
   reverseOrder?: boolean;
   /**
-   * Arrange the buttons vertically
+   * Arrange the elements vertically
+   */
+  centered?: boolean;
+  /**
+   * Arrange the elements vertically
    */
   vertical?: boolean;
   /**
-   * Pushes the Tertiary button away from the others
+   * The space between the 2 elements.
+   * Can either be full, none or a preset distance.
    */
-  spread?: boolean;
+  gap?: CommonSpacings;
   /**
-   * The ElementMap is a shorthand way to create buttons from an array of simple objects.
-   * Although it should be used in place of the primary, secondary, and tertiary buttons,
-   * they can be used together and the ElementMap will render after the main buttons.
+   * This component is meant to accept 2 chidlren.
+   * It can accept one if you want to hide one of the children.
    */
-  gap?: "none" | "sm" | "md" | "lg" | "xl";
-  buttonMap?: BasicElement[];
-  className?: string;
   children: [React.ReactNode, React.ReactNode];
+  /**
+   * Override classes from the parent. Meant for positioning.
+   */
+  className?: string;
 }
 export const Duo = (props: DuoProps) => {
-  // INITIAL PREP - (variables, functions)
-  // ---------------------------------------------------------------------------------------------
-  const {
-    buttonMap,
-    primaryElement,
-    secondaryElement,
-    tertiaryElement,
-    children,
-    reverseOrder,
-    spread,
-    vertical,
-    gap = "sm",
-    className,
-  } = props;
+  const { children, reverseOrder, centered, vertical, gap = "sm" } = props;
 
-  // const renderElementFromMap = (button: BasicElement, index: number) => (
-  //   <Element type={DEFAULT_BUTTON_TYPES[index]} {...button} />
-  // );
-
-  // // Prep the third button
-  // // ---------------------------------------------------------------------------------------------
-  // const spreadClass = props.vertical ? "mt-auto" : reverseOrder ? "mr-auto" : "ml-auto";
-
-  // const secondaryChild = secondaryElement
-  //   ? cloneElement(secondaryElement, { type: "secondary" } as ElementProps)
-  //   : null;
-
-  // const tertiaryElementProps = {
-  //   className: spread ? spreadClass : null,
-  // };
-
-  // const tertiaryChild = tertiaryElement
-  //   ? cloneElement(tertiaryElement, tertiaryElementProps as ElementProps)
-  //   : null;
-
-  // // Create the final array of buttons
-  // // ---------------------------------------------------------------------------------------------
-  // const arrayFromProps = [primaryElement, secondaryChild, tertiaryChild];
-  // const arrayFromMap = buttonMap ? buttonMap.map(renderElementFromMap) : [];
-  // const comboArray = [...arrayFromProps, ...arrayFromMap];
-  // const finalArray = reverseOrder ? comboArray.reverse() : comboArray;
-
-  // Prepare css classes
-  // ---------------------------------------------------------------------------------------------
   const classNames = cn(
-    styles.Duo,
-    "flex items-center space-x-4",
-    vertical ? `space-y-${sizeMap[gap]}` : `space-x-${sizeMap[gap]}`,
-    vertical ? "justify-center" : "align-center",
+    "flex",
     vertical && "flex-col",
-    reverseOrder && vertical ? "flex-row-reverse" : reverseOrder && "flex-column-reverse",
-    className,
-  );
+    centered && "items-center",
 
+    // Only have specific space if the gap between is not full
+    gap === "full"
+      ? "justify-between"
+      : vertical
+      ? `space-y-${sizeMap[gap]}`
+      : `space-x-${sizeMap[gap]}`,
+
+    props.className,
+  );
   // RENDER
   // ---------------------------------------------------------------------------------------------
   return (
     <div className={classNames}>
-      {children[0]}
-      {children[1]}
+      {children[reverseOrder ? 0 : 1]}
+      {children[reverseOrder ? 1 : 0]}
     </div>
   );
 };

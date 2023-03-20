@@ -1,10 +1,11 @@
 import { CommonSpacings } from "#/lib/types";
 
-export const sizeMap: Record<CommonSpacings, string> = {
+type TailwindSpacings = Exclude<CommonSpacings, "full">;
+export const sizeMap: Record<TailwindSpacings, string> = {
   none: "0",
   xs: "2",
   sm: "4",
   md: "8",
-  lg: "16",
-  xl: "24",
+  lg: "12",
+  xl: "16",
 };
