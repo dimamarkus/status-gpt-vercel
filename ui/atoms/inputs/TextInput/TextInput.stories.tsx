@@ -7,6 +7,8 @@ const meta: Meta<typeof Input> = {
   args: {
     label: "Label",
     name: "my-input",
+    touched: true,
+    value: "$1,234.68",
   },
 };
 
@@ -43,4 +45,30 @@ export const MultiError: Story = {
     hint: "I'm a hint",
     errors: ["Something went wrong", "Something else went wrong"],
   },
+};
+
+export const All: Story = {
+  args: {
+    placeholder: "Placeholder",
+    hint: "I'm a hint",
+    errors: ["Something went wrong", "Something else went wrong"],
+  },
+  render: (args) => (
+    <div className="flex flex-row space-x-8">
+      <div>
+        <Input {...args} size="xs" />
+        <Input {...args} size="sm" />
+        <Input {...args} size="md" />
+        <Input {...args} size="lg" />
+        <Input {...args} size="xl" />
+      </div>
+      <div>
+        <Input {...args} size="xs" compact />
+        <Input {...args} size="sm" compact />
+        <Input {...args} size="md" compact />
+        <Input {...args} size="lg" compact />
+        <Input {...args} size="xl" compact />
+      </div>
+    </div>
+  ),
 };

@@ -1,0 +1,45 @@
+// =================================================================================================
+// DaisyUI Theme Customization
+// =================================================================================================
+
+// // INPUTS
+// // ----------------------------------------------
+// [data-theme="light"] .label {
+//   @apply text-neutral-700;
+// }
+// [data-theme="dark"] .label {
+//   @apply text-neutral-300;
+// }
+
+// [data-theme="light"] .input {
+//   @apply text-neutral-800;
+// }
+// [data-theme="dark"] .input {
+//   @apply text-neutral-200;
+// }
+
+// INPUTS
+// ----------------------------------------------
+[data-theme="light"] {
+  .label {
+    @apply text-neutral-600;
+  }
+  .label-text {
+    @apply text-neutral-700;
+  }
+  .input {
+    @apply text-neutral-900;
+  }
+}
+
+[data-theme="dark"] {
+  .label {
+    @apply text-neutral-400;
+  }
+  .label-text {
+    @apply text-neutral-400;
+  }
+  .input {
+    @apply text-neutral-100;
+  }
+}
