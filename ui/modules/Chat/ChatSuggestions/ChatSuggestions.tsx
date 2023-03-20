@@ -47,13 +47,13 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
     }
   }, [answerChanged, chatLog, getSuggestions, loading]);
 
-  if (!displaySuggestions || displaySuggestions === null) {
+  if (!displaySuggestions || displaySuggestions === null || (chatLog && chatLog.length < 3)) {
     return null;
   }
-  const shouldHIdeSuggestions = !showSuggestions || !useIsTablet || (chatLog && chatLog.length < 3);
+  const shouldHideSuggestions = !showSuggestions || !useIsTablet;
 
   return (
-    <div className={cn(styles.root, className, shouldHIdeSuggestions && "hidden")}>
+    <div className={cn(styles.root, className, shouldHideSuggestions && "hidden")}>
       {loading || suggestionsLoading ? (
         <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
           <Spinner />
