@@ -6,6 +6,6 @@ export type StatusChatMessage = GptMessage & {
 
 export type CommonSizes = "xs" | "sm" | "md" | "lg" | "xl";
 
-export type CommonSpacings = CommonSizes | "none";
+export type CommonSpacings = CommonSizes | "none" | "full";
 
 export type Language = "English" | "Spanish" | "French" | "Russian";
