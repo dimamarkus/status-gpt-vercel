@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import { useEffect } from "react";
 import styles from "./ChatMessages.module.scss";
 import { createChatBotMessage } from "#/app/chat/lib/helpers/chat-helpers";
@@ -36,7 +36,7 @@ export const ChatMessages = (props: ChatMessagesProps) => {
     : "No chatbot found";
 
   return (
-    <div className={cn(styles.root, className)}>
+    <div className={clsx(styles.root, className)}>
       {messagesChild}
       <ChatMessage
         key="lastMessage"

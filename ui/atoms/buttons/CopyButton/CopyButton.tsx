@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import toast from "react-hot-toast";
 import styles from "./CopyButton.module.scss";
@@ -19,7 +19,7 @@ export const CopyButton = (props: CopyButtonProps) => {
 
   return (
     <Button
-      className={cn(styles.CopyButton, className)}
+      className={clsx(styles.CopyButton, className)}
       onClick={() => {
         navigator.clipboard.writeText(content);
         toast("Message copied to clipboard", {

@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from "react";
 import styles from "./BaseButtonGroup.module.scss";
 import { sizeMap } from "#/lib/constants/maps";
@@ -93,7 +93,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
 
   // Prepare css classes
   // ---------------------------------------------------------------------------------------------
-  const classNames = cn(
+  const classNames = clsx(
     styles.BaseButtonGroup,
     "flex items-center space-x-4",
     vertical ? `space-y-${sizeMap[gap]}` : `space-x-${sizeMap[gap]}`,

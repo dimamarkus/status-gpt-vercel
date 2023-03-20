@@ -1,5 +1,5 @@
 import { Cog8ToothIcon } from "@heroicons/react/24/solid";
-import cn from "classnames";
+import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 import styles from "./ChatMessageAvatar.module.scss";
@@ -35,7 +35,7 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
     innerAvatar = <Avatar isUserMessage />;
   }
 
-  return <div className={cn(styles.ChatMessageAvatar, className)}>{innerAvatar}</div>;
+  return <div className={clsx(styles.ChatMessageAvatar, className)}>{innerAvatar}</div>;
 };
 
 export default ChatMessageAvatar;

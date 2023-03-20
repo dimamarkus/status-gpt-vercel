@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import styles from "./Card.module.scss";
 
@@ -19,7 +19,7 @@ export const Card = (props: CardProps) => {
   const descriptionChild = description ? <p className="text-zinc-300">{description}</p> : null;
 
   return (
-    <div className={cn(styles.Card, tailwindClasses, className)}>
+    <div className={clsx(styles.Card, tailwindClasses, className)}>
       <div className="card-body">
         {titleChild}
         {descriptionChild}

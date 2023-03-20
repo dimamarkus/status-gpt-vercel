@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 
 import Hamburger from "#/ui/atoms/icons/Hamburger";
 import BaseButton, { BaseButtonProps } from "#/ui/_base/BaseButton/BaseButton";
@@ -35,7 +35,7 @@ export const Button = (props: ButtonProps) => {
   } as BaseButtonProps;
 
   const getBaseButtonWClasses = (classNames: string) => (
-    <BaseButton className={cn(classNames, className)} {...buttonProps}>
+    <BaseButton className={clsx(classNames, className)} {...buttonProps}>
       {children}
     </BaseButton>
   );
@@ -45,7 +45,7 @@ export const Button = (props: ButtonProps) => {
       const text = !children ? buttonProps.text || "Submit" : undefined;
       return (
         <BaseButton
-          className={cn("btn-primary", className)}
+          className={clsx("btn-primary", className)}
           {...buttonProps}
           text={text}
           type="submit"

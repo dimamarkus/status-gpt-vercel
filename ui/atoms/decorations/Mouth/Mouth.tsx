@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import styles from "./Mouth.module.scss";
 
@@ -10,8 +10,8 @@ type MouthProps = {
 export const Mouth = (props: MouthProps) => {
   const { animated } = props;
   return (
-    <div className={cn(styles.Mouth)}>
-      <div className={cn(styles.monster_container, !!animated && styles.animated)}>
+    <div className={clsx(styles.Mouth)}>
+      <div className={clsx(styles.monster_container, !!animated && styles.animated)}>
         <div className={styles.monster}>
           <div className={styles.monster__eyes}>
             <div className={styles.monster__eye}></div>

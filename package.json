@@ -31,7 +31,6 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "@vercel/analytics": "^0.1.11",
     "@vercel/edge-config": "^0.1.4",
-    "classnames": "^2.3.2",
     "clsx": "^1.2.1",
     "daisyui": "^2.51.3",
     "date-fns": "^2.29.3",

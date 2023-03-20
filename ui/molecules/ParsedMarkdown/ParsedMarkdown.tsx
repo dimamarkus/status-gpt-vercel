@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { remark } from "remark";
 import html from "remark-html";
@@ -40,7 +40,7 @@ export const ParsedMarkdown = ({ content, className }: ParsedMarkdownProps) => {
     <div
       id="dangerous-html"
       dangerouslySetInnerHTML={{ __html: mdContent }}
-      className={cn(styles.ParsedMarkdown, "prose", className)}
+      className={clsx(styles.ParsedMarkdown, "prose", className)}
     />
   );
 };
