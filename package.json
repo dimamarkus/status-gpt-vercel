@@ -66,6 +66,7 @@
     "@storybook/addon-links": "7.0.0-rc.4",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/blocks": "7.0.0-alpha.8",
+    "@storybook/manager-api": "7.0.0-alpha.54",
     "@storybook/nextjs": "7.0.0-rc.4",
     "@storybook/react": "7.0.0-rc.4",
     "@storybook/testing-library": "0.0.14-next.1",
