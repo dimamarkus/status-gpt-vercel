@@ -34,7 +34,6 @@ specifiers:
   '@vercel/git-hooks': ^1.0.0
   autoprefixer: ^10.4.14
   chokidar: ^3.5.3
-  classnames: ^2.3.2
   clsx: ^1.2.1
   css-loader: ^6.7.3
   cypress: ^12.7.0
@@ -89,7 +88,6 @@ dependencies:
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
   '@vercel/analytics': 0.1.11_react@18.2.0
   '@vercel/edge-config': 0.1.4
-  classnames: 2.3.2
   clsx: 1.2.1
   daisyui: 2.51.4_j7yt3jd32cwenjqavrrga47yr4
   date-fns: 2.29.3
@@ -5234,10 +5232,6 @@ packages:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
     engines: {node: '>=8'}
     dev: true
-
-  /classnames/2.3.2:
-    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
-    dev: false
 
   /clean-css/5.3.2:
     resolution: {integrity: sha512-JVJbM+f3d3Q704rF4bqQ5UUyTtuJ0JRKNbTKVEeujCCBoMdkEi+V+e8oktO9qGQNSvHrFTM6JZRXrUvGR1czww==}

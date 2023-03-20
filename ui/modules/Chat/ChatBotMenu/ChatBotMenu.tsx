@@ -1,5 +1,5 @@
 import { get } from "@vercel/edge-config";
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import styles from "./ChatBotMenu.module.scss";
 import { getResourceFieldsFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
@@ -16,7 +16,7 @@ export async function ChatBotMenu({ path = "/chat" }: { path: string }) {
     hiddenBots && hiddenBots.length > 0 && hiddenBots.includes(slug);
 
   return (
-    <nav className={cn(styles.root, "root m-4")}>
+    <nav className={clsx(styles.root, "root m-4")}>
       <TabGroup
         path={path}
         items={[

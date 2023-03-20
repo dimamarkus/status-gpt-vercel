@@ -1,6 +1,6 @@
 "use client";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import cn from "classnames";
+import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ChatSuggestions.module.scss";
 import { DEBUG_SUGGESTIONS } from "#/app/chat/lib/constants";
@@ -53,7 +53,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   const shouldHideSuggestions = !showSuggestions || !useIsTablet;
 
   return (
-    <div className={cn(styles.root, className, shouldHideSuggestions && "hidden")}>
+    <div className={clsx(styles.root, className, shouldHideSuggestions && "hidden")}>
       {loading || suggestionsLoading ? (
         <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
           <Spinner />
@@ -72,7 +72,10 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
             Questions You Can Try
             <ChevronRightIcon
               width={20}
-              className={cn("h-5 w-5 text-inherit transition md:hidden", isExpanded && "rotate-90")}
+              className={clsx(
+                "h-5 w-5 text-inherit transition md:hidden",
+                isExpanded && "rotate-90",
+              )}
             />
           </h3>
           <ul className="collapse-content space-y-2 p-0 peer-checked:text-secondary-content">

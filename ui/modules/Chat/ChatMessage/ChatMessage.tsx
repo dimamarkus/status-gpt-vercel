@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import styles from "./ChatMessage.module.scss";
 import { StatusChatMessage } from "#/lib/types";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
@@ -29,7 +29,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const chatBg = isUserMessage ? "bg-blue-50 dark:bg-blue-900" : "bg-neutral-50 dark:bg-base-200";
 
   return (
-    <div className={cn(styles.root, "chat m-0 p-4", chatClass, className)} dir="ltr">
+    <div className={clsx(styles.root, "chat m-0 p-4", chatClass, className)} dir="ltr">
       <ChatMessageAvatar
         avatarUrl={avatarUrl}
         isTalking={isTalking}
@@ -38,7 +38,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
       />
       {!isSystemMessage && <Timestamp time={time} />}
       <div
-        className={cn(
+        className={clsx(
           styles.chatBubble,
           `chat-bubble ${chatBg} flex max-w-full flex-col transition`,
           isSystemMessage ? "w-full bg-neutral-900 text-neutral-100" : "text-neutral-900",
@@ -49,7 +49,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
           type="link"
           text="Copy"
           content={content}
-          className={cn(
+          className={clsx(
             "underline-none py-1 text-xs capitalize text-neutral-300 no-underline transition hover:text-blue-500",
             isUserMessage ? "text-left" : "text-right",
           )}

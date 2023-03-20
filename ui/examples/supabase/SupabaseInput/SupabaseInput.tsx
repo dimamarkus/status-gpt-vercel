@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import { ChangeEvent, InputHTMLAttributes } from "react";
 import styles from "./Input.module.css";
 
@@ -9,7 +9,7 @@ interface Props extends Omit<InputHTMLAttributes<any>, "onChange"> {
 const SupabaseInput = (props: Props) => {
   const { className, children, onChange, ...rest } = props;
 
-  const rootClassName = cn(styles.SupbaseInput, {}, className);
+  const rootClassName = clsx(styles.SupbaseInput, {}, className);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {

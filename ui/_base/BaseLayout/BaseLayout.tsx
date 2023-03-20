@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import styles from "./BaseLayout.module.scss";
 import { DEFAULT_SIDEBAR } from "#/lib/constants/settings";
@@ -23,7 +23,7 @@ export const BaseLayout = ({
 }: BaseLayoutProps) => {
   return (
     <body
-      className={cn(styles.root, "drawer drawer-end", className)}
+      className={clsx(styles.root, "drawer drawer-end", className)}
       data-theme={theme || "light"}
       onKeyDown={onKeyDown}
     >

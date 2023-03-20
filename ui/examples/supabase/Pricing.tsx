@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -115,7 +115,7 @@ export default function Pricing({ products }: Props) {
             return (
               <div
                 key={product.id}
-                className={cn("divide-y divide-zinc-600 rounded-lg bg-zinc-900 shadow-sm", {
+                className={clsx("divide-y divide-zinc-600 rounded-lg bg-zinc-900 shadow-sm", {
                   "border border-pink-500": subscription
                     ? product.name === subscription?.prices?.products?.name
                     : product.name === "Freelancer",

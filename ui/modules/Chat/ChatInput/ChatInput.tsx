@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import styles from "./ChatInput.module.scss";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
@@ -43,7 +43,7 @@ export const ChatInput = (props: ChatInputProps) => {
 
   return (
     <form
-      className={cn(styles.root, className)}
+      className={clsx(styles.root, className)}
       onSubmit={submitMessage}
       onKeyDown={(e) => {
         if (e.key === "Enter" && !e.shiftKey) {

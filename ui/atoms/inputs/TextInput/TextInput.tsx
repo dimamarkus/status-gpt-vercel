@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import styles from "./TextInput.module.scss";
 import {
@@ -130,14 +130,14 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     name,
     id: name,
     // className: "relative inline-flex w-full rounded border border-gray-300 bg-gray-50 leading-none text-gray-700 placeholder-gray-500 transition-colors ease-in-out hover:border-blue-400 focus:border-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-30",
-    className: cn(sizeMap[size], "input-bordered input h-auto"),
+    className: clsx(sizeMap[size], "input-bordered input h-auto"),
   };
 
   console.log("errors", errors);
   console.log("errorsArray", errorsArray);
 
   return (
-    <div className={cn(styles.root, "form-control", compact && styles.compact, className)}>
+    <div className={clsx(styles.root, "form-control", compact && styles.compact, className)}>
       <label className="label pb-0" htmlFor={name}>
         {labelChild}
         {topRightChild}

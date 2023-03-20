@@ -169,10 +169,5 @@ module.exports = {
       // "winter",
     ],
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/line-clamp"),
-    require("daisyui"),
-  ],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms"), require("daisyui")],
 };

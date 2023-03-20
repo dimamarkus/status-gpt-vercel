@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import React, { ButtonHTMLAttributes, forwardRef, useRef } from "react";
 import { mergeRefs } from "react-merge-refs";
 import styles from "./SupabaseButton.module.css";
@@ -29,7 +29,7 @@ const SupabaseButton = forwardRef<HTMLButtonElement, Props>((props, buttonRef) =
     ...rest
   } = props;
   const ref = useRef(null);
-  const rootClassName = cn(
+  const rootClassName = clsx(
     styles.SupabaseButton,
     {
       [styles.slim]: variant === "slim",

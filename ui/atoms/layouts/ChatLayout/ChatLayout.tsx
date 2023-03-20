@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import styles from "./ChatLayout.module.scss";
 import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
@@ -14,7 +14,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const { isFullScreen } = useFullScreenContext();
   return (
     <section
-      className={cn(
+      className={clsx(
         styles.root,
         isFullScreen && styles.fullScreen,
         "dark:border-none dark:bg-base-300",

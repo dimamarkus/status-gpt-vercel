@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
-import cn from "classnames";
+import clsx from "clsx";
 import get from "lodash.get";
 import { DetailedHTMLProps, TextareaHTMLAttributes, useCallback } from "react";
 import styles from "./Textarea.module.scss";
@@ -60,7 +60,7 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
   };
 
   return (
-    <label className={cn(styles.root, styles.stacked, className, hasError && styles.hasError)}>
+    <label className={clsx(styles.root, styles.stacked, className, hasError && styles.hasError)}>
       {!!register ? <textarea {...hookFieldProps} {...fieldProps} /> : <textarea {...fieldProps} />}
       <ErrorMessage
         errors={errors}

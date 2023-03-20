@@ -1,16 +1,11 @@
-import cn from 'classnames';
+import clsx from "clsx";
 
-import BaseLink, { BaseLinkProps } from '#/ui/_base/BaseLink/BaseLink';
+import BaseLink, { BaseLinkProps } from "#/ui/_base/BaseLink/BaseLink";
 
-export type LinkType =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'danger'
-  | 'accent';
+export type LinkType = "default" | "primary" | "secondary" | "danger" | "accent";
 
 // export interface LinkProps extends LinkHTMLAttributes<HTMLLinkElement> {
-export interface LinkProps extends Omit<BaseLinkProps, 'type'> {
+export interface LinkProps extends Omit<BaseLinkProps, "type"> {
   href: string;
   /**
    * What flavor of link is it?
@@ -29,23 +24,21 @@ export const Link = (props: LinkProps) => {
   } as BaseLinkProps;
 
   const getBaseLinkWClasses = (classNames: string) => (
-    <BaseLink className={cn(classNames, className)} {...linkProps} />
+    <BaseLink className={clsx(classNames, className)} {...linkProps} />
   );
 
   const asButton = linkProps.asButton;
-  const classPrefix = asButton ? 'btn' : 'link';
+  const classPrefix = asButton ? "btn" : "link";
   switch (type) {
-    case 'accent':
+    case "accent":
       return getBaseLinkWClasses(`${classPrefix}-accent`);
       break;
 
-    case 'secondary':
-      return getBaseLinkWClasses(
-        asButton ? 'btn-outline btn-primary' : 'link-neutral',
-      );
+    case "secondary":
+      return getBaseLinkWClasses(asButton ? "btn-outline btn-primary" : "link-neutral");
       break;
 
-    case 'danger':
+    case "danger":
       return getBaseLinkWClasses(`${classPrefix}-error`);
       break;
 

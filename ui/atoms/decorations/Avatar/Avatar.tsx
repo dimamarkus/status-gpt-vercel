@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./Avatar.module.scss";
@@ -64,7 +64,7 @@ const Avatar = ({ isUserMessage }: AvatarProps) => {
     </div>
   ) : (
     <div
-      className={cn(
+      className={clsx(
         styles.Avatar,
         "align-center avatar justify-center",
         !isLoading && "cursor-pointer",

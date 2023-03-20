@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import React from "react";
 import { interFont, tiemposHeadlineFont } from "#/app/fonts";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
@@ -27,7 +27,7 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
 
   return (
     <BaseLayout
-      className={cn(globalFont, className, darkMode && "dark")}
+      className={clsx(globalFont, className, darkMode && "dark")}
       theme={features.theme}
       onKeyDown={handleKeyDown}
       sidebar={sidebar}
