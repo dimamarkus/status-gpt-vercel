@@ -26,17 +26,18 @@ export const AuthButtons = (props: AuthButtonsProps) => {
       <Link
         asButton
         className="btn-link btn-sm w-20 md:btn-md md:w-32"
-        type={isMobile ? "default" : "secondary"}
+        // type={isMobile ? "default" : "secondary"}
+        type="default"
         text="Log In"
-        href={"/login"}
+        href={"https://statusmoney.com/login"}
         onClick={logIn}
       />
       <Link
         asButton
         className="btn-sm w-20 px-2 md:btn-md md:w-32"
-        type="primary"
+        type="secondary"
         text="Sign Up"
-        href={"https://statusmoney.com/register"}
+        href={"https://statusmoney.com/onboarding/register"}
         onClick={signUp}
       />
     </BaseButtonGroup>
