@@ -21,7 +21,7 @@ export const ${name} = (props: ${name}Props) => {
 export default ${name};`;
 
 const SassTemplate = (name) =>
-  `.${name} {
+  `.root {
 }`;
 
 const CypressTemplate = (name) =>
