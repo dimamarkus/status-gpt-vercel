@@ -37,7 +37,6 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
     Object.keys(submissions).length > 0
       ? Object.keys(submissions).map((key) => key)
       : ["None found"];
-  console.log("displaySubmissions: ", displaySubmissions);
   const prevProp = useRef<string>();
   useEffect(() => {
     prevProp.current = answer;

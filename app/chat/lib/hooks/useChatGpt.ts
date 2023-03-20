@@ -15,6 +15,7 @@ import { Bot } from "#/lib/types/cms";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { inProdEnv } from "#/lib/helpers/env-helpers";
 
 export const USER_INPUT_FIELD_ID = "chatInput";
 
@@ -99,8 +100,8 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
 
     //  4. Make the API Call
     // ============================================================================
-    console.log("============================================================");
-    console.log(`I'm asking ${getGptParam("model")} a question:`, requestBody);
+    !inProdEnv && console.log("============================================================");
+    !inProdEnv && console.log(`I'm asking ${getGptParam("model")} a question:`, requestBody);
     const response = await getStream(requestBody);
 
     //  4. Handle response

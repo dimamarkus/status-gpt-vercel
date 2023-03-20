@@ -1,6 +1,7 @@
 "use client";
 import { OpenAiModel } from "#/app/chat/lib/openai";
 import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { inDevEnv, inProdEnv, inTestEnv } from "#/lib/helpers/env-helpers";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import Button from "#/ui/atoms/buttons/Button/Button";
@@ -90,7 +91,7 @@ const FeaturesPanel = () => {
   };
   const darkMode = features.theme === "dark";
   const menu = areFeaturesShown && (
-    <div className="absolute top-0 left-0 z-0 flex flex-col gap-4 rounded-br-md bg-black/75 p-8 pt-4 pl-10">
+    <div className="absolute top-0 left-0 z-0 flex flex-col gap-4 rounded-br-md bg-neutral-300/[85%] p-8 pt-4 pl-10 dark:bg-black/75">
       <label htmlFor="darkMode" className="label cursor-pointer">
         <span className="label-text uppercase text-base-100">☀️</span>
         <input
@@ -109,6 +110,14 @@ const FeaturesPanel = () => {
       {/* {getOptionRadio("model", MODELS)} */}
       {getOptionCheckbox("useStream", "Stream?")}
       {getOptionCheckbox("debugMode", "Debug?")}
+      <div>
+        Env Name: <small>{process.env.NODE_ENV}</small>
+        <ul>
+          <li>isDev: {inDevEnv && "✅"}</li>
+          <li>isTest: {inTestEnv && "✅"}</li>
+          <li>isProd: {inProdEnv && "✅"}</li>
+        </ul>
+      </div>
     </div>
   );
 

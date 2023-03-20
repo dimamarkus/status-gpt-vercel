@@ -1,13 +1,11 @@
+import { inProdEnv } from "#/lib/helpers/env-helpers";
+
 export function findJsonInString(str: string) {
   const firstParseAttempt = parseJson(str);
-  console.log("firstParseAttempt", firstParseAttempt);
   if (firstParseAttempt !== false) {
     return firstParseAttempt;
-  } else {
-    console.log("I couldn't parse these submissions:", str);
   }
   try {
-    console.log("-----------------------------------------------------------");
     const regex1 = /```json([^```]*)```/gm;
     const regex2 = /```([^```]*)```/gm;
     const regex3 = /{([^}]*)}/;
@@ -17,12 +15,15 @@ export function findJsonInString(str: string) {
     const anyMatches = matches1 || matches2 || matches3;
     const jsonString = anyMatches ? anyMatches[0] || anyMatches[1] : "";
     const foundJson = parseJson(jsonString);
-    console.log("matches1", matches1);
-    console.log("matches2", matches2);
-    console.log("matches3", matches3);
-    console.log("anyMatches", anyMatches);
-    console.log("jsonString", jsonString);
-    console.log("foundJson", foundJson);
+    if (!inProdEnv) {
+      console.log("-----------------------------------------------------------");
+      console.log("matches1", matches1);
+      console.log("matches2", matches2);
+      console.log("matches3", matches3);
+      console.log("anyMatches", anyMatches);
+      console.log("jsonString", jsonString);
+      console.log("foundJson", foundJson);
+    }
     return foundJson === false ? null : foundJson;
   } catch (error) {
     console.log("I couldn't parse these submissions:", str);
@@ -35,7 +36,7 @@ export function findArrayInString(str: string) {
   if (firstParseAttempt !== false && Array.isArray(firstParseAttempt)) {
     return firstParseAttempt;
   } else {
-    console.log("I couldn't parse these suggestions:", str);
+    !inProdEnv && console.log("I couldn't parse these suggestions:", str);
   }
   try {
     const arrayString = str.slice(str.indexOf("["), str.lastIndexOf("]") + 1);
@@ -46,7 +47,7 @@ export function findArrayInString(str: string) {
     const foundArray = parseJson(arrayString);
     return foundArray === false ? null : foundArray;
   } catch (error) {
-    console.log("I couldn't parse these suggestions:", str);
+    !inProdEnv && console.log("I couldn't parse these suggestions:", str);
     return null;
   }
 }

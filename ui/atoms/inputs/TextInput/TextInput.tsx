@@ -133,9 +133,6 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     className: clsx(sizeMap[size], "input-bordered input h-auto"),
   };
 
-  console.log("errors", errors);
-  console.log("errorsArray", errorsArray);
-
   return (
     <div className={clsx(styles.root, "form-control", compact && styles.compact, className)}>
       <label className="label pb-0" htmlFor={name}>
