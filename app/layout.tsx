@@ -10,7 +10,7 @@ import "#/styles/index.scss";
 export const getTitlePrefix = () => {
   if (process.env.NODE_ENV === "development") {
     return "🔴";
-  } else if (process.env.NODE_ENV === "test") {
+  } else if (process.env.VERCEL_ENV === "preview") {
     return "🟠";
   }
   return "";
@@ -19,7 +19,7 @@ export const getTitlePrefix = () => {
 const getFavicon = () => {
   if (process.env.NODE_ENV === "development") {
     return "/favicon/favicon-dev.ico";
-  } else if (process.env.NODE_ENV === "test") {
+  } else if (process.env.VERCEL_ENV === "preview") {
     return "/favicon/favicon-test.ico";
   }
   return "/favicon/favicon.ico";
