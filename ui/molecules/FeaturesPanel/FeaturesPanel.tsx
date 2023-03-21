@@ -111,9 +111,19 @@ const FeaturesPanel = () => {
       {getOptionCheckbox("useStream", "Stream?")}
       {getOptionCheckbox("debugMode", "Debug?")}
       <div>
-        Node Env: <small>{process.env.NODE_ENV}</small>
-        Vercel Env: <small>{process.env.VERCEL_ENV}</small>
         <ul>
+          <li>
+            Node Env: <small>{process.env.NODE_ENV}</small>
+          </li>
+          <li>
+            Vercel Env: <small>{process.env.NEXT_PUBLIC_VERCEL_ENV}</small>
+          </li>
+          <li>
+            Commit Ref: <small>{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF}</small>
+          </li>
+          <li>
+            Commit Msg: <small>{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE}</small>
+          </li>
           <li>isDev: {inDevEnv && "✅"}</li>
           <li>isTest: {inTestEnv && "✅"}</li>
           <li>isProd: {inProdEnv && "✅"}</li>

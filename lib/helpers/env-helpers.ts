@@ -7,7 +7,7 @@ if (process) {
     inDevEnv = true;
     inTestEnv = false;
     inProdEnv = false;
-  } else if (process.env.VERCEL_ENV === "preview") {
+  } else if (process.env.NEXT_PUBLIC_VERCEL_ENV === "preview") {
     inDevEnv = false;
     inTestEnv = true;
     inProdEnv = false;
