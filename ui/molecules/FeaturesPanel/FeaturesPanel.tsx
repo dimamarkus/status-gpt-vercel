@@ -111,7 +111,8 @@ const FeaturesPanel = () => {
       {getOptionCheckbox("useStream", "Stream?")}
       {getOptionCheckbox("debugMode", "Debug?")}
       <div>
-        Env Name: <small>{process.env.NODE_ENV}</small>
+        Node Env: <small>{process.env.NODE_ENV}</small>
+        Vercel Env: <small>{process.env.VERCEL_ENV}</small>
         <ul>
           <li>isDev: {inDevEnv && "✅"}</li>
           <li>isTest: {inTestEnv && "✅"}</li>

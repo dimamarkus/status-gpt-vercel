@@ -11,7 +11,7 @@ export const getTitlePrefix = () => {
   if (process.env.NODE_ENV === "development") {
     return "🔴";
   } else if (process.env.VERCEL_ENV === "preview") {
-    return "🟠";
+    return "";
   }
   return "";
 };
