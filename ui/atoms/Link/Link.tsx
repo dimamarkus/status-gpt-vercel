@@ -11,6 +11,10 @@ export interface LinkProps extends Omit<BaseLinkProps, "type"> {
    * What flavor of link is it?
    */
   type?: LinkType;
+  /**
+   * Default HTML title attribute. This type is missing in react for some reason
+   */
+  title?: string;
 }
 
 /**
@@ -32,19 +36,15 @@ export const Link = (props: LinkProps) => {
   switch (type) {
     case "accent":
       return getBaseLinkWClasses(`${classPrefix}-accent`);
-      break;
 
     case "secondary":
       return getBaseLinkWClasses(asButton ? "btn-outline btn-primary" : "link-neutral");
-      break;
 
     case "danger":
       return getBaseLinkWClasses(`${classPrefix}-error`);
-      break;
 
     default:
       return getBaseLinkWClasses(`${classPrefix}-primary`);
-      break;
   }
 };
 

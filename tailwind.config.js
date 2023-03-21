@@ -106,7 +106,7 @@ module.exports = {
     themes: [
       {
         dark: {
-          primary: "#3172F5",
+          primary: "#3979fb",
           secondary: "#6b7280",
           accent: "#33B5E6",
           neutral: "#1C1F27",

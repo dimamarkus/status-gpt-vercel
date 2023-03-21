@@ -13,7 +13,7 @@ type ChatLayoutProps = {
 const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const { isFullScreen } = useFullScreenContext();
   return (
-    <section
+    <div
       className={clsx(
         styles.root,
         isFullScreen && styles.fullScreen,
@@ -25,7 +25,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
         {children}
       </div>
       <aside className="md:display-flex hidden">{sidebar}</aside>
-    </section>
+    </div>
   );
 };
 

@@ -54,11 +54,12 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
     "aria-invalid": !!(errors && errorMessages),
     maxLength: CHAT_BOT_INPUT_MAX_CHARS,
     onChange,
+    className: "ring-none ring-transparent",
     ...props,
   };
 
   return (
-    <label className={clsx(styles.root, styles.stacked, className, hasError && styles.hasError)}>
+    <label className={clsx(styles.root, styles.stacked, hasError && styles.hasError)}>
       {!!register ? <textarea {...hookFieldProps} {...fieldProps} /> : <textarea {...fieldProps} />}
       <ErrorMessage
         errors={errors}

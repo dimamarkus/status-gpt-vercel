@@ -26,13 +26,15 @@ export const AuthButtons = (props: AuthButtonsProps) => {
         // type={isMobile ? "default" : "secondary"}
         type="default"
         text="Log In"
+        title="Log in to your Status Money account."
         href={"https://statusmoney.com/login"}
       />
       <Link
         asButton
         className="btn-sm w-28 px-2 md:btn-md md:w-32"
         type="secondary"
-        text="Learn More"
+        text="Join Status"
+        title="Become a Status Money member today."
         href={"https://statusmoney.com/onboarding/register"}
       />
     </BaseButtonGroup>

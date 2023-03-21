@@ -11,6 +11,7 @@ export const Logo = (props: LogoProps) => {
   return (
     <Link
       className={"flex h-auto flex-col items-start p-0 py-1 text-left text-xl normal-case"}
+      title="Visit statusmoney.com"
       href="https://statusmoney.com"
     >
       <Image

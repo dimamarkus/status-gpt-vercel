@@ -52,13 +52,16 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   const shouldHideSuggestions = !showSuggestions || !useIsTablet;
 
   return (
-    <div className={clsx(styles.root, className, shouldHideSuggestions && "hidden")}>
+    <div
+      className={clsx(styles.root, "collapse", className, shouldHideSuggestions && "hidden")}
+      onClick={() => useIsTablet && setIsExpanded(!isExpanded)}
+    >
       {loading || suggestionsLoading ? (
-        <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-0">
+        <div className="relative -top-2 ml-2 text-blue-400 md:m-4 md:ml-2">
           <Spinner />
         </div>
       ) : (
-        <div className="collapse" onClick={() => useIsTablet && setIsExpanded(!isExpanded)}>
+        <>
           <input
             type="checkbox"
             name="collapse"
@@ -92,7 +95,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
                 </li>
               ))}
           </ul>
-        </div>
+        </>
       )}
     </div>
   );

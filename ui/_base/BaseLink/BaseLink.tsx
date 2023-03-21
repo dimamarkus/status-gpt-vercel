@@ -1,5 +1,6 @@
-import Link, { LinkProps } from 'next/link';
-import styles from './BaseLink.module.scss';
+import Link, { LinkProps } from "next/link";
+import { AnchorHTMLAttributes } from "react";
+import styles from "./BaseLink.module.scss";
 
 // export interface BaseLinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
 export interface BaseLinkProps extends LinkProps {
@@ -50,12 +51,12 @@ export const BaseLink = ({
     <Link
       className={[
         styles.BaseLink,
-        asButton ? 'btn' : 'link',
-        hideUnderline ? '' : 'link-hover',
-        asButton ? 'no-underline' : '',
-        fullWidth ? 'w-full' : '',
+        asButton ? "btn" : "link",
+        hideUnderline ? "" : "link-hover",
+        asButton ? "no-underline" : "",
+        fullWidth ? "w-full" : "",
         className,
-      ].join(' ')}
+      ].join(" ")}
       {...htmlLinkProps}
     >
       {text || children}

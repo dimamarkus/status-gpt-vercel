@@ -36,7 +36,7 @@ export const ChatMessages = (props: ChatMessagesProps) => {
     : "No chatbot found";
 
   return (
-    <div className={clsx(styles.root, className)}>
+    <section className={clsx(styles.root, className)}>
       {messagesChild}
       <ChatMessage
         key="lastMessage"
@@ -46,7 +46,7 @@ export const ChatMessages = (props: ChatMessagesProps) => {
         isTalking={loading}
       />
       <div className={styles.scrollAnchor} />
-    </div>
+    </section>
   );
 };
 export default ChatMessages;

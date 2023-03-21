@@ -54,13 +54,18 @@ p {
   font-size: var(--font-size-base);
   // line-height: 1.5;
 }
+small {
+  font-size: var(--font-size-xs);
+}
 label {
   font-size: var(--font-size-sm);
   font-weight: 600;
   line-height: 1;
 }
-small {
-  font-size: var(--font-size-xs);
+input,
+textarea {
+  // font-size: var(--font-size-sm);
+  font-weight: 400;
 }
 
 // Special Text

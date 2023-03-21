@@ -7,7 +7,7 @@ import "#/styles/index.scss";
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
 // export const revalidate = 0;
 
-const getPrefix = () => {
+export const getTitlePrefix = () => {
   if (process.env.NODE_ENV === "development") {
     return "🔴";
   } else if (process.env.NODE_ENV === "test") {
@@ -26,7 +26,7 @@ const getFavicon = () => {
 };
 
 export const metadata = {
-  title: getPrefix() + "AI Financial Coach | StatusMoney",
+  title: getTitlePrefix() + "AI Financial Coach | StatusMoney",
   // template: "%s | Next.js App Router",
   description: "Your personal financial advisor powered by AI",
   favicon: getFavicon(),

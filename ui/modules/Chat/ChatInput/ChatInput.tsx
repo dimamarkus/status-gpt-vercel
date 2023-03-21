@@ -68,13 +68,18 @@ export const ChatInput = (props: ChatInputProps) => {
         errors={errors}
         onFocus={() => isMobile && setShowSuggestions(false)}
         onBlur={() => setShowSuggestions(true)}
-        rows={2}
+        rows={3}
         required
         autoFocus
         register={register}
+        className="ring-black"
       />
 
-      <Button type="submit" className="h-full rounded-none md:h-auto md:rounded-b-md">
+      <Button
+        title="Send your chat message"
+        type="submit"
+        className="h-full rounded-none md:h-auto md:rounded-b-md"
+      >
         {
           <span className="pt-1 md:pt-0">
             Send <span className="hidden md:inline">Message</span>

@@ -24,8 +24,6 @@
 .root::-webkit-scrollbar-track {
   padding: 0 2px;
   margin: 0 2px;
-  /* width of the entire scrollbar */
-  /* background: orange;        color of the tracking area */
   @apply bg-base-100;
 }
 

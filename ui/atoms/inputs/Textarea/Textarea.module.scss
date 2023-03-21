@@ -16,10 +16,6 @@
   &.stacked textarea {
     grid-area: 2/1;
   }
-  & textarea {
-    border-top: 1px solid;
-    border-color: hsl(var(--bc) / var(--tw-border-opacity));
-  }
 
   &::after,
   & input,
@@ -28,24 +24,15 @@
     grid-area: 1/2;
     resize: none;
   }
-  & span {
-    /* padding: 0.25em; */
-  }
+
   &::after {
     content: attr(data-value) " ";
     visibility: hidden;
     white-space: pre-wrap;
   }
-  &:focus-within {
-    /* outline: solid 1px blue; */
-    /* box-shadow: 4px 4px 0px blue; */
-  }
+
   &:focus-within > span {
     color: hsl(var(--primary) / var(--tw-text-opacity));
-  }
-  &:focus-within textarea:focus,
-  &:focus-within input:focus {
-    outline: none;
   }
 
   & > span {
@@ -55,13 +42,8 @@
     /* text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15); */
   }
 
-  & textarea::placeholder {
-    line-height: 2;
-  }
-
   textarea {
     @apply appearance-none;
-    @apply bg-white;
     @apply block;
     @apply border-0;
     @apply border-gray-300;
@@ -71,31 +53,20 @@
     @apply focus:border-blue-400;
     @apply focus:outline-none;
     @apply focus:placeholder-gray-400;
-    @apply focus:ring-4;
-    @apply focus:ring-blue-400;
-    @apply focus:ring-opacity-30;
     @apply hover:border-blue-400;
-    @apply leading-[150%];
-    @apply leading-none;
     @apply lg:min-w-full;
     @apply md:w-auto;
     @apply outline-offset-2;
     @apply p-3;
     @apply placeholder-gray-500;
-    @apply placeholder-neutral-500;
     @apply resize-none;
     @apply rounded-none;
-    @apply text-base;
-    @apply text-gray-700;
+    // @apply text-base;
     @apply transition-colors;
   }
   .hasError textarea {
     @apply border-red-600;
     @apply hover:border-red-600;
     @apply focus:border-red-600;
-    @apply focus:outline-none;
-    @apply focus:ring-2;
-    @apply focus:ring-red-600;
-    @apply focus:ring-opacity-50;
   }
 }

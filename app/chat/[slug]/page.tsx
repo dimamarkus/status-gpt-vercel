@@ -8,6 +8,7 @@ import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
+import { getTitlePrefix } from "#/app/layout";
 
 type BotPageProps = {
   params: {
@@ -20,7 +21,7 @@ export const revalidate = 0;
 export async function generateMetadata({ params }: { params: BotPageProps["params"] }) {
   const bot = await fetchBot(params.slug);
   const name = bot?.name || "AIdvisor Chat";
-  return { title: name + " | Status AIdvisor" };
+  return { title: getTitlePrefix() + name + " | Status AIdvisor" };
 }
 
 // export async function generateStaticParams() {

@@ -27,7 +27,7 @@ const navItems = (
         href="https://statusmoney.com/onboarding/register"
         className="text-primary"
       >
-        Join Now
+        Join Status
       </Link>
     </li>
   </>

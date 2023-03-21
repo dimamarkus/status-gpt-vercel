@@ -27,7 +27,8 @@
   .label-text {
     @apply text-neutral-700;
   }
-  .input {
+  .input,
+  textarea {
     @apply text-neutral-900;
   }
 }
@@ -39,7 +40,13 @@
   .label-text {
     @apply text-neutral-400;
   }
-  .input {
+  .input,
+  textarea {
     @apply text-neutral-100;
+    @apply placeholder-neutral-400;
+  }
+  textarea {
+    @apply border-neutral-500;
+    @apply bg-slate-700;
   }
 }
