@@ -1,8 +1,17 @@
 import { sizeMap } from "#/lib/constants/maps";
 import { CommonSpacings } from "#/lib/types";
 import clsx from "clsx";
-import { HTMLAttributes } from "react";
+import { Component, ElementType, HTMLAttributes } from "react";
+
+type ElementProps = {
+  className?: string;
+};
 export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Which HTML element to use for the Duo.
+   * Stick to the container elements 'div', 'ul', 'li', 'section', 'article', 'aside'
+   */
+  as?: ElementType<ElementProps>;
   /**
    * Reverse the order of the elements
    */
@@ -31,7 +40,7 @@ export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 export const Duo = (props: DuoProps) => {
-  const { children, reverseOrder, centered, vertical, gap = "sm" } = props;
+  const { as: Element = "div", children, reverseOrder, centered, vertical, gap = "sm" } = props;
 
   const classNames = clsx(
     "flex",
@@ -50,10 +59,10 @@ export const Duo = (props: DuoProps) => {
   // RENDER
   // ---------------------------------------------------------------------------------------------
   return (
-    <div className={classNames}>
-      {children[reverseOrder ? 0 : 1]}
+    <Element className={classNames}>
       {children[reverseOrder ? 1 : 0]}
-    </div>
+      {children[reverseOrder ? 0 : 1]}
+    </Element>
   );
 };
 export default Duo;

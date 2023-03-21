@@ -1,17 +1,17 @@
 let inDevEnv = false;
-let inTestEnv = false;
+let inPreviewEnv = false;
 let inProdEnv = true;
 
 if (process) {
   if (process.env.NODE_ENV === "development") {
     inDevEnv = true;
-    inTestEnv = false;
+    inPreviewEnv = false;
     inProdEnv = false;
   } else if (process.env.NEXT_PUBLIC_VERCEL_ENV === "preview") {
     inDevEnv = false;
-    inTestEnv = true;
+    inPreviewEnv = true;
     inProdEnv = false;
   }
 }
 
-export { inDevEnv, inTestEnv, inProdEnv };
+export { inDevEnv, inPreviewEnv, inProdEnv };

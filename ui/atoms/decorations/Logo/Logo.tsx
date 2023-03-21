@@ -13,7 +13,7 @@ export const Logo = (props: LogoProps) => {
       title="Visit statusmoney.com"
       href="https://statusmoney.com"
     >
-      <StatusLogo className="text-slate-700" />
+      <StatusLogo className="text-slate-700 dark:text-slate-100" />
       <h1 className="logo m-0 font-serif text-2xl font-bold leading-6">
         <span className="boujee-text">AI</span>dvisor
         <small className="display-block font-sans text-xs font-normal text-slate-400 "> BETA</small>

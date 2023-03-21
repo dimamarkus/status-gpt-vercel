@@ -45,6 +45,10 @@
     @apply text-neutral-100;
     @apply placeholder-neutral-400;
   }
+  .input:focus,
+  textarea:focus {
+    @apply placeholder-neutral-500;
+  }
   textarea {
     @apply border-neutral-500;
     @apply bg-slate-700;
