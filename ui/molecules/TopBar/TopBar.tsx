@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Hamburger from "#/ui/atoms/icons/Hamburger";
+import Hamburger from "#/ui/atoms/svgs/Hamburger";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
 import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
 import styles from "./TopBar.module.scss";
@@ -48,7 +48,7 @@ const TopBar = () => {
     </div>
   );
   return (
-    <header className="navbar bg-white md:bg-transparent">
+    <header className="navbar bg-white md:bg-transparent md:p-4">
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />

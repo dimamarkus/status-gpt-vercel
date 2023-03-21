@@ -7,7 +7,7 @@ import { DEBUG_SUGGESTIONS } from "#/app/chat/lib/constants";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import Spinner from "#/ui/atoms/icons/Spinner";
+import Spinner from "#/ui/atoms/svgs/Spinner";
 
 type ChatSuggestionsProps = {
   className?: string;
@@ -46,7 +46,8 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
     }
   }, [answerChanged, chatLog, getSuggestions, loading]);
 
-  if (!displaySuggestions || displaySuggestions === null || (chatLog && chatLog.length < 3)) {
+  // if (!displaySuggestions || displaySuggestions === null || (chatLog && chatLog.length < 3)) {
+  if (!displaySuggestions || displaySuggestions === null) {
     return null;
   }
   const shouldHideSuggestions = !showSuggestions || !useIsTablet;

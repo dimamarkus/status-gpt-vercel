@@ -24,7 +24,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
         <FullScreenToggleButton className={styles.fullScreenToggle} />
         {children}
       </div>
-      <aside className="md:display-flex hidden">{sidebar}</aside>
+      <aside className="hidden md:flex">{sidebar}</aside>
     </div>
   );
 };

@@ -109,26 +109,26 @@ export const interFont = Inter({
 export const tiemposHeadlineFont = localFont({
   variable: "--font-tiemposHeadline",
   src: [
-    {
-      path: "../assets/fonts/TiemposHeadline-Light.woff",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../assets/fonts/TiemposHeadline-Medium.woff",
-      weight: "400",
-      style: "normal",
-    },
+    // {
+    //   path: "../assets/fonts/TiemposHeadline-Light.woff",
+    //   weight: "300",
+    //   style: "normal",
+    // },
+    // {
+    //   path: "../assets/fonts/TiemposHeadline-Medium.woff",
+    //   weight: "400",
+    //   style: "normal",
+    // },
     // {
     //   path: "../assets/fonts/TiemposHeadline-Regular.woff",
     //   weight: "500",
     //   style: "normal",
     // },
-    {
-      path: "../assets/fonts/TiemposHeadline-Semibold.woff",
-      weight: "600",
-      style: "normal",
-    },
+    // {
+    //   path: "../assets/fonts/TiemposHeadline-Semibold.woff",
+    //   weight: "600",
+    //   style: "normal",
+    // },
     {
       path: "../assets/fonts/TiemposHeadline-Bold.woff",
       weight: "700",

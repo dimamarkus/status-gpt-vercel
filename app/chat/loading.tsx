@@ -1,5 +1,7 @@
 import Button from "#/ui/atoms/buttons/Button/Button";
+import styles from "#/ui/atoms/layouts/ChatLayout/ChatLayout.module.scss";
 import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
+import clsx from "clsx";
 
 export default function Loading() {
   const shimmer = `relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent`;
@@ -17,12 +19,21 @@ export default function Loading() {
   );
 
   return (
-    <ChatLayout sidebar={sidebar}>
-      <div className={`h-full rounded-lg bg-neutral-100 ${shimmer} flex flex-row`}>
-        <div className={`m-4 mr-0 h-16 w-16 rounded-md bg-neutral-300 ${shimmer}`} />
-        <div className={`m-4 h-16 w-1/2 rounded-lg bg-neutral-200 ${shimmer}`} />
+    <div className={clsx(styles.root, "dark:border-none dark:bg-base-300")}>
+      <div>
+        <div className={`h-full rounded-lg bg-slate-100 ${shimmer} flex flex-row`}>
+          <div className={`m-4 mt-8 mr-0 h-16 w-16 rounded-md bg-slate-300 ${shimmer}`} />
+          <div className="my-4 w-1/2">
+            <div className={`ml-5 h-3 w-10 bg-slate-200 ${shimmer}`} />
+            <div className={`m-4 mt-1 h-16 rounded-lg bg-slate-200 ${shimmer}`} />
+          </div>
+        </div>
+        <Button
+          className={`btn-primary btn h-8 w-full rounded-lg bg-blue-100 ${shimmer}`}
+          disabled
+        />
       </div>
-      <Button className={`btn-primary btn h-8 w-full rounded-lg bg-blue-100 ${shimmer}`} disabled />
-    </ChatLayout>
+      <aside className="hidden md:flex">{sidebar}</aside>
+    </div>
   );
 }

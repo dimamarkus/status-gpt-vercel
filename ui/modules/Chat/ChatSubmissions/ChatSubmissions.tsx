@@ -7,7 +7,7 @@ import { DEFAULT_SUBMISSIONS } from "#/app/chat/lib/constants";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import Spinner from "#/ui/atoms/icons/Spinner";
+import Spinner from "#/ui/atoms/svgs/Spinner";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useForm } from "react-hook-form";

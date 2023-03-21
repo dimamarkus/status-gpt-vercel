@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import Hamburger from "#/ui/atoms/icons/Hamburger";
+import Hamburger from "#/ui/atoms/svgs/Hamburger";
 import BaseButton, { BaseButtonProps } from "#/ui/_base/BaseButton/BaseButton";
 
 export type ButtonType =
