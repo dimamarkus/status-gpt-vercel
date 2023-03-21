@@ -22,7 +22,6 @@ export const Tab = ({ path, item }: { path: string; item: Item }) => {
         "bg-gray-700 text-gray-100 hover:bg-gray-500 hover:text-white": !isActive,
         "bg-vercel-blue text-white": isActive,
       })}
-      prefetch
     >
       {item.text}
     </Link>

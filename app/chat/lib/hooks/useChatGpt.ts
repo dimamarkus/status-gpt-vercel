@@ -65,6 +65,10 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
 
   const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
   const { stream, loading, error, getStream } = useGetStream(endpointUrl);
+  if (error) {
+    console.error("useChatGpt() error", error);
+    throw new Error(error);
+  }
 
   const formContext = useForm<ChatFormFields>({});
   const { getValues, setValue } = formContext;

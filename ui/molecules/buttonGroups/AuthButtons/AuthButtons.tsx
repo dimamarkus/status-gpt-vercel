@@ -23,7 +23,6 @@ export const AuthButtons = (props: AuthButtonsProps) => {
       <Link
         asButton
         className={"btn-link btn-sm w-20 md:btn-md md:w-28" + " " + (isMobile && "hidden")}
-        // type={isMobile ? "default" : "secondary"}
         type="default"
         text="Log In"
         title="Log in to your Status Money account."

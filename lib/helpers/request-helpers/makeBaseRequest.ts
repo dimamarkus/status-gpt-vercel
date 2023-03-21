@@ -35,7 +35,7 @@ export const makeBaseRequest = async <TRequestBody>(
       console.warn("Error status", response.status);
       console.warn("Error on request.url", url);
       console.warn("Error on response.body", response.body);
-      throw new Error("Network response was not ok.");
+      return response;
     }
 
     return response;

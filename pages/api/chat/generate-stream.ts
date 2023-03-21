@@ -1,8 +1,8 @@
-import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 import { GPT_CHAT_URL, GPT_COMPLETIONS_URL } from "#/app/chat/lib/constants";
 import { isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { OpenAiChatRequest, OpenAiCompletionRequest, OpenAiRequest } from "#/app/chat/lib/openai";
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
+import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 
 export const runtime = "edge";
 
@@ -28,6 +28,10 @@ export default async function handler(req: Request, res: any) {
     requestBody,
     authHeaders,
   );
+
+  if (!response.ok) {
+    return new Response(response.statusText, { status: response.status });
+  }
 
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
