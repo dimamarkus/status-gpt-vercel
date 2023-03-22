@@ -1,7 +1,8 @@
 "use client";
-import { createContext, useContext, useState } from "react";
 import { OpenAiModel } from "#/app/chat/lib/openai";
 import { DEFAULT_FEATURES } from "#/lib/constants/settings";
+import { useLocalStorage } from "#/lib/hooks/useStorage";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export type Font = "sans" | "serif";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
@@ -46,11 +47,24 @@ export const FeatureToggleContextProvider = (props: FeatureToggleProps) => {
   const { children } = props;
   const [areFeaturesShown, setOptionsShown] = useState<boolean>(false);
   const [features, setFeatures] = useState<Features>(DEFAULT_FEATURES);
+  const [storage, setStorage] = useLocalStorage<Features>("features", DEFAULT_FEATURES);
+
+  useEffect(() => {
+    if (storage) {
+      setFeatures(storage);
+    }
+  }, [storage]);
+
+  const handleSetFeatures = (newFeatures: Features) => {
+    setFeatures(newFeatures);
+    setStorage(newFeatures);
+  };
+
   return (
     <FeatureToggleContext.Provider
       value={{
         features,
-        setFeatures,
+        setFeatures: handleSetFeatures,
         areFeaturesShown,
         toggleShowFeatures: () => setOptionsShown(!areFeaturesShown),
       }}
