@@ -29,6 +29,7 @@ export const DEFAULT_CHAT_CONTEXT: ChatContext = {
   ...DEFAULT_SUGGESTIONS_RETURN,
   answer: undefined,
   chatLog: [],
+  bot: null,
   error: null,
   inputFormContext: null,
   streamedAnswer: undefined,

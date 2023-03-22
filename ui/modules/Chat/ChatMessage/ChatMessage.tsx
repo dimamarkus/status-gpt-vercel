@@ -1,3 +1,6 @@
+"use client";
+
+import { useSpeechSynthesis } from "react-speech-kit";
 import { StatusChatMessage } from "#/lib/types";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
 import Timestamp from "#/ui/atoms/decorations/Timestamp/Timestamp";
@@ -5,6 +8,8 @@ import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAv
 import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
 import clsx from "clsx";
 import styles from "./ChatMessage.module.scss";
+import ChatSpeakButton from "#/ui/ChatSpeakButton/ChatSpeakButton";
+import Duo from "#/ui/_base/Duo/Duo";
 
 type ChatMessageProps = {
   avatarUrl?: string;
@@ -62,7 +67,10 @@ export const ChatMessage = (props: ChatMessageProps) => {
       <Timestamp time={time} className="ml-3.5 mb-1" />
       <div className={bubbleStyles}>
         <ParsedMarkdown content={content} className={bubbleContentStyles} />
-        <CopyButton type="link" text="Copy" content={content} className={buttonStyles} />
+        <Duo gap="full">
+          <CopyButton type="link" text="Copy" content={content} className={buttonStyles} />
+          <ChatSpeakButton text={content} />
+        </Duo>
       </div>
     </article>
   );

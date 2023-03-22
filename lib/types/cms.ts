@@ -67,6 +67,7 @@ export type Bot = {
   top_p: number | null;
   frequency_penalty: number | null;
   presence_penalty: number | null;
+  voice?: string;
   memory: number;
   publishedAt: string;
   createdBy: SchemaUID;

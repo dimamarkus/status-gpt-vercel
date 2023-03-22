@@ -21,6 +21,10 @@ export const USER_INPUT_FIELD_ID = "chatInput";
 
 export type UseChatGptReturn = {
   /**
+   * The current bot you're speking to.
+   */
+  bot: Bot | null;
+  /**
    * An array of all the messages that have been sent and received in the chat. Chat log is null
    * if no bot can be found.
    */
@@ -130,6 +134,7 @@ export const useChatGpt = (
   };
 
   return {
+    bot,
     getAnswer,
     answer,
     streamedAnswer: stream,
