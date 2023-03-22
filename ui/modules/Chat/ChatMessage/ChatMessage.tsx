@@ -44,7 +44,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
     isUser ? "bg-blue-50 dark:bg-slate-900" : "bg-neutral-50 dark:bg-base-300",
   );
 
-  const bubbleContentStyles = clsx("w-full text-sm md:text-base", isSystem && "text-orange-500 ");
+  const bubbleContentStyles = clsx(isSystem && "text-orange-500 text-xs max-w-full");
 
   const buttonStyles = clsx(
     "underline-none py-1 text-xs capitalize text-neutral-300 no-underline transition hover:text-blue-500 dark:text-blue-500/25",
