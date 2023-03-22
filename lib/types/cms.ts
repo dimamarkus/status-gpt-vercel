@@ -56,6 +56,7 @@ export type Bot = {
   slug: string;
   name: string;
   avatar?: StrapiMediaAttribute<StrapiMedia>;
+  is_featured: boolean;
   welcome_message: string | null;
   training: string;
   general_training: string;

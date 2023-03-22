@@ -19,7 +19,7 @@ export async function getData() {
   return getCurrentTime();
 }
 
-export default async function Page() {
+export default async function HomePage() {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
   const startTime = await getData();
 
@@ -30,7 +30,7 @@ export default async function Page() {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      <ChatSuggestions className="hidden md:block" />
+      {/* <ChatSuggestions className="hidden md:block" /> */}
     </>
   );
 

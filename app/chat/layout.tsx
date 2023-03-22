@@ -1,29 +1,28 @@
-import { get } from "@vercel/edge-config";
-import { Suspense } from "react";
+import { getTitlePrefix } from "#/app/layout";
+import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
-import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
 import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
-import { getTitlePrefix } from "#/app/layout";
 
-type StrapiPageProps = {
+type ChatPageLayoutProps = {
   children: React.ReactNode;
+  params: {
+    slug: string;
+  };
 };
 
 export const revalidate = 0;
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: ChatPageLayoutProps) {
   const bot = !!params.slug ? await fetchBot(params.slug) : null;
   const name = bot?.name || "AIdvisor Chat";
   return { title: getTitlePrefix() + name + " | Status AIdvisor" };
 }
 
-export default async function Layout({ children }: StrapiPageProps) {
+export default async function ChatPageLayout({ children }: ChatPageLayoutProps) {
   return (
     <LandingLayout>
-      <FeaturesPanel />
-      {/* @ts-expect-error Async Server Component */}
-      <ChatBotMenu />
+      {!inProdEnv && <FeaturesPanel />}
       {children}
     </LandingLayout>
   );

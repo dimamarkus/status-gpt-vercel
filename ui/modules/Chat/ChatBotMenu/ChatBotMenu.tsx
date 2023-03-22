@@ -5,9 +5,19 @@ import { get } from "@vercel/edge-config";
 
 export const revalidate = 0;
 
-export async function ChatBotMenu({ path = "/chat" }: { path: string }) {
-  const botMenuResults = await getResourceFieldsFromCms<Bot>("bots", ["name", "slug"]);
-  const botNames = botMenuResults.data || [];
+type ChatBotMenuProps = {
+  path: string;
+  featuredOnly?: boolean;
+};
+
+export async function ChatBotMenu(props: ChatBotMenuProps) {
+  const { path = "/chat", featuredOnly } = props;
+  const botMenuResults = await getResourceFieldsFromCms<Bot>("bots", [
+    "name",
+    "slug",
+    "is_featured",
+  ]);
+  const botMenuItems = botMenuResults.data || [];
   const hiddenBots = (await get("hiddenBots")) as string[];
   const isBotHidden = (slug: string) =>
     hiddenBots && hiddenBots.length > 0 && hiddenBots.includes(slug);
@@ -17,8 +27,9 @@ export async function ChatBotMenu({ path = "/chat" }: { path: string }) {
       <TabGroup
         path={path}
         items={[
-          ...botNames
+          ...botMenuItems
             .filter((bot) => !isBotHidden(bot.attributes.slug))
+            .filter((bot) => (featuredOnly ? bot.attributes.is_featured : true))
             .map((bot) => ({
               text: `${bot.attributes.name}`,
               slug: bot.attributes.slug,

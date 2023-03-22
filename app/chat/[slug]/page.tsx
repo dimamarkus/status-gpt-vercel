@@ -1,14 +1,14 @@
-import { getStartingChatLog } from "#/app/chat/lib/helpers/chat-helpers";
+import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
+import { getTitlePrefix } from "#/app/layout";
 import { ChatContextProvider } from "#/lib/contexts/ChatContext";
-import { fetchBot, getResourceFieldsFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
 import { Bot } from "#/lib/types/cms";
-import { TabGroup } from "#/ui/examples/tab-group";
 import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
-import { getTitlePrefix } from "#/app/layout";
+import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
 
 type BotPageProps = {
   params: {
@@ -18,7 +18,7 @@ type BotPageProps = {
 
 export const revalidate = 0;
 
-export async function generateMetadata({ params }: { params: BotPageProps["params"] }) {
+export async function generateMetadata({ params }: BotPageProps) {
   const bot = await fetchBot(params.slug);
   const name = bot?.name || "AIdvisor Chat";
   return { title: getTitlePrefix() + name + " | Status AIdvisor" };
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: BotPageProps["param
 //   }));
 // }
 
-export default async function Page({ params }: BotPageProps) {
+export default async function BotPage({ params }: BotPageProps) {
   const currentBot = await fetchBot(params.slug);
   const botAvatarUrl = !!currentBot?.avatar?.data
     ? getMediaUrl(currentBot.avatar.data.attributes.url)
