@@ -34,9 +34,7 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
     features: { debugMode },
   } = useFeatureToggleContext();
   const displaySubmissions =
-    Object.keys(submissions).length > 0
-      ? Object.keys(submissions).map((key) => key)
-      : ["None found"];
+    Object.keys(submissions).length > 0 ? Object.keys(submissions).map((key) => key) : [];
   const prevProp = useRef<string>();
   useEffect(() => {
     prevProp.current = answer;
@@ -49,7 +47,7 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
     }
   }, [answerChanged, chatLog, getSubmissions, loading]);
 
-  if (!displaySubmissions || displaySubmissions === null) {
+  if (!displaySubmissions || displaySubmissions === null || displaySubmissions.length === 0) {
     return null;
   }
   // const shouldHideSubmissions = !showSubmissions || !useIsTablet || (chatLog && chatLog.length < 3);
@@ -67,7 +65,7 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
         </div>
       ) : (
         <form className="space-y-2 p-0" onSubmit={handleSubmit(onSubmit)}>
-          <h4>
+          {/* <h4>
             Quick Entry
             <ChevronRightIcon
               width={20}
@@ -76,7 +74,7 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
                 isExpanded && "rotate-90",
               )}
             />
-          </h4>
+          </h4> */}
           <ul className="flex flex-row space-x-4">
             {displaySubmissions.map((prompt, index) => (
               <li key={index}>

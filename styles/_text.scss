@@ -2,19 +2,20 @@
 // TYPOGRAPHY
 // ================================================================================================
 
-// Generated partially by: https://www.fluid-type-scale.com/
-
 // Scale
 // ------------------------------------------------------------------------------------------------
 
 :root {
-  --font-size-xs: clamp(12.64px, -0.28vw + 13.68px, 10.13px);
-  --font-size-sm: clamp(14.22px, -0.08vw + 14.52px, 13.5px);
-  --font-size-base: clamp(16px, 0.22vw + 15.17px, 18px);
-  --font-size-md: clamp(18px, 0.66vw + 15.52px, 23.99px);
-  --font-size-lg: clamp(20.25px, 1.3vw + 15.39px, 31.98px);
-  --font-size-xl: clamp(22.78px, 2.19vw + 14.55px, 42.63px);
-  --font-size-xxl: clamp(25.63px, 3.45vw + 12.7px, 56.83px);
+  // Generated partially by: https://www.fluid-type-scale.com/
+  // Mobile:  16px  375px  1.125
+  // Desktop: 19px 1600px  1.333
+  --font-size-xs: clamp(12.64px, -0.16vw + 13.24px, 10.69px);
+  --font-size-sm: clamp(14.22px, 0vw + 14.21px, 14.25px);
+  --font-size-base: clamp(16px, 0.24vw + 15.08px, 19px);
+  --font-size-md: clamp(18px, 0.6vw + 15.76px, 25.33px);
+  --font-size-lg: clamp(20.25px, 1.1vw + 16.11px, 33.76px);
+  --font-size-xl: clamp(22.78px, 1.81vw + 15.98px, 45px);
+  --font-size-xxl: clamp(25.63px, 2.8vw + 15.11px, 59.99px);
 }
 
 // Defaults
@@ -52,7 +53,7 @@ h6 {
 }
 p {
   font-size: var(--font-size-base);
-  // line-height: 1.5;
+  line-height: 1.5;
 }
 small {
   font-size: var(--font-size-xs);

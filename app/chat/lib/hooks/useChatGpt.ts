@@ -51,7 +51,18 @@ export type UseChatGptReturn = {
   getAnswer: (query?: string, systemMode?: boolean) => Promise<void>;
 };
 
-export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
+export const useChatGpt = (
+  /**
+   * The bot that the user is chatting with. Used to popluate the initial ChatLog
+   * with the bot's training and welcome message
+   */
+  bot: Bot | null,
+  /**
+   * A callback that returns the resultant ChatLog with the answer appended to it
+   * Useful for making parallel requests with the answer such as requesting follow up suggestions
+   */
+  handleNewAnswer: (chatLog: StatusChatMessage[]) => void,
+): UseChatGptReturn => {
   const startingChatLog = bot ? getStartingChatLog(bot) : null;
 
   //  1. Prep State
@@ -111,8 +122,10 @@ export const useChatGpt = (bot: Bot | null): UseChatGptReturn => {
     //  4. Handle response
     // ============================================================================
     if (response) {
+      const resultingChatLog = [...chatMessages.all, createChatBotMessage(response)];
       setAnswer(response);
-      setMessages([...chatMessages.all, createChatBotMessage(response)]);
+      setMessages(resultingChatLog);
+      handleNewAnswer(resultingChatLog);
     }
   };
 

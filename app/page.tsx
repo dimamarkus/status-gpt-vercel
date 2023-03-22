@@ -11,7 +11,7 @@ import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 
 export const revalidate = 0;
 
-export async function getData() {
+async function getData() {
   /**
    * The very first timestamp should come from the server to avoid hydration errors
    * Further timestamps are generated on the client
@@ -30,7 +30,7 @@ export default async function HomePage() {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      {/* <ChatSuggestions className="hidden md:block" /> */}
+      <ChatSuggestions className="hidden md:block" />
     </>
   );
 

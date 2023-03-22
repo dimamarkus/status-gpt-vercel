@@ -31,6 +31,7 @@ export const DEFAULT_FEATURES = {
   model: CHAT_GPT_MODEL as OpenAiModel,
   debugMode: false,
   useStream: true,
+  enableSuggestions: false,
 };
 
 export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";

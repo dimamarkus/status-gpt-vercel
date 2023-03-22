@@ -5,6 +5,7 @@ export type Item = {
   text: string;
   slug?: string;
   segment?: string;
+  title?: string; // Link title text
 };
 
 export const TabGroup = ({

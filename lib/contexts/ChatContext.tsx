@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, useCallback, useContext } from "react";
 import { useChatGpt, UseChatGptReturn } from "#/app/chat/lib/hooks/useChatGpt";
 import {
   DEFAULT_SUBMISSIONS_RETURN,
@@ -14,6 +14,8 @@ import {
 import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { AvatarContextProvider } from "#/lib/contexts/AvatarContext";
 import { Bot } from "#/lib/types/cms";
+import { StatusChatMessage } from "#/lib/types";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 export type ChatContext = UseChatGptReturn &
   Omit<UseSuggestionsReturn, "loading"> &
@@ -44,29 +46,36 @@ type ChatProps = {
 };
 
 export const ChatContextProvider = ({ bot, children }: ChatProps) => {
-  const context = useChatGpt(bot);
+  const { features } = useFeatureToggleContext();
   const { loading: suggestionsLoading, ...useSuggestionContext } = useSuggestions();
   const { loading: submissionsLoading, ...useSubmissionsContext } = useSubmissions();
+
+  const handleNewAnswer = useCallback(
+    (chatLog: StatusChatMessage[] | undefined) => {
+      features.enableSuggestions && useSuggestionContext.getSuggestions(chatLog);
+    },
+    [features.enableSuggestions, useSuggestionContext],
+  );
+
+  const gptContext = useChatGpt(bot, handleNewAnswer);
 
   // const { assumptions, areAssumptionsShown, setShowAssumptions } = useAssumptionsContext();
   // const assumptionsJson = JSON.stringify(assumptions);
   // const assumptionsDeclaration = `Consider everything going forward assuming the following things about me: ${assumptionsJson}`;
   // const assumptionsMessage = { role: "system", content: assumptionsDeclaration, timestamp: Date.now() } as StatusChatMessage;
 
+  const chatContext = {
+    ...gptContext,
+    suggestionsLoading,
+    ...useSuggestionContext,
+    submissionsLoading,
+    ...useSubmissionsContext,
+  };
+
   return (
     <AssumptionsContextProvider>
       <AvatarContextProvider>
-        <Context.Provider
-          value={{
-            ...context,
-            suggestionsLoading,
-            ...useSuggestionContext,
-            submissionsLoading,
-            ...useSubmissionsContext,
-          }}
-        >
-          {children}
-        </Context.Provider>
+        <Context.Provider value={chatContext}>{children}</Context.Provider>
       </AvatarContextProvider>
     </AssumptionsContextProvider>
   );

@@ -1,22 +1,25 @@
 "use client";
 import { OpenAiModel } from "#/app/chat/lib/openai";
-import { Features, useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { inDevEnv, inProdEnv, inPreviewEnv } from "#/lib/helpers/env-helpers";
+import {
+  BooleanFeatures,
+  SelectFeatures,
+  useFeatureToggleContext,
+} from "#/lib/contexts/FeatureToggleContext";
+import { inDevEnv, inPreviewEnv, inProdEnv } from "#/lib/helpers/env-helpers";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import Button from "#/ui/atoms/buttons/Button/Button";
 import KeyValueList from "#/ui/atoms/lists/KeyValueList/KeyValueList";
-import Duo from "#/ui/_base/Duo/Duo";
 
-const deploymentStats = [
-  { key: "Node Env", value: process.env.NODE_ENV },
-  { key: "Vercel Env", value: process.env.NEXT_PUBLIC_VERCEL_ENV },
-  { key: "Commit Ref", value: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF },
-  { key: "Commit Msg", value: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE },
-  { key: "isDev", value: inDevEnv && "✅" },
-  { key: "isPreview", value: inPreviewEnv && "✅" },
-  { key: "isProd", value: inProdEnv && "✅" },
-];
+// const deploymentStats = [
+//   { key: "Node Env", value: process.env.NODE_ENV },
+//   { key: "Vercel Env", value: process.env.NEXT_PUBLIC_VERCEL_ENV },
+//   { key: "Commit Ref", value: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF },
+//   { key: "Commit Msg", value: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE },
+//   { key: "isDev", value: inDevEnv && "✅" },
+//   { key: "isPreview", value: inPreviewEnv && "✅" },
+//   { key: "isProd", value: inProdEnv && "✅" },
+// ];
 
 const FeaturesPanel = () => {
   const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();
@@ -31,7 +34,7 @@ const FeaturesPanel = () => {
     <Button
       className="btn-ghost btn-square btn-sm btn relative opacity-30"
       onClick={() => toggleShowFeatures()}
-      title={(!areFeaturesShown ? "Enter" : "Exit") + " Full-screen"}
+      title={(!areFeaturesShown ? "Open" : "Close") + " Settings"}
       text={!areFeaturesShown ? "⚙️" : "❌"}
     />
   );
@@ -40,7 +43,7 @@ const FeaturesPanel = () => {
     return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
   }
 
-  const getOptionCheckbox = (name: "debugMode" | "useStream", title?: string) => {
+  const getOptionCheckbox = (name: keyof BooleanFeatures, title?: string) => {
     const currentState = features[name];
     return (
       <label htmlFor={name} className="label cursor-pointer">
@@ -57,10 +60,7 @@ const FeaturesPanel = () => {
     );
   };
 
-  const getOptionDropdown = (
-    name: keyof Omit<Features, "debugMode" | "useStream">,
-    options: string[],
-  ) => (
+  const getOptionDropdown = (name: keyof SelectFeatures, options: string[]) => (
     <div className="form-control">
       <label htmlFor={name} className="label">
         <span className="label-text uppercase text-base-100">{name}</span>
@@ -80,7 +80,7 @@ const FeaturesPanel = () => {
     </div>
   );
 
-  const getOptionRadio = (name: "model", options: OpenAiModel[]) => {
+  const getOptionRadio = (name: keyof SelectFeatures, options: OpenAiModel[]) => {
     const currentState = features[name];
     return options.map((option, i) => {
       return (
@@ -123,7 +123,8 @@ const FeaturesPanel = () => {
       {/* {getOptionRadio("model", MODELS)} */}
       {getOptionCheckbox("useStream", "Stream?")}
       {getOptionCheckbox("debugMode", "Debug?")}
-      <KeyValueList items={deploymentStats} />
+      {getOptionCheckbox("enableSuggestions", "Suggestions?")}
+      {/* <KeyValueList items={deploymentStats} /> */}
     </div>
   );
 

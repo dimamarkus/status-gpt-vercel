@@ -1,60 +1,36 @@
 "use client";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
-import styles from "./ChatSuggestions.module.scss";
 import { DEBUG_SUGGESTIONS } from "#/app/chat/lib/constants";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
-import { useChatContext } from "#/lib/contexts/ChatContext";
 import Spinner from "#/ui/atoms/svgs/Spinner";
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import clsx from "clsx";
+import { useState } from "react";
+import styles from "./ChatSuggestions.module.scss";
 
 type ChatSuggestionsProps = {
   className?: string;
 };
 
 export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
-  const {
-    chatLog,
-    suggestions,
-    answer,
-    getAnswer,
-    getSuggestions,
-    suggestionsLoading,
-    showSuggestions,
-    loading,
-  } = useChatContext();
+  const { chatLog, suggestions, getAnswer, suggestionsLoading, loading } = useChatContext();
+  const { features } = useFeatureToggleContext();
   const useIsTablet = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(!useIsTablet);
-  const {
-    features: { debugMode },
-  } = useFeatureToggleContext();
 
-  const displaySuggestions = !!debugMode
+  const displaySuggestions = !!features.debugMode
     ? [...(suggestions || []), ...DEBUG_SUGGESTIONS]
     : suggestions;
 
-  const prevProp = useRef<string>();
-  useEffect(() => {
-    prevProp.current = answer;
-  });
-  const answerChanged = prevProp.current !== answer;
-
-  useEffect(() => {
-    if (answerChanged && !loading && chatLog) {
-      getSuggestions(chatLog);
-    }
-  }, [answerChanged, chatLog, getSuggestions, loading]);
-
   // if (!displaySuggestions || displaySuggestions === null || (chatLog && chatLog.length < 3)) {
-  if (!displaySuggestions || displaySuggestions === null) {
+  if (!displaySuggestions || displaySuggestions === null || !features.enableSuggestions) {
     return null;
   }
-  const shouldHideSuggestions = !showSuggestions || !useIsTablet;
 
   return (
     <div
-      className={clsx(styles.root, "collapse", className, shouldHideSuggestions && "hidden")}
+      className={clsx(styles.root, "collapse", className)}
       onClick={() => useIsTablet && setIsExpanded(!isExpanded)}
     >
       {loading || suggestionsLoading ? (

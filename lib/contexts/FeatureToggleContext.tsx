@@ -3,29 +3,24 @@ import { createContext, useContext, useState } from "react";
 import { OpenAiModel } from "#/app/chat/lib/openai";
 import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 
-export type Font =
-  | "sans"
-  | "serif"
-  // | "graphik"
-  // | "tiempos"
-  // | "tiemposHeadline"
-  // | "avenir"
-  // | "exo"
-  // | "inter"
-  // | "lato"
-  // | "montserrat"
-  // | "raleway";
+export type Font = "sans" | "serif";
 export type Layout = "vertical" | "sidebar-left" | "sidebar-right";
 export type Theme = "light" | "dark" | "statusAlt1" | "statusAlt2" | "statusAlt3";
 
-export type Features = {
+export type BooleanFeatures = {
+  debugMode: boolean;
+  useStream: boolean;
+  enableSuggestions: boolean;
+};
+
+export type SelectFeatures = {
   font: Font;
   layout: Layout;
   theme: Theme;
   model: OpenAiModel;
-  debugMode: boolean;
-  useStream: boolean;
 };
+
+export type Features = BooleanFeatures & SelectFeatures;
 
 type ToggleContextType = {
   features: Features;

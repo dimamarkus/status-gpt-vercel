@@ -33,6 +33,7 @@ export async function ChatBotMenu(props: ChatBotMenuProps) {
             .map((bot) => ({
               text: `${bot.attributes.name}`,
               slug: bot.attributes.slug,
+              title: `Go chat with ${bot.attributes.name}`,
             })),
         ]}
       />
