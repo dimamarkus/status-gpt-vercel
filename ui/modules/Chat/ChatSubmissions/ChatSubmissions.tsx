@@ -9,7 +9,7 @@ import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import Spinner from "#/ui/atoms/svgs/Spinner";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
-import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
+import { camelToTitleCase, capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useForm } from "react-hook-form";
 
 type ChatSubmissionsProps = {
@@ -35,17 +35,6 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
   } = useFeatureToggleContext();
   const displaySubmissions =
     Object.keys(submissions).length > 0 ? Object.keys(submissions).map((key) => key) : [];
-  const prevProp = useRef<string>();
-  useEffect(() => {
-    prevProp.current = answer;
-  });
-  const answerChanged = prevProp.current !== answer;
-
-  useEffect(() => {
-    if (answerChanged && !loading && chatLog) {
-      getSubmissions(chatLog);
-    }
-  }, [answerChanged, chatLog, getSubmissions, loading]);
 
   if (!displaySubmissions || displaySubmissions === null || displaySubmissions.length === 0) {
     return null;
@@ -64,7 +53,7 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
           <Spinner />
         </div>
       ) : (
-        <form className="space-y-2 p-0" onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* <h4>
             Quick Entry
             <ChevronRightIcon
@@ -75,12 +64,12 @@ export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
               )}
             />
           </h4> */}
-          <ul className="flex flex-row space-x-4">
+          <ul className="flex flex-row">
             {displaySubmissions.map((prompt, index) => (
-              <li key={index}>
+              <li key={index} className="mr-4">
                 <TextInput
                   id={prompt}
-                  label={capitalizeFirstLetter(prompt)}
+                  label={camelToTitleCase(prompt)}
                   size="sm"
                   compact
                   {...register(prompt)}

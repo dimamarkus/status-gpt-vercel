@@ -16,7 +16,11 @@ export const ChatSpeakButton = ({ text }: ChatSpeakButtonProps) => {
     ) || voices[0];
 
   return (
-    <button onClick={() => (!!speaking ? cancel() : speak({ text, voice }))} className="w-4">
+    <button
+      onClick={() => (!!speaking ? cancel() : speak({ text, voice }))}
+      className="w-4"
+      title={!!speaking ? "Stop speaking" : "Speak the message out loud."}
+    >
       {speaking ? <SpeakerXMarkIcon /> : <SpeakerWaveIcon />}
     </button>
   );

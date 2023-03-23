@@ -1,28 +1,14 @@
-import { CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
+import { ADA_MODEL, CHAT_GPT_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
 import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/openai";
 import { Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
 
-export const MODELS = [CHAT_GPT_MODEL, DAVINCI_MODEL] as OpenAiModel[];
+export const MODELS = [CHAT_GPT_MODEL, DAVINCI_MODEL, ADA_MODEL] as OpenAiModel[];
 export const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
 export const THEMES: Theme[] = ["light", "dark", "statusAlt1", "statusAlt2", "statusAlt3"];
-export const FONTS: Font[] = [
-  "sans",
-  "serif",
-
-  // "graphik",
-  // "tiempos",
-  // "tiemposHeadline",
-
-  // "avenir",
-  // "exo",
-  // "inter",
-  // "lato",
-  // "raleway",
-  // "montserrat",
-];
+export const FONTS: Font[] = ["sans", "serif"];
 
 export const DEFAULT_FEATURES = {
   font: "sans" as Font,
@@ -32,6 +18,7 @@ export const DEFAULT_FEATURES = {
   debugMode: false,
   useStream: true,
   enableSuggestions: false,
+  enableSubmissions: false,
 };
 
 export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
@@ -39,6 +26,12 @@ export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
 export const CHAT_BOT_INPUT_MAX_CHARS = 1000;
 
 export const DEFAULT_BOT_MEMORY = 6;
+
+export const DEFAULT_SUGGESTIONS_MODEL: OpenAiModel = ADA_MODEL as OpenAiModel;
+export const DEFAULT_SUGGESTIONS_MEMORY = 3;
+
+export const DEFAULT_SUBMISSIONS_MODEL: OpenAiModel = ADA_MODEL as OpenAiModel;
+export const DEFAULT_SUBMISSIONS_MEMORY = 3;
 
 export const DEFAULT_GPT_SETTINGS: OpenAiRequest = {
   model: CHAT_GPT_MODEL as OpenAiModel,

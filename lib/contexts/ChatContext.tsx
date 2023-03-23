@@ -54,8 +54,9 @@ export const ChatContextProvider = ({ bot, children }: ChatProps) => {
   const handleNewAnswer = useCallback(
     (chatLog: StatusChatMessage[] | undefined) => {
       features.enableSuggestions && useSuggestionContext.getSuggestions(chatLog);
+      features.enableSubmissions && useSubmissionsContext.getSubmissions(chatLog);
     },
-    [features.enableSuggestions, useSuggestionContext],
+    [features, useSubmissionsContext, useSuggestionContext],
   );
 
   const gptContext = useChatGpt(bot, handleNewAnswer);

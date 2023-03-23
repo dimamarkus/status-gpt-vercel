@@ -50,6 +50,7 @@ export default async function BotPage({ params }: BotPageProps) {
       <ChatLayout sidebar={sidebar}>
         <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />
         <ChatSuggestions className="lg:hidden" />
+        <ChatSubmissions />
         <ChatInput />
       </ChatLayout>
     </ChatContextProvider>

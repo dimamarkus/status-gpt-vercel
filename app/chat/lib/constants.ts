@@ -19,8 +19,8 @@ export const EXAMPLE_PROMPTS = [
   "What investments should I consider to maximize my retirement savings?",
 ];
 
-export const SUBMISSIONS_REQUEST = `Given your last reply, if theres any infromation you asked for from the me, please reply with only a json object I can fill out. Do not write anything else besides that json object whatsoever in this message. `;
-export const DEFAULT_SUBMISSIONS = { assets: "", income: "" };
+export const SUBMISSIONS_REQUEST = `Given your last reply, if theres any numerical information you asked for from the me, please reply with a flat json object I can fill out. Set all values to null. Do not write anything whatsoever besides that json object. The first character of your reply should be "{" and the last should be" }"`;
+export const DEFAULT_SUBMISSIONS = {};
 export const SUGGESTIONS_REQUEST = `Given our discussion, suggest 3 short questions you think I should ask you (Stat) as follow up. Make them in the form of a JavaScript array of question strings with no other characters besides that whatsoever. For example: ["What is your name?", "What is your favorite food?"]`;
 export const DEBUG_SUGGESTIONS = [
   "Reply with one word",

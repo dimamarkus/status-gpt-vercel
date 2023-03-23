@@ -25,6 +25,10 @@ export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
    */
   vertical?: boolean;
   /**
+   * Stretch the elements to fill the width of the container.
+   */
+  fullWidth?: boolean;
+  /**
    * The space between the 2 elements.
    * Can either be full, none or a preset distance.
    */
@@ -40,13 +44,21 @@ export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 export const Duo = (props: DuoProps) => {
-  const { as: Element = "div", children, reverseOrder, centered, vertical, gap = "sm" } = props;
+  const {
+    as: Element = "div",
+    children,
+    fullWidth,
+    reverseOrder,
+    centered,
+    vertical,
+    gap = "sm",
+  } = props;
 
   const classNames = clsx(
     "flex",
     vertical && "flex-col",
     centered && "items-center",
-
+    fullWidth && "w-full",
     // Only have specific space if the gap between is not full
     gap === "full"
       ? "justify-between"

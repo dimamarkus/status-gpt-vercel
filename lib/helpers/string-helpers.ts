@@ -12,14 +12,35 @@ export function findJsonInString(str: string) {
     const matches1 = str.match(regex1);
     const matches2 = str.match(regex2);
     const matches3 = str.match(regex3);
+
+    const parse1 = matches1 && matches1[0].replace(/```json/gm, "");
+    const parse2 = matches2 && matches2[0].replace(/```/gm, "");
+    const parse3 = matches3 && matches3[0];
+
+    const result1 = parse1 && parseJson(parse1);
+    const result2 = parse2 && parseJson(parse2);
+    const result3 = parse3 && parseJson(parse3);
+
     const anyMatches = matches1 || matches2 || matches3;
     const jsonString = anyMatches ? anyMatches[0] || anyMatches[1] : "";
-    const foundJson = parseJson(jsonString);
+    // const foundJson = parseJson(jsonString);
+    const foundJson = result1 || result2 || result3;
     if (!inProdEnv) {
       console.log("-----------------------------------------------------------");
+      console.log("str", str);
+      console.log("-----------------------------------------------------------");
       console.log("matches1", matches1);
+      console.log("parse1", parse1);
+      console.log("result1", result1);
+      console.log("----------------");
       console.log("matches2", matches2);
+      console.log("parse2", parse2);
+      console.log("result2", result2);
+      console.log("----------------");
       console.log("matches3", matches3);
+      console.log("parse3", parse3);
+      console.log("result3", result3);
+      console.log("----------------");
       console.log("anyMatches", anyMatches);
       console.log("jsonString", jsonString);
       console.log("foundJson", foundJson);
@@ -73,7 +94,19 @@ export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export const titleCase = (str: string) =>
-  str
-    .replace(/^[-_]*(.)/, (_, char: string) => char.toUpperCase()) // Initial char (after -/_)
-    .replace(/[-_]+(.)/g, (_, char: string) => " " + char.toUpperCase()); // First char after each -/_
+export function camelToTitleCase(camelCaseText: string): string {
+  if (!camelCaseText) return "";
+  let titleCaseText = camelCaseText
+    .replace("_", " ") // Add space before each capital letter
+    .replace(/([A-Z])/g, " $1") // Add space before each capital letter
+    .replace(/([A-Za-z])([0-9])/g, "$1 $2") // Add space between a letter and a number
+    .replace(/([0-9])([A-Za-z])/g, "$1 $2") // Add space between a number and a letter
+    .trim();
+
+  // Capitalize each word
+  titleCaseText = titleCaseText
+    .toLowerCase()
+    .replace(/(?:^|\s)\S/g, (letter) => letter.toUpperCase());
+
+  return titleCaseText;
+}

@@ -121,9 +121,10 @@ const FeaturesPanel = () => {
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
       {/* {getOptionDropdown("font", FONTS)} */}
       {/* {getOptionRadio("model", MODELS)} */}
-      {getOptionCheckbox("useStream", "Stream?")}
-      {getOptionCheckbox("debugMode", "Debug?")}
-      {getOptionCheckbox("enableSuggestions", "Suggestions?")}
+      {getOptionCheckbox("useStream", "Stream")}
+      {getOptionCheckbox("debugMode", "Debug")}
+      {getOptionCheckbox("enableSuggestions", "Suggestions")}
+      {getOptionCheckbox("enableSubmissions", "Submissions")}
       {/* <KeyValueList items={deploymentStats} /> */}
     </div>
   );

@@ -7,6 +7,7 @@ import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
+import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 
 export const revalidate = 0;
@@ -40,6 +41,7 @@ export default async function HomePage() {
         <ChatLayout sidebar={sidebar}>
           <ChatMessages botAvatarUrl={botAvatarUrl} startTime={startTime} className="h-full" />
           <ChatSuggestions className="lg:hidden" />
+          <ChatSubmissions />
           <ChatInput />
         </ChatLayout>
       </ChatContextProvider>

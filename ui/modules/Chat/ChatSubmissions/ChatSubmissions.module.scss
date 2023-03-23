@@ -1,75 +1,11 @@
 /* Submissions Scrollbar */
 /* ---------------------------------------------------------------- */
 .root {
-  @apply bg-neutral-200;
-  // @apply bg-base-100;
+  @apply bg-neutral-100;
   @apply p-4;
-  // box-shadow: 0px 5px 9px 7px #2563eb1f;
   z-index: 2;
-  // @include scrollbars(8px, $blue-300, $blue-100);
-  // @apply border-blue-200;
-  // @apply flex-shrink-0;
-  // // @apply bg-blue-50;
-  // @apply p-3;
-  // @apply pb-0;
-  // @apply text-sm;
-  // @apply mt-auto;
-  // @apply max-h-24;
-  // @apply overflow-y-scroll;
-  // @apply md:overflow-y-auto;
-  // @apply md:shadow-none;
-  // @apply md:max-h-fit;
-  // @apply lg:bg-inherit;
-  // @apply lg:p-0;
-  // @apply md:border-none;
-
-  h4 {
-    @apply text-xs;
-    // @apply collapse-title;
-    // @apply mb-0;
-    // @apply md:mb-1;
-    // @apply flex;
-    // @apply min-h-0;
-    // @apply justify-between;
-    // @apply p-0;
-    // @apply pt-0;
-    // @apply pb-3;
-    // @apply font-semibold;
-    // @apply uppercase;
-    // @apply text-blue-900;
-    // @apply md:mb-0;
-    // @apply cursor-pointer;
-    // @apply md:cursor-default;
+  input,
+  label {
+    @apply bg-white;
   }
-
-  ul {
-    // display: flex;
-    // flex-direction: column;
-  }
-  //   padding-bottom: 0 !important;
-  // }
-
-  // &::-webkit-scrollbar {
-  //   padding: 0 2px;
-  //   width: 10px;
-  //   margin: 0 2px;
-  // }
-
-  // &::-webkit-scrollbar-track {
-  //   padding: 0 2px;
-  //   margin: 0 2px;
-  //   /* width of the entire scrollbar */
-  //   @apply bg-blue-50;
-  // }
-
-  // &::-webkit-scrollbar-thumb {
-  //   padding: 0 2px;
-  //   margin: 0 2px;
-  //   /* width of the entire scrollbar */
-
-  //   border-radius: 16px;
-  //   border: 1px solid;
-  //   @apply border-blue-50;
-  //   @apply bg-neutral-300;
-  // }
 }
