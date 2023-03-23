@@ -16,6 +16,8 @@ import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
+import { event } from "nextjs-google-analytics";
+const { encode } = require("gptoken");
 
 export const USER_INPUT_FIELD_ID = "chatInput";
 
@@ -80,10 +82,6 @@ export const useChatGpt = (
 
   const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
   const { stream, loading, error, getStream } = useGetStream(endpointUrl);
-  if (error) {
-    console.error("useChatGpt() error", error);
-    throw new Error(error);
-  }
 
   const formContext = useForm<ChatFormFields>({});
   const { getValues, setValue } = formContext;
@@ -121,7 +119,21 @@ export const useChatGpt = (
     // ============================================================================
     !inProdEnv && console.log("============================================================");
     !inProdEnv && console.log(`I'm asking ${getGptParam("model")} a question:`, requestBody);
-    const response = await getStream(requestBody);
+    const promptTokenCount = encode(prompt).length;
+
+    event("submit_prompt", {
+      category: bot?.slug,
+      label: "Tokens: " + promptTokenCount,
+    });
+
+    let response = await getStream(requestBody);
+
+    if (error) {
+      console.error("useChatGpt() error", error);
+      response =
+        "Sorry, due to high demand I'm having some trouble answering your question right now.";
+      // throw new Error(error);
+    }
 
     //  4. Handle response
     // ============================================================================
