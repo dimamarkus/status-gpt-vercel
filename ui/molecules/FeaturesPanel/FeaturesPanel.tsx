@@ -35,7 +35,7 @@ const FeaturesPanel = () => {
   const toggleButton = (
     <BaseButton
       // className="btn-ghost btn-square btn-sm btn relative opacity-30"
-      className="relative opacity-30"
+      className="relative opacity-50"
       theme="secondary"
       flavor="icon"
       onClick={() => toggleShowFeatures()}
@@ -128,6 +128,7 @@ const FeaturesPanel = () => {
       {/* {getOptionRadio("model", MODELS)} */}
       {getOptionCheckbox("useStream", "Stream")}
       {getOptionCheckbox("debugMode", "Debug")}
+      {getOptionCheckbox("autoSubmitSpeech", "Auto-submit Speech")}
       {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
       {getOptionCheckbox("showTokens", "Show Tokens")}

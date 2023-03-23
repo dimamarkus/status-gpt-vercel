@@ -1,12 +1,14 @@
 declare module "react-speech-kit" {
   type OnEndCallback = () => void;
 
+  //  SPEAKING
+  // ============================================================================
   interface SpeakOptions {
     text: string;
     voice: SpeechSynthesisVoice;
   }
 
-  interface ReactSpeechKitReturnType {
+  interface SpeechSynthesisReturnType {
     speak: (options: SpeakOptions) => void;
     cancel: () => void;
     speaking: boolean;
@@ -14,7 +16,31 @@ declare module "react-speech-kit" {
     voices: SpeechSynthesisVoice[];
   }
 
-  function useSpeechSynthesis(onEnd?: OnEndCallback): ReactSpeechKitReturnType;
+  function useSpeechSynthesis(onEnd?: OnEndCallback): SpeechSynthesisReturnType;
 
-  export { useSpeechSynthesis };
+  //  LISTENING
+  // ============================================================================
+  type OnResultCallback = (result: string) => void;
+
+  interface ListenOptions {
+    lang: string;
+    interimResults: boolean;
+  }
+
+  interface SpeechRecognitionReturnType {
+    listen: (options: ListenOptions | EventHandler) => void;
+    stop: () => void;
+    listening: boolean;
+    supported: boolean;
+  }
+
+  function useSpeechRecognition({
+    onEnd,
+    onResult,
+  }: {
+    onEnd?: OnEndCallback;
+    onResult?: OnResultCallback;
+  }): SpeechRecognitionReturnType;
+
+  export { useSpeechSynthesis, useSpeechRecognition };
 }

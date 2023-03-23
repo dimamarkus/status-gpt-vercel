@@ -17,6 +17,7 @@ export const DEFAULT_FEATURES = {
   model: CHAT_GPT_MODEL as OpenAiModel,
   debugMode: false,
   useStream: true,
+  autoSubmitSpeech: false,
   enableSuggestions: false,
   enableSubmissions: false,
   showTokens: false,

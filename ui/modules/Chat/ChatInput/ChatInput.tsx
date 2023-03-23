@@ -1,4 +1,6 @@
 "use client";
+import { useSpeechRecognition } from "react-speech-kit";
+
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import styles from "./ChatInput.module.scss";
@@ -8,6 +10,7 @@ import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import { FormTextarea } from "#/ui/atoms/inputs/Textarea/Textarea";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
+import { MicrophoneIcon } from "@heroicons/react/24/solid";
 
 type ChatInputProps = {
   className?: string;
@@ -59,6 +62,7 @@ export const ChatInput = (props: ChatInputProps) => {
           onClick={isTablet ? () => setShowAssumptions(!areAssumptionsShown) : undefined}
         />
       )} */}
+
       <FormTextarea<ChatFormFields>
         id={USER_INPUT_FIELD_ID}
         name={USER_INPUT_FIELD_ID}
@@ -73,8 +77,8 @@ export const ChatInput = (props: ChatInputProps) => {
         autoFocus
         register={register}
         className="ring-black"
+        onListen={(result: string) => inputFormContext.setValue(USER_INPUT_FIELD_ID, result)}
       />
-
       <BaseButton
         title="Send your chat message"
         type="submit"

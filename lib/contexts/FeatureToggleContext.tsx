@@ -11,6 +11,7 @@ export type Theme = "light" | "dark" | "statusAlt1" | "statusAlt2" | "statusAlt3
 export type BooleanFeatures = {
   debugMode: boolean;
   useStream: boolean;
+  autoSubmitSpeech: boolean;
   enableSuggestions: boolean;
   enableSubmissions: boolean;
   showTokens: boolean;

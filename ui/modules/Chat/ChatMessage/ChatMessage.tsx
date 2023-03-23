@@ -64,7 +64,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         role={role}
         className="hidden md:block"
       />
-      <div className="flex space-x-1">
+      <div className="chat-header flex space-x-1">
         <Timestamp time={time} className="ml-3.5 mb-1" />
         {features.showTokens && tokens && (
           <>
