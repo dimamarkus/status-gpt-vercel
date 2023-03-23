@@ -3,10 +3,9 @@ import clsx from "clsx";
 import React from "react";
 import toast from "react-hot-toast";
 import styles from "./CopyButton.module.scss";
+import BaseButton, { BaseButtonProps } from "#/ui/_base/BaseButton/BaseButton";
 
-import Button, { ButtonProps } from "#/ui/atoms/buttons/Button/Button";
-
-type CopyButtonProps = ButtonProps & {
+type CopyButtonProps = BaseButtonProps & {
   content: string;
   className?: string;
 };
@@ -18,8 +17,12 @@ export const CopyButton = (props: CopyButtonProps) => {
   const { content, className, ...otherProps } = props;
 
   return (
-    <Button
-      className={clsx(styles.CopyButton, className)}
+    <BaseButton
+      className={clsx(styles.CopyButton, "text-xs", className)}
+      flavor="bare"
+      theme="secondary"
+      text="Copy"
+      size="sm"
       onClick={() => {
         navigator.clipboard.writeText(content);
         toast("Message copied to clipboard", {

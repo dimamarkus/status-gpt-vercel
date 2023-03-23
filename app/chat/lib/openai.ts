@@ -17,7 +17,7 @@ import {
 //  ENUMS
 // ============================================================================
 
-export type GptRoles = "assistant" | "user" | "system";
+export type GptRole = "assistant" | "user" | "system";
 
 export type OpenAiCompletionModel =
   | typeof DAVINCI_MODEL
@@ -47,7 +47,7 @@ export type OpenAiModelResponse = {
 };
 
 export type GptMessage = {
-  role: GptRoles;
+  role: GptRole;
   content: string;
 };
 

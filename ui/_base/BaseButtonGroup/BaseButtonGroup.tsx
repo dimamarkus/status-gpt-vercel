@@ -1,31 +1,31 @@
+import { sizeMap } from "#/lib/constants/maps";
+import BaseButton, { BaseButtonProps, ButtonTheme } from "#/ui/_base/BaseButton/BaseButton";
 import clsx from "clsx";
 import { cloneElement, HTMLAttributes, ReactElement, ReactNode } from "react";
 import styles from "./BaseButtonGroup.module.scss";
-import { sizeMap } from "#/lib/constants/maps";
-import Button, { ButtonProps, ButtonType } from "#/ui/atoms/buttons/Button/Button";
 
 type BasicButton = {
   text: string;
   onClick: () => void;
-  type?: ButtonType;
+  theme?: ButtonTheme;
 };
 
-const DEFAULT_BUTTON_TYPES = ["primary", "secondary", "tertiary"] as ButtonType[];
+const DEFAULT_BUTTON_FLAVORS = ["primary", "secondary", "tertiary"] as ButtonTheme[];
 
 export interface BaseButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   /**
    * Most prominantly colored and will appear first
    */
-  primaryButton?: ReactElement<typeof Button>;
+  primaryButton?: ReactElement<typeof BaseButton>;
   /**
    * Middle button
    */
-  secondaryButton?: ReactElement<typeof Button>;
+  secondaryButton?: ReactElement<typeof BaseButton>;
   /**
    * Usually a text link or subdued
    */
-  tertiaryButton?: ReactElement<typeof Button>;
+  tertiaryButton?: ReactElement<typeof BaseButton>;
   /**
    * Reverse the order that buttons are rendered
    */
@@ -65,7 +65,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
   } = props;
 
   const renderButtonFromMap = (button: BasicButton, index: number) => (
-    <Button type={DEFAULT_BUTTON_TYPES[index]} {...button} />
+    <BaseButton theme={DEFAULT_BUTTON_FLAVORS[index]} {...button} />
   );
 
   // Prep the third button
@@ -73,7 +73,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
   const spreadClass = props.vertical ? "mt-auto" : reverseOrder ? "mr-auto" : "ml-auto";
 
   const secondaryChild = secondaryButton
-    ? cloneElement(secondaryButton, { type: "secondary" } as ButtonProps)
+    ? cloneElement(secondaryButton, { theme: "secondary" } as BaseButtonProps)
     : null;
 
   const tertiaryButtonProps = {
@@ -81,7 +81,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
   };
 
   const tertiaryChild = tertiaryButton
-    ? cloneElement(tertiaryButton, tertiaryButtonProps as ButtonProps)
+    ? cloneElement(tertiaryButton, tertiaryButtonProps as BaseButtonProps)
     : null;
 
   // Create the final array of buttons

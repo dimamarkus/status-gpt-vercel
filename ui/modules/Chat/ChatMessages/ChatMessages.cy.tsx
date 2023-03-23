@@ -5,7 +5,7 @@ import { EXAMPLE_CHAT_MESSAGE } from "#/app/chat/lib/constants";
 describe("<ChatMessages />", () => {
   it("renders", () => {
     // see: https://on.cypress.io/mounting-react
-    cy.mount(<ChatMessage message={EXAMPLE_CHAT_MESSAGE} />);
+    cy.mount(<ChatMessage {...EXAMPLE_CHAT_MESSAGE} />);
     cy.get("[class^=ChatMessages_]").should("exist");
   });
 });

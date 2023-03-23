@@ -1,6 +1,6 @@
-import Card from "./Card";
-import { Button } from "#/ui/atoms/buttons/Button/Button";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import type { Meta, StoryObj } from "@storybook/react";
+import Card from "./Card";
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -14,7 +14,7 @@ const meta: Meta<typeof Card> = {
         veritatis velit illo, rerum aut!
       </p>
     ),
-    footer: <Button text="Click me" />,
+    footer: <BaseButton text="Click me" />,
   },
   argTypes: {},
 };

@@ -8,8 +8,10 @@ import {
 import { inDevEnv, inPreviewEnv, inProdEnv } from "#/lib/helpers/env-helpers";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
-import Button from "#/ui/atoms/buttons/Button/Button";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import KeyValueList from "#/ui/atoms/lists/KeyValueList/KeyValueList";
+import { Cog8ToothIcon } from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 // const deploymentStats = [
 //   { key: "Node Env", value: process.env.NODE_ENV },
@@ -31,11 +33,14 @@ const FeaturesPanel = () => {
   const ref = useOutsideClick(() => toggleShowFeatures());
 
   const toggleButton = (
-    <Button
-      className="btn-ghost btn-square btn-sm btn relative opacity-30"
+    <BaseButton
+      // className="btn-ghost btn-square btn-sm btn relative opacity-30"
+      className="relative opacity-30"
+      theme="secondary"
+      flavor="icon"
       onClick={() => toggleShowFeatures()}
       title={(!areFeaturesShown ? "Open" : "Close") + " Settings"}
-      text={!areFeaturesShown ? "⚙️" : "❌"}
+      icon={!areFeaturesShown ? <Cog8ToothIcon /> : <XMarkIcon />}
     />
   );
 

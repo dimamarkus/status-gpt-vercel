@@ -37,24 +37,27 @@ export const ChatMessages = (props: ChatMessagesProps) => {
           (features.debugMode || message?.role !== "system") && (
             <ChatMessage
               key={index}
-              message={message}
               avatarUrl={botAvatarUrl}
               time={index <= 1 ? startTime : undefined}
+              {...message}
             />
           ),
       )
     : "No chatbot found";
 
+  const incomingAnswerMessage = streamedAnswer ? createChatBotMessage(streamedAnswer) : undefined;
   return (
     <section className={clsx(styles.root, className)}>
       {messagesChild}
-      <ChatMessage
-        key={chatLog ? chatLog.length + 1 : "latestMessage"}
-        message={streamedAnswer ? createChatBotMessage(streamedAnswer) : null}
-        avatarUrl={botAvatarUrl}
-        className={!streamedAnswer ? "hidden" : ""}
-        isTalking={loading}
-      />
+      {!!incomingAnswerMessage && (
+        <ChatMessage
+          key={chatLog ? chatLog.length + 1 : "latestMessage"}
+          avatarUrl={botAvatarUrl}
+          className={!streamedAnswer ? "hidden" : ""}
+          isTalking={loading}
+          {...incomingAnswerMessage}
+        />
+      )}
       <div className={styles.scrollAnchor} />
     </section>
   );

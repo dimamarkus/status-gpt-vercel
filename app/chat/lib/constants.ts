@@ -63,4 +63,5 @@ export const EXAMPLE_CHAT_MESSAGE: StatusChatMessage = {
   role: "user",
   content: "Hello world!",
   timestamp: Date.now(),
+  tokens: 3,
 };

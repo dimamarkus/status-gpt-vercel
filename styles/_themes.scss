@@ -34,6 +34,10 @@
 }
 
 [data-theme="dark"] {
+  .link-secondary {
+    @apply text-blue-900;
+    @apply hover:text-blue-500/75;
+  }
   .label {
     @apply text-neutral-400;
   }
@@ -50,7 +54,7 @@
     @apply placeholder-neutral-500;
   }
   textarea {
-    @apply border-neutral-500;
+    @apply border-slate-600;
     @apply bg-slate-700;
   }
 }

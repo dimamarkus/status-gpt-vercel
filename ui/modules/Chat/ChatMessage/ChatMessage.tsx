@@ -8,13 +8,14 @@ import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAv
 import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
 import clsx from "clsx";
 import styles from "./ChatMessage.module.scss";
-import ChatSpeakButton from "#/ui/ChatSpeakButton/ChatSpeakButton";
+import ChatSpeakButton from "#/ui/atoms/buttons/ChatSpeakButton/ChatSpeakButton";
 import Duo from "#/ui/_base/Duo/Duo";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { GptRole } from "#/app/chat/lib/openai";
 
-type ChatMessageProps = {
+type ChatMessageProps = Omit<StatusChatMessage, "role"> & {
+  role?: GptRole;
   avatarUrl?: string;
-  message: StatusChatMessage | null;
   /**
    * Display a loading indicator in the chat message.
    */
@@ -29,12 +30,11 @@ type ChatMessageProps = {
 export const ChatMessage = (props: ChatMessageProps) => {
   const { features } = useFeatureToggleContext();
 
-  if (!props.message) {
+  if (!props.content) {
     return null;
   }
 
-  const { avatarUrl, message, isTalking, time, className } = props;
-  const { role, content, tokens } = message;
+  const { avatarUrl, content, role, tokens, isTalking, time, className } = props;
 
   const isUser = role === "user";
   const isSystem = role === "system";
@@ -54,10 +54,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const bubbleContentStyles = clsx(isSystem && "text-orange-500 text-xs max-w-full");
 
-  const buttonStyles = clsx(
-    "underline-none py-1 text-xs capitalize text-neutral-300 no-underline transition hover:text-blue-500 dark:text-blue-500/25",
-    isUser ? "text-left" : "text-right",
-  );
+  const buttonStyles = isUser ? "text-left" : "text-right";
 
   return (
     <article className={rootStyles} dir="ltr">
@@ -69,15 +66,17 @@ export const ChatMessage = (props: ChatMessageProps) => {
       />
       <div className="flex space-x-1">
         <Timestamp time={time} className="ml-3.5 mb-1" />
-        <small className="text-xs text-neutral-400">|</small>
-        {features.showTokens && (
-          <small className="text-xs text-orange-500 opacity-50">{tokens} Tokens</small>
+        {features.showTokens && tokens && (
+          <>
+            <small className="text-xs text-neutral-400">|</small>
+            <small className="text-xs text-orange-500">{tokens} Tokens</small>
+          </>
         )}
       </div>
       <div className={bubbleStyles}>
         <ParsedMarkdown content={content} className={bubbleContentStyles} />
-        <Duo gap="full">
-          <CopyButton type="link" text="Copy" content={content} className={buttonStyles} />
+        <Duo gap="full" centered>
+          <CopyButton content={content} className={buttonStyles} />
           <ChatSpeakButton text={content} />
         </Duo>
       </div>

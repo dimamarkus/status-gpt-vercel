@@ -1,4 +1,4 @@
-import Button from "#/ui/atoms/buttons/Button/Button";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import styles from "#/ui/atoms/layouts/ChatLayout/ChatLayout.module.scss";
 import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import clsx from "clsx";
@@ -28,7 +28,7 @@ export default function Loading() {
             <div className={`m-4 mt-1 h-16 rounded-lg bg-slate-200 ${shimmer}`} />
           </div>
         </div>
-        <Button
+        <BaseButton
           className={`btn-primary btn h-8 w-full rounded-lg bg-blue-100 ${shimmer}`}
           disabled
         />

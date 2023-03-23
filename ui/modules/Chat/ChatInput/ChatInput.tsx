@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./ChatInput.module.scss";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
-import Button from "#/ui/atoms/buttons/Button/Button";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import { FormTextarea } from "#/ui/atoms/inputs/Textarea/Textarea";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
@@ -52,7 +52,7 @@ export const ChatInput = (props: ChatInputProps) => {
       }}
     >
       {/* {onHamburgerClick && (
-        <Button
+        <BaseButton
           type="hamburger"
           className="absolute right-20 top-1 md:right-1"
           title="Show Assumptions that Stat the AI coach should consider..."
@@ -75,7 +75,7 @@ export const ChatInput = (props: ChatInputProps) => {
         className="ring-black"
       />
 
-      <Button
+      <BaseButton
         title="Send your chat message"
         type="submit"
         className="h-full rounded-none md:h-auto md:rounded-b-md"
@@ -85,7 +85,7 @@ export const ChatInput = (props: ChatInputProps) => {
             Send <span className="hidden md:inline">Message</span>
           </span>
         }
-      </Button>
+      </BaseButton>
     </form>
   );
 };

@@ -68,7 +68,6 @@ const Avatar = ({ isUserMessage }: AvatarProps) => {
         styles.Avatar,
         "align-center avatar justify-center",
         !isLoading && "cursor-pointer",
-        isLoading && "fixed",
       )}
       onClick={handleClick}
     >

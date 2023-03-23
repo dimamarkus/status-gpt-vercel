@@ -1,6 +1,9 @@
 "use client";
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/24/outline";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import { SpeakerWaveIcon } from "@heroicons/react/24/outline";
+import { SpeakerXMarkIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 import { useSpeechSynthesis } from "react-speech-kit";
 
 type ChatSpeakButtonProps = {
@@ -16,13 +19,15 @@ export const ChatSpeakButton = ({ text }: ChatSpeakButtonProps) => {
     ) || voices[0];
 
   return (
-    <button
+    <BaseButton
       onClick={() => (!!speaking ? cancel() : speak({ text, voice }))}
-      className="w-4"
       title={!!speaking ? "Stop speaking" : "Speak the message out loud."}
-    >
-      {speaking ? <SpeakerXMarkIcon /> : <SpeakerWaveIcon />}
-    </button>
+      icon={speaking ? <SpeakerXMarkIcon /> : <SpeakerWaveIcon />}
+      className={clsx(speaking && "animate-pulse")}
+      flavor="icon"
+      theme={speaking ? "primary" : "secondary"}
+      size="sm"
+    />
   );
 };
 export default ChatSpeakButton;

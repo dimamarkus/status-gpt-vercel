@@ -1,12 +1,12 @@
 import BaseButtonGroup from "./BaseButtonGroup";
-import Button from "#/ui/atoms/buttons/Button/Button";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof BaseButtonGroup> = {
   component: BaseButtonGroup,
   tags: ["autodocs"],
   args: {
-    primaryButton: <Button text="Primary" onClick={() => {}} />,
+    primaryButton: <BaseButton text="Primary" onClick={() => {}} />,
   },
   argTypes: {},
 };
@@ -20,21 +20,21 @@ export const Default: Story = {
 
 export const TwoButtons: Story = {
   args: {
-    secondaryButton: <Button text="Secondary" type="secondary" />,
+    secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
   },
 };
 
 export const ThreeButtons: Story = {
   args: {
-    secondaryButton: <Button text="Secondary" type="secondary" />,
-    tertiaryButton: <Button text="Tertiary" type="tertiary" />,
+    secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
+    tertiaryButton: <BaseButton text="Tertiary" flavor="link" />,
   },
 };
 
 export const ThreeButtonsReverse: Story = {
   args: {
-    secondaryButton: <Button text="Secondary" type="secondary" />,
-    tertiaryButton: <Button text="Tertiary" type="tertiary" />,
+    secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
+    tertiaryButton: <BaseButton text="Tertiary" flavor="link" />,
     reverseOrder: true,
   },
 };
@@ -60,8 +60,8 @@ export const FromButtonMap: Story = {
 
 export const Combined: Story = {
   args: {
-    secondaryButton: <Button text="Secondary" type="secondary" />,
-    tertiaryButton: <Button text="Tertiary" type="tertiary" />,
+    secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
+    tertiaryButton: <BaseButton text="Tertiary" flavor="link" />,
     buttonMap: [
       {
         text: "From map 1",

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Boundary } from "#/ui/examples/boundary";
-import Button from "#/ui/atoms/buttons/Button/Button";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 
 export default function Error({ error, reset }: any) {
   React.useEffect(() => {
@@ -14,7 +14,7 @@ export default function Error({ error, reset }: any) {
         <h2 className="text-lg font-bold">Error</h2>
         <p className="text-sm">{error?.message}</p>
         <div>
-          <Button onClick={() => reset()}>Try Again</Button>
+          <BaseButton onClick={() => reset()}>Try Again</BaseButton>
         </div>
       </div>
     </Boundary>
