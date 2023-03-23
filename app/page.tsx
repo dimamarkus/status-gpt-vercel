@@ -7,6 +7,7 @@ import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
+import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
 import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 
@@ -31,6 +32,7 @@ export default async function HomePage() {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
+      <ChatStats />
       <ChatSuggestions className="hidden md:block" />
     </>
   );

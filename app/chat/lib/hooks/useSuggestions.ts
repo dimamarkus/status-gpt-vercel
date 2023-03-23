@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CHAT_GPT_MODEL, EXAMPLE_PROMPTS } from "#/app/chat/lib/constants";
+import { GPT3_MODEL, EXAMPLE_PROMPTS } from "#/app/chat/lib/constants";
 import { createSuggestionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
 import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
 import { findArrayInString } from "#/lib/helpers/string-helpers";
@@ -40,9 +40,9 @@ export const useSuggestions = (): UseSuggestionsReturn => {
     if (!!suggestionContext) {
       setSuggestions([]);
       const messages = createSuggestionsPrompt(suggestionContext);
-      console.log(`I'm asking ${CHAT_GPT_MODEL} for suggestions:`, messages);
+      console.log(`I'm asking ${GPT3_MODEL} for suggestions:`, messages);
       const result = await makeServerPostRequest<string, OpenAiRequest>(GENERATE_CHAT_ENDPOINT, {
-        model: CHAT_GPT_MODEL,
+        model: GPT3_MODEL,
         messages,
       });
 

@@ -14,7 +14,7 @@ type KeyValueListProps = {
   /**
    * A list of key/value pairs to be rendered.
    */
-  items: ListItem[];
+  items: (ListItem | null)[];
   /**
    * A list of props to be passed to each item.
    */
@@ -47,7 +47,7 @@ export const KeyValueList = (props: KeyValueListProps) => {
   const { items, gap = "sm", raw, itemProps, keyClasses, valueClasses } = props;
 
   const listStyles = clsx(`space-y-${sizeMap[gap]}`, props.className);
-  const keyStyles = clsx("label", keyClasses);
+  const keyStyles = clsx(keyClasses);
   const valueStyles = clsx(valueClasses);
 
   const duoProps = {
@@ -60,6 +60,7 @@ export const KeyValueList = (props: KeyValueListProps) => {
   return (
     <ul className={listStyles}>
       {items.map((item, i) => {
+        if (!item) return null;
         const { key, value } = item;
         return raw ? (
           <Duo key={i} {...duoProps}>

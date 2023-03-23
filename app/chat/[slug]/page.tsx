@@ -9,6 +9,8 @@ import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
+import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 type BotPageProps = {
   params: {
@@ -41,6 +43,7 @@ export default async function BotPage({ params }: BotPageProps) {
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
+      <ChatStats />
       <ChatSuggestions className="hidden md:block" />
     </>
   );

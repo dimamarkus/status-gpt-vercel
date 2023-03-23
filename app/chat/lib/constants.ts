@@ -1,4 +1,4 @@
-import { OpenAiChatModel, OpenAiCompletionModel } from "#/app/chat/lib/openai";
+import { OpenAiChatModel, OpenAiCompletionModel, OpenAiModel } from "#/app/chat/lib/openai";
 import { Language, StatusChatMessage } from "#/lib/types";
 
 export const LANGUAGES: Language[] = ["English", "Spanish", "French", "Russian"];
@@ -46,13 +46,13 @@ export const COMPLETION_MODELS: OpenAiCompletionModel[] = [
 
 //  Chat
 // ----------------------------------------------------------------------------
-export const CHAT_GPT_MODEL = "gpt-3.5-turbo";
+export const GPT3_MODEL = "gpt-3.5-turbo";
 export const GPT4_MODEL = "gpt-4";
 export const GPT4_0314_MODEL = "gpt-4-0314";
 export const GPT4_32K_MODEL = "gpt-4-32k";
 export const GPT4_32K_0314_MODEL = "gpt-4-32k-0314";
 export const CHAT_MODELS: OpenAiChatModel[] = [
-  CHAT_GPT_MODEL,
+  GPT3_MODEL,
   GPT4_MODEL,
   GPT4_0314_MODEL,
   GPT4_32K_MODEL,
@@ -64,4 +64,18 @@ export const EXAMPLE_CHAT_MESSAGE: StatusChatMessage = {
   content: "Hello world!",
   timestamp: Date.now(),
   tokens: 3,
+};
+
+// https://openai.com/pricing
+type OPENAI_MODEL_COST = { prompt: number; completion: number };
+export const CHAT_COSTS: Record<OpenAiModel, OPENAI_MODEL_COST> = {
+  [GPT4_MODEL]: { prompt: 0.00003, completion: 0.00006 },
+  [GPT4_0314_MODEL]: { prompt: 0.00003, completion: 0.00006 },
+  [GPT4_32K_MODEL]: { prompt: 0.00006, completion: 0.00012 },
+  [GPT4_32K_0314_MODEL]: { prompt: 0.00006, completion: 0.00012 },
+  [GPT3_MODEL]: { prompt: 0.000002, completion: 0.000002 },
+  [DAVINCI_MODEL]: { prompt: 0.00002, completion: 0.00002 },
+  [BABBAGE_MODEL]: { prompt: 0.0000005, completion: 0.0000005 },
+  [CURIE_MODEL]: { prompt: 0.000002, completion: 0.000002 },
+  [ADA_MODEL]: { prompt: 0.0000004, completion: 0.0000004 },
 };

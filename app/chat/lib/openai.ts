@@ -1,5 +1,5 @@
 import {
-  CHAT_GPT_MODEL,
+  GPT3_MODEL,
   GPT4_MODEL,
   GPT4_0314_MODEL,
   GPT4_32K_MODEL,
@@ -26,7 +26,7 @@ export type OpenAiCompletionModel =
   | typeof ADA_MODEL;
 
 export type OpenAiChatModel =
-  | typeof CHAT_GPT_MODEL
+  | typeof GPT3_MODEL
   | typeof GPT4_MODEL
   | typeof GPT4_0314_MODEL
   | typeof GPT4_32K_MODEL
