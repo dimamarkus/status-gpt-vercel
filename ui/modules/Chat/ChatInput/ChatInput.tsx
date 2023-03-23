@@ -22,7 +22,7 @@ export type ChatFormFields = {
 
 export const ChatInput = (props: ChatInputProps) => {
   const { className } = props;
-  const { inputFormContext, getAnswer, setShowSuggestions } = useChatContext();
+  const { inputFormContext, getAnswer, loading, setShowSuggestions } = useChatContext();
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const ChatInput = (props: ChatInputProps) => {
       className={clsx(styles.root, className)}
       onSubmit={submitMessage}
       onKeyDown={(e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
+        if (e.key === "Enter" && !e.shiftKey && !loading) {
           submitMessage(e);
         }
       }}
@@ -82,6 +82,7 @@ export const ChatInput = (props: ChatInputProps) => {
       <BaseButton
         title="Send your chat message"
         type="submit"
+        disabled={loading}
         className="h-full rounded-none md:h-auto md:rounded-b-md"
       >
         {
