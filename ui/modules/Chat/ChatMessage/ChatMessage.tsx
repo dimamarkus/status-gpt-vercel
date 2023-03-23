@@ -10,6 +10,7 @@ import clsx from "clsx";
 import styles from "./ChatMessage.module.scss";
 import ChatSpeakButton from "#/ui/ChatSpeakButton/ChatSpeakButton";
 import Duo from "#/ui/_base/Duo/Duo";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 type ChatMessageProps = {
   avatarUrl?: string;
@@ -26,12 +27,14 @@ type ChatMessageProps = {
 };
 
 export const ChatMessage = (props: ChatMessageProps) => {
+  const { features } = useFeatureToggleContext();
+
   if (!props.message) {
     return null;
   }
 
   const { avatarUrl, message, isTalking, time, className } = props;
-  const { role, content } = message;
+  const { role, content, tokens } = message;
 
   const isUser = role === "user";
   const isSystem = role === "system";
@@ -64,7 +67,13 @@ export const ChatMessage = (props: ChatMessageProps) => {
         role={role}
         className="hidden md:block"
       />
-      <Timestamp time={time} className="ml-3.5 mb-1" />
+      <div className="flex space-x-1">
+        <Timestamp time={time} className="ml-3.5 mb-1" />
+        <small className="text-xs text-neutral-400">|</small>
+        {features.showTokens && (
+          <small className="text-xs text-orange-500 opacity-50">{tokens} Tokens</small>
+        )}
+      </div>
       <div className={bubbleStyles}>
         <ParsedMarkdown content={content} className={bubbleContentStyles} />
         <Duo gap="full">

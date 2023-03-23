@@ -19,6 +19,7 @@ export const DEFAULT_FEATURES = {
   useStream: true,
   enableSuggestions: false,
   enableSubmissions: false,
+  showTokens: false,
 };
 
 export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";

@@ -8,6 +8,7 @@ import {
 } from "#/lib/constants/settings";
 import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
+const { encode } = require("gptoken");
 
 export const isChatModel = (model: OpenAiModel) => CHAT_MODELS.includes(model as OpenAiChatModel);
 
@@ -18,6 +19,7 @@ export const createChatMessage = (
   role,
   content,
   timestamp: Date.now(),
+  tokens: encode(content).length,
 });
 
 export const createChatSystemMessage = (content: GptMessage["content"]): StatusChatMessage =>

@@ -13,6 +13,7 @@ export type BooleanFeatures = {
   useStream: boolean;
   enableSuggestions: boolean;
   enableSubmissions: boolean;
+  showTokens: boolean;
 };
 
 export type SelectFeatures = {

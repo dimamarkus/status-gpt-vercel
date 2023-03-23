@@ -125,6 +125,7 @@ const FeaturesPanel = () => {
       {getOptionCheckbox("debugMode", "Debug")}
       {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
+      {getOptionCheckbox("showTokens", "Show Tokens")}
       {/* <KeyValueList items={deploymentStats} /> */}
     </div>
   );
