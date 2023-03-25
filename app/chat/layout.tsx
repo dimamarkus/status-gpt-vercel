@@ -1,4 +1,4 @@
-import { getTitlePrefix } from "#/app/layout";
+import { getTitlePrefix } from "#/app/metadata";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";

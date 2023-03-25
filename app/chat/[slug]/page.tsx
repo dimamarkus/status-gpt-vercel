@@ -1,5 +1,4 @@
 import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
-import { getTitlePrefix } from "#/app/layout";
 import { ChatContextProvider } from "#/lib/contexts/ChatContext";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
@@ -11,6 +10,7 @@ import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
 import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { getTitlePrefix } from "#/app/metadata";
 
 type BotPageProps = {
   params: {
