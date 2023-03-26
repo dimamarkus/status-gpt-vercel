@@ -37,4 +37,4 @@ export function getMediaUrl(mediaPath: string) {
 }
 
 export const pluralizeCmsModel = (model: string) =>
-  (model === "chat-syntax" ? "chat-syntaxes" : model + "s") as CmsResourceSlug;
+  (model === "chat_syntax" ? "chat_syntaxes" : model + "s") as CmsResourceSlug;

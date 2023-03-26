@@ -113,3 +113,40 @@ type OpenAiChatResponseChoice = {
   message: GptMessage;
   finish_reason: "length"; // Could be other reasons
 };
+
+// ============================================================================
+//  API STATUS - https://status.openai.com/
+// ============================================================================
+export type OpenAiApiStatus =
+  | "operational"
+  | "degraded_performance"
+  | "partial_outage"
+  | "major_outage"
+  | "under_maintenance"
+  | "scheduled"
+  | "investigating";
+
+export type OpenAiApiStatusResponse = {
+  meta: {
+    unsubscribe: string;
+    documentation: string;
+  };
+  page: {
+    id: string;
+    status_indicator: "major" | "minor";
+    status_description: string;
+  };
+  component_update: {
+    created_at: string;
+    new_status: OpenAiApiStatus;
+    old_status: OpenAiApiStatus;
+    id: string;
+    component_id: string;
+  };
+  component: {
+    created_at: string;
+    id: string;
+    name: string;
+    status: OpenAiApiStatus;
+  };
+};

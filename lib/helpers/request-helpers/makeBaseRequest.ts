@@ -34,6 +34,7 @@ export const makeBaseRequest = async <TRequestBody>(
     if (!response.ok) {
       console.warn("\n");
       console.warn("- BASE_REQUEST ERROR -------------------------------------------------------");
+      response.status === 400 && console.warn("  request:", request);
       console.warn("  status:", response.status);
       console.warn("  statusText:", response.statusText);
       console.warn("  url:", url);

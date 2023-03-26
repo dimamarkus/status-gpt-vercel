@@ -21,15 +21,30 @@ export type CmsRelation<T extends CmsResource> = CmsSingleRelation<T> | CmsMulti
 // ================================================================================================
 //  RESOURCES
 // ================================================================================================
-export type CmsResource = Bot | BotTraining;
+export type CmsResource = Bot | BotTraining | ChatSettings;
 export type CmsResourceSlug =
   | "bots"
+  | "chat-setting"
   | "promotions" // BotTraining
-  | "chat_contents" // BotTraining
-  | "chat_styles" // BotTraining
-  | "chat_intentions" // BotTraining
-  | "chat_user_infos" // BotTraining
+  | "chat-contents" // BotTraining
+  | "chat-styles" // BotTraining
+  | "chat-intentions" // BotTraining
+  | "chat-user_infos" // BotTraining
   | "chat-syntaxes"; // BotTraining
+
+export type ChatApiHealth = "excellent" | "good" | "fair" | "poor" | "unknown";
+export type ChatSettings = {
+  default_bot?: string;
+  default_suggestions?: JSON;
+  default_assumptions?: JSON;
+  enable_assumptions?: boolean;
+  enable_submissions?: boolean;
+  enable_suggestions?: boolean;
+  suggestions_request?: string;
+  submissions_request?: string;
+  global_max_tokens?: number;
+  api_health?: ChatApiHealth;
+};
 
 export type BotTraining = {
   name: string;
