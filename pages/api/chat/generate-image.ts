@@ -1,6 +1,8 @@
+import { NextApiResponse } from "next";
+
 export const GENERATE_CHAT_AVATAR_URL = "/api/chat/generate-image";
 
-export default async function handler(req: Request, res: any) {
+export default async function handler(req: Request, res: NextApiResponse) {
   const payload = {
     prompt:
       "An avatar for a chatbot financial advisor. modern. minimal. blue and white color scheme. line art.",

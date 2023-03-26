@@ -9,10 +9,11 @@ import {
   OpenAiResponse,
 } from "#/app/chat/lib/openai";
 import { makePostRequest } from "#/lib/helpers/request-helpers/makeRequest";
+import { NextApiResponse } from "next";
 
 export const GENERATE_CHAT_ENDPOINT = "/chat/generate";
 
-export default async function handler({ body }: Request, res: any) {
+export default async function handler({ body }: Request, res: NextApiResponse) {
   const payload = { ...body } as OpenAiRequest;
   const useChatApi = isChatModel(payload.model);
 

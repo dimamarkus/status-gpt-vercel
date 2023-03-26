@@ -3,12 +3,13 @@ import { isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { OpenAiChatRequest, OpenAiCompletionRequest, OpenAiRequest } from "#/app/chat/lib/openai";
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
+import { NextApiResponse } from "next";
 
 export const runtime = "edge";
 
 export const GENERATE_CHAT_STREAM_ENDPOINT = "/chat/generate-stream";
 
-export default async function handler(req: Request, res: any) {
+export default async function handler(req: Request, res: NextApiResponse) {
   const payload = (await req.json()) as OpenAiRequest;
   const useChatApi = isChatModel(payload.model);
 
