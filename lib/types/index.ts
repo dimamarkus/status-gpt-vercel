@@ -1,5 +1,10 @@
 import { GptMessage } from "#/app/chat/lib/openai";
 
+export interface ResponseError extends Error {
+  status: number;
+  statusText?: string;
+}
+
 export type StatusChatMessage = GptMessage & {
   timestamp: number;
   tokens: number;

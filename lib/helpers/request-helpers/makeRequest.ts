@@ -26,9 +26,13 @@ export const makeAsyncRequest = async <TResponse, TRequestBody>(
   options: RequestInit = {},
 ): Promise<TResponse> => {
   const response = await makeRequest(url, method, body, headers, options);
-  const responseData = (await response.json()) as TResponse;
 
-  return responseData;
+  if (response.status === 200) {
+    const responseData = (await response.json()) as TResponse;
+    return responseData;
+  }
+
+  return response as unknown as TResponse;
 };
 
 // ============================================================================

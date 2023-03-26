@@ -11,10 +11,11 @@ export const useGetStream = <TRequestType>(endpoint: string) => {
     setLoading(true);
     try {
       const response = await makeServerRequest(endpoint, "POST", requestBody);
+      console.log("getSTtream response", response);
 
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
+      // if (!response.ok && response.status !== 429) {
+      //   throw new Error(response.statusText);
+      // }
 
       const stream = response.body;
       if (!stream) {
