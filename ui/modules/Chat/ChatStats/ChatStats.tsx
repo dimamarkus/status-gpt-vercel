@@ -55,7 +55,6 @@ export const ChatStats = (props: ChatStatsProps) => {
   const latestCost = promptsCost + completionsCost;
 
   useEffect(() => {
-    console.log("-----------------------------------------------------------");
     if (!chatLog || !prevChatLog || !chatLog.length || prevChatLog.length === chatLog.length) {
       return;
     }
@@ -83,10 +82,10 @@ export const ChatStats = (props: ChatStatsProps) => {
   }
 
   return (
-    <Card className="mb-auto bg-orange-100">
-      <h6 className="text-orange-900">CHAT</h6>
+    <Card className="mb-auto bg-orange-100 dark:bg-orange-900/50">
+      <h6 className="text-orange-900 dark:text-orange-300">CHAT</h6>
       <KeyValueList
-        keyClasses="text-xs text-orange-700 mr-4"
+        keyClasses="text-xs text-orange-700 dark:text-orange-200 mr-4"
         valueClasses="text-sm"
         items={[
           { key: "Messages", value: chatLog.length },
@@ -97,9 +96,9 @@ export const ChatStats = (props: ChatStatsProps) => {
       />
 
       <br />
-      <h6 className="text-orange-900">MODEL</h6>
+      <h6 className="text-orange-900 dark:text-orange-300">MODEL</h6>
       <KeyValueList
-        keyClasses="text-xs text-orange-700 mr-4"
+        keyClasses="text-xs text-orange-700 dark:text-orange-200 mr-4"
         valueClasses="text-sm"
         items={[
           { key: "Model", value: bot.model },
@@ -109,9 +108,9 @@ export const ChatStats = (props: ChatStatsProps) => {
       />
 
       <br />
-      <h6 className="text-orange-900">COST</h6>
+      <h6 className="text-orange-900 dark:text-orange-300">COST</h6>
       <KeyValueList
-        keyClasses="text-xs text-orange-700 mr-4"
+        keyClasses="text-xs text-orange-700 dark:text-orange-200 mr-4"
         valueClasses="text-sm"
         items={[
           { key: "Prompts Cost", value: formatter.format(promptsCost) },
