@@ -8,8 +8,9 @@ import { useAvatarContext } from "#/lib/contexts/AvatarContext";
 
 type AvatarProps = {
   isUserMessage?: boolean;
+  onClick?: () => void;
 };
-const Avatar = ({ isUserMessage }: AvatarProps) => {
+const Avatar = ({ isUserMessage, onClick }: AvatarProps) => {
   const { avatarUrl, setAvatarUrl } = useAvatarContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
@@ -54,6 +55,8 @@ const Avatar = ({ isUserMessage }: AvatarProps) => {
       setIsLoading(false);
       setProgress(0);
     }, 1000);
+
+    onClick && onClick();
   };
 
   return isUserMessage ? (

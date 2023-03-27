@@ -5,12 +5,13 @@ import styles from "./Mouth.module.scss";
 type MouthProps = {
   children?: React.ReactNode;
   animated?: boolean;
+  onClick?: () => void;
 };
 
 export const Mouth = (props: MouthProps) => {
-  const { animated } = props;
+  const { animated, onClick } = props;
   return (
-    <div className={clsx(styles.Mouth)}>
+    <div className={clsx(styles.Mouth)} onClick={onClick}>
       <div className={clsx(styles.monster_container, !!animated && styles.animated)}>
         <div className={styles.monster}>
           <div className={styles.monster__eyes}>

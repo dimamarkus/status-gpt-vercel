@@ -11,10 +11,11 @@ type ChatMessageAvatarProps = {
   isTalking?: React.ReactNode;
   role?: string;
   className?: string;
+  onClick?: () => void;
 };
 
 export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
-  const { avatarUrl, isTalking, role, className } = props;
+  const { avatarUrl, isTalking, role, className, onClick } = props;
   const botAvatar = avatarUrl ? (
     <Image
       src={avatarUrl}
@@ -22,17 +23,18 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
       width={64}
       height={64}
       className="aspect-square object-cover"
+      onClick={onClick}
     />
   ) : (
-    <Mouth animated={!!isTalking} />
+    <Mouth animated={!!isTalking} onClick={onClick} />
   );
 
   let innerAvatar = botAvatar;
 
   if (role === "system") {
-    innerAvatar = <Cog8ToothIcon className="h-16 w-16" />;
+    innerAvatar = <Cog8ToothIcon className="h-16 w-16" onClick={onClick} />;
   } else if (role === "user") {
-    innerAvatar = <Avatar isUserMessage />;
+    innerAvatar = <Avatar isUserMessage onClick={onClick} />;
   }
 
   return <div className={clsx(styles.ChatMessageAvatar, className)}>{innerAvatar}</div>;

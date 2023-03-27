@@ -29,6 +29,8 @@ type ChatMessageProps = Omit<StatusChatMessage, "role"> & {
 
 export const ChatMessage = (props: ChatMessageProps) => {
   const { features } = useFeatureToggleContext();
+  const speechContext = useSpeechSynthesis();
+  const { speaking, cancel } = speechContext;
 
   if (!props.content) {
     return null;
@@ -60,9 +62,12 @@ export const ChatMessage = (props: ChatMessageProps) => {
     <article className={rootStyles} dir="ltr">
       <ChatMessageAvatar
         avatarUrl={avatarUrl}
-        isTalking={isTalking}
+        isTalking={isTalking || speaking}
         role={role}
-        className="hidden md:block"
+        className={clsx("hidden md:block", speaking && "cursor-pointer")}
+        onClick={() => {
+          speaking && cancel();
+        }}
       />
       <div className="chat-header flex space-x-1">
         <Timestamp time={time} className="ml-3.5 mb-1" />
@@ -76,8 +81,8 @@ export const ChatMessage = (props: ChatMessageProps) => {
       <div className={bubbleStyles}>
         <ParsedMarkdown content={content} className={bubbleContentStyles} />
         <Duo gap="full" centered>
+          {!isUser && <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />}
           <CopyButton content={content} className={buttonStyles} />
-          <ChatSpeakButton text={content} />
         </Duo>
       </div>
     </article>

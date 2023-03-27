@@ -8,7 +8,7 @@ declare module "react-speech-kit" {
     voice: SpeechSynthesisVoice;
   }
 
-  interface SpeechSynthesisReturnType {
+  export interface SpeechSynthesisReturnType {
     speak: (options: SpeakOptions) => void;
     cancel: () => void;
     speaking: boolean;

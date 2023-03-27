@@ -4,14 +4,15 @@ import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import { SpeakerWaveIcon } from "@heroicons/react/24/outline";
 import { SpeakerXMarkIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
-import { useSpeechSynthesis } from "react-speech-kit";
+import { SpeechSynthesisReturnType } from "react-speech-kit";
 
-type ChatSpeakButtonProps = {
+type ChatSpeakButtonProps = SpeechSynthesisReturnType & {
   text: string;
+  className?: string;
 };
 
-export const ChatSpeakButton = ({ text }: ChatSpeakButtonProps) => {
-  const { speak, cancel, speaking, voices } = useSpeechSynthesis();
+export const ChatSpeakButton = (props: ChatSpeakButtonProps) => {
+  const { speak, cancel, speaking, voices, text, className } = props;
   const { bot } = useChatContext();
   const voice =
     voices.find(({ voiceURI }) =>
@@ -23,7 +24,7 @@ export const ChatSpeakButton = ({ text }: ChatSpeakButtonProps) => {
       onClick={() => (!!speaking ? cancel() : speak({ text, voice }))}
       title={!!speaking ? "Stop speaking" : "Speak the message out loud."}
       icon={speaking ? <SpeakerXMarkIcon /> : <SpeakerWaveIcon />}
-      className={clsx(speaking && "animate-pulse")}
+      className={clsx(speaking && "animate-pulse", className)}
       flavor="icon"
       theme={speaking ? "primary" : "secondary"}
       size="sm"
