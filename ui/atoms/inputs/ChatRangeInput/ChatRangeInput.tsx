@@ -37,7 +37,10 @@ export const ChatRangeInput = <TFormValues extends Record<string, any>>(
   };
 
   return (
-    <label htmlFor={name} className="mx-auto mb-2 flex  w-1/2 cursor-pointer flex-col md:w-1/4">
+    <label
+      htmlFor={name}
+      className="mx-auto mb-4 flex w-1/2 cursor-pointer flex-col md:mb-2 md:w-1/4"
+    >
       <small className="font-regular pb-1 text-center text-primary">Response Length</small>
       <input
         id={name}
