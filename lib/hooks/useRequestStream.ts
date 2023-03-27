@@ -2,14 +2,36 @@ import { makeServerRequest } from "#/lib/helpers/request-helpers/makeServerReque
 import { useState } from "react";
 
 export const useRequestStream = <TRequestType>(endpoint: string) => {
+  const [controller, setController] = useState<AbortController | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const [fullValue, setFullValue] = useState<string>("");
   const [stream, setStream] = useState<string | undefined>(undefined);
+
+  const cancelStream = async () => {
+    if (controller) {
+      controller.abort();
+      setController(null);
+      setLoading(false);
+      setStream(undefined);
+    }
+  };
 
   const requestStream = async (requestBody: TRequestType) => {
     setLoading(true);
     try {
-      const response = await makeServerRequest(endpoint, "POST", requestBody);
+      if (controller) {
+        controller.abort();
+        setController(null);
+      }
+      const newController = new AbortController();
+      setController(newController);
+      const cancelSignal = newController.signal;
+
+      const headers = {};
+      const response = await makeServerRequest(endpoint, "POST", requestBody, headers, {
+        signal: cancelSignal,
+      });
 
       const stream = response.body;
       if (!stream) {
@@ -25,6 +47,7 @@ export const useRequestStream = <TRequestType>(endpoint: string) => {
         done = doneReading;
         const chunkValue = decoder.decode(value);
         fullValue += chunkValue;
+        !!setFullValue && setFullValue(fullValue);
         !!setStream && setStream(fullValue);
       }
       if (done) {
@@ -37,5 +60,5 @@ export const useRequestStream = <TRequestType>(endpoint: string) => {
     }
   };
 
-  return { loading, stream, error, requestStream };
+  return { loading, stream, error, cancelStream, requestStream };
 };

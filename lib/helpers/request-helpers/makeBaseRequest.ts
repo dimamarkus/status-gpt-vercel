@@ -43,7 +43,11 @@ export const makeBaseRequest = async <TRequestBody>(
     }
 
     return response;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      return new Response(null, { status: 299 });
+    } else {
+      return new Response(error.message, { status: 500 });
+    }
   }
 };

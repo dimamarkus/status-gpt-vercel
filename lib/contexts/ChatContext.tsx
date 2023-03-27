@@ -37,6 +37,7 @@ export const DEFAULT_CHAT_CONTEXT: ChatContext = {
   suggestionsLoading: false,
   submissionsLoading: false,
   getAnswer: async () => {},
+  cancelStream: async () => {},
 };
 
 export const Context = createContext<ChatContext>(DEFAULT_CHAT_CONTEXT);
@@ -53,8 +54,11 @@ export const ChatContextProvider = ({ bot, children }: ChatProps) => {
 
   const handleNewAnswer = useCallback(
     (chatLog: StatusChatMessage[] | undefined) => {
-      features.enableSuggestions && useSuggestionContext.getSuggestions(chatLog);
-      features.enableSubmissions && useSubmissionsContext.getSubmissions(chatLog);
+      const lastMessage = chatLog?.[chatLog.length - 1];
+      if (lastMessage?.role === "assistant") {
+        features.enableSuggestions && useSuggestionContext.getSuggestions(chatLog);
+        features.enableSubmissions && useSubmissionsContext.getSubmissions(chatLog);
+      }
     },
     [features, useSubmissionsContext, useSuggestionContext],
   );

@@ -59,6 +59,10 @@ export type UseChatGptReturn = {
    * Triggers a call to the OpenAI API to get an answer which comes back in the form of a 'stream' or 'answer'
    */
   getAnswer: (query?: string, systemMode?: boolean) => Promise<void>;
+  /**
+   * Interrupts a response and cancels the fetch request
+   */
+  cancelStream: () => Promise<void>;
 };
 
 export const useChatGpt = (
@@ -79,18 +83,29 @@ export const useChatGpt = (
   //  0. Prep
   // ============================================================================
   const startingChatLog = bot ? getStartingChatLog(bot) : null;
+  const [currentQuery, setCurrentQuery] = useState<string | undefined>(undefined);
   const [messages, setMessages] = useState(startingChatLog);
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const { features } = useFeatureToggleContext();
-  const { stream, loading, error, requestStream } = useRequestStream("/chat/" + bot?.slug);
+  const { stream, loading, error, requestStream, cancelStream } = useRequestStream(
+    "/chat/" + bot?.slug,
+  );
   const chatFormContext = useForm<ChatFormFields>({});
   const { getValues, setValue } = chatFormContext;
   const chatInput = getValues(USER_INPUT_FIELD_ID);
   const model = getGptParam("model") as OpenAiModel;
 
+  const handleCancelStream = async () => {
+    // Reset user input state first
+    currentQuery && setValue(USER_INPUT_FIELD_ID, currentQuery);
+    !!messages && setMessages(messages.slice(0, messages.length - 1));
+    cancelStream();
+  };
+
   const getAnswer = async (query?: string, systemMode?: boolean) => {
     //  1. Set initial state
     // ============================================================================
+    setCurrentQuery(query);
     setValue(USER_INPUT_FIELD_ID, "");
     setAnswer("");
     const chatMessages = compileChatMessages(messages, query || chatInput, bot?.memory);
@@ -125,6 +140,10 @@ export const useChatGpt = (
         : (result as unknown as OpenAiCompletionResponse).choices[0].text;
     }
 
+    if (!result) {
+      return;
+    }
+
     const resultingChatLog = [...chatMessages.all, createChatBotMessage(result)];
     setAnswer(result);
     setMessages(resultingChatLog);
@@ -133,6 +152,7 @@ export const useChatGpt = (
 
   return {
     bot,
+    cancelStream: handleCancelStream,
     getAnswer,
     answer,
     streamedAnswer: stream,

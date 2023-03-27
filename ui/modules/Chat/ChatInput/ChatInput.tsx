@@ -22,7 +22,8 @@ export type ChatFormFields = {
 
 export const ChatInput = (props: ChatInputProps) => {
   const { className } = props;
-  const { inputFormContext, getAnswer, loading, setShowSuggestions } = useChatContext();
+  const { inputFormContext, getAnswer, loading, setShowSuggestions, cancelStream } =
+    useChatContext();
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -31,6 +32,11 @@ export const ChatInput = (props: ChatInputProps) => {
       document.getElementById(USER_INPUT_FIELD_ID)?.focus();
     }
   }, []);
+
+  const handleCancelStream = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    cancelStream();
+  };
 
   if (!inputFormContext) {
     return null;
@@ -79,18 +85,22 @@ export const ChatInput = (props: ChatInputProps) => {
         className="ring-black"
         onListen={(result: string) => inputFormContext.setValue(USER_INPUT_FIELD_ID, result)}
       />
-      <BaseButton
-        title="Send your chat message"
-        type="submit"
-        disabled={loading}
-        className="h-full rounded-none md:h-auto md:rounded-b-md"
-      >
-        {
-          <span className="pt-1 md:pt-0">
-            Send <span className="hidden md:inline">Message</span>
-          </span>
-        }
-      </BaseButton>
+      {!loading ? (
+        <BaseButton
+          title="Send your chat message"
+          type="submit"
+          disabled={loading}
+          className="h-full rounded-none md:h-auto md:rounded-b-md"
+        >
+          {
+            <span className="pt-1 md:pt-0">
+              Send <span className="hidden md:inline">Message</span>
+            </span>
+          }
+        </BaseButton>
+      ) : (
+        <BaseButton text="Cancel" type="button" theme="error" onClick={handleCancelStream} />
+      )}
     </form>
   );
 };

@@ -12,9 +12,11 @@ export const makeServerRequest = async <TRequestBody>(
   endpoint: Request | string,
   method: HTTPMethod = "GET",
   body?: TRequestBody,
+  headers: HeadersInit = {},
+  options: RequestInit = {},
 ): Promise<Response> => {
   const url = (process.env.APP_API_URL || "/api") + endpoint;
-  const response = await makeRequest(url, method, body);
+  const response = await makeRequest(url, method, body, headers, options);
 
   return response;
 };

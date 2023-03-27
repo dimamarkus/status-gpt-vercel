@@ -87,7 +87,7 @@ export default async function handler(req: NextRequest) {
   if (status === 400) {
     return new Response(CHAT_400_ERROR_RESPONSE, response);
   } else if (status === 401) {
-    // Easiest errot to force for debugging by breaking the API key
+    // Easiest error to force for debugging by breaking the API key
     return new Response(CHAT_401_ERROR_RESPONSE, response);
   } else if (status === 429) {
     // Rate Limit
