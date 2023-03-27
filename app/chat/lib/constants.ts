@@ -19,6 +19,8 @@ export const EXAMPLE_PROMPTS = [
   "What investments should I consider to maximize my retirement savings?",
 ];
 
+export const DEFAULT_BOT_TRAINING =
+  "Your name is 'Stat'. You work for StatusMoney and you're here to help the user with their personal finances.";
 export const SUBMISSIONS_REQUEST = `Given your last reply, if theres any numerical information you asked for from the me, please reply with a flat json object I can fill out. Set all values to null. Do not write anything whatsoever besides that json object. The first character of your reply should be "{" and the last should be" }"`;
 export const DEFAULT_SUBMISSIONS = {};
 export const SUGGESTIONS_REQUEST = `Given our discussion, suggest 3 short questions you think I should ask you (Stat) as follow up. Make them in the form of a JavaScript array of question strings with no other characters besides that whatsoever. For example: ["What is your name?", "What is your favorite food?"]`;
@@ -27,6 +29,21 @@ export const DEBUG_SUGGESTIONS = [
   "What are 5 helpful websites for financial advice?",
   "Give me a succinct list of 3 pieces of info you could use from me.",
 ];
+
+//  ERRORS
+// ============================================================================
+// 400 is invalid request. something wrong with the request body.
+export const CHAT_400_ERROR_RESPONSE =
+  "Sorry. I'm having trouble understanding your question at the moment. Please try again in a few minutes.";
+// 401 is invalid API key
+export const CHAT_401_ERROR_RESPONSE =
+  "Sorry. I can barely remember who I am at the moment. Please ask again later. ";
+// 429 is too many requests / rate limit exceeded
+export const CHAT_429_ERROR_RESPONSE =
+  "Sorry, due to high demand I'm having some trouble answering your question right now. Please try in a few seconds.";
+// 500 is something wrong on OpenAI's end
+export const CHAT_500_ERROR_RESPONSE =
+  "Ouch. My brain hurts for some reason and I can't answer your question right now. Please try again later.";
 
 //  AI MODELS
 // ============================================================================

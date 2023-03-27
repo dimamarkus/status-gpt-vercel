@@ -45,17 +45,19 @@ export const ChatMessages = (props: ChatMessagesProps) => {
       )
     : "No chatbot found";
 
+  const loadingAnswerMessage = loading ? createChatBotMessage("...") : undefined;
   const incomingAnswerMessage = streamedAnswer ? createChatBotMessage(streamedAnswer) : undefined;
+  const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
   return (
     <section className={clsx(styles.root, className)}>
       {messagesChild}
-      {!!incomingAnswerMessage && (
+      {!!latestMessage && (
         <ChatMessage
           key={chatLog ? chatLog.length + 1 : "latestMessage"}
           avatarUrl={botAvatarUrl}
-          className={!streamedAnswer ? "hidden" : ""}
+          className={!streamedAnswer && !loading ? "hidden" : ""}
           isTalking={loading}
-          {...incomingAnswerMessage}
+          {...latestMessage}
         />
       )}
       <div className={styles.scrollAnchor} />

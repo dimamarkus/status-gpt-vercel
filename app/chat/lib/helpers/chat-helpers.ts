@@ -10,7 +10,8 @@ import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
 const { encode } = require("gptoken");
 
-export const isChatModel = (model: OpenAiModel) => CHAT_MODELS.includes(model as OpenAiChatModel);
+export const isChatModel = (model?: OpenAiModel) =>
+  !!model && CHAT_MODELS.includes(model as OpenAiChatModel);
 
 export const createChatMessage = (
   role: GptMessage["role"],
@@ -52,7 +53,7 @@ export const createSubmissionsPrompt = (context: StatusChatMessage[]) => {
 };
 
 export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | null => {
-  if (!bot) return null;
+  if (!bot) return [];
 
   const trainingContent = collateBotTraining(bot);
   const trainingMessage = createChatSystemMessage(trainingContent);
@@ -90,12 +91,11 @@ export const compileChatMessages = (
   const recentMessages = overLimit ? messages.slice(1).slice(-sliceLength) : messages;
   const messagesWithTimestamps: StatusChatMessage[] = [...(recentMessages || []), latestMessage];
 
-  // Make sure the training message gets put back after the slice
-  const trainingMessage = messages ? createChatSystemMessage(messages[0].content) : null;
-  overLimit && !!trainingMessage && messagesWithTimestamps.unshift(trainingMessage);
-
   // Prep the OpenAI request messages by removing the timestamps from the Chat History slice
-  const toSend = messagesWithTimestamps.map(({ role, content }) => ({ role, content }));
+  const toSend = messagesWithTimestamps
+    .map(({ role, content }) => ({ role, content }))
+    // Remove any Training messages to avoid exposing them. It shoudl be put back server-side.
+    .filter(({ role }) => role !== "system");
 
   // Add the latest message to the master chat log of all messages
   const allChatMessages: StatusChatMessage[] = [...(messages || []), latestMessage];

@@ -1,21 +1,15 @@
-import { useState } from "react";
-import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
 import { makeServerRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
+import { useState } from "react";
 
-export const useGetStream = <TRequestType>(endpoint: string) => {
+export const useRequestStream = <TRequestType>(endpoint: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [stream, setStream] = useState<string | undefined>(undefined);
 
-  const getStream = async (requestBody: TRequestType) => {
+  const requestStream = async (requestBody: TRequestType) => {
     setLoading(true);
     try {
       const response = await makeServerRequest(endpoint, "POST", requestBody);
-      console.log("getSTtream response", response);
-
-      // if (!response.ok && response.status !== 429) {
-      //   throw new Error(response.statusText);
-      // }
 
       const stream = response.body;
       if (!stream) {
@@ -43,5 +37,5 @@ export const useGetStream = <TRequestType>(endpoint: string) => {
     }
   };
 
-  return { loading, stream, error, getStream };
+  return { loading, stream, error, requestStream };
 };

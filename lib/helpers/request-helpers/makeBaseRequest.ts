@@ -34,11 +34,12 @@ export const makeBaseRequest = async <TRequestBody>(
     if (!response.ok) {
       console.warn("\n");
       console.warn("- BASE_REQUEST ERROR -------------------------------------------------------");
-      response.status === 400 && console.warn("  request:", request);
       console.warn("  status:", response.status);
       console.warn("  statusText:", response.statusText);
       console.warn("  url:", url);
-      console.warn("  response.body:", response.body);
+      // console.warn("  request:", request);
+      // console.warn("  error:", await response.json());
+      // console.warn("  response.body:", response.body);
     }
 
     return response;

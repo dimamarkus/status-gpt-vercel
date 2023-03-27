@@ -1,9 +1,9 @@
 "use client";
+import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
+import FullScreenToggleButton from "#/ui/molecules/actionButtons/FullScreenToggleButton/FullScreenToggleButton";
 import clsx from "clsx";
 import React from "react";
 import styles from "./ChatLayout.module.scss";
-import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
-import FullScreenToggleButton from "#/ui/molecules/actionButtons/FullScreenToggleButton/FullScreenToggleButton";
 
 type ChatLayoutProps = {
   children: React.ReactNode;

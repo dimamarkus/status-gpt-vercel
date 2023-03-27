@@ -1,22 +1,26 @@
-import { useState } from "react";
-import { useForm, UseFormReturn } from "react-hook-form";
 import {
   compileChatMessages,
   createChatBotMessage,
   getStartingChatLog,
   isChatModel,
 } from "#/app/chat/lib/helpers/chat-helpers";
-import { OpenAiModel, OpenAiRequest } from "#/app/chat/lib/openai";
+import {
+  OpenAiChatResponse,
+  OpenAiCompletionResponse,
+  OpenAiModel,
+  OpenAiRequest,
+  OpenAiResponse,
+} from "#/app/chat/lib/openai";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { useGetStream } from "#/lib/hooks/useGetStream";
+import { inProdEnv } from "#/lib/helpers/env-helpers";
+import { useRequestStream } from "#/lib/hooks/useRequestStream";
 import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
-import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
-import { GENERATE_CHAT_STREAM_ENDPOINT } from "#/pages/api/chat/generate-stream";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
-import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { event } from "nextjs-google-analytics";
+import { useState } from "react";
+import { useForm, UseFormReturn } from "react-hook-form";
 const { encode } = require("gptoken");
 
 export const USER_INPUT_FIELD_ID = "chatInput";
@@ -69,80 +73,62 @@ export const useChatGpt = (
    */
   handleNewAnswer: (chatLog: StatusChatMessage[]) => void,
 ): UseChatGptReturn => {
-  const startingChatLog = bot ? getStartingChatLog(bot) : null;
-
-  //  1. Prep State
-  // ============================================================================
-  const [messages, setMessages] = useState(startingChatLog);
-  const [answer, setAnswer] = useState<string | undefined>(undefined);
-  const { features } = useFeatureToggleContext();
-
   const getGptParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
     (!!bot && bot[param]) || DEFAULT_GPT_SETTINGS[param];
 
-  const endpointUrl = features.useStream ? GENERATE_CHAT_STREAM_ENDPOINT : GENERATE_CHAT_ENDPOINT;
-  const { stream, loading, error, getStream } = useGetStream(endpointUrl);
-
-  const formContext = useForm<ChatFormFields>({});
-  const { getValues, setValue } = formContext;
+  //  0. Prep
+  // ============================================================================
+  const startingChatLog = bot ? getStartingChatLog(bot) : null;
+  const [messages, setMessages] = useState(startingChatLog);
+  const [answer, setAnswer] = useState<string | undefined>(undefined);
+  const { features } = useFeatureToggleContext();
+  const { stream, loading, error, requestStream } = useRequestStream("/chat/" + bot?.slug);
+  const chatFormContext = useForm<ChatFormFields>({});
+  const { getValues, setValue } = chatFormContext;
   const chatInput = getValues(USER_INPUT_FIELD_ID);
+  const model = getGptParam("model") as OpenAiModel;
 
   const getAnswer = async (query?: string, systemMode?: boolean) => {
-    const chatMessages = compileChatMessages(messages, query || chatInput, bot?.memory);
-
-    //  2. Update the state after user click
+    //  1. Set initial state
     // ============================================================================
     setValue(USER_INPUT_FIELD_ID, "");
     setAnswer("");
+    const chatMessages = compileChatMessages(messages, query || chatInput, bot?.memory);
     setMessages(chatMessages.all);
 
-    //  3. Prep the API Call
+    //  2. Make GA Analytics event
     // ============================================================================
     const prompt = chatMessages.toSend.map(({ content }) => content).join("\n");
-    const model = getGptParam("model") as OpenAiModel;
-    const messagesToSend = isChatModel(model) ? { messages: chatMessages.toSend } : { prompt };
-    const tokens = getGptParam("max_tokens")?.toString();
-    const max_tokens = !!tokens ? parseInt(tokens, 10) : DEFAULT_GPT_SETTINGS["max_tokens"];
-    const requestBody = {
-      ...messagesToSend,
-      model: getGptParam("model"),
-      temperature: getGptParam("temperature"),
-      top_p: getGptParam("top_p"),
-      frequency_penalty: getGptParam("frequency_penalty"),
-      presence_penalty: getGptParam("presence_penalty"),
-      max_tokens,
-      n: DEFAULT_GPT_SETTINGS["n"],
-      stream: features.useStream,
-    };
-
-    //  4. Make the API Call
-    // ============================================================================
-    !inProdEnv && console.log("============================================================");
-    !inProdEnv && console.log(`I'm asking ${getGptParam("model")} a question:`, requestBody);
     const promptTokenCount = encode(prompt).length;
-
     event("submit_prompt", {
       category: bot?.slug,
       label: "Tokens: " + promptTokenCount,
     });
 
-    let response = await getStream(requestBody);
+    //  3. Make the API Call
+    // ============================================================================
+    !inProdEnv && console.log("============================================================");
+    !inProdEnv && console.log(`${model} request:`, chatMessages.toSend);
 
-    if (error) {
-      console.error("useChatGpt() error", error);
-      response =
-        "Sorry, due to high demand I'm having some trouble answering your question right now.";
-      // throw new Error(error);
-    }
+    const response = await requestStream({
+      messages: chatMessages.toSend,
+      stream: features.useStream,
+    });
 
     //  4. Handle response
     // ============================================================================
-    if (response) {
-      const resultingChatLog = [...chatMessages.all, createChatBotMessage(response)];
-      setAnswer(response);
-      setMessages(resultingChatLog);
-      handleNewAnswer(resultingChatLog);
+    let resultString = features.useStream ? JSON.stringify(response) : response;
+    let result = resultString && JSON.parse(resultString);
+    if ((result as unknown as OpenAiResponse)?.choices) {
+      result = isChatModel(model)
+        ? (result as unknown as OpenAiChatResponse).choices[0].message?.content
+        : (result as unknown as OpenAiCompletionResponse).choices[0].text;
     }
+
+    const resultingChatLog = [...chatMessages.all, createChatBotMessage(result)];
+    setAnswer(result);
+    setMessages(resultingChatLog);
+    handleNewAnswer(resultingChatLog);
   };
 
   return {
@@ -153,6 +139,6 @@ export const useChatGpt = (
     loading,
     error,
     chatLog: messages,
-    inputFormContext: formContext || null,
+    inputFormContext: chatFormContext || null,
   };
 };

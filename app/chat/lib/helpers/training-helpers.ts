@@ -66,7 +66,7 @@ export const getTrainingContent = (training?: CmsSingleRelation<BotTraining>): s
   return null;
 };
 
-export const collateBotTraining = (bot: Bot): string => {
+export const collateBotTraining = (bot: Bot | null): string => {
   if (!bot) return "";
   const {
     training,

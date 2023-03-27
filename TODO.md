@@ -7,3 +7,7 @@
 ## Documentation
 
 Tailwind classes have to be used harcoded before they can be dynamiaclly put together
+
+## Packages
+
+- Add [react-recipes](https://github.com/craig1123/react-recipes) and replace hooks and react-speech
