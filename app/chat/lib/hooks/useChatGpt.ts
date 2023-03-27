@@ -1,6 +1,7 @@
 import {
+  calculateTokens,
   compileChatMessages,
-  createChatBotMessage,
+  createChatMessage,
   getStartingChatLog,
   isChatModel,
 } from "#/app/chat/lib/helpers/chat-helpers";
@@ -21,7 +22,6 @@ import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event } from "nextjs-google-analytics";
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { encode } from "gptoken";
 
 export const USER_INPUT_FIELD_ID = "chatInput";
 
@@ -130,7 +130,7 @@ export const useChatGpt = (
     //  2. Make GA Analytics event
     // ============================================================================
     const prompt = chatMessages.toSend.map(({ content }) => content).join("\n");
-    const promptTokenCount = encode(prompt).length;
+    const promptTokenCount = calculateTokens(prompt);
     event("submit_prompt", {
       category: bot?.slug,
       label: "Tokens: " + promptTokenCount,
@@ -161,7 +161,7 @@ export const useChatGpt = (
       return;
     }
 
-    const resultingChatLog = [...chatMessages.all, createChatBotMessage(result)];
+    const resultingChatLog = [...chatMessages.all, createChatMessage("assistant", result)];
     setAnswer(result);
     setMessages(resultingChatLog);
     handleNewAnswer(resultingChatLog);

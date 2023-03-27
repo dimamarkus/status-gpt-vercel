@@ -7,7 +7,7 @@ export interface ResponseError extends Error {
 
 export type StatusChatMessage = GptMessage & {
   timestamp: number;
-  tokens: number;
+  tokens?: number;
 };
 
 export type CommonSizes = "xs" | "sm" | "md" | "lg" | "xl";

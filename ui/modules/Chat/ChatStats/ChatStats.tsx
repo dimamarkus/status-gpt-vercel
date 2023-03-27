@@ -34,7 +34,7 @@ export const ChatStats = (props: ChatStatsProps) => {
     ? chatLog.reduce(
         (total, message, index) =>
           index < 3 || message.role === "user" || message.role === "system"
-            ? total + message.tokens
+            ? total + (message.tokens || 0)
             : total,
         0,
       )
@@ -43,7 +43,7 @@ export const ChatStats = (props: ChatStatsProps) => {
   const completionTokens = chatLog
     ? chatLog.reduce(
         (total, message, index) =>
-          message.role === "assistant" && index > 2 ? total + message.tokens : total,
+          message.role === "assistant" && index > 2 ? total + (message.tokens || 0) : total,
         0,
       )
     : 0;

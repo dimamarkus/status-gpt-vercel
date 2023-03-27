@@ -10,27 +10,24 @@ import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
 import { encode } from "gptoken";
 
+export const calculateTokens = (prompt: string) => {
+  // Will not work on edge runtine
+  return encode(prompt).length;
+};
+
 export const isChatModel = (model?: OpenAiModel) =>
   !!model && CHAT_MODELS.includes(model as OpenAiChatModel);
 
 export const createChatMessage = (
   role: GptMessage["role"],
   content: GptMessage["content"],
+  withTokens?: boolean,
 ): StatusChatMessage => ({
   role,
   content,
   timestamp: Date.now(),
-  tokens: encode(content).length,
+  tokens: withTokens ? calculateTokens(content) : undefined,
 });
-
-export const createChatSystemMessage = (content: GptMessage["content"]): StatusChatMessage =>
-  createChatMessage("system", content);
-
-export const createChatBotMessage = (content: GptMessage["content"]): StatusChatMessage =>
-  createChatMessage("assistant", content);
-
-export const createChatUserMessage = (content: GptMessage["content"]): StatusChatMessage =>
-  createChatMessage("user", content);
 
 export const createSuggestionsPrompt = (context: StatusChatMessage[]) => {
   const messages = context
@@ -56,8 +53,11 @@ export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | null
   if (!bot) return [];
 
   const trainingContent = collateBotTraining(bot);
-  const trainingMessage = createChatSystemMessage(trainingContent);
-  const startingChatLog = [trainingMessage, createChatBotMessage(bot.welcome_message || "")];
+  const trainingMessage = createChatMessage("system", trainingContent);
+  const startingChatLog = [
+    trainingMessage,
+    createChatMessage("assistant", bot.welcome_message || ""),
+  ];
 
   return startingChatLog;
 };
@@ -85,7 +85,7 @@ export const compileChatMessages = (
   // Sanitize the input and create the latest message from the user
   const containsPunctuation = !!prompt && /[.;!?]$/.test(prompt);
   const content = containsPunctuation ? prompt : `${prompt}.`;
-  const latestMessage = createChatUserMessage(content);
+  const latestMessage = createChatMessage("user", content);
 
   // Create slice of the chat history to send as a prompt to OpenAI.
   const recentMessages = overLimit ? messages.slice(1).slice(-sliceLength) : messages;

@@ -7,7 +7,7 @@ import {
   GPT_COMPLETIONS_URL,
 } from "#/app/chat/lib/constants";
 import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
-import { createChatSystemMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
+import { createChatMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { createOpenAiStream } from "#/app/chat/lib/helpers/createOpenAiStream";
 import { OpenAiChatRequest, OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
@@ -37,7 +37,7 @@ export default async function handler(req: NextRequest) {
   const useChatApi = isChatModel(bot?.model);
 
   const trainingContent = collateBotTraining(bot);
-  const { role, content } = createChatSystemMessage(trainingContent);
+  const { role, content } = createChatMessage("system", trainingContent);
   const maxTokens = max_tokens || (getBotParam(bot, "max_tokens") as number);
   const chatLogWithTraining = [
     { role, content }, // Training Messages

@@ -2,10 +2,10 @@
 import clsx from "clsx";
 import { useEffect } from "react";
 import styles from "./ChatMessages.module.scss";
-import { createChatBotMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { ChatMessage } from "#/ui/modules/Chat/ChatMessage/ChatMessage";
+import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 
 type ChatMessagesProps = {
   botAvatarUrl?: string;
@@ -45,8 +45,10 @@ export const ChatMessages = (props: ChatMessagesProps) => {
       )
     : "No chatbot found";
 
-  const loadingAnswerMessage = loading ? createChatBotMessage("...") : undefined;
-  const incomingAnswerMessage = streamedAnswer ? createChatBotMessage(streamedAnswer) : undefined;
+  const loadingAnswerMessage = loading ? createChatMessage("assistant", "...") : undefined;
+  const incomingAnswerMessage = streamedAnswer
+    ? createChatMessage("assistant", streamedAnswer)
+    : undefined;
   const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
   return (
     <section className={clsx(styles.root, className)}>

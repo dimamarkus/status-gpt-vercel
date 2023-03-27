@@ -16,7 +16,7 @@ export const ChatSpeakButton = (props: ChatSpeakButtonProps) => {
   const { bot } = useChatContext();
   const voice =
     voices.find(({ voiceURI }) =>
-      bot?.voice ? voiceURI === bot?.voice : voiceURI === "Google US English Male",
+      bot?.voice ? voiceURI === bot?.voice : voiceURI === "Google UK English Male",
     ) || voices[0];
 
   return (
