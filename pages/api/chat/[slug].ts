@@ -6,9 +6,9 @@ import {
   GPT_CHAT_URL,
   GPT_COMPLETIONS_URL,
 } from "#/app/chat/lib/constants";
+import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { createChatSystemMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { createOpenAiStream } from "#/app/chat/lib/helpers/createOpenAiStream";
-import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
 import { OpenAiChatRequest, OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
@@ -18,7 +18,8 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 
 export default async function handler(req: NextRequest) {
-  const { messages, stream, ...payload } = (await req.json()) as Partial<OpenAiChatRequest>;
+  const { messages, stream, max_tokens, ...payload } =
+    (await req.json()) as Partial<OpenAiChatRequest>;
   const chatLog = messages;
   const slug = req.nextUrl.searchParams.get("slug");
 
@@ -37,7 +38,12 @@ export default async function handler(req: NextRequest) {
 
   const trainingContent = collateBotTraining(bot);
   const { role, content } = createChatSystemMessage(trainingContent);
-  const chatLogWithTraining = [{ role, content }, ...chatLog];
+  const maxTokens = max_tokens || (getBotParam(bot, "max_tokens") as number);
+  const chatLogWithTraining = [
+    { role, content }, // Training Messages
+    ...chatLog, // Conversation history
+    { role: "system", content: `Use no more than ${maxTokens * 0.75} word.` }, // How long to make the response
+  ];
 
   const chatLogToSend = useChatApi
     ? { messages: chatLogWithTraining }
@@ -45,24 +51,21 @@ export default async function handler(req: NextRequest) {
 
   // 3. Prepare API call
   // ============================================================================
-  const getGptParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
-    (!!bot && bot[param]) || (DEFAULT_GPT_SETTINGS[param] as number);
-
   const url = useChatApi ? GPT_CHAT_URL : GPT_COMPLETIONS_URL;
   const headers = { Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}` };
   const body = {
     ...chatLogToSend,
-    model: getGptParam("model"),
-    temperature: getGptParam("temperature"),
-    top_p: getGptParam("top_p"),
-    frequency_penalty: getGptParam("frequency_penalty"),
-    presence_penalty: getGptParam("presence_penalty"),
-    max_tokens: getGptParam("max_tokens"),
+    model: getBotParam(bot, "model"),
+    temperature: getBotParam(bot, "temperature"),
+    top_p: getBotParam(bot, "top_p"),
+    frequency_penalty: getBotParam(bot, "frequency_penalty"),
+    presence_penalty: getBotParam(bot, "presence_penalty"),
+    max_tokens: getBotParam(bot, "max_tokens"),
     n: DEFAULT_GPT_SETTINGS["n"],
     stream,
     ...payload,
   } as OpenAiRequest;
-
+  console.log("chatLogToSend", chatLogToSend);
   // 4. Make API call
   // ============================================================================
   const response = await makeBaseRequest<OpenAiRequest>(url, "POST", body, headers);

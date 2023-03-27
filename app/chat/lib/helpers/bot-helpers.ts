@@ -1,4 +1,5 @@
-import { BOT_TRAINING_ORDER } from "#/lib/constants/settings";
+import { OpenAiRequest } from "#/app/chat/lib/openai";
+import { BOT_TRAINING_ORDER, DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import {
   Bot,
   BotPromotion,
@@ -8,6 +9,9 @@ import {
   CmsMultiRelation,
   CmsSingleRelation,
 } from "#/lib/types/cms";
+
+export const getBotParam = (bot: Bot | null, param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
+  (!!bot && bot[param]) || (DEFAULT_GPT_SETTINGS[param] as number);
 
 export const getManyTrainingContents = (
   trainings?: CmsMultiRelation<BotTraining>,

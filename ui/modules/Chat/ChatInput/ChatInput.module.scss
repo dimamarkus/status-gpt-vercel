@@ -1,7 +1,9 @@
 .root {
   @apply form-control;
   @apply relative;
-  @apply flex-row;
-  @apply md:flex-col;
   z-index: 3;
+  fieldset {
+    @apply flex;
+    @apply md:flex-col;
+  }
 }

@@ -81,7 +81,7 @@ export const useChatGpt = (
    */
   handleNewAnswer: (chatLog: StatusChatMessage[]) => void,
 ): UseChatGptReturn => {
-  const getGptParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
+  const getBotParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
     (!!bot && bot[param]) || DEFAULT_GPT_SETTINGS[param];
 
   //  0. Prep
@@ -94,10 +94,16 @@ export const useChatGpt = (
   const { stream, loading, error, requestStream, cancelStream } = useRequestStream(
     "/chat/" + bot?.slug,
   );
-  const chatFormContext = useForm<ChatFormFields>({});
+  const max_tokens = getBotParam("max_tokens") as number;
+  const chatFormContext = useForm<ChatFormFields>({
+    defaultValues: {
+      [USER_INPUT_FIELD_ID]: "",
+      max_tokens: max_tokens / 2, // Set starting value to half of max_tokens
+    },
+  });
   const { getValues, setValue } = chatFormContext;
   const chatInput = getValues(USER_INPUT_FIELD_ID);
-  const model = getGptParam("model") as OpenAiModel;
+  const model = getBotParam("model") as OpenAiModel;
 
   const handleCancelStream = async () => {
     // Reset user input state first
@@ -138,6 +144,7 @@ export const useChatGpt = (
     const response = await requestStream({
       messages: chatMessages.toSend,
       stream: features.useStream,
+      max_tokens: getValues("max_tokens"),
     });
 
     //  4. Handle response

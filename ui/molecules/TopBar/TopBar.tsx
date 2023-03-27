@@ -48,7 +48,7 @@ const TopBar = () => {
     </div>
   );
   return (
-    <header className="navbar bg-white md:bg-transparent md:p-4">
+    <header className="navbar bg-white dark:bg-base-300 md:bg-transparent md:p-4">
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />

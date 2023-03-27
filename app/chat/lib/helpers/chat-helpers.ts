@@ -1,5 +1,5 @@
 import { CHAT_MODELS, SUBMISSIONS_REQUEST, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
-import { collateBotTraining } from "#/app/chat/lib/helpers/training-helpers";
+import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
 import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
 import {
   DEFAULT_BOT_MEMORY,

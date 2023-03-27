@@ -15,11 +15,11 @@
 
   & .fullScreenToggle {
     @apply absolute;
-    @apply top-3;
-    @apply right-3;
     @apply z-10;
-    display: none;
-    @apply md:flex;
+    @apply md:top-3;
+    @apply md:right-3;
+    @apply -top-1;
+    @apply -right-1;
   }
 
   & > div {

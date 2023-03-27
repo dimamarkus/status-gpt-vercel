@@ -60,7 +60,11 @@
     @apply p-3;
     @apply placeholder-gray-500;
     @apply resize-none;
-    @apply rounded-none;
+    @apply rounded-md;
+    @apply md:rounded-t-md;
+    @apply md:rounded-b-none;
+    @apply pr-24;
+    @apply md:pr-0;
     // @apply text-base;
     @apply transition-colors;
   }
