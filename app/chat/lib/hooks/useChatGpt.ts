@@ -63,6 +63,10 @@ export type UseChatGptReturn = {
    * Interrupts a response and cancels the fetch request
    */
   cancelStream: () => Promise<void>;
+  /**
+   * Cancels stream and resets the chat to the starting state
+   */
+  resetChat: () => Promise<void>;
 };
 
 export const useChatGpt = (
@@ -100,6 +104,12 @@ export const useChatGpt = (
     currentQuery && setValue(USER_INPUT_FIELD_ID, currentQuery);
     !!messages && setMessages(messages.slice(0, messages.length - 1));
     cancelStream();
+  };
+
+  const resetChat = async () => {
+    handleCancelStream();
+    setValue(USER_INPUT_FIELD_ID, "");
+    setMessages(startingChatLog);
   };
 
   const getAnswer = async (query?: string, systemMode?: boolean) => {
@@ -153,6 +163,7 @@ export const useChatGpt = (
   return {
     bot,
     cancelStream: handleCancelStream,
+    resetChat,
     getAnswer,
     answer,
     streamedAnswer: stream,

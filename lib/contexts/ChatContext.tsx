@@ -38,6 +38,7 @@ export const DEFAULT_CHAT_CONTEXT: ChatContext = {
   submissionsLoading: false,
   getAnswer: async () => {},
   cancelStream: async () => {},
+  resetChat: async () => {},
 };
 
 export const Context = createContext<ChatContext>(DEFAULT_CHAT_CONTEXT);

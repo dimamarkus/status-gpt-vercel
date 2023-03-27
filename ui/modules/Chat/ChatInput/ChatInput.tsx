@@ -22,7 +22,7 @@ export type ChatFormFields = {
 
 export const ChatInput = (props: ChatInputProps) => {
   const { className } = props;
-  const { inputFormContext, getAnswer, loading, setShowSuggestions, cancelStream } =
+  const { inputFormContext, getAnswer, loading, setShowSuggestions, cancelStream, resetChat } =
     useChatContext();
   const isMobile = useIsMobile();
 
@@ -101,6 +101,13 @@ export const ChatInput = (props: ChatInputProps) => {
       ) : (
         <BaseButton text="Cancel" type="button" theme="error" onClick={handleCancelStream} />
       )}
+      <BaseButton
+        onClick={resetChat}
+        text="Start Over"
+        type="reset"
+        flavor="hollow"
+        className="border-none hover:bg-inherit"
+      />
     </form>
   );
 };
