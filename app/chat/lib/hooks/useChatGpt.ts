@@ -21,7 +21,7 @@ import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event } from "nextjs-google-analytics";
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-const { encode } = require("gptoken");
+import { encode } from "gptoken";
 
 export const USER_INPUT_FIELD_ID = "chatInput";
 

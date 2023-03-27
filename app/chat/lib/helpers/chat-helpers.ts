@@ -8,7 +8,7 @@ import {
 } from "#/lib/constants/settings";
 import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
-const { encode } = require("gptoken");
+import { encode } from "gptoken";
 
 export const isChatModel = (model?: OpenAiModel) =>
   !!model && CHAT_MODELS.includes(model as OpenAiChatModel);
