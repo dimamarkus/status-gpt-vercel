@@ -5,11 +5,6 @@ export interface ResponseError extends Error {
   statusText?: string;
 }
 
-export type StatusChatMessage = GptMessage & {
-  timestamp: number;
-  tokens?: number;
-};
-
 export type CommonSizes = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type CommonSpacings = CommonSizes | "none" | "full";

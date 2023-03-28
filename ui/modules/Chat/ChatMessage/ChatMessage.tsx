@@ -1,7 +1,7 @@
 "use client";
 
 import { useSpeechSynthesis } from "react-speech-kit";
-import { StatusChatMessage } from "#/lib/types";
+import { StatusChatMessage } from "#/app/chat/lib/types";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
 import Timestamp from "#/ui/atoms/decorations/Timestamp/Timestamp";
 import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAvatar";

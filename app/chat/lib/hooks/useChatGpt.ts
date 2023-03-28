@@ -16,7 +16,7 @@ import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { useRequestStream } from "#/lib/hooks/useRequestStream";
-import { StatusChatMessage } from "#/lib/types";
+import { StatusChatMessage } from "#/app/chat/lib/types";
 import { Bot } from "#/lib/types/cms";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event } from "nextjs-google-analytics";

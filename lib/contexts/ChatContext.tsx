@@ -14,7 +14,7 @@ import {
 import { AssumptionsContextProvider } from "#/lib/contexts/AssumptionsContext";
 import { AvatarContextProvider } from "#/lib/contexts/AvatarContext";
 import { Bot } from "#/lib/types/cms";
-import { StatusChatMessage } from "#/lib/types";
+import { StatusChatMessage } from "#/app/chat/lib/types";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 export type ChatContext = UseChatGptReturn &
@@ -44,7 +44,7 @@ export const DEFAULT_CHAT_CONTEXT: ChatContext = {
 export const Context = createContext<ChatContext>(DEFAULT_CHAT_CONTEXT);
 
 type ChatProps = {
-  children: any;
+  children: React.ReactNode;
   bot: Bot | null;
 };
 

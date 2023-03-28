@@ -3,7 +3,7 @@ import { GPT3_MODEL, DEFAULT_SUBMISSIONS, EXAMPLE_PROMPTS } from "#/app/chat/lib
 import { createSubmissionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
 import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
 import { findArrayInString, findJsonInString } from "#/lib/helpers/string-helpers";
-import { StatusChatMessage } from "#/lib/types";
+import { StatusChatMessage } from "#/app/chat/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { makeServerPostRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
 

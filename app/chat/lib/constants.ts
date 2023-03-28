@@ -1,5 +1,6 @@
 import { OpenAiChatModel, OpenAiCompletionModel, OpenAiModel } from "#/app/chat/lib/openai";
-import { Language, StatusChatMessage } from "#/lib/types";
+import { StatusChatMessage } from "#/app/chat/lib/types";
+import { Language } from "#/lib/types";
 
 export const LANGUAGES: Language[] = ["English", "Spanish", "French", "Russian"];
 

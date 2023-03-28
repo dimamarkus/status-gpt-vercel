@@ -1,12 +1,12 @@
 import { CHAT_MODELS, SUBMISSIONS_REQUEST, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
 import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
 import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
+import { StatusChatMessage } from "#/app/chat/lib/types";
 import {
   DEFAULT_BOT_MEMORY,
   DEFAULT_SUBMISSIONS_MEMORY,
   DEFAULT_SUGGESTIONS_MEMORY,
 } from "#/lib/constants/settings";
-import { StatusChatMessage } from "#/lib/types";
 import { Bot } from "#/lib/types/cms";
 import { encode } from "gptoken";
 
