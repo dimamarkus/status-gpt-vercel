@@ -9,7 +9,12 @@ import {
 import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { createChatMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { createOpenAiStream } from "#/app/chat/lib/helpers/createOpenAiStream";
-import { OpenAiChatRequest, OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
+import {
+  GptMessage,
+  OpenAiChatRequest,
+  OpenAiRequest,
+  OpenAiResponse,
+} from "#/app/chat/lib/openai";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
@@ -39,11 +44,12 @@ export default async function handler(req: NextRequest) {
   const trainingContent = collateBotTraining(bot);
   const { role, content } = createChatMessage("system", trainingContent);
   const maxTokens = max_tokens || (getBotParam(bot, "max_tokens") as number);
+  const sanitizedChatLog = chatLog.map(({ role, content }) => ({ role, content: content.trim() }));
   const chatLogWithTraining = [
     { role, content }, // Training Messages
-    ...chatLog, // Conversation history
+    ...sanitizedChatLog, // Conversation history
     { role: "system", content: `Use no more than ${maxTokens * 0.75} word.` }, // How long to make the response
-  ];
+  ] as GptMessage[];
 
   const chatLogToSend = useChatApi
     ? { messages: chatLogWithTraining }
