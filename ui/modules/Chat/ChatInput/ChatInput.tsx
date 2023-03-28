@@ -120,7 +120,7 @@ export const ChatInput = (props: ChatInputProps) => {
         text="Start Over"
         type="reset"
         flavor="hollow"
-        className="border-none opacity-50 hover:bg-inherit"
+        className="border-none font-light capitalize opacity-50 hover:bg-inherit"
       />
     </form>
   );

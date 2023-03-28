@@ -20,8 +20,8 @@ export const Tab = ({ path, item }: { path: string; item: Item }) => {
       href={href}
       title={item.title}
       className={clsx("rounded-lg px-3 py-1 text-sm font-medium", {
-        "bg-gray-700 text-gray-100 hover:bg-gray-500 hover:text-white": !isActive,
-        "bg-vercel-blue text-white": isActive,
+        "bg-transparent text-cyan-900 hover:bg-gray-500 hover:text-white": !isActive,
+        "bg-accent text-white": isActive,
       })}
     >
       {item.text}
