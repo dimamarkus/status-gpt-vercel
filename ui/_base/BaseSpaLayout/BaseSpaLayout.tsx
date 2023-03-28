@@ -3,7 +3,7 @@ import clsx from "clsx";
 import React from "react";
 import { interFont, tiemposHeadlineFont } from "#/app/fonts";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
+import { useLayoutContext } from "#/lib/contexts/LayoutContext";
 import { useSidebarContext } from "#/lib/contexts/SidebarContext";
 import BaseLayout from "#/ui/_base/BaseLayout/BaseLayout";
 
@@ -15,7 +15,7 @@ type BaseSpaLayoutProps = {
 export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) => {
   const { sidebar } = useSidebarContext();
   const { features } = useFeatureToggleContext();
-  const { isFullScreen, toggleFullScreen } = useFullScreenContext();
+  const { isFullScreen, toggleFullScreen } = useLayoutContext();
   const darkMode = features.theme === "dark";
   const globalFont = "font-" + features.font;
 

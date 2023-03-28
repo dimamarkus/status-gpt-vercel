@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
-import { FullScreenContextProvider } from "#/lib/contexts/FullScreenContext";
+import { LayoutContextProvider } from "#/lib/contexts/LayoutContext";
 import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
 import "#/styles/index.scss";
 import GoogleAnalytics from "#/ui/atoms/util/GoogleAnalytics";
@@ -18,7 +18,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <GoogleAnalytics />
       <FeatureToggleContextProvider>
         <LanguageContextProvider>
-          <FullScreenContextProvider>{children}</FullScreenContextProvider>
+          <LayoutContextProvider>{children}</LayoutContextProvider>
         </LanguageContextProvider>
       </FeatureToggleContextProvider>
     </html>

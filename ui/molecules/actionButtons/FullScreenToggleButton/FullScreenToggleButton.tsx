@@ -1,16 +1,16 @@
 import { ArrowsPointingInIcon, ArrowsPointingOutIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import styles from "./FullScreenToggleButton.module.scss";
-import { useFullScreenContext } from "#/lib/contexts/FullScreenContext";
+import { useLayoutContext } from "#/lib/contexts/LayoutContext";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 
 export const FullScreenToggleButton = ({ className }: { className?: string }) => {
-  const { isFullScreen, toggleFullScreen } = useFullScreenContext();
+  const { isFullScreen, toggleFullScreen } = useLayoutContext();
 
   return (
     <BaseButton
       flavor="icon"
-      className={clsx(styles.root, className, "opacity-50 hover:opacity-100")}
+      className={className}
       onClick={() => toggleFullScreen()}
       title={(!isFullScreen ? "Enter" : "Exit") + " Full-screen"}
       icon={

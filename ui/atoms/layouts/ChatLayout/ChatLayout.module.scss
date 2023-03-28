@@ -1,37 +1,9 @@
 .root {
-  @apply flex;
-  @apply h-full;
-  @apply max-h-full;
-  @apply flex-col;
-  @apply overflow-hidden;
-  @apply md:rounded;
-  @apply bg-blue-100;
-  @apply drop-shadow-lg;
-  @apply lg:flex-row;
-
   h3 {
     font-size: var(--font-size-sm);
   }
 
-  & .fullScreenToggle {
-    @apply absolute;
-    @apply z-10;
-    @apply -top-1;
-    @apply -right-1;
-    @apply md:top-3;
-    @apply md:right-3;
-  }
-
   & > div {
-    @apply relative;
-    @apply order-last;
-    @apply flex;
-    @apply h-full;
-    @apply flex-col;
-    @apply md:order-first;
-    @apply md:p-4;
-    @apply lg:w-9/12;
-
     // Style the parsed markdown
     p {
       font-size: inherit;
@@ -41,23 +13,11 @@
     }
   }
 
-  & > aside {
-    @apply flex;
-    @apply flex-col;
-    @apply justify-start;
-    @apply p-2;
-    @apply pr-1;
-    @apply md:justify-end;
-    @apply lg:w-3/12;
-    @apply md:p-4;
-    @apply md:pl-2;
-  }
-
-  &.fullScreen {
-    @apply absolute;
-    @apply left-0;
-    @apply top-0;
-    height: 100vh;
-    width: 100vw;
-  }
+  // &.fullScreen {
+  //   @apply absolute;
+  //   @apply left-0;
+  //   @apply top-0;
+  //   height: 100vh;
+  //   width: 100vw;
+  // }
 }
