@@ -1,5 +1,5 @@
 import { GPT_MODELS_URL } from "#/app/chat/lib/constants";
-import { OpenAiModelResponse } from "#/app/chat/lib/openai";
+import { OpenAiModelResponse } from "#/app/chat/lib/types";
 import { makeGetRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { NextApiRequest, NextApiResponse } from "next";
 

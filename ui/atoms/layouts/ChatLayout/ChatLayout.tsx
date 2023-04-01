@@ -1,13 +1,11 @@
 "use client";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
-import BaseButton from "#/ui/_base/BaseButton/BaseButton";
-import Duo from "#/ui/_base/Duo/Duo";
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowsPointingInIcon,
-  ArrowsPointingOutIcon,
-} from "@heroicons/react/24/outline";
+import { useIsMobile } from "#/lib/hooks/useIsMobile";
+import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
+import ChatHeader from "#/ui/modules/Chat/ChatHeader/ChatHeader";
+import ChatInputAlt from "#/ui/modules/Chat/ChatInput/ChatInput";
+import ChatSidebar from "#/ui/modules/ChatSidebar/ChatSidebar";
+import ChatSidebarHeader from "#/ui/modules/ChatSidebar/ChatSidebarHeader";
 import clsx from "clsx";
 import React from "react";
 import styles from "./ChatLayout.module.scss";
@@ -17,51 +15,42 @@ type ChatLayoutProps = {
   sidebar?: React.ReactNode;
 };
 
+const DEFAULT_SIDEBAR = "chat_sidebar";
+
 const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
-  const { isFullScreen, toggleFullScreen, hasSidebar, toggleSidebar } = useLayoutContext();
+  const { isFullScreen, hasSidebar, toggleSidebar } = useLayoutContext();
+  const isMobile = useIsMobile();
+  const ref = useOutsideClick<HTMLDivElement>(() => isMobile && toggleSidebar());
 
   const rootStyles = clsx(
-    "flex h-full max-h-full flex-col overflow-hidden md:rounded bg-blue-100 drop-shadow-lg lg:flex-row dark:border-none dark:bg-base-300",
+    "flex h-full max-h-full overflow-hidden md:rounded  drop-shadow-lg lg:flex-row dark:border-none ",
+    "bg-blue-100 dark:bg-base-300",
     isFullScreen && "absolute left-0 top-0 w-full h-full",
   );
 
-  const asideStyles = clsx(
-    "flex flex-col justify-start p-2 pr-1 md:justify-end md:p-4 md:pl-2 hidden md:flex",
+  const sidebarStyles = clsx(
+    "flex flex-col justify-start p-2 pr-1 md:justify-end md:p-4 md:pl-2 md:pt-2 pt-10",
+    "md:relative absolute right-0 h-full",
+    "text-blue-900 dark:text-blue-200/100 bg-blue-100",
     hasSidebar ? "lg:w-3/12" : "",
   );
 
   const mainContentStyles = "relative order-last flex h-full flex-col md:order-first md:p-4 w-full";
 
-  const fullscreenToggleStyles = "z-10 md:top-2 md:left-2 p-2";
-
-  const sidebarToggleStyles = clsx(
-    "top-5 z-50 h-7 w-7 cursor-pointer sm:top-0.5 sm:h-8 sm:w-8",
-    hasSidebar ? "left-[270px] sm:left-[270px]" : "left-4 sm:left-4 ",
-  );
-
   return (
     <div className={clsx(styles.root, rootStyles, isFullScreen && styles.fullScreen)}>
-      <div className={mainContentStyles}>
-        <Duo gap="full" className="absolute w-full pr-[2rem]">
-          <BaseButton
-            className={fullscreenToggleStyles}
-            flavor="icon"
-            icon={!isFullScreen ? <ArrowsPointingOutIcon /> : <ArrowsPointingInIcon />}
-            onClick={() => toggleFullScreen()}
-            theme="secondary"
-            title={(!isFullScreen ? "Enter" : "Exit") + " Full-screen"}
-          />
-          <BaseButton
-            className={sidebarToggleStyles}
-            flavor="icon"
-            icon={!hasSidebar ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-            onClick={toggleSidebar}
-            theme="secondary"
-          />
-        </Duo>
+      <section className={mainContentStyles}>
+        <ChatHeader />
         {children}
-      </div>
-      {hasSidebar && <aside className={asideStyles}>{sidebar}</aside>}
+        <ChatInputAlt />
+      </section>
+      {hasSidebar && (
+        <aside className={sidebarStyles} ref={ref}>
+          <ChatSidebarHeader />
+          <ChatSidebar />
+          {sidebar}
+        </aside>
+      )}
     </div>
   );
 };

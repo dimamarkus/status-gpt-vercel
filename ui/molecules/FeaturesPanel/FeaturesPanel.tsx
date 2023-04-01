@@ -1,5 +1,5 @@
 "use client";
-import { OpenAiModel } from "#/app/chat/lib/openai";
+import { OpenAiModel } from "#/app/chat/lib/types";
 import {
   BooleanFeatures,
   SelectFeatures,
@@ -30,7 +30,7 @@ const FeaturesPanel = () => {
     setFeatures(newFeatures);
   };
 
-  const ref = useOutsideClick(() => toggleShowFeatures());
+  const ref = useOutsideClick<HTMLDivElement>(() => toggleShowFeatures());
 
   const toggleButton = (
     <BaseButton

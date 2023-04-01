@@ -1,4 +1,4 @@
-import { GptMessage } from "#/app/chat/lib/openai";
+import { GptMessage } from "#/app/chat/lib/types";
 
 export interface ResponseError extends Error {
   status: number;

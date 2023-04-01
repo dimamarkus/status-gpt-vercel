@@ -9,10 +9,6 @@ type LanguageSelectProps = {
   className?: string;
 };
 
-export type ChatFormFields = {
-  chatInput: string;
-};
-
 export const LanguageSelect = (props: LanguageSelectProps) => {
   const { selectedLanguage, setSelectedLanguage } = useLanguageContext();
   const { getAnswer } = useChatContext();

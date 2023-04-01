@@ -11,17 +11,17 @@ import {
   OpenAiModel,
   OpenAiRequest,
   OpenAiResponse,
-} from "#/app/chat/lib/openai";
+} from "#/app/chat/lib/types";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { useRequestStream } from "#/lib/hooks/useRequestStream";
 import { StatusChatMessage } from "#/app/chat/lib/types";
 import { Bot } from "#/lib/types/cms";
-import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event } from "nextjs-google-analytics";
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
+import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 
 export const USER_INPUT_FIELD_ID = "chatInput";
 

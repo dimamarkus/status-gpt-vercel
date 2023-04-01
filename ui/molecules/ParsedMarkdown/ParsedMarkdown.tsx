@@ -1,47 +1,74 @@
-"use client";
+import { CodeBlock } from "#/ui/molecules/CodeBlock/CodeBlock";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
-import { remark } from "remark";
-import html from "remark-html";
-import styles from "./ParsedMarkdown.module.scss";
+import { FC, memo } from "react";
+import ReactMarkdown, { Options } from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 
-type ParsedMarkdownProps = {
-  content: any;
+type ParsedMarkdown2Props = {
+  content: string;
   className?: string;
-  children?: React.ReactNode;
 };
 
-export const ParsedMarkdown = ({ content, className }: ParsedMarkdownProps) => {
-  const [mdContent, setMdContent] = useState("");
+export const MemoizedReactMarkdown: FC<Options> = memo(ReactMarkdown);
 
-  useEffect(() => {
-    async function getMarkdown() {
-      const processedContent = await remark().use(html).process(content);
-      const contentHtml = processedContent.toString();
-      setMdContent(contentHtml);
-    }
-
-    getMarkdown();
-  }, [content, mdContent]);
-
-  if (!content) {
-    return null;
-  }
+export const ParsedMarkdown2 = (props: ParsedMarkdown2Props) => {
+  const { content, className } = props;
 
   // Open all parsed markdown links in a new tab
   if (typeof window === "object") {
-    const links = document.querySelectorAll("#dangerous-html a");
+    const links = document.querySelectorAll(".parsedMarkdown a");
     links.forEach(function (link) {
       link.setAttribute("target", "_blank");
     });
   }
 
   return (
-    <div
-      id="dangerous-html"
-      dangerouslySetInnerHTML={{ __html: mdContent }}
-      className={clsx(styles.ParsedMarkdown, "prose", className)}
-    />
+    <MemoizedReactMarkdown
+      className={clsx("parsedMarkdown prose dark:prose-invert", className)}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      components={{
+        code({ node, inline, className, children, ...props }) {
+          const match = /language-(\w+)/.exec(className || "");
+
+          return !inline && match ? (
+            <CodeBlock
+              key={Math.random()}
+              language={match[1]}
+              value={String(children).replace(/\n$/, "")}
+              {...props}
+            />
+          ) : (
+            <code className={className} {...props}>
+              {children}
+            </code>
+          );
+        },
+        table({ children }) {
+          return (
+            <table className="border-collapse border border-black py-1 px-3 dark:border-white">
+              {children}
+            </table>
+          );
+        },
+        th({ children }) {
+          return (
+            <th className="break-words border border-black bg-gray-500 py-1 px-3 text-white dark:border-white">
+              {children}
+            </th>
+          );
+        },
+        td({ children }) {
+          return (
+            <td className="break-words border border-black py-1 px-3 dark:border-white">
+              {children}
+            </td>
+          );
+        },
+      }}
+    >
+      {content}
+    </MemoizedReactMarkdown>
   );
 };
-export default ParsedMarkdown;
+export default ParsedMarkdown2;

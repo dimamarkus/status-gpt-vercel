@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import styles from "./ChatRangeInput.module.scss";
@@ -12,13 +13,14 @@ export type ChatRangeInputProps<TFormValues extends FieldValues> = {
    */
   register?: UseFormRegister<TFormValues>;
   children?: React.ReactNode;
+  className?: string;
 };
 
 export const ChatRangeInput = <TFormValues extends Record<string, any>>(
   props: ChatRangeInputProps<TFormValues>,
 ): JSX.Element => {
   const steps = [1, 2, 3];
-  const { register, name, min = 25, max, currentValue } = props;
+  const { register, name, min = 25, max, currentValue, className } = props;
   const fieldProps = register
     ? register(name)
     : {
@@ -39,7 +41,10 @@ export const ChatRangeInput = <TFormValues extends Record<string, any>>(
   return (
     <label
       htmlFor={name}
-      className="mx-auto mb-4 flex w-1/2 cursor-pointer flex-col md:mb-2 md:w-1/4"
+      className={clsx(
+        "mx-auto mb-4 flex w-1/2 cursor-pointer flex-col md:mb-2 md:w-1/4",
+        className,
+      )}
     >
       <small className="font-regular pb-1 text-center text-primary">Response Length</small>
       <input
@@ -47,7 +52,7 @@ export const ChatRangeInput = <TFormValues extends Record<string, any>>(
         type="range"
         min={min}
         max={max}
-        className="range range-primary range-sm opacity-75 focus:opacity-50"
+        className="range range-primary range-sm opacity-25 focus:opacity-50"
         step={stepSize}
         {...fieldProps}
       />

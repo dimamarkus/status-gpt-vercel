@@ -1,4 +1,4 @@
-import { OpenAiModel } from "#/app/chat/lib/openai";
+import { OpenAiModel } from "#/app/chat/lib/types";
 import {
   BaseStrapiResource,
   SchemaUID,

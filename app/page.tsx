@@ -1,5 +1,6 @@
 import { DEFAULT_CHAT_BOT } from "#/lib/constants/settings";
 import { ChatContextProvider } from "#/lib/contexts/ChatContext";
+import { ConversationsContextProvider } from "#/lib/contexts/ConversationContext";
 import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
@@ -25,10 +26,6 @@ export default async function HomePage() {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
   const startTime = await getData();
 
-  const botAvatarUrl = !!bot?.avatar?.data
-    ? getMediaUrl(bot.avatar.data.attributes.url)
-    : undefined;
-
   const sidebar = (
     <>
       {/* {areAssumptionsShown && <ChatAssumptions />} */}
@@ -39,14 +36,16 @@ export default async function HomePage() {
 
   return (
     <LandingLayout>
-      <ChatContextProvider bot={bot}>
-        <ChatLayout sidebar={sidebar}>
-          <ChatMessages botAvatarUrl={botAvatarUrl} startTime={startTime} className="h-full" />
-          <ChatSuggestions className="lg:hidden" />
-          <ChatSubmissions />
-          <ChatInput />
-        </ChatLayout>
-      </ChatContextProvider>
+      <ConversationsContextProvider bot={bot}>
+        <ChatContextProvider bot={bot}>
+          <ChatLayout sidebar={sidebar}>
+            <ChatMessages startTime={startTime} className="h-full" />
+            <ChatSuggestions className="lg:hidden" />
+            <ChatSubmissions />
+            <ChatInput />
+          </ChatLayout>
+        </ChatContextProvider>
+      </ConversationsContextProvider>
     </LandingLayout>
   );
 }

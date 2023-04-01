@@ -1,4 +1,4 @@
-import { OpenAiModelResponse } from "#/app/chat/lib/openai";
+import { OpenAiModelResponse } from "#/app/chat/lib/types";
 import { makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { MODELS_ENDPOINT } from "#/pages/api/chat/models";
 

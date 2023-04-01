@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import ChatInput from "./ChatInput";
+import ChatInputAlt from "./ChatInput";
 
-const meta: Meta<typeof ChatInput> = {
-  component: ChatInput,
+const meta: Meta<typeof ChatInputAlt> = {
+  component: ChatInputAlt,
   tags: ["autodocs"],
   args: {},
 };
 
 export default meta;
-type Story = StoryObj<typeof ChatInput>;
+type Story = StoryObj<typeof ChatInputAlt>;
 
 export const Default: Story = {
   args: {},

@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react";
 
 // Put the ref on the element you want to detect clicks outside of
 // When clicking outside of the element, the callback will be called
-export const useOutsideClick = (callback: () => void) => {
-  const ref = useRef<HTMLDivElement>(null);
+export const useOutsideClick = <T extends HTMLElement>(callback: () => void) => {
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
+      if (ref.current && !ref.current.contains(event.target as T)) {
         callback();
       }
     };
@@ -21,3 +21,14 @@ export const useOutsideClick = (callback: () => void) => {
 
   return ref;
 };
+
+/**
+ * Usage:
+ *
+ *    const ref = useOutsideClick(() => doSomething());
+ *
+ *    return (
+ *      <input ref={ref} />
+ *    )
+ *
+ */

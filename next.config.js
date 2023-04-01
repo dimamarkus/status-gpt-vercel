@@ -1,3 +1,4 @@
+const { i18n } = require("./next-i18next.config");
 const dns = require("dns");
 
 dns.setDefaultResultOrder("ipv4first");
@@ -7,6 +8,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 /** @type {import('next').NextConfig} */
 const nextConfig = withBundleAnalyzer({
+  // i18n,
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   swcMinify: true,
   experimental: {
@@ -21,6 +23,14 @@ const nextConfig = withBundleAnalyzer({
       "ai.statusmoney.com",
       "statusmoney-cms.s3.us-west-2.amazonaws.com",
     ],
+  },
+  webpack(config, { isServer, dev }) {
+    config.experiments = {
+      asyncWebAssembly: true,
+      layers: true,
+    };
+
+    return config;
   },
 });
 

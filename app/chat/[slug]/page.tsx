@@ -1,16 +1,12 @@
-import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
-import { ChatContextProvider } from "#/lib/contexts/ChatContext";
+import { getTitlePrefix } from "#/app/metadata";
+import { ConversationsContextProvider } from "#/lib/contexts/ConversationContext";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
-import { getMediaUrl } from "#/lib/helpers/url-helpers";
 import { Bot } from "#/lib/types/cms";
 import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
-import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
+import ChatInputAlt from "#/ui/modules/Chat/ChatInput/ChatInput";
 import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
-import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
-import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { getTitlePrefix } from "#/app/metadata";
+import ChatSidebar from "#/ui/modules/ChatSidebar/ChatSidebar";
 
 type BotPageProps = {
   params: {
@@ -36,26 +32,13 @@ export async function generateMetadata({ params }: BotPageProps) {
 
 export default async function BotPage({ params }: BotPageProps) {
   const currentBot = await fetchBot(params.slug);
-  const botAvatarUrl = !!currentBot?.avatar?.data
-    ? getMediaUrl(currentBot.avatar.data.attributes.url)
-    : undefined;
-
-  const sidebar = (
-    <>
-      {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      <ChatStats />
-      <ChatSuggestions className="hidden md:block" />
-    </>
-  );
 
   return (
-    <ChatContextProvider bot={currentBot}>
-      <ChatLayout sidebar={sidebar}>
-        <ChatMessages botAvatarUrl={botAvatarUrl} className="h-full" />
-        <ChatSuggestions className="lg:hidden" />
+    <ConversationsContextProvider bot={currentBot}>
+      <ChatLayout>
+        <ChatMessages />
         <ChatSubmissions />
-        <ChatInput />
       </ChatLayout>
-    </ChatContextProvider>
+    </ConversationsContextProvider>
   );
 }

@@ -1,5 +1,5 @@
 import { ADA_MODEL, GPT3_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
-import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/openai";
+import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/types";
 import { Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
@@ -32,8 +32,8 @@ export const DEFAULT_BOT_MEMORY = 6;
 export const DEFAULT_SUGGESTIONS_MODEL: OpenAiModel = ADA_MODEL as OpenAiModel;
 export const DEFAULT_SUGGESTIONS_MEMORY = 3;
 
-export const DEFAULT_SUBMISSIONS_MODEL: OpenAiModel = ADA_MODEL as OpenAiModel;
-export const DEFAULT_SUBMISSIONS_MEMORY = 3;
+export const SUGGESTIONS_PROMPT_SIZE: OpenAiModel = ADA_MODEL as OpenAiModel;
+export const SUBMISSIONS_PROMPT_SIZE = 3;
 
 export const DEFAULT_GPT_SETTINGS: OpenAiRequest = {
   model: GPT3_MODEL as OpenAiModel,

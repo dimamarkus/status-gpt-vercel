@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { GPT3_MODEL, DEFAULT_SUBMISSIONS, EXAMPLE_PROMPTS } from "#/app/chat/lib/constants";
 import { createSubmissionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
-import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/openai";
+import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/types";
 import { findArrayInString, findJsonInString } from "#/lib/helpers/string-helpers";
 import { StatusChatMessage } from "#/app/chat/lib/types";
 import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";

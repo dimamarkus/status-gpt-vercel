@@ -1,4 +1,4 @@
-import { OpenAiRequest } from "#/app/chat/lib/openai";
+import { OpenAiRequest } from "#/app/chat/lib/types";
 import { BOT_TRAINING_ORDER, DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import {
   Bot,

@@ -1,16 +1,17 @@
 .root {
   --header-height: 96px;
-  --mobile-header-height: 82px;
+  --mobile-header-height: 64px;
 
   @apply m-auto;
   @apply w-full;
   @apply max-w-6xl;
+  @apply h-full;
 
   main {
     @apply flex;
     @apply max-h-full;
     @apply flex-col;
-    height: calc(100% - var(--header-height));
+    height: calc(100vh - var(--header-height));
     @media screen and (max-width: 1024px) {
       height: calc(100% - var(--mobile-header-height));
     }

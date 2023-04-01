@@ -1,5 +1,5 @@
 "use client";
-import { OpenAiModel } from "#/app/chat/lib/openai";
+import { OpenAiModel } from "#/app/chat/lib/types";
 import { DEFAULT_FEATURES } from "#/lib/constants/settings";
 import { useLocalStorage } from "#/lib/hooks/useStorage";
 import { createContext, useContext, useEffect, useState } from "react";

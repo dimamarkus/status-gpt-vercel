@@ -1,4 +1,4 @@
-import { OpenAiApiStatusResponse } from "#/app/chat/lib/openai";
+import { OpenAiApiStatusResponse } from "#/app/chat/lib/types";
 import { updateChatSettings } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { ChatApiHealth } from "#/lib/types/cms";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -15,7 +15,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { component } = req.body as OpenAiApiStatusResponse;
 
-    if (component && component.name === "api") {
+    // if (component && component.name === "api") {
+    if (component) {
       let api_health: ChatApiHealth = "unknown";
       const { status } = component;
 

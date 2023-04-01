@@ -1,11 +1,10 @@
 "use client";
-import clsx from "clsx";
-import React from "react";
 import { interFont, tiemposHeadlineFont } from "#/app/fonts";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
-import { useSidebarContext } from "#/lib/contexts/SidebarContext";
 import BaseLayout from "#/ui/_base/BaseLayout/BaseLayout";
+import clsx from "clsx";
+import React from "react";
 
 type BaseSpaLayoutProps = {
   children?: React.ReactNode;
@@ -13,7 +12,6 @@ type BaseSpaLayoutProps = {
 };
 
 export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) => {
-  const { sidebar } = useSidebarContext();
   const { features } = useFeatureToggleContext();
   const { isFullScreen, toggleFullScreen } = useLayoutContext();
   const darkMode = features.theme === "dark";
@@ -30,7 +28,6 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
       className={clsx(globalFont, className, darkMode && "dark")}
       theme={features.theme}
       onKeyDown={handleKeyDown}
-      sidebar={sidebar}
     >
       <style jsx global>
         {`

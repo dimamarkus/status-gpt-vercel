@@ -11,7 +11,16 @@ import styles from "./ChatMessage.module.scss";
 import ChatSpeakButton from "#/ui/atoms/buttons/ChatSpeakButton/ChatSpeakButton";
 import Duo from "#/ui/_base/Duo/Duo";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { GptRole } from "#/app/chat/lib/openai";
+import { GptRole } from "#/app/chat/lib/types";
+import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { getMediaUrl } from "#/lib/helpers/url-helpers";
+import ParsedMarkdown2 from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { ChatMessageEdit } from "#/ui/modules/Chat/ChatMessageEdit/ChatMessageEdit";
+import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import { ArrowPathRoundedSquareIcon, PencilIcon, StopIcon } from "@heroicons/react/24/solid";
 
 type ChatMessageProps = Omit<StatusChatMessage, "role"> & {
   role?: GptRole;
@@ -24,19 +33,35 @@ type ChatMessageProps = Omit<StatusChatMessage, "role"> & {
    * The server time passed to the first message in the chat log.
    */
   time?: string;
+  /**
+   * The index of this messages in the context of the conversation
+   * Used to edit the message
+   */
+  messageIndex?: number;
   className?: string;
+  onRegenerate?: () => void;
+  onStop?: () => void;
 };
 
 export const ChatMessage = (props: ChatMessageProps) => {
   const { features } = useFeatureToggleContext();
+  const {
+    dataState: { bot },
+  } = useConversationsContext();
   const speechContext = useSpeechSynthesis();
   const { speaking, cancel } = speechContext;
+  const { t } = useTranslation("chat");
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
 
   if (!props.content) {
     return null;
   }
 
-  const { avatarUrl, content, role, tokens, isTalking, time, className } = props;
+  const avatarUrl = !!bot?.avatar?.data ? getMediaUrl(bot.avatar.data.attributes.url) : undefined;
+
+  const { content, role, tokens, isTalking, time, className, messageIndex, onRegenerate, onStop } =
+    props;
 
   const isUser = role === "user";
   const isSystem = role === "system";
@@ -58,8 +83,32 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const buttonStyles = isUser ? "text-left" : "text-right";
 
+  const regenerateButton = onRegenerate && !isUser && !isSystem && (
+    <BaseButton
+      flavor="icon"
+      icon={<ArrowPathRoundedSquareIcon />}
+      onClick={onRegenerate}
+      title="Regenerate response"
+    />
+  );
+
+  const stopButton = onStop && (
+    <BaseButton
+      flavor="icon"
+      icon={<StopIcon />}
+      onClick={onStop}
+      title="Regenerate response"
+      className="absolute left-0 right-0"
+    />
+  );
+
   return (
-    <article className={rootStyles} dir="ltr">
+    <li
+      className={rootStyles}
+      dir="ltr"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
       <ChatMessageAvatar
         avatarUrl={avatarUrl}
         isTalking={isTalking || speaking}
@@ -74,18 +123,42 @@ export const ChatMessage = (props: ChatMessageProps) => {
         {features.showTokens && tokens && (
           <>
             <small className="text-xs text-neutral-400">|</small>
-            <small className="text-xs text-orange-500">{tokens} Tokens</small>
+            <small className="text-xs text-orange-500">
+              {tokens} {t("Tokens")}
+            </small>
           </>
         )}
       </div>
       <div className={bubbleStyles}>
-        <ParsedMarkdown content={content} className={bubbleContentStyles} />
-        <Duo gap="full" centered>
-          {!isUser && <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />}
-          <CopyButton content={content} className={buttonStyles} />
-        </Duo>
+        {isEditing && messageIndex ? (
+          <ChatMessageEdit
+            message={createChatMessage("user", content)}
+            messageIndex={messageIndex}
+            setEditModeOff={() => setIsEditing(false)}
+          />
+        ) : (
+          <>
+            <ParsedMarkdown2 content={content} className={bubbleContentStyles} />
+            <Duo gap="full" centered className={isHovering ? "opacity-1" : "opacity-0"}>
+              {!isUser ? (
+                <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
+              ) : (
+                <BaseButton
+                  className="mr-auto"
+                  flavor="icon"
+                  icon={<PencilIcon />}
+                  onClick={() => setIsEditing(true)}
+                  theme="secondary"
+                />
+              )}
+              <CopyButton content={content} className={buttonStyles} />
+            </Duo>
+            {regenerateButton}
+            {stopButton}
+          </>
+        )}
       </div>
-    </article>
+    </li>
   );
 };
 export default ChatMessage;

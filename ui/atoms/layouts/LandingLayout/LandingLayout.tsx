@@ -17,7 +17,7 @@ export const LandingLayout = ({ children, ssr, className }: LandingLayoutProps) 
   const Component = ssr ? BaseLayout : BaseSpaLayout;
   return (
     <Component>
-      <div className={clsx(styles.root, "drawer-content", className)}>
+      <div className={clsx(styles.root, className)}>
         <TopBar />
         <main role="main">
           {/* @ts-expect-error Async Server Component */}

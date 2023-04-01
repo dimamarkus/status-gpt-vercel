@@ -1,16 +1,8 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Bilt-in useEffect executes every time a property in the dependency array changes,
- * but also on the initial render of the component. Sometimes we want to prevent that.
- * For example, to reduce those pesky rerenders that slow down our app. Or maybe you
- * don’t need to fetch API data on each rerender, but only when certain state changes?
- * Here’s a solution for that:
- * We’re basically making use of useRef to keep track of isInitialMount ref and checking
- * it in the useEffect. We can pass any callback function to our custom hook along with
- * a dependency array.
+ * Like useEffect, but doesn't fire on initial render.
  */
-
 export default function useUpdateEffect(effect: Function, dependencyArray: Array<any> = []) {
   const isInitialMount = useRef(true);
 
@@ -23,6 +15,17 @@ export default function useUpdateEffect(effect: Function, dependencyArray: Array
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencyArray);
 }
+
+/**
+ * Bilt-in useEffect executes every time a property in the dependency array changes,
+ * but also on the initial render of the component. Sometimes we want to prevent that.
+ * For example, to reduce those pesky rerenders that slow down our app. Or maybe you
+ * don’t need to fetch API data on each rerender, but only when certain state changes?
+ * Here’s a solution for that:
+ * We’re basically making use of useRef to keep track of isInitialMount ref and checking
+ * it in the useEffect. We can pass any callback function to our custom hook along with
+ * a dependency array.
+ */
 
 /**
  * Here is a simple use case for that hook—we have a component that displays a value,

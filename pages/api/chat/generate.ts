@@ -7,7 +7,7 @@ import {
   OpenAiCompletionResponse,
   OpenAiRequest,
   OpenAiResponse,
-} from "#/app/chat/lib/openai";
+} from "#/app/chat/lib/types";
 import { makePostRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { NextApiResponse } from "next";
 

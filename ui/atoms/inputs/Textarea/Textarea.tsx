@@ -83,6 +83,7 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
       size="sm"
       theme={listening ? "primary" : "secondary"}
       className={clsx("z-4 absolute right-1 top-1", listening && "animate-pulse")}
+      title="Hold to speak"
     />
   );
 

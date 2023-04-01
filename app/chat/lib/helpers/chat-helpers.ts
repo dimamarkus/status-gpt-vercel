@@ -1,11 +1,17 @@
-import { CHAT_MODELS, SUBMISSIONS_REQUEST, SUGGESTIONS_REQUEST } from "#/app/chat/lib/constants";
+import {
+  CHAT_MODELS,
+  EMPTY_CONVERSATION,
+  SUBMISSIONS_REQUEST,
+  SUGGESTIONS_REQUEST,
+} from "#/app/chat/lib/constants";
 import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
-import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/openai";
-import { StatusChatMessage } from "#/app/chat/lib/types";
+import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/types";
+import { ConversationsDataState } from "#/app/chat/lib/reducer";
+import { Conversation, StatusChatMessage } from "#/app/chat/lib/types";
 import {
   DEFAULT_BOT_MEMORY,
-  DEFAULT_SUBMISSIONS_MEMORY,
   DEFAULT_SUGGESTIONS_MEMORY,
+  SUBMISSIONS_PROMPT_SIZE,
 } from "#/lib/constants/settings";
 import { Bot } from "#/lib/types/cms";
 import { encode } from "gptoken";
@@ -42,14 +48,14 @@ export const createSuggestionsPrompt = (context: StatusChatMessage[]) => {
 export const createSubmissionsPrompt = (context: StatusChatMessage[]) => {
   const messages = context
     .slice(1)
-    .slice(DEFAULT_SUBMISSIONS_MEMORY)
+    .slice(SUBMISSIONS_PROMPT_SIZE)
     .map(({ role, content }) => ({ role, content }));
   const messageQuery = [...messages, { role: "user", content: SUBMISSIONS_REQUEST } as GptMessage];
 
   return messageQuery;
 };
 
-export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | null => {
+export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | [] => {
   if (!bot) return [];
 
   const trainingContent = collateBotTraining(bot);
@@ -61,6 +67,37 @@ export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | null
 
   return startingChatLog;
 };
+
+export const filterConversationsData = (
+  data: ConversationsDataState,
+  searchQuery: string,
+): ConversationsDataState => {
+  const { folders, rootConversations } = data;
+  const filteredFolders = folders.filter(
+    (folder) => filterConversations(folder.conversations, searchQuery).length > 0,
+  );
+  const filteredRootConversations = filterConversations(rootConversations, searchQuery);
+  return { folders: filteredFolders, rootConversations: filteredRootConversations };
+};
+
+export const filterConversations = (
+  conversations: Conversation[],
+  searchQuery: string,
+): Conversation[] => {
+  return conversations.filter((conversation) => {
+    const searchable =
+      conversation.name.toLocaleLowerCase() +
+      " " +
+      conversation.messages.map((message) => message.content).join(" ");
+    return searchable.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+};
+
+export const generateEmptyConversation = (bot?: Bot | null): Conversation => ({
+  ...EMPTY_CONVERSATION,
+  id: Date.now(),
+  messages: getStartingChatLog(bot),
+});
 
 export const compileChatMessages = (
   messages: StatusChatMessage[] | null,

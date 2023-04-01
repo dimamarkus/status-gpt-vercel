@@ -1,14 +1,15 @@
 "use client";
-import clsx from "clsx";
-import { useEffect } from "react";
-import styles from "./ChatMessages.module.scss";
-import { useChatContext } from "#/lib/contexts/ChatContext";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { ChatMessage } from "#/ui/modules/Chat/ChatMessage/ChatMessage";
+
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import ChatMessage from "#/ui/modules/Chat/ChatMessage/ChatMessage";
+import clsx from "clsx";
+import { FC, useEffect, useRef, useState } from "react";
+import styles from "./ChatMessages.module.scss";
+import { throttle } from "#/lib/functions/throttle";
 
 type ChatMessagesProps = {
-  botAvatarUrl?: string;
   /**
    * The very first timestamp should come from the server to avoid hydration errors
    * Further timestamps are generated on the client
@@ -17,53 +18,108 @@ type ChatMessagesProps = {
   className?: string;
 };
 
-export const ChatMessages = (props: ChatMessagesProps) => {
-  const { botAvatarUrl, startTime, className } = props;
+export const ChatMessages: FC<ChatMessagesProps> = (props) => {
+  const { startTime } = props;
   const { features } = useFeatureToggleContext();
-  const { chatLog, streamedAnswer, loading } = useChatContext();
+  const { appState, appActions, dataState, dataActions } = useConversationsContext();
+  const { answerStream, selectedConversation, loading, textareaRef } = appState;
+  const { submitQuery } = appActions;
+  const { updateConversation } = dataActions;
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLUListElement>(null);
+
+  const { setCurrentMessage } = appActions;
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+
+  const scrollDown = () => {
+    if (autoScrollEnabled) {
+      messagesEndRef.current?.scrollIntoView(true);
+    }
+  };
+  const throttledScrollDown = throttle(scrollDown, 250);
 
   useEffect(() => {
-    // TODO! Doenst work
-    // A little hack to keep the scrolling at the bottom during chat
-    // https://css-tricks.com/books/greatest-css-tricks/pin-scrolling-to-bottom/
-    if (document.scrollingElement) {
-      document.scrollingElement.scroll(0, 1);
-    }
-  }, []);
+    throttledScrollDown();
+    selectedConversation &&
+      setCurrentMessage(selectedConversation.messages[selectedConversation.messages.length - 2]);
+  }, [selectedConversation, setCurrentMessage, throttledScrollDown]);
 
-  const messagesChild = chatLog
-    ? chatLog.map(
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setAutoScrollEnabled(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          textareaRef.current?.focus();
+        }
+      },
+      {
+        root: null,
+        threshold: 0.5,
+      },
+    );
+    const messagesEndElement = messagesEndRef.current;
+    if (messagesEndElement) {
+      observer.observe(messagesEndElement);
+    }
+    return () => {
+      if (messagesEndElement) {
+        observer.unobserve(messagesEndElement);
+      }
+    };
+  }, [messagesEndRef, textareaRef]);
+
+  if (!selectedConversation) {
+    return <div>Loading</div>;
+  }
+
+  // const loadingAnswerMessage = loading ? createChatMessage("assistant", "...") : undefined;
+  const incomingAnswerMessage = answerStream
+    ? createChatMessage("assistant", answerStream)
+    : undefined;
+  // const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
+  const latestMessage = incomingAnswerMessage;
+  console.log("selectedConversation.messages", selectedConversation.messages);
+  return !selectedConversation || !dataState.bot ? (
+    <div>Loading</div>
+  ) : (
+    <ul
+      className={clsx(styles.root, "h-full max-h-full overflow-x-hidden bg-base-100")}
+      ref={chatContainerRef}
+    >
+      {selectedConversation.messages.map(
         (message, index) =>
-          (features.debugMode || message?.role !== "system") && (
+          !(message.role === "system" && !features.debugMode) && (
             <ChatMessage
               key={index}
-              avatarUrl={botAvatarUrl}
               time={index <= 1 ? startTime : undefined}
+              messageIndex={index}
               {...message}
+              onRegenerate={
+                index !== selectedConversation.messages.length - 1 ||
+                selectedConversation.messages.length < 3
+                  ? undefined
+                  : () => {
+                      const messages = selectedConversation.messages.slice(-1);
+                      updateConversation({ ...selectedConversation, messages });
+                      submitQuery(selectedConversation.messages[index - 1], messages);
+                    }
+              }
             />
           ),
-      )
-    : "No chatbot found";
-
-  const loadingAnswerMessage = loading ? createChatMessage("assistant", "...") : undefined;
-  const incomingAnswerMessage = streamedAnswer
-    ? createChatMessage("assistant", streamedAnswer)
-    : undefined;
-  const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
-  return (
-    <section className={clsx(styles.root, className)}>
-      {messagesChild}
-      {!!latestMessage && (
+      )}
+      {latestMessage && (
         <ChatMessage
-          key={chatLog ? chatLog.length + 1 : "latestMessage"}
-          avatarUrl={botAvatarUrl}
-          className={!streamedAnswer && !loading ? "hidden" : ""}
-          isTalking={loading}
+          key={selectedConversation.messages.length + 1}
+          className={!answerStream && !loading ? "hidden" : ""}
+          isTalking={loading || !!answerStream}
           {...latestMessage}
+          onStop={appActions.cancelStream}
         />
       )}
-      <div className={styles.scrollAnchor} />
-    </section>
+
+      <div className="h-[162px]" ref={messagesEndRef} />
+    </ul>
   );
 };
+
 export default ChatMessages;

@@ -1,31 +1,35 @@
 "use client";
 
+import { GPT4_MODEL } from "#/app/chat/lib/constants";
 import { getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
+import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
-import { useChatContext } from "#/lib/contexts/ChatContext";
+import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
-import ChatRangeInput from "#/ui/atoms/inputs/ChatRangeInput/ChatRangeInput";
-import { FormTextarea } from "#/ui/atoms/inputs/Textarea/Textarea";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
-import clsx from "clsx";
-import { useEffect } from "react";
-import styles from "./ChatInput.module.scss";
-
-type ChatInputProps = {
-  className?: string;
-};
+import ChatRangeInput from "#/ui/atoms/inputs/ChatRangeInput/ChatRangeInput";
+import { useTranslation } from "next-i18next";
+import { FC, KeyboardEvent, useEffect, useState } from "react";
 
 export type ChatFormFields = {
-  chatInput: string;
+  [USER_INPUT_FIELD_ID]: string;
   max_tokens: number;
 };
 
-export const ChatInput = (props: ChatInputProps) => {
-  const { className } = props;
-  const { bot, inputFormContext, getAnswer, loading, setShowSuggestions, cancelStream, resetChat } =
-    useChatContext();
+export const ChatInputAlt: FC = () => {
+  const { appState, appActions, dataState } = useConversationsContext();
+  const { answerStream, selectedConversation, textareaRef, formContext } = appState;
+  const { setCurrentMessage, submitQuery, cancelStream } = appActions;
+  const model = selectedConversation?.model || GPT4_MODEL;
+  const { t } = useTranslation("chat");
+  const [content, setContent] = useState<string>();
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const maxTokens = getBotParam(dataState.bot, "max_tokens") as number;
+  const { register, handleSubmit, watch } = formContext;
+  const chatInputProps = register(USER_INPUT_FIELD_ID);
+  const submitMessage = handleSubmit(() => handleSend());
   const isMobile = useIsMobile();
-  const maxTokens = getBotParam(bot, "max_tokens") as number;
+
   useEffect(() => {
     // Autofocus textarea on render
     if (typeof window === "object") {
@@ -33,96 +37,123 @@ export const ChatInput = (props: ChatInputProps) => {
     }
   }, []);
 
-  const handleCancelStream = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    cancelStream();
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    const maxLength = model === GPT4_MODEL ? 12000 : 24000;
+
+    if (value.length > maxLength) {
+      alert(
+        t(
+          `Message limit is {{maxLength}} characters. You have entered {{valueLength}} characters.`,
+          { maxLength, valueLength: value.length },
+        ),
+      );
+      return;
+    }
+
+    setContent(value);
+    chatInputProps.onChange(e);
   };
 
-  if (!inputFormContext) {
-    return null;
-  }
+  const handleSend = () => {
+    if (answerStream) {
+      return;
+    }
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = inputFormContext;
+    if (!content) {
+      alert(t("Please enter a message"));
+      return;
+    }
+    const userMessage = createChatMessage("user", content);
+    setCurrentMessage(userMessage);
+    submitQuery(userMessage);
+    setContent("");
 
-  const submitMessage = handleSubmit(({ chatInput }) => getAnswer(chatInput));
+    if (window.innerWidth < 640 && textareaRef && textareaRef.current) {
+      textareaRef.current.blur();
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!isTyping) {
+      if (e.key === "Enter" && !e.shiftKey && !isMobile) {
+        e.preventDefault();
+        handleSend();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.style.height = "inherit";
+      textareaRef.current.style.height = `${textareaRef.current?.scrollHeight}px`;
+      textareaRef.current.style.overflow = `${
+        textareaRef?.current?.scrollHeight > 400 ? "auto" : "hidden"
+      }`;
+    }
+  }, [content, textareaRef]);
+
+  const wrapperStyles =
+    "absolute bottom-0 left-0 w-full border-transparent bg-gradient-to-b from-transparent via-white to-white pt-6 dark:border-white/20 dark:via-[#343541] dark:to-[#343541] md:pt-2";
+
+  const rootStyles =
+    "stretch mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl";
 
   return (
-    <form
-      className={clsx(styles.root, className, "bg-base-100 px-4 ")}
-      onSubmit={submitMessage}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" && !e.shiftKey && !loading) {
-          submitMessage(e);
-        }
-      }}
-    >
-      {/* {onHamburgerClick && (
-        <BaseButton
-          type="hamburger"
-          className="absolute right-20 top-1 md:right-1"
-          title="Show Assumptions that Stat the AI coach should consider..."
-          onClick={isTablet ? () => setShowAssumptions(!areAssumptionsShown) : undefined}
-        />
-      )} */}
-      <ChatRangeInput<ChatFormFields>
-        register={register}
-        name="max_tokens"
-        max={maxTokens}
-        currentValue={watch("max_tokens")}
-      />
-      <fieldset className="relative">
-        <FormTextarea<ChatFormFields>
-          id={USER_INPUT_FIELD_ID}
-          name={USER_INPUT_FIELD_ID}
-          label="Chat Input"
-          placeholder="Write your message"
-          rules={{ required: "You must write a message first." }}
-          errors={errors}
-          onFocus={() => isMobile && setShowSuggestions(false)}
-          onBlur={() => setShowSuggestions(true)}
-          rows={2}
-          required
-          autoFocus
+    <form className={wrapperStyles} onSubmit={submitMessage}>
+      <div className={rootStyles}>
+        <ChatRangeInput<ChatFormFields>
           register={register}
-          className="ring-black"
-          onListen={(result: string) => inputFormContext.setValue(USER_INPUT_FIELD_ID, result)}
+          name="max_tokens"
+          max={maxTokens}
+          currentValue={watch("max_tokens")}
+          className="absolute -top-2 left-0 right-0"
         />
-        {!loading ? (
+        <div className="relative flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
+          <textarea
+            id={USER_INPUT_FIELD_ID}
+            {...chatInputProps}
+            ref={textareaRef}
+            className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-4 pl-2 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
+            style={{
+              resize: "none",
+              bottom: `${textareaRef?.current?.scrollHeight}px`,
+              maxHeight: "400px",
+              overflow: `${
+                textareaRef.current && textareaRef.current.scrollHeight > 400 ? "auto" : "hidden"
+              }`,
+            }}
+            placeholder={t("Type a message...") || ""}
+            value={content}
+            rows={1}
+            onCompositionStart={() => setIsTyping(true)}
+            onCompositionEnd={() => setIsTyping(false)}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            required
+          />
+        </div>
+        {!appState.loading ? (
           <BaseButton
             title="Send your chat message"
             type="submit"
-            disabled={loading}
-            className="absolute right-3 top-3 md:relative md:right-auto md:top-auto md:rounded-t-none"
-          >
-            {
-              <span className="pt-1 md:pt-0">
-                Send <span className="hidden md:inline">Message</span>
-              </span>
-            }
-          </BaseButton>
+            size={isMobile ? "sm" : "md"}
+            disabled={appState.loading}
+            className="mt-auto shadow-lg shadow-blue-500/40"
+            text="Send"
+          />
         ) : (
           <BaseButton
             text="Cancel"
-            type="button"
+            type="reset"
             theme="error"
-            className="h-full rounded-none md:h-auto md:rounded-b-md"
-            onClick={handleCancelStream}
+            className="mt-auto"
+            onClick={cancelStream}
           />
         )}
-      </fieldset>
-      <BaseButton
-        onClick={resetChat}
-        text="Start Over"
-        type="reset"
-        flavor="hollow"
-        className="border-none font-light capitalize opacity-50 hover:bg-inherit"
-      />
+      </div>
     </form>
   );
 };
-export default ChatInput;
+
+export default ChatInputAlt;

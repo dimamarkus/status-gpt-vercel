@@ -1,22 +1,22 @@
 .root {
-  color: inherit;
-  overflow-y: auto;
+  // color: inherit;
+  // overflow-y: auto;
   @apply bg-base-100;
-  @apply rounded;
-  @apply rounded-b-none;
+  // @apply rounded;
+  // @apply rounded-b-none;
 
-  & * {
-    overflow-anchor: none;
-  }
-  & .scrollAnchor {
-    overflow-anchor: auto;
-    height: 1px;
-  }
+  // & * {
+  //   overflow-anchor: none;
+  // }
+  // & .scrollAnchor {
+  //   overflow-anchor: auto;
+  //   height: 1px;
+  // }
 }
 
 .root::-webkit-scrollbar {
   padding: 0 2px;
-  width: 8px;
+  width: 12px;
   margin: 0 2px;
   /* width of the entire scrollbar */
 }
@@ -34,7 +34,7 @@
 
   /* background-color: blue;    color of the scroll thumb */
   border-radius: 16px;
-  border: 1px solid;
+  border: 2px solid;
   @apply border-base-100;
   @apply bg-neutral-200;
 }
