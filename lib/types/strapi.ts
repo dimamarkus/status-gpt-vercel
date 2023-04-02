@@ -84,19 +84,28 @@ export type StrapiMediaAttribute<TMedia> = {
     attributes: TMedia;
   };
 };
-export type StrapiMedia = StrapiTimestamps & {
-  name: string;
-  alternativeText: null;
-  caption: null;
-  width: number;
-  height: number;
-  formats: null;
-  hash: string;
+
+export type StrapiMediaFormat = {
   ext: string;
+  hash: string;
+  height: number;
   mime: string;
+  path: string;
+  name: string;
   size: number;
   url: string;
-  previewUrl: null;
-  provider: string;
-  provider_metadata: null;
+  width: number;
 };
+
+export type StrapiMedia = StrapiTimestamps &
+  StrapiMediaFormat & {
+    alternativeText: null;
+    caption: null;
+    formats: {
+      small: StrapiMediaFormat;
+      thumbnail: StrapiMediaFormat;
+    };
+    previewUrl: null;
+    provider: string;
+    provider_metadata: null;
+  };

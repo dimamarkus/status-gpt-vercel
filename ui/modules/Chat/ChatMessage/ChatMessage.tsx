@@ -113,7 +113,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         avatarUrl={avatarUrl}
         isTalking={isTalking || speaking}
         role={role}
-        className={clsx("hidden md:block", speaking && "cursor-pointer")}
+        className={clsx("mt-5 hidden md:block", speaking && "cursor-pointer")}
         onClick={() => {
           speaking && cancel();
         }}

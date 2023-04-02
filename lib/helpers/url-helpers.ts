@@ -1,4 +1,4 @@
-import { CmsResourceSlug } from "#/lib/types/cms";
+import { Bot, CmsResourceSlug } from "#/lib/types/cms";
 
 const sanitizeUrl = (str: string) => {
   let url = str;
@@ -18,7 +18,10 @@ export function getAppURL() {
 }
 
 export function getStrapiUrl() {
-  let url = process?.env?.STRAPI_CMS_URL ?? "http://localhost:1337";
+  let url =
+    process?.env?.STRAPI_CMS_URL ??
+    process?.env?.NEXT_PUBLIC_STRAPI_CMS_URL ??
+    "http://localhost:1337";
   return sanitizeUrl(url);
 }
 
@@ -26,7 +29,8 @@ export function getCmsUrl(endpoint: string) {
   return getStrapiUrl() + "/api/" + endpoint;
 }
 
-export function getMediaUrl(mediaPath: string) {
+export function getMediaUrl(mediaPath?: string) {
+  if (!mediaPath) return "";
   // If the media path is already a URL, return it.
   const pattern = /^((http|https|ftp):\/\/)/;
   if (pattern.test(mediaPath)) {
@@ -34,6 +38,14 @@ export function getMediaUrl(mediaPath: string) {
   }
 
   return getStrapiUrl() + mediaPath;
+}
+
+export function getBotAvatar(bot?: Bot, thumbail?: boolean) {
+  if (thumbail) {
+    return getMediaUrl(bot?.avatar?.data?.attributes?.formats?.thumbnail?.url);
+  } else {
+    return getMediaUrl(bot?.avatar?.data?.attributes?.url);
+  }
 }
 
 export const pluralizeCmsModel = (model: string) =>
