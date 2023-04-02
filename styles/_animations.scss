@@ -1,0 +1,33 @@
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.animate-width-slow {
+  animation: auto-grow 3s ease-in-out;
+}
+
+.animate-width-medium {
+  animation: auto-grow 2.5s ease-in-out;
+}
+
+.animate-width-fast {
+  animation: auto-grow 2s ease-in-out;
+}
+
+.animate-width-fastest {
+  animation: auto-grow 1.5s ease-in-out;
+}
+
+@keyframes auto-grow {
+  from {
+    width: 0; /* initial width */
+  }
+  to {
+    width: 100%; /* final width */
+  }
+}

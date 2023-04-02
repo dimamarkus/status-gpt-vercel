@@ -1,5 +1,8 @@
 import { GptMessage } from "#/app/chat/lib/types";
 
+export type ElementProps = {
+  className?: string;
+};
 export interface ResponseError extends Error {
   status: number;
   statusText?: string;

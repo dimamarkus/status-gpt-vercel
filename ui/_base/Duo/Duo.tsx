@@ -1,11 +1,8 @@
 import { sizeMap } from "#/lib/constants/maps";
-import { CommonSpacings } from "#/lib/types";
+import { CommonSpacings, ElementProps } from "#/lib/types";
 import clsx from "clsx";
 import { Component, ElementType, HTMLAttributes } from "react";
 
-type ElementProps = {
-  className?: string;
-};
 export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Which HTML element to use for the Duo.
