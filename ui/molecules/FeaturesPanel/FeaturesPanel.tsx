@@ -12,6 +12,12 @@ import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import KeyValueList from "#/ui/atoms/lists/KeyValueList/KeyValueList";
 import { Cog8ToothIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
+
+type FeaturesPanelProps = {
+  forceShow?: boolean;
+  className?: string;
+};
 
 // const deploymentStats = [
 //   { key: "Node Env", value: process.env.NODE_ENV },
@@ -23,7 +29,8 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 //   { key: "isProd", value: inProdEnv && "✅" },
 // ];
 
-const FeaturesPanel = () => {
+const FeaturesPanel = (props: FeaturesPanelProps) => {
+  const { forceShow, className } = props;
   const { toggleShowFeatures, areFeaturesShown, features, setFeatures } = useFeatureToggleContext();
   const handleSetFeature = (key: string, value: string | boolean) => {
     const newFeatures = { ...features, [key]: value };
@@ -43,10 +50,6 @@ const FeaturesPanel = () => {
       icon={!areFeaturesShown ? <Cog8ToothIcon /> : <XMarkIcon />}
     />
   );
-
-  if (!areFeaturesShown) {
-    return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
-  }
 
   const getOptionCheckbox = (name: keyof BooleanFeatures, title?: string) => {
     const currentState = features[name];
@@ -108,8 +111,8 @@ const FeaturesPanel = () => {
   };
 
   const darkMode = features.theme === "dark";
-  const menu = areFeaturesShown && (
-    <div className="absolute top-0 left-0 z-0 flex flex-col gap-4 rounded-br-md bg-neutral-300/[85%] p-8 pt-4 pl-10 dark:bg-black/75">
+  return (
+    <div className={clsx("flex flex-col ", className)}>
       <label htmlFor="darkMode" className="label cursor-pointer">
         <span className="label-text uppercase text-base-100">☀️</span>
         <input
@@ -129,17 +132,11 @@ const FeaturesPanel = () => {
       {getOptionCheckbox("useStream", "Stream")}
       {getOptionCheckbox("debugMode", "Debug")}
       {getOptionCheckbox("autoSubmitSpeech", "Auto-submit Speech")}
+      {getOptionCheckbox("enableAssumptions", "Assumptions")}
       {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
       {getOptionCheckbox("showTokens", "Show Tokens")}
       {/* <KeyValueList items={deploymentStats} /> */}
-    </div>
-  );
-
-  return (
-    <div className="absolute top-0 left-0 z-10 w-96" ref={ref}>
-      {menu}
-      {toggleButton}
     </div>
   );
 };

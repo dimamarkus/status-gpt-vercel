@@ -21,7 +21,12 @@ type ChatMessagesProps = {
 export const ChatMessages: FC<ChatMessagesProps> = (props) => {
   const { startTime } = props;
   const { features } = useFeatureToggleContext();
-  const { appState, appActions, dataState, dataActions } = useConversationsContext();
+  const {
+    appState,
+    appActions,
+    dataState: { bot },
+    dataActions,
+  } = useConversationsContext();
   const { answerStream, selectedConversation, loading, textareaRef } = appState;
   const { submitQuery } = appActions;
   const { updateConversation } = dataActions;
@@ -79,7 +84,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
   // const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
   const latestMessage = incomingAnswerMessage;
   console.log("selectedConversation.messages", selectedConversation.messages);
-  return !selectedConversation || !dataState.bot ? (
+  return !selectedConversation || !bot ? (
     <div>Loading</div>
   ) : (
     <ul

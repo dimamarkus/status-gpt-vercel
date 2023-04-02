@@ -1,5 +1,4 @@
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
-import { Conversation, ConversationsFolder } from "#/app/chat/lib/types";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { ClearConversations } from "#/ui/modules/ChatSidebar/ClearConversations";
 import { Import } from "#/ui/modules/ChatSidebar/Import";

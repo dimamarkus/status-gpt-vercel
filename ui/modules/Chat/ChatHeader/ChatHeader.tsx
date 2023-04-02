@@ -12,17 +12,12 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { t } from "i18next";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 export const ChatHeader: FC = () => {
-  const [showSettings, setShowSettings] = useState<boolean>(false);
-  const { isFullScreen, toggleFullScreen, hasSidebar, toggleSidebar } = useLayoutContext();
+  const { isFullScreen, toggleFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
   const { appState, dataActions } = useConversationsContext();
   const conversation = appState.selectedConversation;
-
-  const handleSettings = () => {
-    setShowSettings(!showSettings);
-  };
 
   const handleResetConversation = () => {
     if (confirm(t<string>("Are you sure you want to clear all messages?"))) {
@@ -63,7 +58,7 @@ export const ChatHeader: FC = () => {
       <BaseButton
         className="ml-auto"
         flavor="icon"
-        icon={!hasSidebar ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+        icon={!sidebarIsVisible ? <ArrowLeftIcon /> : <ArrowRightIcon />}
         onClick={toggleSidebar}
         theme="secondary"
       />

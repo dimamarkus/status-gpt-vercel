@@ -2,7 +2,7 @@ import { getTitlePrefix } from "#/app/metadata";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
-import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
+import FeaturesPanelButton from "#/ui/molecules/FeaturesPanel/FeaturesPanelButton";
 
 type ChatPageLayoutProps = {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ChatPageLayoutProps) {
 export default async function ChatPageLayout({ children }: ChatPageLayoutProps) {
   return (
     <LandingLayout>
-      {!inProdEnv && <FeaturesPanel />}
+      {!inProdEnv && <FeaturesPanelButton />}
       {children}
     </LandingLayout>
   );

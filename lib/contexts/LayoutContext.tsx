@@ -5,12 +5,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const LayoutContext = createContext<{
   isFullScreen: boolean;
   toggleFullScreen: () => void;
-  hasSidebar: boolean;
+  sidebarIsVisible: boolean;
   toggleSidebar: () => void;
 }>({
   isFullScreen: false,
   toggleFullScreen: () => false,
-  hasSidebar: false,
+  sidebarIsVisible: false,
   toggleSidebar: () => false,
 });
 
@@ -20,7 +20,7 @@ type FullScreenProps = {
 
 export const LayoutContextProvider = ({ children }: FullScreenProps) => {
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-  const [hasSidebar, setIsSidebarVisible] = useState<boolean>(true);
+  const [sidebarIsVisible, setIsSidebarVisible] = useState<boolean>(true);
 
   useEffect(() => {
     if (window.innerWidth < 640) {
@@ -33,8 +33,8 @@ export const LayoutContextProvider = ({ children }: FullScreenProps) => {
       value={{
         isFullScreen,
         toggleFullScreen: () => setIsFullScreen(!isFullScreen),
-        hasSidebar,
-        toggleSidebar: () => setIsSidebarVisible(!hasSidebar),
+        sidebarIsVisible,
+        toggleSidebar: () => setIsSidebarVisible(!sidebarIsVisible),
       }}
     >
       {children}

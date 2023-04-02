@@ -17,14 +17,18 @@ export type ChatFormFields = {
 };
 
 export const ChatInputAlt: FC = () => {
-  const { appState, appActions, dataState } = useConversationsContext();
+  const {
+    appState,
+    appActions,
+    dataState: { bot },
+  } = useConversationsContext();
   const { answerStream, selectedConversation, textareaRef, formContext } = appState;
   const { setCurrentMessage, submitQuery, cancelStream } = appActions;
   const model = selectedConversation?.model || GPT4_MODEL;
   const { t } = useTranslation("chat");
   const [content, setContent] = useState<string>();
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const maxTokens = getBotParam(dataState.bot, "max_tokens") as number;
+  const maxTokens = getBotParam(bot, "max_tokens") as number;
   const { register, handleSubmit, watch } = formContext;
   const chatInputProps = register(USER_INPUT_FIELD_ID);
   const submitMessage = handleSubmit(() => handleSend());

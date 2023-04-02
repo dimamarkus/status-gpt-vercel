@@ -12,6 +12,7 @@ export type BooleanFeatures = {
   debugMode: boolean;
   useStream: boolean;
   autoSubmitSpeech: boolean;
+  enableAssumptions: boolean;
   enableSuggestions: boolean;
   enableSubmissions: boolean;
   showTokens: boolean;

@@ -6,6 +6,8 @@ import Duo from "#/ui/_base/Duo/Duo";
 import { Cog8ToothIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
+import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
+import { inProdEnv } from "#/lib/helpers/env-helpers";
 
 export const ChatSidebarHeader: FC = () => {
   const [showSettings, setShowSettings] = useState<boolean>(false);
@@ -39,10 +41,12 @@ export const ChatSidebarHeader: FC = () => {
         />
       </Duo>
       {showSettings && (
-        <ChatModelSelect
-          selectedModel={conversation.model}
-          onModelChange={(model) => dataActions.updateConversation({ ...conversation, model })}
-        />
+        <>
+          <ChatModelSelect
+            selectedModel={conversation.model}
+            onModelChange={(model) => dataActions.updateConversation({ ...conversation, model })}
+          />
+        </>
       )}
     </>
   );

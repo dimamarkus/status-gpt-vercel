@@ -3,7 +3,6 @@ import { ChatContextProvider } from "#/lib/contexts/ChatContext";
 import { ConversationsContextProvider } from "#/lib/contexts/ConversationContext";
 import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
-import { getMediaUrl } from "#/lib/helpers/url-helpers";
 import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";

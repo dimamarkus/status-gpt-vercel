@@ -1,44 +1,61 @@
 "use client";
 
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
-import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import {
-  useConversationsApp,
+  INITIAL_SIDEBAR_STATE,
+  SidebarState,
+  UseChatSidebarReturn,
+  useChatSidebar,
+} from "#/app/chat/lib/hooks/useChatSidebar";
+import {
   UseConversationsAppReturn,
+  useConversationsApp,
 } from "#/app/chat/lib/hooks/useConversationsApp";
 import {
-  useConversationsData,
   UseConversationsDataReturn,
+  useConversationsData,
 } from "#/app/chat/lib/hooks/useConversationsData";
 import { useSelectedConversation } from "#/app/chat/lib/hooks/useSelectedConversation";
-import { useSubmissions } from "#/app/chat/lib/hooks/useSubmissions";
-import { useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
-import { OpenAiRequest } from "#/app/chat/lib/types";
+import { UseSubmissionsReturn, useSubmissions } from "#/app/chat/lib/hooks/useSubmissions";
+import { UseSuggestionsReturn, useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
-import { Conversation, StatusChatMessage } from "#/app/chat/lib/types";
+import {
+  Conversation,
+  ConversationsFolder,
+  OpenAiRequest,
+  StatusChatMessage,
+} from "#/app/chat/lib/types";
 import {
   DEFAULT_GPT_SETTINGS,
   SUBMISSIONS_PROMPT_SIZE,
   SUGGESTIONS_PROMPT_SIZE,
 } from "#/lib/constants/settings";
+import { AssumptionsContext, useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";
-import React, { createContext, useCallback, useContext, useEffect } from "react";
+import React, { createContext, useContext } from "react";
 
 interface ConversationsContextType {
-  dataState: UseConversationsDataReturn["state"];
+  dataState: UseConversationsDataReturn["state"] & {
+    submissions: UseSubmissionsReturn["submissions"];
+    assumptions: AssumptionsContext["assumptions"];
+  };
   dataActions: Omit<UseConversationsDataReturn["actions"], "addConversation" | "editMessage"> & {
     addConversation: () => void;
     editMessage: (message: StatusChatMessage, messageIndex: number) => void;
   };
   appState: UseConversationsAppReturn["state"] & {
     selectedConversation: Conversation | undefined;
+    sidebar: SidebarState;
+    suggestions: UseSuggestionsReturn["suggestions"];
+    suggestionsLoading: UseSuggestionsReturn["loading"];
   };
-  appActions: UseConversationsAppReturn["actions"] & {
-    submitQuery: (message: StatusChatMessage, chatLog?: StatusChatMessage[]) => void;
-    selectConversation: (conversation: Conversation) => void;
-  };
+  appActions: UseConversationsAppReturn["actions"] &
+    Omit<UseChatSidebarReturn, "sidebarState"> & {
+      submitQuery: (message: StatusChatMessage, chatLog?: StatusChatMessage[]) => void;
+      selectConversation: (conversation: Conversation) => void;
+    };
 }
 
 export type BotConversations = Record<Bot["slug"], ConversationsDataState>;
@@ -56,8 +73,20 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
 
   // This context combines the data and app states
   const { features } = useFeatureToggleContext();
-  const { loading: suggestionsLoading, ...useSuggestionContext } = useSuggestions();
-  const { loading: submissionsLoading, ...useSubmissionsContext } = useSubmissions();
+  const {
+    suggestions,
+    loading: suggestionsLoading,
+    showSuggestions,
+    ...suggestionsActions
+  } = useSuggestions();
+  const {
+    submissions,
+    loading: submissionsLoading,
+    showSubmissions,
+    ...submissionsActions
+  } = useSubmissions();
+  const { assumptions, ...assumptionsActions } = useAssumptionsContext();
+  const { sidebarState, ...sidebarActions } = useChatSidebar();
   const { state: dataState, actions: dataActions } = useConversationsData(bot);
   const { selectedConversation, selectConversation, setSelectedConversation } =
     useSelectedConversation(dataState);
@@ -94,9 +123,9 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     const resultingChatLog = [...messagesToSend, botAnswerMessage];
     updateConversation({ ...selectedConversation, messages: resultingChatLog });
     features.enableSuggestions &&
-      useSuggestionContext.getSuggestions(resultingChatLog.slice(-SUGGESTIONS_PROMPT_SIZE));
+      suggestionsActions.getSuggestions(resultingChatLog.slice(-SUGGESTIONS_PROMPT_SIZE));
     features.enableSubmissions &&
-      useSubmissionsContext.getSubmissions(resultingChatLog.slice(-SUBMISSIONS_PROMPT_SIZE));
+      submissionsActions.getSubmissions(resultingChatLog.slice(-SUBMISSIONS_PROMPT_SIZE));
   };
 
   const handleCancelStream = () => {
@@ -110,6 +139,7 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
   const handleAddConversation = () => {
     const addedConversation = addConversation();
     addedConversation && setSelectedConversation(addedConversation);
+    sidebarActions.setSidebarSectionState("conversations", true);
   };
 
   const handleResetConversation = () => {
@@ -131,7 +161,7 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     }
     updateConversation({ ...selectedConversation, messages: updatedMessages });
     handleSubmitQuery(message, updatedMessages);
-    // setCurrentMessage(message);
+    setCurrentMessage(message);
     // console.log("updatedMessages", updatedMessages);
     // return updatedMessages;
   };
@@ -142,16 +172,29 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
         appState: {
           ...appState,
           selectedConversation,
+          sidebar: sidebarState,
+          suggestions,
+          suggestionsLoading,
         },
         appActions: {
           ...appActions,
+          ...sidebarActions,
+          ...suggestionsActions,
           selectConversation,
           submitQuery: handleSubmitQuery,
           cancelStream: handleCancelStream,
         },
-        dataState,
+        dataState: {
+          bot,
+          folders,
+          rootConversations,
+          submissions,
+          assumptions,
+        },
         dataActions: {
           ...dataActions,
+          ...submissionsActions,
+          ...assumptionsActions,
           addConversation: handleAddConversation,
           resetConversation: handleResetConversation,
           editMessage: handleEditMessage,

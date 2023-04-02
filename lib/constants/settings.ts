@@ -18,6 +18,7 @@ export const DEFAULT_FEATURES = {
   debugMode: false,
   useStream: true,
   autoSubmitSpeech: false,
+  enableAssumptions: false,
   enableSuggestions: false,
   enableSubmissions: false,
   showTokens: false,

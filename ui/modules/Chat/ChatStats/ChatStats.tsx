@@ -8,6 +8,7 @@ import Card from "#/ui/atoms/containers/Card/Card";
 import KeyValueList from "#/ui/atoms/lists/KeyValueList/KeyValueList";
 import React, { useEffect, useState } from "react";
 import styles from "./ChatStats.module.scss";
+import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 
 type ChatStatsProps = {
   children?: React.ReactNode;
@@ -26,7 +27,12 @@ const formatter = new Intl.NumberFormat("en-US", {
 export const ChatStats = (props: ChatStatsProps) => {
   const [totalCost, setTotalCost] = useState(0);
   const { features } = useFeatureToggleContext();
-  const { chatLog, bot } = useChatContext();
+  const {
+    appState: { selectedConversation },
+    dataState: { bot },
+  } = useConversationsContext();
+
+  const chatLog = selectedConversation?.messages;
   const isStart = chatLog && chatLog?.length < 3;
   const prevChatLog = usePrevious(chatLog);
 

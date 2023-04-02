@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 export type Assumptions = {
   age: number;
@@ -10,7 +10,7 @@ export type Assumptions = {
   monthly_spending: number;
 };
 
-type AssumptionsContext = {
+export type AssumptionsContext = {
   assumptions: Assumptions;
   setAssumptions: (assumptions: Assumptions) => void;
   areAssumptionsShown: boolean;
@@ -32,9 +32,7 @@ export const DEFAULT_ASSUMPTION_CONTEXT = {
   setShowAssumptions: (newState: boolean) => false,
 };
 
-export const AssumptionsContext = createContext<AssumptionsContext>(
-  DEFAULT_ASSUMPTION_CONTEXT,
-);
+export const AssumptionsContext = createContext<AssumptionsContext>(DEFAULT_ASSUMPTION_CONTEXT);
 
 type AssumptionsProps = {
   children: any;
@@ -42,8 +40,7 @@ type AssumptionsProps = {
 
 export const AssumptionsContextProvider = ({ children }: AssumptionsProps) => {
   const [areAssumptionsShown, setShowAssumptions] = useState<boolean>(false);
-  const [assumptions, setAssumptions] =
-    useState<Assumptions>(DEFAULT_ASSUMPTIONS);
+  const [assumptions, setAssumptions] = useState<Assumptions>(DEFAULT_ASSUMPTIONS);
   return (
     <AssumptionsContext.Provider
       value={{
