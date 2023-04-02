@@ -68,9 +68,6 @@ export type ConversationContextProps = {
 };
 
 export function ConversationsContextProvider({ children, bot }: ConversationContextProps) {
-  const getBotParam = (param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
-    (!!bot && bot[param]) || DEFAULT_GPT_SETTINGS[param];
-
   // This context combines the data and app states
   const { features } = useFeatureToggleContext();
   const {

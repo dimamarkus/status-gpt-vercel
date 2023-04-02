@@ -37,8 +37,6 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
           }
         `}
       </style>
-      {/* HACK: Empty div to force tailwind to create these font classes */}
-      <div className="font-tiemposHeadline font-inter hidden" />
       {children}
     </BaseLayout>
   );
