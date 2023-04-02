@@ -100,10 +100,11 @@ export const CHAT_500_ERROR_RESPONSE =
 
 export const EMPTY_FOLDER = { id: Date.now(), name: "New folder", conversations: [] };
 
+export const DEFAULT_CONVERSATION_NAME = "Untitled conversation";
 export const PLACEHOLDER_CONVERSATION_ID = 0;
 export const EMPTY_CONVERSATION = {
   id: PLACEHOLDER_CONVERSATION_ID,
-  name: "Untitled conversation",
+  name: DEFAULT_CONVERSATION_NAME,
   messages: [],
   model: GPT4_MODEL as OpenAiModel,
   prompt: DEFAULT_BOT_TRAINING,

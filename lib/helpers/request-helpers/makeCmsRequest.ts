@@ -14,7 +14,8 @@ export async function makeCmsRequest<TResponse extends Response, TRequestBody ex
   body?: any,
 ): Promise<TResponse> {
   const cmsUrl = getCmsUrl(endpoint);
-  const authHeaders = { Authorization: `Bearer ${process.env.STRAPI_API_KEY ?? ""}` };
+  const apiKey = process.env.STRAPI_API_KEY || process.env.NEXT_PUBLIC_STRAPI_API_KEY;
+  const authHeaders = { Authorization: `Bearer ${apiKey ?? ""}` };
 
   return await makeAsyncRequest<TResponse, TRequestBody>(cmsUrl, method, body, authHeaders);
 }

@@ -34,9 +34,9 @@ export type SidebarState = {
 };
 
 export const INITIAL_SIDEBAR_STATE: SidebarState = {
+  conversations: true,
   suggestions: false,
   settings: false,
-  conversations: false,
   botSettings: false,
   assumptions: false,
   stats: false,

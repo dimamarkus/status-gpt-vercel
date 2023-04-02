@@ -7,7 +7,7 @@ interface Props {
   conversations: Conversation[];
 }
 
-export const Conversations: FC<Props> = ({ conversations }) => {
+export const Conversations = ({ conversations }: Props) => {
   const { dataActions } = useConversationsContext();
 
   const handleDrop = (e: any) => {

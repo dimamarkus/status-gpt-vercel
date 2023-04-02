@@ -19,11 +19,7 @@ export const LandingLayout = ({ children, ssr, className }: LandingLayoutProps) 
     <Component>
       <div className={clsx(styles.root, className)}>
         <TopBar />
-        <main role="main">
-          {/* @ts-expect-error Async Server Component */}
-          <ChatBotMenu featuredOnly={inProdEnv} />
-          {children}
-        </main>
+        <main role="main">{children}</main>
       </div>
     </Component>
   );

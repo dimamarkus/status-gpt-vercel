@@ -1,5 +1,6 @@
 "use client";
 
+import { DEFAULT_CONVERSATION_NAME } from "#/app/chat/lib/constants";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
@@ -46,7 +47,7 @@ export const ChatHeader: FC = () => {
         title="Clear all messages"
       />
       <div className="flex max-w-[240px] items-center overflow-hidden text-ellipsis whitespace-nowrap">
-        {conversation ? conversation.name : "No conversation selected"}
+        {conversation ? conversation.name : DEFAULT_CONVERSATION_NAME}
       </div>
       <BaseButton
         flavor="icon"

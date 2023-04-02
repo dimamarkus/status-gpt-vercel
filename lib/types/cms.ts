@@ -70,6 +70,7 @@ export type BotPromotion = {
 export type Bot = {
   slug: string;
   name: string;
+  description: string;
   avatar?: StrapiMediaAttribute<StrapiMedia>;
   is_featured: boolean;
   welcome_message: string | null;

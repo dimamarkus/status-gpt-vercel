@@ -2,6 +2,7 @@ import { Conversation } from "#/app/chat/lib/types";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import Loader from "#/ui/atoms/Loader/Loader";
 import {
   ChatBubbleLeftIcon,
   CheckIcon,

@@ -25,19 +25,11 @@ export default async function HomePage() {
   const bot = await fetchBot(DEFAULT_CHAT_BOT);
   const startTime = await getData();
 
-  const sidebar = (
-    <>
-      {/* {areAssumptionsShown && <ChatAssumptions />} */}
-      <ChatStats />
-      <ChatSuggestions className="hidden md:block" />
-    </>
-  );
-
   return (
     <LandingLayout>
       <ConversationsContextProvider bot={bot}>
         <ChatContextProvider bot={bot}>
-          <ChatLayout sidebar={sidebar}>
+          <ChatLayout>
             <ChatMessages startTime={startTime} className="h-full" />
             <ChatSuggestions className="lg:hidden" />
             <ChatSubmissions />

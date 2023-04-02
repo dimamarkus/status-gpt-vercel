@@ -18,6 +18,16 @@
   --font-size-xxl: clamp(25.63px, 2.8vw + 15.11px, 59.99px);
 }
 
+.statusChat {
+  --font-size-xs: clamp(13.18px, -0.11vw + 13.58px, 11.85px);
+  --font-size-sm: clamp(14.06px, -0.06vw + 14.28px, 13.33px);
+  --font-size-base: clamp(15px, 0vw + 15px, 15px);
+  --font-size-md: clamp(16px, 0.07vw + 15.74px, 16.88px);
+  --font-size-lg: clamp(17.08px, 0.16vw + 16.49px, 18.98px);
+  --font-size-xl: clamp(18.22px, 0.26vw + 17.26px, 21.36px);
+  --font-size-xxl: clamp(19.44px, 0.37vw + 18.04px, 24.03px);
+}
+
 // Defaults
 // ------------------------------------------------------------------------------------------------
 

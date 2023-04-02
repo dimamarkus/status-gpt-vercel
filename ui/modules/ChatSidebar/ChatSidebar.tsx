@@ -5,15 +5,17 @@ import { ConversationsDataState } from "#/app/chat/lib/reducer";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
+import Spinner from "#/ui/atoms/svgs/Spinner";
 import ChatAssumptions from "#/ui/modules/Chat/ChatAssumptions/ChatAssumptions";
 import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
+import ChatSidebarHeader from "#/ui/modules/ChatSidebar/ChatSidebarHeader";
 import ChatSidebarSection from "#/ui/modules/ChatSidebar/ChatSidebarSection";
 import { ConversationsHeader } from "#/ui/modules/ChatSidebar/ConversationsHeader";
 import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
-import { FC, useEffect, useState } from "react";
+import { FC, Suspense, useEffect, useState } from "react";
 import { Conversations } from "./Conversations";
 import { Folders } from "./Folders";
 import { Search } from "./Search";
@@ -46,6 +48,9 @@ export const ChatSidebar: FC<{}> = () => {
 
   return (
     <>
+      <Suspense fallback={<Spinner />}>
+        <ChatSidebarHeader />
+      </Suspense>
       <ChatSidebarSection title="Conversations" section="conversations" className="mb-auto">
         {hasConversations && <Search searchTerm={searchTerm} onSearch={setSearchTerm} />}
         <ConversationsHeader onAddConversation={() => setSearchTerm("")} />
@@ -69,10 +74,14 @@ export const ChatSidebar: FC<{}> = () => {
       </ChatSidebarSection>
 
       {!inProdEnv && (
-        <ChatSidebarSection title="Admin" section="admin">
-          <FeaturesPanel />
-          <ChatStats />
-        </ChatSidebarSection>
+        <>
+          <ChatSidebarSection title="Admin" section="admin">
+            <FeaturesPanel />
+          </ChatSidebarSection>
+          <ChatSidebarSection title="Stats" section="stats">
+            <ChatStats />
+          </ChatSidebarSection>
+        </>
       )}
 
       {features.enableAssumptions && (
