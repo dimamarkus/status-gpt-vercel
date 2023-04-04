@@ -2,7 +2,6 @@
 
 import { StatusChatMessage } from "#/app/chat/lib/types";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { useTranslation } from "next-i18next";
 import { FC, memo, useRef, useState } from "react";
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 
 export const ChatMessageEdit: FC<Props> = memo((props) => {
   const { message, messageIndex, setEditModeOff } = props;
-  const { t } = useTranslation("chat");
   const [messageContent, setMessageContent] = useState(message.content);
   const { dataActions } = useConversationsContext();
 
@@ -65,7 +63,7 @@ export const ChatMessageEdit: FC<Props> = memo((props) => {
           onClick={handleEditMessage}
           disabled={messageContent.trim().length <= 0}
         >
-          {t("Save & Submit")}
+          Save & Submit
         </button>
         <button
           className="h-[40px] rounded-md border border-neutral-300 px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
@@ -74,7 +72,7 @@ export const ChatMessageEdit: FC<Props> = memo((props) => {
             setEditModeOff();
           }}
         >
-          {t("Cancel")}
+          Cancel
         </button>
       </div>
     </div>

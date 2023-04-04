@@ -1,7 +1,6 @@
-import { FC, useEffect, useState } from "react";
-import { useTranslation } from "next-i18next";
 import { OpenAiModel } from "#/app/chat/lib/types";
 import { fetchModels } from "#/lib/helpers/request-helpers/makeServerRequest";
+import { FC, useEffect, useState } from "react";
 
 interface Props {
   selectedModel: OpenAiModel;
@@ -9,7 +8,6 @@ interface Props {
 }
 
 export const ChatModelSelect: FC<Props> = ({ onModelChange, selectedModel }) => {
-  const { t } = useTranslation("chat");
   const [models, setModels] = useState<string[]>([]);
   useEffect(() => {
     fetchModels().then((res) => {
@@ -32,11 +30,10 @@ export const ChatModelSelect: FC<Props> = ({ onModelChange, selectedModel }) => 
 
   return (
     <label>
-      {t("Model")}
-
+      Model
       <select
         className="w-full outline-0"
-        placeholder={t("Select a model") || ""}
+        placeholder={"Select a model" || ""}
         value={selectedModel}
         onChange={(e) => {
           onModelChange(models.find((model) => model === e.target.value) as OpenAiModel);

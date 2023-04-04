@@ -4,7 +4,6 @@ import { filterConversationsData } from "#/app/chat/lib/helpers/chat-helpers";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { inProdEnv } from "#/lib/helpers/env-helpers";
 import Spinner from "#/ui/atoms/svgs/Spinner";
 import ChatAssumptions from "#/ui/modules/Chat/ChatAssumptions/ChatAssumptions";
 import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
@@ -12,14 +11,11 @@ import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
 import ChatSidebarHeader from "#/ui/modules/ChatSidebar/ChatSidebarHeader";
 import ChatSidebarSection from "#/ui/modules/ChatSidebar/ChatSidebarSection";
 import { ConversationsHeader } from "#/ui/modules/ChatSidebar/ConversationsHeader";
-import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
 import { FC, Suspense, useEffect, useState } from "react";
 import { Conversations } from "./Conversations";
-import { Folders } from "./Folders";
-import { Search } from "./Search";
 import { ConversationsFooter } from "./ConversationsFooter";
+import { Search } from "./Search";
 
 export const ChatSidebar: FC<{}> = () => {
   const { features } = useFeatureToggleContext();
@@ -28,7 +24,6 @@ export const ChatSidebar: FC<{}> = () => {
     dataActions: { resetFolders, exportConversations },
   } = useConversationsContext();
 
-  const { t } = useTranslation("sidebar");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredData, setFilteredData] = useState<ConversationsDataState>({
     folders,
@@ -66,7 +61,7 @@ export const ChatSidebar: FC<{}> = () => {
         {!rootConversations.length && !folders.length && (
           <div className="mt-8 select-none text-center opacity-50">
             <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} />
-            <span className="text-[12.5px] leading-3">{t("No conversations.")}</span>
+            <span className="text-[12.5px] leading-3">No conversations.</span>
           </div>
         )}
         <ConversationsFooter

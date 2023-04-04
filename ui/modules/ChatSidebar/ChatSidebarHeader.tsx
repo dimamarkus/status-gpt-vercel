@@ -1,7 +1,7 @@
 "use client";
 
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { getBotAvatar, getMediaUrl } from "#/lib/helpers/url-helpers";
+import { getBotAvatar } from "#/lib/helpers/url-helpers";
 import Duo from "#/ui/_base/Duo/Duo";
 import Loader from "#/ui/atoms/Loader/Loader";
 import Spinner from "#/ui/atoms/svgs/Spinner";
@@ -9,7 +9,6 @@ import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAv
 import ChatBotSelect from "#/ui/modules/ChatSidebar/ChatBotSelect";
 import clsx from "clsx";
 import { Suspense } from "react";
-import { useTranslation } from "react-i18next";
 
 export const ChatSidebarHeader = () => {
   const {
@@ -18,7 +17,6 @@ export const ChatSidebarHeader = () => {
     dataState: { bot },
   } = useConversationsContext();
   const conversation = selectedConversation;
-  const { t } = useTranslation("model");
 
   const isSectionOpen = sidebar.botSettings;
 

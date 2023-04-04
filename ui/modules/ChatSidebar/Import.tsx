@@ -1,7 +1,6 @@
 import { cleanConversationHistory } from "#/app/chat/lib/helpers/converastion-helpers";
-import { ConversationsFolder, Conversation } from "#/app/chat/lib/types";
+import { Conversation, ConversationsFolder } from "#/app/chat/lib/types";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
-import { useTranslation } from "next-i18next";
 import { FC } from "react";
 import { SidebarButton } from "./SidebarButton";
 
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export const Import: FC<Props> = ({ onImport }) => {
-  const { t } = useTranslation("sidebar");
   return (
     <>
       <input
@@ -38,7 +36,7 @@ export const Import: FC<Props> = ({ onImport }) => {
       />
 
       <SidebarButton
-        text={t("Import conversations")}
+        text="Import conversations"
         icon={<DocumentArrowUpIcon width={18} height={18} />}
         onClick={() => {
           const importFile = document.querySelector("#import-file") as HTMLInputElement;

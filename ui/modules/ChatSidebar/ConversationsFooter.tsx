@@ -4,7 +4,6 @@ import { ClearConversations } from "#/ui/modules/ChatSidebar/ClearConversations"
 import { Import } from "#/ui/modules/ChatSidebar/Import";
 import { SidebarButton } from "#/ui/modules/ChatSidebar/SidebarButton";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
-import { useTranslation } from "next-i18next";
 import { FC } from "react";
 interface Props {
   conversationsCount: number;
@@ -18,7 +17,6 @@ export const ConversationsFooter: FC<Props> = ({
   onExportConversations,
 }) => {
   const { appActions, dataActions } = useConversationsContext();
-  const { t } = useTranslation("sidebar");
 
   const handleImportConversations = (data: ConversationsDataState) => {
     const { rootConversations, folders } = data;
@@ -37,7 +35,7 @@ export const ConversationsFooter: FC<Props> = ({
       <Import onImport={handleImportConversations} />
 
       <SidebarButton
-        text={t("Export conversations")}
+        text="Export conversations"
         icon={<ArrowDownTrayIcon width={18} height={18} />}
         onClick={() => onExportConversations()}
       />

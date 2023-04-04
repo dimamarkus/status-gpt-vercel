@@ -1,26 +1,23 @@
 "use client";
 
-import { useSpeechSynthesis } from "react-speech-kit";
-import { StatusChatMessage } from "#/app/chat/lib/types";
+import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { GptRole, StatusChatMessage } from "#/app/chat/lib/types";
+import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { getMediaUrl } from "#/lib/helpers/url-helpers";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import Duo from "#/ui/_base/Duo/Duo";
+import ChatSpeakButton from "#/ui/atoms/buttons/ChatSpeakButton/ChatSpeakButton";
 import CopyButton from "#/ui/atoms/buttons/CopyButton/CopyButton";
 import Timestamp from "#/ui/atoms/decorations/Timestamp/Timestamp";
 import ChatMessageAvatar from "#/ui/modules/Chat/ChatMessageAvatar/ChatMessageAvatar";
-import ParsedMarkdown from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
-import clsx from "clsx";
-import styles from "./ChatMessage.module.scss";
-import ChatSpeakButton from "#/ui/atoms/buttons/ChatSpeakButton/ChatSpeakButton";
-import Duo from "#/ui/_base/Duo/Duo";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { GptRole } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { getMediaUrl } from "#/lib/helpers/url-helpers";
-import ParsedMarkdown2 from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import { ChatMessageEdit } from "#/ui/modules/Chat/ChatMessageEdit/ChatMessageEdit";
-import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
-import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import ParsedMarkdown2 from "#/ui/molecules/ParsedMarkdown/ParsedMarkdown";
 import { ArrowPathRoundedSquareIcon, PencilIcon, StopIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
+import { useState } from "react";
+import { useSpeechSynthesis } from "react-speech-kit";
+import styles from "./ChatMessage.module.scss";
 
 type ChatMessageProps = Omit<StatusChatMessage, "role"> & {
   role?: GptRole;
@@ -50,7 +47,6 @@ export const ChatMessage = (props: ChatMessageProps) => {
   } = useConversationsContext();
   const speechContext = useSpeechSynthesis();
   const { speaking, cancel } = speechContext;
-  const { t } = useTranslation("chat");
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
@@ -123,9 +119,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         {features.showTokens && tokens && (
           <>
             <small className="text-xs text-neutral-400">|</small>
-            <small className="text-xs text-orange-500">
-              {tokens} {t("Tokens")}
-            </small>
+            <small className="text-xs text-orange-500">{tokens} Tokens</small>
           </>
         )}
       </div>

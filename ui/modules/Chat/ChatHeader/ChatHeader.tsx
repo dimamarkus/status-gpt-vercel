@@ -13,7 +13,6 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { t } from "i18next";
 import { FC } from "react";
 
 export const ChatHeader: FC = () => {
@@ -23,7 +22,7 @@ export const ChatHeader: FC = () => {
   const conversation = appState.selectedConversation;
 
   const handleResetConversation = () => {
-    if (confirm(t<string>("Are you sure you want to clear all messages?"))) {
+    if (confirm("Are you sure you want to clear all messages?")) {
       conversation && dataActions.resetConversation(conversation);
     }
   };

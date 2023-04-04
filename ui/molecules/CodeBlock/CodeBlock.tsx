@@ -1,10 +1,8 @@
-import { CheckIcon, ClipboardIcon, ArrowDownTrayIcon } from "@heroicons/react/24/solid";
-import { FC, useState, memo } from "react";
-import { useTranslation } from "next-i18next";
+import { ArrowDownTrayIcon, CheckIcon, ClipboardIcon } from "@heroicons/react/24/solid";
+import { FC, memo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { generateRandomString, programmingLanguages } from "./codeblock-functions";
-import React from "react";
 
 interface Props {
   language: string;
@@ -12,7 +10,6 @@ interface Props {
 }
 
 export const CodeBlock: FC<Props> = memo(({ language, value }) => {
-  const { t } = useTranslation("markdown");
   const [isCopied, setIsCopied] = useState<Boolean>(false);
 
   const copyToClipboard = () => {
@@ -31,7 +28,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
-    const fileName = window.prompt(t("Enter file name") || "", suggestedFileName);
+    const fileName = window.prompt("Enter file name" || "", suggestedFileName);
 
     if (!fileName) {
       // user pressed cancel on prompt
@@ -65,7 +62,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
             ) : (
               <ClipboardIcon width={18} height={18} className="mr-1.5" />
             )}
-            {isCopied ? t("Copied!") : t("Copy code")}
+            {isCopied ? "Copied!" : "Copy code"}
           </button>
           <button
             className="flex items-center rounded bg-none py-0.5 pl-2 text-xs text-white focus:outline-none"
@@ -85,4 +82,3 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
 CodeBlock.displayName = "CodeBlock";
 
 export default CodeBlock;
-

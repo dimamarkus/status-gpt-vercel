@@ -8,7 +8,6 @@ import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import ChatRangeInput from "#/ui/atoms/inputs/ChatRangeInput/ChatRangeInput";
-import { useTranslation } from "next-i18next";
 import { FC, KeyboardEvent, useEffect, useState } from "react";
 
 export type ChatFormFields = {
@@ -25,7 +24,6 @@ export const ChatInputAlt: FC = () => {
   const { answerStream, selectedConversation, textareaRef, formContext } = appState;
   const { setCurrentMessage, submitQuery, cancelStream } = appActions;
   const model = selectedConversation?.model || GPT4_MODEL;
-  const { t } = useTranslation("chat");
   const [content, setContent] = useState<string>();
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const maxTokens = getBotParam(bot, "max_tokens") as number;
@@ -47,10 +45,7 @@ export const ChatInputAlt: FC = () => {
 
     if (value.length > maxLength) {
       alert(
-        t(
-          `Message limit is {{maxLength}} characters. You have entered {{valueLength}} characters.`,
-          { maxLength, valueLength: value.length },
-        ),
+        `Message limit is ${maxLength} characters. You have entered ${value.length} characters.`,
       );
       return;
     }
@@ -65,7 +60,7 @@ export const ChatInputAlt: FC = () => {
     }
 
     if (!content) {
-      alert(t("Please enter a message"));
+      alert("Please enter a message");
       return;
     }
     const userMessage = createChatMessage("user", content);
@@ -127,7 +122,7 @@ export const ChatInputAlt: FC = () => {
                 textareaRef.current && textareaRef.current.scrollHeight > 400 ? "auto" : "hidden"
               }`,
             }}
-            placeholder={t("Type a message...") || ""}
+            placeholder={"Type a message..." || ""}
             value={content}
             rows={1}
             onCompositionStart={() => setIsTyping(true)}

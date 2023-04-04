@@ -83,7 +83,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
     : undefined;
   // const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
   const latestMessage = incomingAnswerMessage;
-  console.log("selectedConversation.messages", selectedConversation.messages);
+
   return !selectedConversation || !bot ? (
     <div>Loading</div>
   ) : (
