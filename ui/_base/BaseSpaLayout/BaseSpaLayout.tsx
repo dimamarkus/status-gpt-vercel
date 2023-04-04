@@ -14,7 +14,6 @@ type BaseSpaLayoutProps = {
 export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) => {
   const { features } = useFeatureToggleContext();
   const { isFullScreen, toggleFullScreen } = useLayoutContext();
-  const darkMode = features.theme === "dark";
   const globalFont = "font-" + features.font;
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -25,8 +24,8 @@ export const BaseSpaLayout = ({ children, className = "" }: BaseSpaLayoutProps) 
 
   return (
     <BaseLayout
-      className={clsx(globalFont, className, darkMode && "dark")}
-      theme={features.theme}
+      className={clsx(globalFont, className, features.darkMode && "dark")}
+      theme={features.darkMode ? "dark" : "light"}
       onKeyDown={handleKeyDown}
     >
       <style jsx global>

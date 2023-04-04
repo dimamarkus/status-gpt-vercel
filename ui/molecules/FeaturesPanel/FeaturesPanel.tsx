@@ -36,7 +36,7 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
     const newFeatures = { ...features, [key]: value };
     setFeatures(newFeatures);
   };
-
+  const headingStyles = "font-medium ml-10 mb-2 text-xs uppercase text-blue-800 dark:text-blue-600";
   const ref = useOutsideClick<HTMLDivElement>(() => toggleShowFeatures());
 
   const toggleButton = (
@@ -127,10 +127,10 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
     });
   };
 
-  const darkMode = features.theme === "dark";
+  // const darkMode = features.theme === "dark";
   return (
     <div className={clsx("flex flex-col ", className)}>
-      <label htmlFor="darkMode" className="label mb-2 w-16 cursor-pointer self-center">
+      {/* <label htmlFor="darkMode" className="label mb-2 w-16 cursor-pointer self-center">
         <span className="label-text uppercase text-base-100">☀️</span>
         <input
           id="darkMode"
@@ -141,19 +141,26 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
           onChange={(event) => handleSetFeature("theme", darkMode ? "light" : "dark")}
         />
         <span className="label-text uppercase text-base-100">🌙</span>
-      </label>
+      </label> */}
       {/* {getOptionDropdown("theme", THEMES)} */}
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
       {/* {getOptionDropdown("font", FONTS)} */}
       {/* {getOptionRadio("model", MODELS)} */}
       {getOptionCheckbox("useStream", "Stream")}
       {getOptionCheckbox("debugMode", "Debug")}
+
+      <h2 className={headingStyles}>Features</h2>
       {getOptionCheckbox("autoSubmitSpeech", "Auto-submit Speech")}
       {getOptionCheckbox("enableAssumptions", "Assumptions")}
       {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
+
+      <h2 className={headingStyles}>UI</h2>
+      {getOptionCheckbox("darkMode", "Dark Mode")}
       {getOptionCheckbox("sidebarRight", "Sidebar on the right")}
       {getOptionCheckbox("showTokens", "Show Tokens")}
+      {getOptionCheckbox("showUserAvatar", "Show User Avatar")}
+      {getOptionCheckbox("showBotAvatar", "Show Bot Avatar")}
       {/* <KeyValueList items={deploymentStats} /> */}
     </div>
   );

@@ -1,9 +1,10 @@
+import React from "react";
 import { sizeMap } from "#/lib/constants/maps";
 import { CommonSpacings, ElementProps } from "#/lib/types";
 import clsx from "clsx";
 import { Component, ElementType, HTMLAttributes } from "react";
 
-export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
+export interface DuoProps extends HTMLAttributes<ElementType> {
   /**
    * Which HTML element to use for the Duo.
    * Stick to the container elements 'div', 'ul', 'li', 'section', 'article', 'aside'
@@ -34,7 +35,7 @@ export interface DuoProps extends HTMLAttributes<HTMLDivElement> {
    * This component is meant to accept 2 chidlren.
    * It can accept one if you want to hide one of the children.
    */
-  children: [React.ReactNode, React.ReactNode];
+  children: React.ReactNode;
   /**
    * Override classes from the parent. Meant for positioning.
    */
@@ -65,13 +66,11 @@ export const Duo = (props: DuoProps) => {
 
     props.className,
   );
+
+  const orderedChildren = reverseOrder ? React.Children.toArray(children).reverse() : children;
+
   // RENDER
   // ---------------------------------------------------------------------------------------------
-  return (
-    <Element className={classNames}>
-      {children[reverseOrder ? 1 : 0]}
-      {children[reverseOrder ? 0 : 1]}
-    </Element>
-  );
+  return <Element className={classNames}>{orderedChildren}</Element>;
 };
 export default Duo;

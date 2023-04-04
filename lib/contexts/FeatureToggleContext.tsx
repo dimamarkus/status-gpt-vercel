@@ -17,6 +17,9 @@ export type BooleanFeatures = {
   enableSubmissions: boolean;
   sidebarRight: boolean;
   showTokens: boolean;
+  showUserAvatar: boolean;
+  showBotAvatar: boolean;
+  darkMode: boolean;
 };
 
 export type SelectFeatures = {

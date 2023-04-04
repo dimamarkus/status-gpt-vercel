@@ -20,33 +20,35 @@ export const ChatSidebarHeader = () => {
 
   const isSectionOpen = sidebar.botSettings;
 
-  const rootStyles = "display flex px-4 mb-4 flex-shrink-0";
+  const rootStyles = "display flex px-4 mb-4 flex-shrink-0 flex-col";
 
   const innerHeader =
     !bot || !conversation ? (
-      <Duo className={rootStyles}>
-        <ChatMessageAvatar loading />
-        <Duo gap="none" vertical fullWidth>
-          <Loader as="h2" speed="slow" />
-          <>
-            <Loader as="small" speed="slow" />
-            <Loader as="small" speed="slow" />
-          </>
-        </Duo>
+      <Duo gap="none" vertical fullWidth>
+        <Loader as="h2" speed="slow" />
+        <div>
+          <Loader as="small" speed="slow" />
+          <Loader as="small" speed="slow" />
+        </div>
       </Duo>
     ) : (
-      <Duo as="header" className={rootStyles} centered>
-        <ChatMessageAvatar avatarUrl={getBotAvatar(bot)} role={"assitant"} />
-        <Duo vertical gap="none">
-          <h2>{bot.name}</h2>
-          <small className="font-medium">{bot.description}</small>
-        </Duo>
+      <Duo vertical gap="none">
+        <h2 className="mb-1">{bot.name}</h2>
+        <small className="font-normal text-slate-600">{bot.description}</small>
       </Duo>
     );
 
   return (
-    <header className={clsx("collapse flex flex-col")}>
-      <label htmlFor="sidebarHeader" className="collapse-title p-0 font-medium">
+    <header className={clsx("collapse", rootStyles)}>
+      <label
+        htmlFor="sidebarHeader"
+        className="collapse-title flex items-center space-x-4 p-0 font-medium"
+      >
+        <ChatMessageAvatar
+          loading={!bot}
+          avatarUrl={bot ? getBotAvatar(bot) : undefined}
+          role={"assistant"}
+        />
         {innerHeader}
       </label>
       <input

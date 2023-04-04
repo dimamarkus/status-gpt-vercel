@@ -135,13 +135,16 @@ export const ChatMessage = (props: ChatMessageProps) => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <ChatMessageAvatar
-        avatarUrl={avatarUrl}
-        isTalking={isTalking || speaking}
-        role={role}
-        className={clsx("mt-5 hidden md:block", speaking && "cursor-pointer")}
-        onClick={speaking ? handleAvatarClick : undefined}
-      />
+      {((features.showUserAvatar && role === "user") ||
+        (features.showBotAvatar && role === "assistant")) && (
+        <ChatMessageAvatar
+          avatarUrl={avatarUrl}
+          isTalking={isTalking || speaking}
+          role={role}
+          className={clsx("mt-5 hidden md:block", speaking && "cursor-pointer")}
+          onClick={speaking ? handleAvatarClick : undefined}
+        />
+      )}
       <div className="chat-header flex space-x-1">
         <Timestamp time={time} className="ml-3.5 mb-1" />
         {features.showTokens && tokens && (

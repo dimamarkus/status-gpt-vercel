@@ -1,6 +1,6 @@
 import { ADA_MODEL, GPT3_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
 import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/types";
-import { Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
+import { Features, Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
@@ -10,7 +10,7 @@ export const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
 export const THEMES: Theme[] = ["light", "dark", "statusAlt1", "statusAlt2", "statusAlt3"];
 export const FONTS: Font[] = ["sans", "serif"];
 
-export const DEFAULT_FEATURES = {
+export const DEFAULT_FEATURES: Features = {
   font: "sans" as Font,
   layout: "veritcal" as Layout,
   theme: "light" as Theme,
@@ -21,7 +21,10 @@ export const DEFAULT_FEATURES = {
   enableAssumptions: false,
   enableSuggestions: false,
   enableSubmissions: false,
+  showUserAvatar: true,
+  showBotAvatar: true,
   sidebarRight: true,
+  darkMode: false,
   showTokens: false,
 };
 
