@@ -51,11 +51,27 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
     />
   );
 
+  const getOptionToggle = (name: keyof BooleanFeatures, title?: string) => {
+    const currentState = features[name];
+    return (
+      <label htmlFor={name} className="label w-16 cursor-pointer">
+        <input
+          id={name}
+          name={name}
+          type="checkbox"
+          className="toggle-small toggle-primary toggle"
+          checked={currentState}
+          onChange={(event) => handleSetFeature(name, !currentState)}
+        />
+        <span className="label-text ml-4 text-left font-medium text-base-100">{title}</span>
+      </label>
+    );
+  };
+
   const getOptionCheckbox = (name: keyof BooleanFeatures, title?: string) => {
     const currentState = features[name];
     return (
-      <label htmlFor={name} className="label cursor-pointer">
-        <span className="label-text uppercase text-base-100">{title}</span>
+      <label htmlFor={name} className="mb-4 cursor-pointer text-sm">
         <input
           id={name}
           name={name}
@@ -64,6 +80,7 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
           checked={currentState}
           onChange={(event) => handleSetFeature(name, !currentState)}
         />
+        <span className="label-text ml-4 text-left font-medium text-base-100">{title}</span>
       </label>
     );
   };
@@ -113,7 +130,7 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
   const darkMode = features.theme === "dark";
   return (
     <div className={clsx("flex flex-col ", className)}>
-      <label htmlFor="darkMode" className="label cursor-pointer">
+      <label htmlFor="darkMode" className="label mb-2 w-16 cursor-pointer self-center">
         <span className="label-text uppercase text-base-100">☀️</span>
         <input
           id="darkMode"
@@ -135,6 +152,7 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
       {getOptionCheckbox("enableAssumptions", "Assumptions")}
       {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
+      {getOptionCheckbox("sidebarRight", "Sidebar on the right")}
       {getOptionCheckbox("showTokens", "Show Tokens")}
       {/* <KeyValueList items={deploymentStats} /> */}
     </div>

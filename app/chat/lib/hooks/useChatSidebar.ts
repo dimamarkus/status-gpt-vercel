@@ -34,7 +34,7 @@ export type SidebarState = {
 };
 
 export const INITIAL_SIDEBAR_STATE: SidebarState = {
-  conversations: true,
+  conversations: false,
   suggestions: false,
   settings: false,
   botSettings: false,
@@ -48,7 +48,7 @@ export const useChatSidebar = (): UseChatSidebarReturn => {
 
   const toggleSidebarSection = (section: keyof SidebarState) => {
     setSidebarState((state) => ({
-      ...INITIAL_SIDEBAR_STATE,
+      ...state,
       [section]: !state[section],
     }));
   };

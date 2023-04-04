@@ -19,9 +19,9 @@ export const Search: FC<Props> = ({ searchTerm, onSearch }) => {
   };
 
   return (
-    <div className="relative mt-4 flex items-center">
+    <form className="relative flex items-center">
       <input
-        className="w-full flex-1 rounded-md border border-neutral-600 bg-base-200 px-4 py-3 pr-10 text-[12px] leading-3"
+        className="w-full flex-1 rounded-md bg-white/75 px-4 py-3 pr-10 text-[12px] leading-3"
         type="text"
         placeholder={t("Search conversations...") || ""}
         value={searchTerm}
@@ -36,6 +36,6 @@ export const Search: FC<Props> = ({ searchTerm, onSearch }) => {
           height={18}
         />
       )}
-    </div>
+    </form>
   );
 };

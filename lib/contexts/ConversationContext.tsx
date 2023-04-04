@@ -1,6 +1,7 @@
 "use client";
 
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import {
   INITIAL_SIDEBAR_STATE,
   SidebarState,
@@ -137,6 +138,7 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     const addedConversation = addConversation();
     addedConversation && setSelectedConversation(addedConversation);
     sidebarActions.setSidebarSectionState("conversations", true);
+    appState.textareaRef.current?.focus();
   };
 
   const handleResetConversation = () => {

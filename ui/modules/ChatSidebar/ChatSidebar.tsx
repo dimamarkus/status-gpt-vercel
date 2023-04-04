@@ -19,7 +19,7 @@ import { FC, Suspense, useEffect, useState } from "react";
 import { Conversations } from "./Conversations";
 import { Folders } from "./Folders";
 import { Search } from "./Search";
-import { SidebarSettings } from "./SidebarSettings";
+import { ConversationsFooter } from "./ConversationsFooter";
 
 export const ChatSidebar: FC<{}> = () => {
   const { features } = useFeatureToggleContext();
@@ -51,37 +51,35 @@ export const ChatSidebar: FC<{}> = () => {
       <Suspense fallback={<Spinner />}>
         <ChatSidebarHeader />
       </Suspense>
-      <ChatSidebarSection title="Conversations" section="conversations" className="mb-auto">
-        {hasConversations && <Search searchTerm={searchTerm} onSearch={setSearchTerm} />}
+
+      <ChatSidebarSection
+        title="Conversations"
+        section="conversations"
+        className="mb-auto"
+        shrinkable
+      >
         <ConversationsHeader onAddConversation={() => setSearchTerm("")} />
-        <div className="flex-grow overflow-y-auto overflow-x-clip">
-          {folders.length > 0 && <Folders searchTerm={searchTerm} folders={filteredData.folders} />}
-          {rootConversations.length > 0 && (
-            <Conversations conversations={filteredData.rootConversations} />
-          )}
-          {!rootConversations.length && !folders.length && (
-            <div className="mt-8 select-none text-center opacity-50">
-              <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} />
-              <span className="text-[12.5px] leading-3">{t("No conversations.")}</span>
-            </div>
-          )}
-        </div>
-        <SidebarSettings
+        {hasConversations && <Search searchTerm={searchTerm} onSearch={setSearchTerm} />}
+        {rootConversations.length > 0 && (
+          <Conversations conversations={filteredData.rootConversations} />
+        )}
+        {!rootConversations.length && !folders.length && (
+          <div className="mt-8 select-none text-center opacity-50">
+            <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} />
+            <span className="text-[12.5px] leading-3">{t("No conversations.")}</span>
+          </div>
+        )}
+        <ConversationsFooter
           conversationsCount={rootConversations.length || folders.length}
           onClearConversations={resetFolders}
           onExportConversations={exportConversations}
         />
       </ChatSidebarSection>
 
-      {!inProdEnv && (
-        <>
-          <ChatSidebarSection title="Admin" section="admin">
-            <FeaturesPanel />
-          </ChatSidebarSection>
-          <ChatSidebarSection title="Stats" section="stats">
-            <ChatStats />
-          </ChatSidebarSection>
-        </>
+      {features.showTokens && (
+        <ChatSidebarSection title="Stats" section="stats">
+          <ChatStats />
+        </ChatSidebarSection>
       )}
 
       {features.enableAssumptions && (

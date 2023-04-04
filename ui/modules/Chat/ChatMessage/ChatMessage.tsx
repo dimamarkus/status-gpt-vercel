@@ -68,7 +68,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const rootStyles = clsx(
     styles.root,
-    "chat m-0 p-4",
+    "chat m-0 p-4 pb-0",
     isUser ? [styles.alignRight, "chat-end"] : "chat-start",
     className,
   );

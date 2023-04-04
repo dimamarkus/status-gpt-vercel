@@ -12,7 +12,7 @@ interface Props {
   onExportConversations: () => void;
 }
 
-export const SidebarSettings: FC<Props> = ({
+export const ConversationsFooter: FC<Props> = ({
   conversationsCount,
   onClearConversations,
   onExportConversations,
@@ -29,7 +29,7 @@ export const SidebarSettings: FC<Props> = ({
   };
 
   return (
-    <div className="mt-auto flex flex-col items-center space-y-1 border-t border-neutral-500/20 pt-1 text-sm">
+    <footer className="mt-auto flex flex-col items-center space-y-1 border-t border-neutral-500/20 text-sm">
       {conversationsCount > 0 ? (
         <ClearConversations onClearConversations={onClearConversations} />
       ) : null}
@@ -41,6 +41,6 @@ export const SidebarSettings: FC<Props> = ({
         icon={<ArrowDownTrayIcon width={18} height={18} />}
         onClick={() => onExportConversations()}
       />
-    </div>
+    </footer>
   );
 };

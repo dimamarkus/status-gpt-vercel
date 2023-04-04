@@ -21,6 +21,7 @@ export const DEFAULT_FEATURES = {
   enableAssumptions: false,
   enableSuggestions: false,
   enableSubmissions: false,
+  sidebarRight: true,
   showTokens: false,
 };
 

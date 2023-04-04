@@ -22,7 +22,7 @@ export const ChatSidebarHeader = () => {
 
   const isSectionOpen = sidebar.botSettings;
 
-  const rootStyles = "display flex px-4 mb-4";
+  const rootStyles = "display flex px-4 mb-4 flex-shrink-0";
 
   const innerHeader =
     !bot || !conversation ? (
@@ -47,7 +47,7 @@ export const ChatSidebarHeader = () => {
     );
 
   return (
-    <div className={clsx("collapse flex flex-col")}>
+    <header className={clsx("collapse flex flex-col")}>
       <label htmlFor="sidebarHeader" className="collapse-title p-0 font-medium">
         {innerHeader}
       </label>
@@ -63,7 +63,7 @@ export const ChatSidebarHeader = () => {
           <ChatBotSelect selectedSlug={bot ? bot.slug : null} />
         </Suspense>
       </div>
-    </div>
+    </header>
   );
 };
 

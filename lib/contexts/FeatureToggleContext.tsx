@@ -15,6 +15,7 @@ export type BooleanFeatures = {
   enableAssumptions: boolean;
   enableSuggestions: boolean;
   enableSubmissions: boolean;
+  sidebarRight: boolean;
   showTokens: boolean;
 };
 
