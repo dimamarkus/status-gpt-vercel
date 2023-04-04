@@ -20,7 +20,9 @@ export const Timestamp = ({ time, className }: TimestampProps) => {
   }, []);
 
   return (
-    <time className={clsx("chat-header text-xs opacity-50", className)}>{time || clientTime}</time>
+    <time className={clsx("flex items-end text-xs opacity-50", className)}>
+      {time || clientTime}
+    </time>
   );
 };
 export default Timestamp;

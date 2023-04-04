@@ -79,24 +79,54 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const buttonStyles = isUser ? "text-left" : "text-right";
 
+  const editButton = isUser && (
+    <>
+      <BaseButton
+        className="mr-2 text-xs"
+        flavor="bare"
+        text="Edit"
+        size="sm"
+        onClick={() => setIsEditing(true)}
+        theme="secondary"
+      />
+      <small className="mr-2 text-xs text-neutral-300">|</small>
+    </>
+  );
+
   const regenerateButton = onRegenerate && !isUser && !isSystem && (
-    <BaseButton
-      flavor="icon"
-      icon={<ArrowPathRoundedSquareIcon />}
-      onClick={onRegenerate}
-      title="Regenerate response"
-    />
+    <>
+      <BaseButton
+        flavor="bare"
+        theme="secondary"
+        title="Regenerate response"
+        text="Regenerate"
+        size="sm"
+        onClick={onRegenerate}
+        className="mr-2 text-xs"
+      />
+      <small className="mr-2 text-xs text-neutral-300">|</small>
+    </>
   );
 
   const stopButton = onStop && (
-    <BaseButton
-      flavor="icon"
-      icon={<StopIcon />}
-      onClick={onStop}
-      title="Regenerate response"
-      className="absolute left-0 right-0"
-    />
+    <>
+      <small className="text-xs text-neutral-400">|</small>
+      <BaseButton
+        flavor="icon"
+        icon={<StopIcon />}
+        onClick={onStop}
+        text="Stop generating"
+        title="Stop generating a response"
+        size="sm"
+        className="gap-0 text-xs"
+      />
+    </>
   );
+
+  const handleAvatarClick = () => {
+    speaking && cancel();
+    speaking && onStop && onStop();
+  };
 
   return (
     <li
@@ -110,9 +140,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         isTalking={isTalking || speaking}
         role={role}
         className={clsx("mt-5 hidden md:block", speaking && "cursor-pointer")}
-        onClick={() => {
-          speaking && cancel();
-        }}
+        onClick={speaking ? handleAvatarClick : undefined}
       />
       <div className="chat-header flex space-x-1">
         <Timestamp time={time} className="ml-3.5 mb-1" />
@@ -122,6 +150,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
             <small className="text-xs text-orange-500">{tokens} Tokens</small>
           </>
         )}
+        {stopButton}
       </div>
       <div className={bubbleStyles}>
         {isEditing && messageIndex ? (
@@ -133,22 +162,17 @@ export const ChatMessage = (props: ChatMessageProps) => {
         ) : (
           <>
             <ParsedMarkdown2 content={content} className={bubbleContentStyles} />
-            <Duo gap="full" centered className={isHovering ? "opacity-1" : "opacity-0"}>
-              {!isUser ? (
-                <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
-              ) : (
-                <BaseButton
-                  className="mr-auto"
-                  flavor="icon"
-                  icon={<PencilIcon />}
-                  onClick={() => setIsEditing(true)}
-                  theme="secondary"
-                />
-              )}
-              <CopyButton content={content} className={buttonStyles} />
+            <Duo
+              gap="full"
+              centered
+              className={isHovering || speaking || !!onRegenerate ? "opacity-1" : "opacity-0"}
+            >
+              <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
+              <div>
+                {editButton || regenerateButton}
+                <CopyButton content={content} className={buttonStyles} />
+              </div>
             </Duo>
-            {regenerateButton}
-            {stopButton}
           </>
         )}
       </div>

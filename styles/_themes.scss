@@ -21,6 +21,9 @@
 // INPUTS
 // ----------------------------------------------
 [data-theme="light"] {
+  .link-secondary {
+    @apply hover:text-blue-600;
+  }
   .label {
     @apply text-neutral-600;
   }

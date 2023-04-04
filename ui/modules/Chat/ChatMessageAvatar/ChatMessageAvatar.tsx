@@ -1,4 +1,5 @@
 import { SHIMMER_STYLES } from "#/lib/constants/style-classes";
+import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import Avatar from "#/ui/atoms/decorations/Avatar/Avatar";
 import Mouth from "#/ui/atoms/decorations/Mouth/Mouth";
 import { Cog8ToothIcon } from "@heroicons/react/24/solid";
@@ -28,23 +29,35 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
       width={64}
       height={64}
       className="aspect-square object-cover"
-      onClick={onClick}
     />
   ) : (
-    <Mouth animated={!!isTalking} onClick={onClick} />
+    <Mouth animated={!!isTalking} />
   );
+
+  const handleClick = () => {
+    onClick && onClick();
+  };
 
   let innerAvatar = botAvatar;
 
   if (loading) {
     innerAvatar = <div className={`h-full w-full animate-pulse bg-white/75 ${SHIMMER_STYLES}`} />;
   } else if (role === "system") {
-    innerAvatar = <Cog8ToothIcon className="h-16 w-16" onClick={onClick} />;
+    innerAvatar = <Cog8ToothIcon className="h-16 w-16" />;
   } else if (role === "user") {
-    innerAvatar = <Avatar isUserMessage onClick={onClick} />;
+    innerAvatar = <Avatar isUserMessage />;
   }
 
-  return <div className={clsx(rootStyles, className)}>{innerAvatar}</div>;
+  return (
+    <BaseButton
+      flavor="bare"
+      className={clsx(rootStyles, className)}
+      onClick={handleClick}
+      disabled={onClick === undefined}
+    >
+      {innerAvatar}
+    </BaseButton>
+  );
 };
 
 export default ChatMessageAvatar;
