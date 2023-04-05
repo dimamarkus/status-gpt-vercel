@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { Boundary } from "#/ui/examples/boundary";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import Boundary from "#/ui/atoms/util/Boundary/Boundary";
 
 export default function Error({ error, reset }: any) {
   React.useEffect(() => {

@@ -1,9 +1,9 @@
-import { Analytics } from "@vercel/analytics/react";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
-import { LayoutContextProvider } from "#/lib/contexts/LayoutContext";
 import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
+import { LayoutContextProvider } from "#/lib/contexts/LayoutContext";
 import "#/styles/index.scss";
 import GoogleAnalytics from "#/ui/atoms/util/GoogleAnalytics";
+import { Analytics } from "@vercel/analytics/react";
 import { globalMetadata } from "./metadata";
 
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.

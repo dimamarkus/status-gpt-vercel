@@ -1,6 +1,6 @@
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import styles from "#/ui/atoms/layouts/ChatLayout/ChatLayout.module.scss";
-import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
+import ChatLayout from "#/ui/modules/Chat/ChatLayout/ChatLayout";
 import clsx from "clsx";
 
 export default function Loading() {

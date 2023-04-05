@@ -1,15 +1,42 @@
+// .collapsible {
+//   & > label {
+//     cursor: pointer;
+//   }
+
+//   & > input:checked + label + div {
+//     max-height: 100%;
+//   }
+
+//   & > div {
+//     max-height: 0;
+//     overflow: hidden;
+//     transition: max-height 0.3s ease;
+//   }
+// }
+
 .collapsible {
   & > label {
     cursor: pointer;
+    transition: border-color 0.3s ease-in-out; /* Add a border transition */
   }
 
   & > input:checked + label + div {
     max-height: 100%;
   }
 
+  & > input:checked + label {
+    border-bottom-color: transparent; /* Change border color when the content is visible */
+  }
+
   & > div {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; /* Update the transition */
+  }
+
+  & > label {
+    border-bottom: 1px solid; /* Add a border at the bottom of the label */
+    @apply border-blue-200;
+    padding-bottom: 1rem;
   }
 }

@@ -30,18 +30,32 @@ export async function postToCms<TResponse extends CmsResource, TRequestBody exte
 // ============================================================================
 //  UTIL
 // ============================================================================
-export async function extractResource<T extends CmsResource>(
+export async function extractResources<T extends CmsResource>(
   response: StrapiArrayResponse<T>,
-): Promise<T | null> {
+): Promise<T[]> {
   if (!response.data || !response.data.length) {
     throw new Error("Fetch resource failed with status " + response.status);
   }
-  return response?.data[0]?.attributes || null;
+  const bots = response?.data.map((bot) => bot.attributes);
+  return bots;
+}
+
+export async function extractResource<T extends CmsResource>(
+  response: StrapiArrayResponse<T>,
+): Promise<T> {
+  if (!response.data || !response.data.length) {
+    throw new Error("Fetch resource failed with status " + response.status);
+  }
+  return response?.data[0]?.attributes;
 }
 
 // ============================================================================
 //  GENERIC
 // ============================================================================
+const getPopulateString = (populateFields: string[]) =>
+  populateFields.includes("*")
+    ? "populate=*"
+    : populateFields.map((field, index) => `&populate[${index}]=${field}`).join("");
 
 export async function getResourcesFromCms<T extends CmsResource>(
   endpoint: CmsResourceSlug,
@@ -62,7 +76,7 @@ export async function getResourceFromCms<T extends CmsResource>(
   populate?: boolean,
 ): Promise<StrapiSingleResponse<T>> {
   const resourcePath = id ? `${endpoint}/${id}` : endpoint;
-  const url = resourcePath + (populate ? "?populate=*" : "");
+  const url = resourcePath + (populate ? "?populate=$" : "");
 
   return await makeCmsRequest<StrapiSingleResponse<T>, {}>(url, "GET");
 }
@@ -100,17 +114,24 @@ export async function putResourceToCms<T extends CmsResource>(
 // ============================================================================
 //  RESOURCES
 // ============================================================================
-export async function fetchBot(slug: Bot["slug"]): Promise<Bot | null> {
+export async function fetchBots(): Promise<Bot[]> {
+  const populateString = getPopulateString(["avatar"]);
+
+  const response = await getResourcesFromCms<Bot>("bots", populateString);
+  return await extractResources(response);
+}
+
+export async function fetchBot(slug: Bot["slug"]): Promise<Bot> {
   const response = await filterResourceFromCms<Bot>("bots", "slug", slug);
   return await extractResource(response);
 }
 
-export async function fetchChatSettings(): Promise<ChatSettings | null> {
+export async function fetchChatSettings(): Promise<ChatSettings> {
   const response = await getResourcesFromCms<ChatSettings>("chat-setting");
   return await extractResource(response);
 }
 
-export async function updateChatSettings(settings: ChatSettings): Promise<ChatSettings | null> {
+export async function updateChatSettings(settings: ChatSettings): Promise<ChatSettings> {
   const response = await putResourceToCms<ChatSettings>("chat-setting", settings);
   return await extractResource(response);
 }

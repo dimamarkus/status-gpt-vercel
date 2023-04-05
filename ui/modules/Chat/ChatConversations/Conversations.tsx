@@ -1,7 +1,6 @@
 import { Conversation } from "#/app/chat/lib/types";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { FC } from "react";
-import { ConversationComponent } from "./Conversation";
+import { ConversationItem } from "./Conversation";
 
 interface Props {
   conversations: Conversation[];
@@ -43,8 +42,10 @@ export const Conversations = ({ conversations }: Props) => {
         .slice()
         .reverse()
         .map((conversation, index) => (
-          <ConversationComponent key={index} conversation={conversation} />
+          <ConversationItem key={index} conversation={conversation} />
         ))}
     </ul>
   );
 };
+
+export default Conversations;

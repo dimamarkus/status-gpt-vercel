@@ -1,14 +1,12 @@
 "use client";
 
 import { CHAT_COSTS } from "#/app/chat/lib/constants";
-import { useChatContext } from "#/lib/contexts/ChatContext";
+import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { usePrevious } from "#/lib/hooks/usePrevious";
 import Card from "#/ui/atoms/containers/Card/Card";
 import KeyValueList from "#/ui/atoms/lists/KeyValueList/KeyValueList";
 import React, { useEffect, useState } from "react";
-import styles from "./ChatStats.module.scss";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 
 type ChatStatsProps = {
   children?: React.ReactNode;

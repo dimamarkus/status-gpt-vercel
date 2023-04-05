@@ -1,17 +1,13 @@
+import { BotPageProps } from "#/app/chat/[slug]/page";
+import { sortBots } from "#/app/chat/lib/helpers/bot-helpers";
 import { DEFAULT_CHAT_BOT } from "#/lib/constants/settings";
-import { ChatContextProvider } from "#/lib/contexts/ChatContext";
-import { ConversationsContextProvider } from "#/lib/contexts/ConversationContext";
 import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
-import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
-import ChatLayout from "#/ui/atoms/layouts/ChatLayout/ChatLayout";
+import { fetchBots } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
-import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
-import ChatMessages from "#/ui/modules/Chat/ChatMessages/ChatMessages";
-import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
-import ChatSubmissions from "#/ui/modules/Chat/ChatSubmissions/ChatSubmissions";
-import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
+import Chat from "#/ui/modules/Chat/Chat";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 async function getData() {
   /**
@@ -21,22 +17,15 @@ async function getData() {
   return getCurrentTime();
 }
 
-export default async function HomePage() {
-  const bot = await fetchBot(DEFAULT_CHAT_BOT);
+export default async function HomePage({ searchParams }: BotPageProps) {
+  const query = searchParams.query;
   const startTime = await getData();
+  const bots = await fetchBots();
+  const selectedBot = bots.find((bot) => bot.slug === DEFAULT_CHAT_BOT) || bots[0];
 
   return (
     <LandingLayout>
-      <ConversationsContextProvider bot={bot}>
-        <ChatContextProvider bot={bot}>
-          <ChatLayout>
-            <ChatMessages startTime={startTime} className="h-full" />
-            <ChatSuggestions className="lg:hidden" />
-            <ChatSubmissions />
-            <ChatInput />
-          </ChatLayout>
-        </ChatContextProvider>
-      </ConversationsContextProvider>
+      <Chat bots={sortBots(bots)} selectedBot={selectedBot} startTime={startTime} query={query} />
     </LandingLayout>
   );
 }

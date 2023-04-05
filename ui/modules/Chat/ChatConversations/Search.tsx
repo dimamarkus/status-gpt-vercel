@@ -36,3 +36,5 @@ export const Search: FC<Props> = ({ searchTerm, onSearch }) => {
     </form>
   );
 };
+
+export default Search;

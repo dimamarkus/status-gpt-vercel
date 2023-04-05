@@ -25,7 +25,7 @@ export const ChatSidebarSection: FC<ChatSidebarSectionProps> = (props) => {
 
   const isSectionOpen = sidebar[section];
   const inputName = `${section}-input`;
-  const titleStyles = "collapse-title flex items-center text-xs py-1 p-0 min-h-0";
+  const titleStyles = "collapse-title flex items-center text-xs pb-4 p-0 min-h-0";
   const contentStyles = "collapse-content flex h-full flex-col p-0";
   const rootStyles = clsx(
     "collapse flex flex-col px-4 font-normal",

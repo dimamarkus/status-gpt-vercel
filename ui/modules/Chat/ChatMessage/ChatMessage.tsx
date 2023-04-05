@@ -71,11 +71,11 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const bubbleStyles = clsx(
     styles.chatBubble,
-    `chat-bubble flex max-w-full flex-col transition`,
+    `chat-bubble flex max-w-full flex-col transition pb-1`,
     isUser ? "bg-blue-50 dark:bg-slate-900" : "bg-neutral-50 dark:bg-base-300",
   );
 
-  const bubbleContentStyles = clsx(isSystem && "text-orange-500 text-xs max-w-full");
+  const contentStyles = clsx(isSystem && "text-orange-500 text-xs max-w-full");
 
   const buttonStyles = isUser ? "text-left" : "text-right";
 
@@ -102,7 +102,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         text="Regenerate"
         size="sm"
         onClick={onRegenerate}
-        className="mr-2 text-xs"
+        className="mx-2 text-xs"
       />
       <small className="mr-2 text-xs text-neutral-300">|</small>
     </>
@@ -164,14 +164,14 @@ export const ChatMessage = (props: ChatMessageProps) => {
           />
         ) : (
           <>
-            <ParsedMarkdown2 content={content} className={bubbleContentStyles} />
+            <ParsedMarkdown2 content={content} className={contentStyles} />
             <Duo
               gap="full"
               centered
               className={isHovering || speaking || !!onRegenerate ? "opacity-1" : "opacity-0"}
             >
               <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
-              <div>
+              <div className="flex">
                 {editButton || regenerateButton}
                 <CopyButton content={content} className={buttonStyles} />
               </div>

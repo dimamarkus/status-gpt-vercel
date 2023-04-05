@@ -2,7 +2,6 @@ import { Assumptions, useAssumptionsContext } from "#/lib/contexts/AssumptionsCo
 import clsx from "clsx";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import styles from "./ChatAssumptions.module.scss";
 
 type ChatAssumptionsProps = {
   className?: string;
@@ -22,11 +21,7 @@ export const ChatAssumptions = ({ className }: ChatAssumptionsProps) => {
     <FormProvider {...methods}>
       <form
         id="SMChatAsssumptions"
-        className={clsx(
-          styles.ChatAssumptions,
-          "bg-blend-darke mt-2 w-full max-w-lg space-y-8",
-          className,
-        )}
+        className={clsx("bg-blend-darke mt-2 w-full max-w-lg space-y-8", className)}
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <section className="flex flex-col space-y-4">

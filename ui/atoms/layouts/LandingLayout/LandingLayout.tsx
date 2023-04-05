@@ -1,11 +1,9 @@
+import BaseLayout from "#/ui/_base/BaseLayout/BaseLayout";
+import BaseSpaLayout from "#/ui/_base/BaseSpaLayout/BaseSpaLayout";
+import TopBar from "#/ui/molecules/TopBar/TopBar";
 import clsx from "clsx";
 import React from "react";
 import styles from "./LandingLayout.module.scss";
-import { inProdEnv } from "#/lib/helpers/env-helpers";
-import TopBar from "#/ui/molecules/TopBar/TopBar";
-import BaseLayout from "#/ui/_base/BaseLayout/BaseLayout";
-import BaseSpaLayout from "#/ui/_base/BaseSpaLayout/BaseSpaLayout";
-import ChatBotMenu from "#/ui/modules/Chat/ChatBotMenu/ChatBotMenu";
 
 type LandingLayoutProps = {
   ssr?: boolean;

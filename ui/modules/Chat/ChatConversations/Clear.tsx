@@ -1,16 +1,16 @@
 import { CheckIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { FC, useState } from "react";
-import { SidebarButton } from "./SidebarButton";
+import { SidebarButton } from "../../../atoms/buttons/SidebarButton/SidebarButton";
 
 interface Props {
-  onClearConversations: () => void;
+  onClear: () => void;
 }
 
-export const ClearConversations: FC<Props> = ({ onClearConversations }) => {
+export const Clear: FC<Props> = ({ onClear }) => {
   const [isConfirming, setIsConfirming] = useState<boolean>(false);
 
-  const handleClearConversations = () => {
-    onClearConversations();
+  const handleClear = () => {
+    onClear();
     setIsConfirming(false);
   };
 
@@ -27,7 +27,7 @@ export const ClearConversations: FC<Props> = ({ onClearConversations }) => {
           height={18}
           onClick={(e) => {
             e.stopPropagation();
-            handleClearConversations();
+            handleClear();
           }}
         />
 
@@ -50,3 +50,5 @@ export const ClearConversations: FC<Props> = ({ onClearConversations }) => {
     />
   );
 };
+
+export default Clear;

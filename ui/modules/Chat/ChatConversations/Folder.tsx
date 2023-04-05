@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { FC, KeyboardEvent, useEffect, useState } from "react";
-import { ConversationComponent } from "./Conversation";
+import { ConversationItem } from "./Conversation";
 
 interface Props {
   searchTerm: string;
@@ -171,7 +171,7 @@ export const Folder: FC<Props> = ({ searchTerm, currentFolder }) => {
         {isOpen
           ? currentFolder.conversations.map((conversation, index) => {
               if (conversation.folderId === currentFolder.id) {
-                return <ConversationComponent key={index} conversation={conversation} />;
+                return <ConversationItem key={index} conversation={conversation} />;
               }
             })
           : null}
@@ -179,3 +179,5 @@ export const Folder: FC<Props> = ({ searchTerm, currentFolder }) => {
     </li>
   );
 };
+
+export default Folder;

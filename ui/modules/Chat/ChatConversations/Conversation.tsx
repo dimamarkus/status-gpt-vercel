@@ -17,7 +17,7 @@ interface Props {
   conversation: Conversation;
 }
 
-export const ConversationComponent: FC<Props> = ({ conversation }) => {
+export const ConversationItem: FC<Props> = ({ conversation }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
   const [renameValue, setRenameValue] = useState("");
@@ -119,7 +119,7 @@ export const ConversationComponent: FC<Props> = ({ conversation }) => {
           <BaseButton
             flavor="icon"
             icon={<CheckIcon />}
-            className={"text-green-300 hover:text-green-500"}
+            className={"text-green-400 hover:text-green-500"}
             onClick={(e) => {
               e.stopPropagation();
               if (isDeleting) {
@@ -170,3 +170,5 @@ export const ConversationComponent: FC<Props> = ({ conversation }) => {
     </li>
   );
 };
+
+export default ConversationItem;

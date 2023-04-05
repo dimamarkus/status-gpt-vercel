@@ -5,7 +5,7 @@ describe("<ChatLayout />", () => {
   it("renders", () => {
     // see: https://on.cypress.io/mounting-react
     cy.mount(
-      <ChatLayout>
+      <ChatLayout sidebar={<h2>Im a sidebar</h2>}>
         <h1>This is a test.</h1>
       </ChatLayout>,
     );

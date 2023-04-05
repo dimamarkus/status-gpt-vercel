@@ -1,7 +1,7 @@
-import React, { ElementType, HTMLAttributes } from "react";
-import styles from "./Collapsible.module.scss";
 import { ElementProps } from "#/lib/types";
 import clsx from "clsx";
+import React, { ElementType, HTMLAttributes } from "react";
+import styles from "./Collapsible.module.scss";
 
 type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
   /**

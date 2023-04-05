@@ -1,4 +1,4 @@
-import { Boundary } from "#/ui/examples/boundary";
+import Boundary from "#/ui/atoms/util/Boundary/Boundary";
 
 export default function NotFound() {
   return (

@@ -10,6 +10,18 @@ import {
   CmsSingleRelation,
 } from "#/lib/types/cms";
 
+export const sortBots = (bots: Bot[]) => {
+  return bots.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+};
+
 export const getBotParam = (bot: Bot | null, param: keyof Omit<OpenAiRequest, "stream" | "n">) =>
   (!!bot && bot[param]) || (DEFAULT_GPT_SETTINGS[param] as number);
 

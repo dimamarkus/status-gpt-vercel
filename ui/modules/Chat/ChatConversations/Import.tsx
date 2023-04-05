@@ -2,7 +2,7 @@ import { cleanConversationHistory } from "#/app/chat/lib/helpers/converastion-he
 import { Conversation, ConversationsFolder } from "#/app/chat/lib/types";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
 import { FC } from "react";
-import { SidebarButton } from "./SidebarButton";
+import { SidebarButton } from "../../../atoms/buttons/SidebarButton/SidebarButton";
 
 interface Props {
   onImport: (data: { rootConversations: Conversation[]; folders: ConversationsFolder[] }) => void;
@@ -48,3 +48,5 @@ export const Import: FC<Props> = ({ onImport }) => {
     </>
   );
 };
+
+export default Import;

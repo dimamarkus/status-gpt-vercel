@@ -1,21 +1,19 @@
 "use client";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import Overlay from "#/ui/atoms/Overlay/Overlay";
-import ChatHeader from "#/ui/modules/Chat/ChatHeader/ChatHeader";
-import ChatInputAlt from "#/ui/modules/Chat/ChatInput/ChatInput";
-import ChatSidebar from "#/ui/modules/ChatSidebar/ChatSidebar";
 import clsx from "clsx";
 import React from "react";
 import styles from "./ChatLayout.module.scss";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 
 type ChatLayoutProps = {
   children: React.ReactNode;
+  sidebar: React.ReactNode;
 };
 
-const ChatLayout = ({ children }: ChatLayoutProps) => {
+const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const { features } = useFeatureToggleContext();
   const { isFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
   const isMobile = useIsMobile();
@@ -41,18 +39,14 @@ const ChatLayout = ({ children }: ChatLayoutProps) => {
     <div className={clsx(styles.root, rootStyles, isFullScreen && styles.fullScreen)}>
       {sidebarIsVisible && !features.sidebarRight && (
         <aside className={asideStyles} ref={ref}>
-          <ChatSidebar />
+          {sidebar}
         </aside>
       )}
       {sidebarIsVisible && isMobile && <Overlay />}
-      <section className={mainContentStyles}>
-        <ChatHeader />
-        {children}
-        <ChatInputAlt />
-      </section>
+      <section className={mainContentStyles}>{children}</section>
       {sidebarIsVisible && features.sidebarRight && (
         <aside className={asideStyles} ref={ref}>
-          <ChatSidebar />
+          {sidebar}
         </aside>
       )}
     </div>

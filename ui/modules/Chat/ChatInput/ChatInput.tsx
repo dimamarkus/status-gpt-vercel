@@ -7,7 +7,9 @@ import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { CHAT_BOT_INPUT_MAX_CHARS } from "#/lib/constants/settings";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useDebounce } from "#/lib/hooks/useDebounce";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
+import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import ChatRangeInput from "#/ui/atoms/inputs/ChatRangeInput/ChatRangeInput";
 import { MicrophoneIcon } from "@heroicons/react/20/solid";
@@ -20,13 +22,19 @@ export type ChatFormFields = {
   max_tokens: number;
 };
 
-export const ChatInput: FC = () => {
+export type ChatInputProps = {
+  query?: string;
+};
+
+export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   const { features } = useFeatureToggleContext();
   const {
     appState,
     appActions,
     dataState: { bot },
+    dataActions,
   } = useConversationsContext();
+
   const { answerStream, selectedConversation, textareaRef, formContext } = appState;
   const { setCurrentMessage, submitQuery, cancelStream } = appActions;
   const model = selectedConversation?.model || GPT4_MODEL;
@@ -43,6 +51,31 @@ export const ChatInput: FC = () => {
       setContent(result);
     },
   });
+
+  useUpdateEffect(() => {
+    if (query) {
+      console.log("query", query);
+      // submitQuery(createChatMessage("user", query));
+      // dataActions.addMessage(selectedConversation, createChatMessage("user", query));
+      setContent(query);
+      handleSend(query);
+    }
+  }, []);
+
+  useEffect(() => {
+    // if (debouncedSearchTerm) {
+    //   console.log("debouncedSearchTerm", debouncedSearchTerm);
+    //   submitQuery(createChatMessage("user", debouncedSearchTerm));
+    //   setContent(debouncedSearchTerm);
+    //   handleSend(debouncedSearchTerm);
+    // }
+    // const fetchData = async () => {
+    //   const response = await fetch(`/api/your-api-endpoint?param=${queryParam}`);
+    //   const result = await response.json();
+    //   setData(result);
+    // };
+    // fetchData();
+  }, []);
 
   useEffect(() => {
     // Autofocus textarea on render
@@ -66,16 +99,18 @@ export const ChatInput: FC = () => {
     chatInputProps.onChange(e);
   };
 
-  const handleSend = () => {
+  const handleSend = (query?: string) => {
     if (answerStream) {
       return;
     }
-
-    if (!content) {
+    const question = content || query;
+    console.log("hasQuery", !!query);
+    if (!question) {
       alert("Please enter a message");
       return;
     }
-    const userMessage = createChatMessage("user", content);
+    const userMessage = createChatMessage("user", question);
+    console.log("userMessage", userMessage);
     setCurrentMessage(userMessage);
     submitQuery(userMessage);
     setContent("");

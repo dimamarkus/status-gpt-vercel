@@ -16,3 +16,5 @@ export const Folders: FC<Props> = ({ searchTerm, folders }) => {
     </ul>
   );
 };
+
+export default Folders;
