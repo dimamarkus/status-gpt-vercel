@@ -105,7 +105,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
         >
           <ChatBubbleLeftIcon width={18} height={18} />
           <div
-            className={`relative max-h-5 flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-all text-left text-[12.5px] leading-3 ${
+            className={`relative max-h-5 flex-1 overflow-visible text-ellipsis whitespace-nowrap break-all text-left text-[12.5px] leading-3 ${
               selectedConversation.id === conversation.id ? "pr-12" : "pr-1"
             }`}
           >

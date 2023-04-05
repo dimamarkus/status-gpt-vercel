@@ -1,6 +1,6 @@
 "use client";
 
-import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
+import { compileChatMessages, createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import {
   SidebarState,
   UseChatSidebarReturn,
@@ -19,9 +19,14 @@ import { UseSubmissionsReturn, useSubmissions } from "#/app/chat/lib/hooks/useSu
 import { UseSuggestionsReturn, useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
 import { Conversation, StatusChatMessage } from "#/app/chat/lib/types";
-import { SUBMISSIONS_PROMPT_SIZE, SUGGESTIONS_PROMPT_SIZE } from "#/lib/constants/settings";
+import {
+  DEFAULT_BOT_MEMORY,
+  SUBMISSIONS_PROMPT_SIZE,
+  SUGGESTIONS_PROMPT_SIZE,
+} from "#/lib/constants/settings";
 import { AssumptionsContext, useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";
 import React, { createContext, useContext, useEffect } from "react";
@@ -114,13 +119,26 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     } else {
       dataActions.addMessage(selectedConversation, message);
     }
-    console.log("conversation", conversation);
-    // TODO - add slicing based on bot memory
-    const chatLogToUse = chatLog || conversation.messages;
-    const messagesToSend = [...chatLogToUse, message];
-    const answer = await getAnswer(messagesToSend);
+
+    const chatMessages = compileChatMessages(
+      chatLog || conversation.messages,
+      message.content,
+      bot?.memory,
+    );
+
+    const answer = await getAnswer(chatMessages.toSend);
     const botAnswerMessage = createChatMessage("assistant", answer);
-    const resultingChatLog = [...messagesToSend, botAnswerMessage];
+    const resultingChatLog = [...chatMessages.all, botAnswerMessage];
+    const isFirstMessageInChat = conversation.messages.length === 2; /* 1 system, 1 welcome */
+    if (isFirstMessageInChat) {
+      const { content } = message;
+      const conversationName = content.length > 30 ? content.substring(0, 30) + "..." : content;
+      conversation = {
+        ...conversation,
+        name: capitalizeFirstLetter(conversationName),
+      };
+    }
+
     updateConversation({ ...conversation, messages: resultingChatLog });
     features.enableSuggestions &&
       suggestionsActions.getSuggestions(resultingChatLog.slice(-SUGGESTIONS_PROMPT_SIZE));

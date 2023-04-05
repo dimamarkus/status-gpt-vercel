@@ -65,10 +65,10 @@ export const ChatStats = (props: ChatStatsProps) => {
 
     const lastMessage = chatLog[chatLog.length - 1];
     const costToAdd = chatLog && lastMessage?.role === "assistant" ? promptsCost : completionsCost;
-    console.log("prevChatLog.length", prevChatLog?.length);
-    console.log("chatLog.length", chatLog.length);
-    console.log("lastMessage", lastMessage);
-    console.log("I SHOULD RUN and add", costToAdd, "to", totalCost);
+    // console.log("prevChatLog.length", prevChatLog?.length);
+    // console.log("chatLog.length", chatLog.length);
+    // console.log("lastMessage", lastMessage);
+    // console.log("I SHOULD RUN and add", costToAdd, "to", totalCost);
     // setTotalCost(totalCost + costToAdd);
   }, [
     chatLog,

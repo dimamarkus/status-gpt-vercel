@@ -9,6 +9,8 @@ type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
    * Stick to the container elements 'div', 'ul', 'li', 'section', 'article', 'aside'
    */
   as?: ElementType<ElementProps>;
+  // Unique identifier for this collapse section
+  slug: string;
   title: React.ReactNode;
   children: React.ReactNode;
   className?: string;
@@ -16,8 +18,9 @@ type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
 };
 
 export const Collapsible = (props: CollapsibleProps) => {
-  const { as: Element = "div", title, children, className, titleClassName } = props;
-  const id = `collapsible-${Math.random().toString(36).substr(2, 9)}`;
+  const { as: Element = "div", title, children, className, titleClassName, slug } = props;
+
+  const id = `collapsible-${slug}`;
 
   return (
     <Element className={clsx(styles.collapsible, className)}>

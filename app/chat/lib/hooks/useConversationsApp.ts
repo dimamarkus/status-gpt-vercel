@@ -6,6 +6,7 @@ import {
 } from "#/app/chat/lib/helpers/chat-helpers";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import {
+  GptMessage,
   OpenAiChatResponse,
   OpenAiCompletionResponse,
   OpenAiModel,
@@ -33,7 +34,7 @@ export type UseConversationsAppReturn = {
   };
   actions: {
     cancelStream: () => void;
-    getAnswer: (chatLog: StatusChatMessage[], deleteCount?: number) => Promise<string>;
+    getAnswer: (chatLog: GptMessage[]) => Promise<string>;
     toggleSidebar: () => void;
     resetUserInput: (newInput?: string) => void;
     setCurrentMessage: (message?: StatusChatMessage) => void;
@@ -65,7 +66,7 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
 
   const resetUserInput = (newInput = "") => setValue(USER_INPUT_FIELD_ID, newInput);
 
-  const handleGetAnswer = async (messages: StatusChatMessage[], deleteCount?: number) => {
+  const handleGetAnswer = async (messages: GptMessage[]) => {
     const lastMessage = messages[messages.length - 1];
 
     setCurrentQuery(lastMessage.content);
@@ -78,7 +79,6 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
       label: "Tokens: " + promptTokenCount,
     });
     const max_tokens = calculateMaxTokens(botMaxTokens, settings.responseLength);
-    console.log("max_tokens", max_tokens);
     const response = await requestStream({
       messages,
       stream: settings.useStream,
