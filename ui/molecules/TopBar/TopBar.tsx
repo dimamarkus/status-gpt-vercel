@@ -48,7 +48,7 @@ const TopBar = () => {
     </div>
   );
   return (
-    <header className="z-1 navbar md:py-4 md:px-0">
+    <header className="z-1 navbar relative md:py-4 md:px-0">
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />

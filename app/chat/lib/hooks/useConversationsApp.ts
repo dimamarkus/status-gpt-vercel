@@ -83,6 +83,7 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
       messages,
       stream: settings.useStream,
       max_tokens,
+      language: settings.language,
     });
 
     const resultString = settings.useStream ? JSON.stringify(response) : response;

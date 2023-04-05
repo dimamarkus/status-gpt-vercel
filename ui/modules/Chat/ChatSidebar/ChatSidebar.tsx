@@ -38,8 +38,10 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         isTalking={botIsTalking}
       />
       <Duo vertical gap="none">
-        <h2 className="mb-1">{selectedBot.name}</h2>
-        <small className="font-normal text-slate-600">{selectedBot.description}</small>
+        <h2 className="mb-1 dark:text-white">{selectedBot.name}</h2>
+        <small className="font-normal text-slate-600 dark:text-slate-400">
+          {selectedBot.description}
+        </small>
       </Duo>
     </>
   );
@@ -53,7 +55,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         titleClassName="flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 p-0 mx-2 font-medium"
         slug="botSelect"
       >
-        <ChatBots bots={botOptions} className="rounded-sm bg-blue-200/50 pb-2 dark:bg-black/10" />
+        <ChatBots bots={botOptions} className="rounded-sm bg-white/50 pb-2 dark:bg-black/10" />
       </Collapsible>
 
       <ChatSidebarSection

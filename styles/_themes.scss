@@ -18,10 +18,14 @@ body.bg-darkhex:before {
 
 // INPUTS
 // ----------------------------------------------
+body[data-theme="light"] {
+  background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(200, 200, 200, 1) 100%);
+}
+body[data-theme="dark"] {
+  background: linear-gradient(135deg, rgba(40, 45, 55, 1) 0%, rgba(25, 30, 40, 1) 100%);
+}
+
 [data-theme="light"] {
-  body {
-    background: linear-gradient(135deg, #f7f7f7 0%, #e0e0e0 100%);
-  }
   .link-secondary {
     @apply hover:text-blue-600;
   }
@@ -38,9 +42,6 @@ body.bg-darkhex:before {
 }
 
 [data-theme="dark"] {
-  body {
-    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-  }
   .link-secondary {
     @apply text-slate-400;
     @apply hover:text-blue-400/100;

@@ -4,8 +4,8 @@
 
   @apply m-auto;
   @apply w-full;
-  @apply max-w-6xl;
   @apply h-full;
+  max-width: 62rem;
 
   main {
     @apply flex;

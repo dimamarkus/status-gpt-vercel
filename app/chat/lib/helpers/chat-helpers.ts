@@ -24,9 +24,9 @@ export const calculateTokens = (prompt: string) => {
 
 export const calculateMaxTokens = (maxTokens: number, responseLength: ResponseLength) => {
   if (responseLength === 1) {
-    return maxTokens * 0.33;
+    return 50;
   } else if (responseLength === 2) {
-    return maxTokens * 0.66;
+    return maxTokens * 0.5;
   }
   return maxTokens;
 };

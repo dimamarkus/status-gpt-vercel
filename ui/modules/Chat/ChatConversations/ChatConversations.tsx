@@ -61,16 +61,16 @@ export const ChatConversations = () => {
 
   return (
     <>
-      <header className="mb-2 flex items-center">
-        <BaseButton
-          flavor="hollow"
+      <header className="flex items-center">
+        <button
+          // flavor="hollow"
           className="flex flex-grow cursor-pointer select-none items-center gap-3 rounded-md border border-neutral-500/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
-          size="sm"
+          // size="sm"
           onClick={handleAddConversation}
         >
           <PlusIcon width={18} height={18} />
           New Conversation
-        </BaseButton>
+        </button>
 
         <BaseButton
           size="sm"
@@ -80,7 +80,10 @@ export const ChatConversations = () => {
           onClick={() => addFolder("New folder")}
         />
       </header>
-      {hasConversations && <Search searchTerm={searchTerm} onSearch={setSearchTerm} />}
+
+      {hasConversations && (
+        <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mt-3" />
+      )}
 
       {folders.length > 0 && (
         <div className="flex border-b border-neutral-500/20">

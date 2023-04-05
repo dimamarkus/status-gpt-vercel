@@ -1,13 +1,11 @@
 "use client";
 
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import clsx from "clsx";
 
 export const CircleAnimation = ({ className = "", ...props }) => {
-  const {
-    features: { darkMode },
-  } = useFeatureToggleContext();
-
+  const { settings } = useSettingsContext();
+  const { darkMode } = settings;
   const colors = darkMode
     ? {
         fill: "var(--merlot-900)",

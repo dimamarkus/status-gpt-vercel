@@ -60,29 +60,28 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
     }
   }, [isRenaming, isDeleting]);
 
+  const conversationColorStyles = "hover:bg-blue-200/50 dark:hover:bg-slate-700/25";
+
   const itemStyles = clsx(
-    "flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 hover:bg-blue-300/50 dark:hover:bg-slate-700/25",
+    "flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 ",
     loading && "disabled:cursor-not-allowed",
+    conversationColorStyles,
   );
 
   const buttonStyles = "dark:text-blue-100 opacity-50 dark:hover:text-blue-200 hover:opacity-75";
 
   const inputStyles =
-    "mr-12 pl-2 py-2 -ml-1 w-full flex-1 overflow-hidden overflow-ellipsis border-neutral-900 bg-black/25 text-left text-[12.5px] leading-3 outline-none focus:border-blue-300/50";
+    "mr-12 pl-2 py-2 -ml-1 w-full flex-1 overflow-hidden overflow-ellipsis border-blue-200 bg-black/5 text-left text-[12.5px] leading-4 outline-none focus:border-blue-300/50";
+
+  const isSelected = selectedConversation?.id === conversation.id;
 
   return !selectedConversation ? (
     <li>Loading</li>
   ) : (
     <li className="relative flex items-center" ref={ref}>
-      {isRenaming && selectedConversation.id === conversation.id ? (
-        <div
-          className={clsx(
-            itemStyles,
-            selectedConversation.id === conversation.id &&
-              "bg-blue-300/50 py-1 dark:bg-blue-700/25",
-          )}
-        >
-          <ChatBubbleLeftIcon width={18} height={18} />
+      {isRenaming && isSelected ? (
+        <div className={clsx(itemStyles, isSelected && "bg-blue-300/50 py-1 dark:bg-blue-700/25")}>
+          {!isRenaming && <ChatBubbleLeftIcon width={18} height={18} className="flex-shrink-0" />}
           <input
             className={inputStyles}
             type="text"
@@ -94,19 +93,16 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
         </div>
       ) : (
         <button
-          className={clsx(
-            itemStyles,
-            selectedConversation.id === conversation.id && "bg-blue-300/50 dark:bg-blue-700/25",
-          )}
+          className={clsx(itemStyles, isSelected && "bg-blue-200/50 dark:bg-slate-700/25")}
           onClick={() => selectConversation(conversation)}
           disabled={loading}
           draggable="true"
           onDragStart={(e) => handleDragStart(e, conversation)}
         >
-          <ChatBubbleLeftIcon width={18} height={18} />
+          {!isRenaming && <ChatBubbleLeftIcon width={18} height={18} className="flex-shrink-0" />}
           <div
-            className={`relative max-h-5 flex-1 overflow-visible text-ellipsis whitespace-nowrap break-all text-left text-[12.5px] leading-3 ${
-              selectedConversation.id === conversation.id ? "pr-12" : "pr-1"
+            className={`relative max-h-8 flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-all text-left text-[12.5px] leading-4 ${
+              isSelected ? "pr-12" : "pr-1 "
             }`}
           >
             {conversation.name}
@@ -114,7 +110,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
         </button>
       )}
 
-      {(isDeleting || isRenaming) && selectedConversation.id === conversation.id && (
+      {(isDeleting || isRenaming) && isSelected && (
         <div className="visible absolute right-1 z-10 flex">
           <BaseButton
             flavor="icon"
@@ -144,7 +140,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
         </div>
       )}
 
-      {selectedConversation.id === conversation.id && !isDeleting && !isRenaming && (
+      {isSelected && !isDeleting && !isRenaming && (
         <div className="visible absolute right-1 z-10 flex">
           <BaseButton
             flavor="icon"

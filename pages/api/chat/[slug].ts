@@ -9,8 +9,14 @@ import {
 import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { createChatMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
 import { createOpenAiStream } from "#/app/chat/lib/helpers/createOpenAiStream";
-import { GptMessage, OpenAiChatRequest, OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/types";
-import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
+import {
+  GptMessage,
+  OpenAiChatRequest,
+  OpenAiRequest,
+  OpenAiResponse,
+  StatusChatRequest,
+} from "#/app/chat/lib/types";
+import { DEFAULT_BOT_LANGUAGE, DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
 import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
 import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { NextRequest } from "next/server";
@@ -18,9 +24,9 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 
 export default async function handler(req: NextRequest) {
-  const { messages, stream, max_tokens, ...payload } =
-    (await req.json()) as Partial<OpenAiChatRequest>;
-  const chatLog = messages;
+  const { messages, stream, language, max_tokens, ...payload } =
+    (await req.json()) as Partial<StatusChatRequest>;
+  let chatLog = messages;
   const slug = req.nextUrl.searchParams.get("slug");
 
   // 1. Validate Request
@@ -35,20 +41,23 @@ export default async function handler(req: NextRequest) {
   // ============================================================================
   const bot = await fetchBot(slug);
   const useChatApi = isChatModel(bot?.model);
+  const botTokens = max_tokens || (getBotParam(bot, "max_tokens") as number);
 
   const trainingContent = collateBotTraining(bot);
-  const { role, content } = createChatMessage("system", trainingContent);
-  const maxTokens = max_tokens || (getBotParam(bot, "max_tokens") as number);
-  const sanitizedChatLog = chatLog.map(({ role, content }) => ({ role, content: content.trim() }));
-  const chatLogWithTraining = [
-    { role, content }, // Training Messages
-    ...sanitizedChatLog, // Conversation history
-    { role: "system", content: `Use no more than ${maxTokens * 0.75} word.` }, // How long to make the response
-  ] as GptMessage[];
+  const trainingMessage = createChatMessage("system", trainingContent);
+  let supplementaryTraining = `Respond in less than ${botTokens * 0.75} words`;
+  if (language)
+    supplementaryTraining += ` and in this language: ${language || DEFAULT_BOT_LANGUAGE}.`;
+  const supplementaryTrainingMessage = createChatMessage("system", supplementaryTraining);
+  const chatLogWithTraining = [trainingMessage, ...chatLog, supplementaryTrainingMessage];
+  const sanitizedChatLog = chatLogWithTraining.map(({ role, content }) => ({
+    role,
+    content: content.trim(),
+  }));
 
   const chatLogToSend = useChatApi
-    ? { messages: chatLogWithTraining }
-    : { prompt: chatLogWithTraining.map(({ content }) => content).join("\n") };
+    ? { messages: sanitizedChatLog }
+    : { prompt: sanitizedChatLog.map(({ content }) => content).join("\n") };
 
   // 3. Prepare API call
   // ============================================================================

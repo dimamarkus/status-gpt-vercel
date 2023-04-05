@@ -72,7 +72,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const bubbleStyles = clsx(
     styles.chatBubble,
     `chat-bubble flex max-w-full flex-col transition pb-1`,
-    isUser ? "bg-blue-50 dark:bg-slate-900" : "bg-neutral-50 dark:bg-base-300",
+    isUser ? "bg-blue-50 dark:bg-slate-900/50" : "bg-neutral-50 dark:bg-black/25",
   );
 
   const contentStyles = clsx(isSystem && "text-orange-500 text-xs max-w-full");

@@ -21,14 +21,13 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
 
   const rootStyles = clsx(
     "statusChat flex h-full max-h-full overflow-hidden md:rounded drop-shadow-lg lg:flex-row dark:border-none",
-    "bg-blue-100 dark:bg-base-300",
     isFullScreen && "absolute left-0 top-0 w-full h-full",
   );
 
   const asideStyles = clsx(
-    "flex flex-col flex-grow-0 flex-shrink-0 z-1 justify-start md:justify-end md:py-4 pt-10",
+    "flex flex-col flex-grow-0 flex-shrink-0 z-1 justify-start md:justify-end md:pt-4 pt-10",
     "md:relative absolute h-full",
-    "text-blue-900 dark:text-blue-200/100 bg-blue-100 dark:bg-base-300",
+    "text-blue-900 dark:text-blue-200/100 border-l border-blue-200/50 dark:border-none dark:bg-base-300",
     sidebarIsVisible ? "w-[280px] md:w-4/12 lg:w-3/12" : "",
     settings.sidebarRight ? "right-0" : "left-0",
   );

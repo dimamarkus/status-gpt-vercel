@@ -2,6 +2,7 @@ import { ADA_MODEL, GPT3_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
 import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/types";
 import { Features, Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
 import { Settings } from "#/lib/contexts/SettingsContext";
+import { Language } from "#/lib/types";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
@@ -43,6 +44,8 @@ export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
 export const CHAT_BOT_INPUT_MAX_CHARS = 1000;
 
 export const DEFAULT_BOT_MEMORY = 6;
+
+export const DEFAULT_BOT_LANGUAGE: Language = "English";
 
 export const DEFAULT_SUGGESTIONS_MODEL: OpenAiModel = ADA_MODEL as OpenAiModel;
 export const DEFAULT_SUGGESTIONS_MEMORY = 3;

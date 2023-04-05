@@ -34,7 +34,9 @@ const ChatSettings = (props: SettingsPanelProps) => {
           checked={currentState}
           onChange={(event) => handleSetFeature(name, !currentState)}
         />
-        <span className="label-text ml-4 text-left font-medium text-base-100">{title}</span>
+        <span className="label-text ml-4 text-left font-medium text-base-100 dark:text-white">
+          {title}
+        </span>
       </label>
     );
   };
@@ -42,7 +44,7 @@ const ChatSettings = (props: SettingsPanelProps) => {
   const getOptionDropdown = (name: keyof SelectSettings, options: string[]) => (
     <div className="form-control">
       <label htmlFor={name} className="label">
-        <span className="label-text uppercase text-base-100">{name}</span>
+        <span className="label-text uppercase text-base-100 dark:text-white">{name}</span>
       </label>
       <select
         name={name}
@@ -62,9 +64,9 @@ const ChatSettings = (props: SettingsPanelProps) => {
   return (
     <div className={clsx("flex flex-col ", className)}>
       {getOptionCheckbox("darkMode", "Dark Mode")}
-      {getOptionCheckbox("useStream", "Stream")}
       {getOptionCheckbox("autoSubmitSpeech", "Auto-submit Speech")}
-      {getOptionCheckbox("sidebarRight", "Sidebar on the right")}
+      {getOptionCheckbox("sidebarRight", "Sidebar Right")}
+      {getOptionCheckbox("useStream", "Stream Responses")}
       <LanguageSelect />
     </div>
   );

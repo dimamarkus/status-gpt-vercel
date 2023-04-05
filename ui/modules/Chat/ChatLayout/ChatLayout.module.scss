@@ -1,4 +1,9 @@
+body[data-theme="dark"] .root {
+  background: linear-gradient(135deg, rgba(45, 55, 65, 1) 0%, rgba(25, 35, 45, 1) 100%);
+}
+
 .root {
+  background: linear-gradient(-135deg, rgba(255, 255, 255, 1) 0%, rgba(220, 230, 245, 1) 60%);
   h3 {
     font-size: var(--font-size-sm);
   }
@@ -12,12 +17,4 @@
       white-space: inherit;
     }
   }
-
-  // &.fullScreen {
-  //   @apply absolute;
-  //   @apply left-0;
-  //   @apply top-0;
-  //   height: 100vh;
-  //   width: 100vw;
-  // }
 }

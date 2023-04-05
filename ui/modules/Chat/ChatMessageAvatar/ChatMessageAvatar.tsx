@@ -19,8 +19,12 @@ type ChatMessageAvatarProps = {
 export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
   const { avatarUrl, isTalking, role, className, onClick, loading } = props;
 
-  const rootStyles =
-    "chat-image h-16 w-16 text-center self-auto rounded-xl overflow-hidden flex-shrink-0";
+  const disableClick = onClick === undefined;
+
+  const rootStyles = clsx(
+    "chat-image h-16 w-16 text-center self-auto rounded-xl overflow-hidden flex-shrink-0",
+    disableClick && " pointer-events-none",
+  );
 
   const botAvatar = avatarUrl ? (
     <Image
@@ -49,11 +53,7 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
   }
 
   return (
-    <button
-      className={clsx(rootStyles, className)}
-      onClick={handleClick}
-      disabled={onClick === undefined}
-    >
+    <button className={clsx(rootStyles, className)} onClick={handleClick} disabled={disableClick}>
       {innerAvatar}
     </button>
   );

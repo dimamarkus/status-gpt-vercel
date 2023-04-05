@@ -1,23 +1,11 @@
-// .collapsible {
-//   & > label {
-//     cursor: pointer;
-//   }
-
-//   & > input:checked + label + div {
-//     max-height: 100%;
-//   }
-
-//   & > div {
-//     max-height: 0;
-//     overflow: hidden;
-//     transition: max-height 0.3s ease;
-//   }
-// }
-
 .collapsible {
   & > label {
     cursor: pointer;
     transition: border-color 0.3s ease-in-out; /* Add a border transition */
+  }
+
+  & > label:hover + div {
+    max-height: 15px;
   }
 
   & > input:checked + label + div {

@@ -1,12 +1,14 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import { FC } from "react";
 
 interface Props {
   searchTerm: string;
   onSearch: (searchTerm: string) => void;
+  className?: string;
 }
 
-export const Search: FC<Props> = ({ searchTerm, onSearch }) => {
+export const Search: FC<Props> = ({ searchTerm, onSearch, className }) => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onSearch(e.target.value);
   };
@@ -16,7 +18,7 @@ export const Search: FC<Props> = ({ searchTerm, onSearch }) => {
   };
 
   return (
-    <form className="relative flex items-center">
+    <form className={clsx("relative flex items-center", className)}>
       <input
         className="w-full flex-1 rounded-md bg-white/75 px-4 py-3 pr-10 text-[12px] leading-3 dark:bg-white/5"
         type="text"

@@ -9,10 +9,15 @@ import {
   BABBAGE_MODEL,
   CURIE_MODEL,
 } from "#/app/chat/lib/constants";
+import { Language } from "#/lib/types";
 
 // ============================================================================
 //  STATUS MONEY CHAT APP
 // ============================================================================
+export type StatusChatRequest = OpenAiChatRequest & {
+  language?: Language;
+};
+
 export type StatusChatMessage = GptMessage & {
   timestamp: number;
   tokens?: number;

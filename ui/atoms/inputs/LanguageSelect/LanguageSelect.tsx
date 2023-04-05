@@ -23,17 +23,20 @@ export const LanguageSelect = ({ className }: LanguageSelectProps) => {
   };
 
   return (
-    <select
-      className={clsx("select w-full max-w-xs")}
-      onChange={handleChange}
-      value={settings.language}
-    >
-      {LANGUAGES.map((language, i) => (
-        <option key={i} value={language}>
-          {language}
-        </option>
-      ))}
-    </select>
+    <label className="label flex flex-col items-start">
+      <span className="label-text mb-2">Bot Language</span>
+      <select
+        className={clsx("select w-full max-w-xs dark:text-white")}
+        onChange={handleChange}
+        value={settings.language}
+      >
+        {LANGUAGES.map((language, i) => (
+          <option key={i} value={language}>
+            {language}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 };
 

@@ -24,12 +24,14 @@ const FeaturesPanelButton = () => {
   );
 
   if (!areFeaturesShown) {
-    return <div className="absolute top-0 left-0 z-10">{toggleButton}</div>;
+    return <div className="absolute bottom-0 left-0 z-10">{toggleButton}</div>;
   }
 
   return (
-    <div className="absolute top-0 left-0 z-10 w-96" ref={ref}>
-      {areFeaturesShown && <FeaturesPanel className="absolute top-0 left-0 z-0 bg-base-300 p-4" />}
+    <div className="absolute bottom-0 left-0 z-10 w-96" ref={ref}>
+      {areFeaturesShown && (
+        <FeaturesPanel className="absolute bottom-0 left-0 z-0 bg-base-300 p-4" />
+      )}
       {toggleButton}
     </div>
   );

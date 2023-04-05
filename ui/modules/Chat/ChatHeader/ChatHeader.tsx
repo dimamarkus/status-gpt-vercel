@@ -31,12 +31,12 @@ export const ChatHeader: FC = () => {
   };
 
   const rootStyles =
-    "flex justify-center border border-b-neutral-300 bg-slate-100 py-1 text-sm text-neutral-500 dark:border-none dark:bg-[#444654] dark:text-neutral-200 z-[1]";
+    "flex justify-center overflow-hidden py-1 px-2 border-b border-neutral-300 text-sm text-neutral-500 dark:border-none dark:text-neutral-200 z-[1] bg-neutral-200 dark:bg-base-300 shadow-sm";
 
   const sidebarToggleStyles = clsx(
     settings.sidebarRight
-      ? "border-r-2 border-l-0 ml-auto mr-2"
-      : "border-l-2 border-r-0 ml-2 mr-auto",
+      ? "border-r-2 border-l-0 ml-auto mr-1"
+      : "border-l-2 border-r-0 ml-1 mr-auto",
     "rounded-none border-t-0 border-b-0 border-neutral-400 text-neutral-400 py-0 my-auto hover:bg-transparent",
   );
 
@@ -78,9 +78,9 @@ export const ChatHeader: FC = () => {
         theme="secondary"
         title="Clear all messages"
       />
-      <div className="flex max-w-[240px] items-center overflow-hidden text-ellipsis whitespace-nowrap">
+      <h3 className="text-content flex max-w-[240px] items-center overflow-hidden text-ellipsis whitespace-nowrap">
         {selectedConversation ? selectedConversation.name : DEFAULT_CONVERSATION_NAME}
-      </div>
+      </h3>
       <BaseButton
         flavor="icon"
         icon={<PlusIcon />}
