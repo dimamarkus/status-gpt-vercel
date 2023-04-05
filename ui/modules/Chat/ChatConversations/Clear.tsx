@@ -18,7 +18,9 @@ export const Clear: FC<Props> = ({ onClear }) => {
     <div className="flex w-full cursor-pointer items-center rounded-lg py-3 px-3 hover:bg-gray-500/10">
       <TrashIcon width={18} height={18} />
 
-      <div className="ml-3 flex-1 text-left text-[12.5px] leading-3 text-white">Are you sure?</div>
+      <div className="ml-3 flex-1 text-left text-[12.5px] leading-3 text-red-500">
+        Are you sure?
+      </div>
 
       <div className="flex w-[40px]">
         <CheckIcon

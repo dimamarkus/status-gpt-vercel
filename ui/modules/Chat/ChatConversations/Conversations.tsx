@@ -32,7 +32,7 @@ export const Conversations = ({ conversations }: Props) => {
 
   return (
     <ul
-      className="my-2 flex-grow gap-2 overflow-y-auto overflow-x-clip pt-2"
+      className="my-2 flex-grow gap-2 overflow-y-auto overflow-x-clip"
       onDrop={(e) => handleDrop(e)}
       onDragOver={allowDrop}
       onDragEnter={highlightDrop}

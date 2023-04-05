@@ -81,7 +81,7 @@ export const Folder: FC<Props> = ({ searchTerm, currentFolder }) => {
   return (
     <li>
       <div
-        className={`mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-[12px] leading-normal text-base-content transition-colors duration-200 hover:bg-base-200/90`}
+        className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-[12px] leading-normal text-base-content transition-colors duration-200 hover:bg-base-200/90`}
         onClick={() => setIsOpen(!isOpen)}
         onDrop={(e) => handleDrop(e, currentFolder)}
         onDragOver={allowDrop}
