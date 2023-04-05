@@ -11,17 +11,17 @@ import {
   OpenAiModel,
   OpenAiRequest,
   OpenAiResponse,
+  StatusChatMessage,
 } from "#/app/chat/lib/types";
 import { DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { useRequestStream } from "#/lib/hooks/useRequestStream";
-import { StatusChatMessage } from "#/app/chat/lib/types";
 import { Bot } from "#/lib/types/cms";
+import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event } from "nextjs-google-analytics";
 import { useState } from "react";
-import { useForm, UseFormReturn } from "react-hook-form";
-import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { UseFormReturn, useForm } from "react-hook-form";
 
 export const USER_INPUT_FIELD_ID = "chatInput";
 
@@ -90,7 +90,7 @@ export const useChatGpt = (
   const [currentQuery, setCurrentQuery] = useState<string | undefined>(undefined);
   const [messages, setMessages] = useState(startingChatLog);
   const [answer, setAnswer] = useState<string | undefined>(undefined);
-  const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const { stream, loading, error, requestStream, cancelStream } = useRequestStream(
     "/chat/" + bot?.slug,
   );
@@ -143,13 +143,13 @@ export const useChatGpt = (
 
     const response = await requestStream({
       messages: chatMessages.toSend,
-      stream: features.useStream,
+      stream: settings.useStream,
       max_tokens: getValues("max_tokens"),
     });
 
     //  4. Handle response
     // ============================================================================
-    let resultString = features.useStream ? JSON.stringify(response) : response;
+    let resultString = settings.useStream ? JSON.stringify(response) : response;
     let result = resultString && JSON.parse(resultString);
     if ((result as unknown as OpenAiResponse)?.choices) {
       result = isChatModel(model)

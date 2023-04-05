@@ -5,6 +5,7 @@ import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import FeaturesPanel from "#/ui/molecules/FeaturesPanel/FeaturesPanel";
 import { Cog8ToothIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 
 const FeaturesPanelButton = () => {
   const { toggleShowFeatures, areFeaturesShown } = useFeatureToggleContext();
@@ -13,7 +14,7 @@ const FeaturesPanelButton = () => {
 
   const toggleButton = (
     <BaseButton
-      className="relative opacity-50"
+      className={clsx("relative text-neutral-600 opacity-50", !areFeaturesShown && "opacity-20")}
       theme="secondary"
       flavor="icon"
       onClick={() => toggleShowFeatures()}

@@ -1,6 +1,7 @@
 import { ADA_MODEL, GPT3_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
 import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/types";
 import { Features, Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
+import { Settings } from "#/lib/contexts/SettingsContext";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
@@ -10,11 +11,20 @@ export const LAYOUTS: Layout[] = ["vertical", "sidebar-left", "sidebar-right"];
 export const THEMES: Theme[] = ["light", "dark", "statusAlt1", "statusAlt2", "statusAlt3"];
 export const FONTS: Font[] = ["sans", "serif"];
 
+export const DEFAULT_SETTINGS: Settings = {
+  useStream: true,
+  autoSubmitSpeech: false,
+  sidebarRight: true,
+  darkMode: false,
+  language: "English",
+  responseLength: 2, //medium ,
+};
+
 export const DEFAULT_FEATURES: Features = {
-  font: "sans" as Font,
-  layout: "veritcal" as Layout,
-  theme: "light" as Theme,
-  model: GPT3_MODEL as OpenAiModel,
+  font: "sans",
+  layout: "vertical",
+  theme: "light",
+  model: GPT3_MODEL,
   debugMode: false,
   useStream: true,
   autoSubmitSpeech: false,

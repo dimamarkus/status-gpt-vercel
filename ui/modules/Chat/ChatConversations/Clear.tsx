@@ -22,7 +22,7 @@ export const Clear: FC<Props> = ({ onClear }) => {
 
       <div className="flex w-[40px]">
         <CheckIcon
-          className="ml-auto mr-1 min-w-[20px] text-neutral-400 hover:text-neutral-100"
+          className="ml-auto mr-1 min-w-[20px] text-red-400 hover:text-red-500"
           width={18}
           height={18}
           onClick={(e) => {

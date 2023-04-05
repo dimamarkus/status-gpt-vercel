@@ -1,6 +1,6 @@
 "use client";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import Overlay from "#/ui/atoms/Overlay/Overlay";
@@ -14,7 +14,7 @@ type ChatLayoutProps = {
 };
 
 const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
-  const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const { isFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
   const isMobile = useIsMobile();
   const ref = useOutsideClick<HTMLDivElement>(() => isMobile && toggleSidebar());
@@ -30,21 +30,21 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
     "md:relative absolute h-full",
     "text-blue-900 dark:text-blue-200/100 bg-blue-100 dark:bg-base-300",
     sidebarIsVisible ? "w-[280px] md:w-4/12 lg:w-3/12" : "",
-    features.sidebarRight ? "right-0" : "left-0",
+    settings.sidebarRight ? "right-0" : "left-0",
   );
 
   const mainContentStyles = clsx("relative flex h-full flex-col w-full");
 
   return (
     <div className={clsx(styles.root, rootStyles, isFullScreen && styles.fullScreen)}>
-      {sidebarIsVisible && !features.sidebarRight && (
+      {sidebarIsVisible && !settings.sidebarRight && (
         <aside className={asideStyles} ref={ref}>
           {sidebar}
         </aside>
       )}
       {sidebarIsVisible && isMobile && <Overlay />}
       <section className={mainContentStyles}>{children}</section>
-      {sidebarIsVisible && features.sidebarRight && (
+      {sidebarIsVisible && settings.sidebarRight && (
         <aside className={asideStyles} ref={ref}>
           {sidebar}
         </aside>

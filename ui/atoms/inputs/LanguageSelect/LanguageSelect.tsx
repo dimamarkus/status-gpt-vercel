@@ -1,25 +1,33 @@
 "use client";
-import { ChangeEvent, ChangeEventHandler } from "react";
 import { LANGUAGES } from "#/app/chat/lib/constants";
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import { useLanguageContext } from "#/lib/contexts/LanguageContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { Language } from "#/lib/types";
+import clsx from "clsx";
+import { ChangeEvent } from "react";
 
 type LanguageSelectProps = {
   className?: string;
 };
 
-export const LanguageSelect = (props: LanguageSelectProps) => {
-  const { selectedLanguage, setSelectedLanguage } = useLanguageContext();
+export const LanguageSelect = ({ className }: LanguageSelectProps) => {
+  const { settings, setSettings } = useSettingsContext();
   const { getAnswer } = useChatContext();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLanguage(e.target.value as Language);
+    setSettings({
+      ...settings,
+      language: e.target.value as Language,
+    });
     getAnswer(`Please answer only in ${e.target.value} from now.`);
   };
 
   return (
-    <select className="select w-full max-w-xs" onChange={handleChange} value={selectedLanguage}>
+    <select
+      className={clsx("select w-full max-w-xs")}
+      onChange={handleChange}
+      value={settings.language}
+    >
       {LANGUAGES.map((language, i) => (
         <option key={i} value={language}>
           {language}

@@ -1,9 +1,7 @@
 "use client";
 
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
-import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import {
-  INITIAL_SIDEBAR_STATE,
   SidebarState,
   UseChatSidebarReturn,
   useChatSidebar,
@@ -20,22 +18,13 @@ import { useSelectedConversation } from "#/app/chat/lib/hooks/useSelectedConvers
 import { UseSubmissionsReturn, useSubmissions } from "#/app/chat/lib/hooks/useSubmissions";
 import { UseSuggestionsReturn, useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
-import {
-  Conversation,
-  ConversationsFolder,
-  OpenAiRequest,
-  StatusChatMessage,
-} from "#/app/chat/lib/types";
-import {
-  DEFAULT_GPT_SETTINGS,
-  SUBMISSIONS_PROMPT_SIZE,
-  SUGGESTIONS_PROMPT_SIZE,
-} from "#/lib/constants/settings";
+import { Conversation, StatusChatMessage } from "#/app/chat/lib/types";
+import { SUBMISSIONS_PROMPT_SIZE, SUGGESTIONS_PROMPT_SIZE } from "#/lib/constants/settings";
 import { AssumptionsContext, useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 interface ConversationsContextType {
   dataState: UseConversationsDataReturn["state"] & {
@@ -97,6 +86,13 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
   const firstAvailableConversation = rootConversations[0] || folders[0]?.conversations[0];
   const inInitialState = folders.length === 0 && rootConversations.length === 1;
 
+  // EXPERIMENT: little easter egg to show off bg changes
+  useEffect(() => {
+    bot && bot.slug === "taxson"
+      ? document.body.classList.add("bg-darkhex")
+      : document.body.classList.remove("bg-darkhex");
+  }, [bot]);
+
   useUpdateEffect(() => {
     if (inInitialState || !selectedConversation) selectConversation(firstAvailableConversation);
   }, [dataState]);
@@ -111,15 +107,21 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
   }, [currentMessage]);
 
   const handleSubmitQuery = async (message: StatusChatMessage, chatLog?: StatusChatMessage[]) => {
-    if (!selectedConversation) return;
-    dataActions.addMessage(selectedConversation, message);
+    let conversation = selectedConversation || addConversation();
+    if (!selectedConversation) {
+      conversation = addConversation();
+      setSelectedConversation(conversation);
+    } else {
+      dataActions.addMessage(selectedConversation, message);
+    }
+    console.log("conversation", conversation);
     // TODO - add slicing based on bot memory
-    const chatLogToUse = chatLog || selectedConversation.messages;
+    const chatLogToUse = chatLog || conversation.messages;
     const messagesToSend = [...chatLogToUse, message];
     const answer = await getAnswer(messagesToSend);
     const botAnswerMessage = createChatMessage("assistant", answer);
     const resultingChatLog = [...messagesToSend, botAnswerMessage];
-    updateConversation({ ...selectedConversation, messages: resultingChatLog });
+    updateConversation({ ...conversation, messages: resultingChatLog });
     features.enableSuggestions &&
       suggestionsActions.getSuggestions(resultingChatLog.slice(-SUGGESTIONS_PROMPT_SIZE));
     features.enableSubmissions &&

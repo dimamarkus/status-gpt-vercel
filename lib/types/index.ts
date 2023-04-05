@@ -12,4 +12,4 @@ export type CommonSizes = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type CommonSpacings = CommonSizes | "none" | "full";
 
-export type Language = "English" | "Spanish" | "French" | "Russian";
+export type Language = "English" | "Spanish" | "French" | "Russian" | "en-US";

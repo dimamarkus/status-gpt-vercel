@@ -9,7 +9,7 @@ interface Props {
 
 export const Folders: FC<Props> = ({ searchTerm, folders }) => {
   return (
-    <ul className="flex flex-col gap-2 border-b border-neutral-500/20 py-2">
+    <ul className="flex flex-grow flex-col gap-2 py-2">
       {folders.map((folder, index) => (
         <Folder key={index} searchTerm={searchTerm} currentFolder={folder} />
       ))}

@@ -7,6 +7,7 @@ import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { CHAT_BOT_INPUT_MAX_CHARS } from "#/lib/constants/settings";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { useDebounce } from "#/lib/hooks/useDebounce";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
@@ -27,12 +28,11 @@ export type ChatInputProps = {
 };
 
 export const ChatInput: FC<ChatInputProps> = ({ query }) => {
-  const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const {
     appState,
     appActions,
     dataState: { bot },
-    dataActions,
   } = useConversationsContext();
 
   const { answerStream, selectedConversation, textareaRef, formContext } = appState;
@@ -151,16 +151,10 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   return (
     <form className={rootStyles} onSubmit={submitMessage}>
       <div className={wrapperStyles}>
-        <ChatRangeInput<ChatFormFields>
-          register={register}
-          name="max_tokens"
-          max={maxTokens}
-          currentValue={watch("max_tokens")}
-          className="absolute bottom-0 left-0 right-0 md:-top-2"
-        />
+        <ChatRangeInput className="absolute bottom-0 left-0 right-0 md:-top-2" />
         <fieldset className={fieldsetStyles}>
           <BaseButton
-            type={features.autoSubmitSpeech ? "submit" : "button"}
+            type={settings.autoSubmitSpeech ? "submit" : "button"}
             flavor="icon"
             icon={<MicrophoneIcon />}
             onMouseDown={listen}

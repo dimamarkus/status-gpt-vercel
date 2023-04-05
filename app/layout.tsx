@@ -1,10 +1,10 @@
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
-import { LanguageContextProvider } from "#/lib/contexts/LanguageContext";
 import { LayoutContextProvider } from "#/lib/contexts/LayoutContext";
 import "#/styles/index.scss";
 import GoogleAnalytics from "#/ui/atoms/util/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 import { globalMetadata } from "./metadata";
+import { SettingsContextProvider } from "#/lib/contexts/SettingsContext";
 
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
 // export const revalidate = 0;
@@ -17,9 +17,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <Analytics />
       <GoogleAnalytics />
       <FeatureToggleContextProvider>
-        <LanguageContextProvider>
+        <SettingsContextProvider>
           <LayoutContextProvider>{children}</LayoutContextProvider>
-        </LanguageContextProvider>
+        </SettingsContextProvider>
       </FeatureToggleContextProvider>
     </html>
   );

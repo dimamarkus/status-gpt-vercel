@@ -1,20 +1,24 @@
 import { getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
-import { calculateTokens, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
+import {
+  calculateMaxTokens,
+  calculateTokens,
+  isChatModel,
+} from "#/app/chat/lib/helpers/chat-helpers";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
-import { event as GAEvent } from "nextjs-google-analytics";
 import {
   OpenAiChatResponse,
   OpenAiCompletionResponse,
   OpenAiModel,
   OpenAiResponse,
+  StatusChatMessage,
 } from "#/app/chat/lib/types";
-import { StatusChatMessage } from "#/app/chat/lib/types";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { useRequestStream } from "#/lib/hooks/useRequestStream";
 import { Bot } from "#/lib/types/cms";
-import { RefObject, useRef, useState } from "react";
-import { useForm, UseFormReturn } from "react-hook-form";
 import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { event as GAEvent } from "nextjs-google-analytics";
+import { RefObject, useRef, useState } from "react";
+import { UseFormReturn, useForm } from "react-hook-form";
 
 export type UseConversationsAppReturn = {
   state: {
@@ -37,7 +41,7 @@ export type UseConversationsAppReturn = {
 };
 
 export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn => {
-  const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [currentQuery, setCurrentQuery] = useState<string | undefined>(undefined);
   const [answer, setAnswer] = useState<string | undefined>(undefined);
@@ -49,16 +53,15 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const max_tokens = getBotParam(bot, "max_tokens") as number;
   const formContext = useForm<ChatFormFields>({
     defaultValues: {
       [USER_INPUT_FIELD_ID]: "",
-      max_tokens: max_tokens / 2, // Set starting value to half of max_tokens
     },
   });
-  const { getValues, setValue } = formContext;
+  const { setValue } = formContext;
 
   const model = getBotParam(bot, "model") as OpenAiModel;
+  const botMaxTokens = getBotParam(bot, "max_tokens") as number;
 
   const resetUserInput = (newInput = "") => setValue(USER_INPUT_FIELD_ID, newInput);
 
@@ -74,14 +77,15 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
       category: bot?.slug,
       label: "Tokens: " + promptTokenCount,
     });
-
+    const max_tokens = calculateMaxTokens(botMaxTokens, settings.responseLength);
+    console.log("max_tokens", max_tokens);
     const response = await requestStream({
       messages,
-      stream: features.useStream,
-      max_tokens: getValues("max_tokens"),
+      stream: settings.useStream,
+      max_tokens,
     });
 
-    const resultString = features.useStream ? JSON.stringify(response) : response;
+    const resultString = settings.useStream ? JSON.stringify(response) : response;
     let result = resultString && JSON.parse(resultString);
     if ((result as unknown as OpenAiResponse)?.choices) {
       result = isChatModel(model)

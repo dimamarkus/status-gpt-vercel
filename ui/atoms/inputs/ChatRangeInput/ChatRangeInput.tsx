@@ -1,68 +1,71 @@
+import { ResponseLength, useSettingsContext } from "#/lib/contexts/SettingsContext";
 import clsx from "clsx";
 import React from "react";
-import { FieldValues, Path, UseFormRegister } from "react-hook-form";
-import styles from "./ChatRangeInput.module.scss";
 
-export type ChatRangeInputProps<TFormValues extends FieldValues> = {
-  name: Path<TFormValues>;
-  currentValue: number;
-  min?: number;
-  max: number;
-  /**
-   * If you're using react-hook-form, you can pass in the register function
-   */
-  register?: UseFormRegister<TFormValues>;
+export type ChatRangeInputProps = {
   children?: React.ReactNode;
   className?: string;
 };
 
-export const ChatRangeInput = <TFormValues extends Record<string, any>>(
-  props: ChatRangeInputProps<TFormValues>,
-): JSX.Element => {
-  const steps = [1, 2, 3];
-  const { register, name, min = 25, max, currentValue, className } = props;
-  const fieldProps = register
-    ? register(name)
-    : {
-        name: name,
-        value: currentValue,
-      };
-  const stepSize = (max - min) / (steps.length - 1);
+export const ChatRangeInput = (props: ChatRangeInputProps): JSX.Element => {
+  const { className } = props;
+  const { settings, setSettings } = useSettingsContext();
+  const currentValue = settings.responseLength;
 
   const getStepLabel = () => {
-    if (currentValue == min) {
+    if (currentValue == 1) {
       return "Short and sweet";
-    } else if (currentValue == max) {
+    } else if (currentValue == 3) {
       return "Detailed";
     }
     return "Balanced";
   };
 
+  const cycleThroughValues = () => {
+    if (currentValue === 1) {
+      setSettings({ ...settings, responseLength: 2 });
+    } else if (currentValue == 2) {
+      setSettings({ ...settings, responseLength: 3 });
+    } else {
+      setSettings({ ...settings, responseLength: 1 });
+    }
+  };
   return (
     <label
-      htmlFor={name}
+      htmlFor="responseLength"
       className={clsx(
         "mx-auto mb-4 flex w-1/2 cursor-pointer flex-col md:mb-2 md:w-1/4",
         className,
       )}
     >
-      <small className="font-regular mb-2 hidden text-center text-slate-400 md:block">
+      <small
+        className="font-regular mb-2 hidden text-center text-slate-400 md:block"
+        onClick={cycleThroughValues}
+      >
         Response Length
       </small>
       <input
-        id={name}
+        name="responseLength"
+        id="responseLength"
+        title="Select how long you'd like the bot's reponse to be"
         type="range"
-        min={min}
-        max={max}
-        className="range range-secondary range-sm opacity-25"
-        step={stepSize}
-        {...fieldProps}
+        min={1}
+        max={3}
+        className="h-2 w-full appearance-none rounded bg-gradient-to-r from-blue-200/50 via-blue-300/50 to-blue-400/50 outline-none"
+        step={1}
+        value={currentValue}
+        onChange={({ target }) => {
+          setSettings({
+            ...settings,
+            responseLength: parseInt(target.value, 10) as ResponseLength,
+          });
+        }}
       />
       <div className="pointer-events-none -mb-4 flex w-full justify-between px-1 text-xs">
-        {steps.map((i) => (
+        {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="relative -top-4 mx-[2px] mt-[1.5px] flex h-2 w-2 rounded-full bg-primary/25"
+            className="relative -top-4 mx-[2px] mt-[8px] flex h-2 w-2 rounded-full bg-primary/25"
           />
         ))}
       </div>

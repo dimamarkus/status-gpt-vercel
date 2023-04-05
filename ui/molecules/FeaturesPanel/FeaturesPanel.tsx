@@ -129,7 +129,7 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
 
   // const darkMode = features.theme === "dark";
   return (
-    <div className={clsx("flex flex-col ", className)}>
+    <div className={clsx("flex flex-col bg-slate-300 pl-8 dark:bg-black", className)}>
       {/* <label htmlFor="darkMode" className="label mb-2 w-16 cursor-pointer self-center">
         <span className="label-text uppercase text-base-100">☀️</span>
         <input
@@ -146,18 +146,14 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
       {/* {getOptionDropdown("layout", LAYOUTS)} */}
       {/* {getOptionDropdown("font", FONTS)} */}
       {/* {getOptionRadio("model", MODELS)} */}
-      {getOptionCheckbox("useStream", "Stream")}
       {getOptionCheckbox("debugMode", "Debug")}
 
       <h2 className={headingStyles}>Features</h2>
-      {getOptionCheckbox("autoSubmitSpeech", "Auto-submit Speech")}
       {getOptionCheckbox("enableAssumptions", "Assumptions")}
       {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
 
       <h2 className={headingStyles}>UI</h2>
-      {getOptionCheckbox("darkMode", "Dark Mode")}
-      {getOptionCheckbox("sidebarRight", "Sidebar on the right")}
       {getOptionCheckbox("showTokens", "Show Tokens")}
       {getOptionCheckbox("showUserAvatar", "Show User Avatar")}
       {getOptionCheckbox("showBotAvatar", "Show Bot Avatar")}

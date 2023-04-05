@@ -15,6 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { Search } from "./Search";
+import Folders from "#/ui/modules/Chat/ChatConversations/Folders";
 
 export const ChatConversations = () => {
   const {
@@ -80,6 +81,12 @@ export const ChatConversations = () => {
         />
       </header>
       {hasConversations && <Search searchTerm={searchTerm} onSearch={setSearchTerm} />}
+
+      {folders.length > 0 && (
+        <div className="flex border-b border-neutral-500/20">
+          <Folders searchTerm={searchTerm} folders={folders} />
+        </div>
+      )}
 
       {rootConversations.length > 0 && (
         <Conversations conversations={filteredData.rootConversations} />

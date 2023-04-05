@@ -1,5 +1,5 @@
 import { CHAT_BOT_INPUT_MAX_CHARS } from "#/lib/constants/settings";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import { MicrophoneIcon } from "@heroicons/react/24/solid";
 import { ErrorMessage } from "@hookform/error-message";
@@ -41,7 +41,7 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
   const errorMessages = !!errors ? errors[name] : null;
   const hasError = !!(errors && errorMessages);
   const hookFieldProps = register?.(name, rules);
-  const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
 
   const { listen, listening, stop } = useSpeechRecognition({
     onResult: (result: string) => {
@@ -74,7 +74,7 @@ export const FormTextarea = <TFormValues extends Record<string, any>>({
 
   const microphoneButton = onListen && (
     <BaseButton
-      type={features.autoSubmitSpeech ? "submit" : "button"}
+      type={settings.autoSubmitSpeech ? "submit" : "button"}
       flavor="icon"
       icon={<MicrophoneIcon />}
       onMouseDown={listen}

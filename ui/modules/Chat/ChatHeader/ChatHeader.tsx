@@ -2,8 +2,8 @@
 
 import { DEFAULT_CONVERSATION_NAME } from "#/app/chat/lib/constants";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import {
   ArrowLeftIcon,
@@ -13,10 +13,11 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import { FC } from "react";
 
 export const ChatHeader: FC = () => {
-  const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const { isFullScreen, toggleFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
   const {
     appState: { selectedConversation },
@@ -32,9 +33,16 @@ export const ChatHeader: FC = () => {
   const rootStyles =
     "flex justify-center border border-b-neutral-300 bg-slate-100 py-1 text-sm text-neutral-500 dark:border-none dark:bg-[#444654] dark:text-neutral-200 z-[1]";
 
+  const sidebarToggleStyles = clsx(
+    settings.sidebarRight
+      ? "border-r-2 border-l-0 ml-auto mr-2"
+      : "border-l-2 border-r-0 ml-2 mr-auto",
+    "rounded-none border-t-0 border-b-0 border-neutral-400 text-neutral-400 py-0 my-auto hover:bg-transparent",
+  );
+
   const fullScreenButton = (
     <BaseButton
-      className={features.sidebarRight ? "mr-auto" : "ml-auto"}
+      className={settings.sidebarRight ? "mr-auto" : "ml-auto"}
       flavor="icon"
       icon={!isFullScreen ? <ArrowsPointingOutIcon /> : <ArrowsPointingInIcon />}
       onClick={() => toggleFullScreen()}
@@ -45,11 +53,11 @@ export const ChatHeader: FC = () => {
 
   const sidebarTogglebutton = (
     <BaseButton
-      className={features.sidebarRight ? "ml-auto" : "mr-auto"}
-      flavor="icon"
+      className={sidebarToggleStyles}
+      flavor="hollow"
       icon={
-        (features.sidebarRight && !sidebarIsVisible) ||
-        (!features.sidebarRight && sidebarIsVisible) ? (
+        (settings.sidebarRight && !sidebarIsVisible) ||
+        (!settings.sidebarRight && sidebarIsVisible) ? (
           <ArrowLeftIcon />
         ) : (
           <ArrowRightIcon />
@@ -62,7 +70,7 @@ export const ChatHeader: FC = () => {
 
   return (
     <header className={rootStyles}>
-      {features.sidebarRight ? fullScreenButton : sidebarTogglebutton}
+      {settings.sidebarRight ? fullScreenButton : sidebarTogglebutton}
       <BaseButton
         flavor="icon"
         icon={<TrashIcon />}
@@ -80,7 +88,7 @@ export const ChatHeader: FC = () => {
         theme="secondary"
         title="Start new conversation"
       />
-      {features.sidebarRight ? sidebarTogglebutton : fullScreenButton}
+      {settings.sidebarRight ? sidebarTogglebutton : fullScreenButton}
     </header>
   );
 };

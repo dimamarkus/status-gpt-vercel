@@ -61,7 +61,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
   }, [isRenaming, isDeleting]);
 
   const itemStyles = clsx(
-    "flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 hover:bg-blue-300/50 dark:bg-slate-700/25",
+    "flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 hover:bg-blue-300/50 dark:hover:bg-slate-700/25",
     loading && "disabled:cursor-not-allowed",
   );
 

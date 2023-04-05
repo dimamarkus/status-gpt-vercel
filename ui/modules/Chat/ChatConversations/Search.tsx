@@ -18,7 +18,7 @@ export const Search: FC<Props> = ({ searchTerm, onSearch }) => {
   return (
     <form className="relative flex items-center">
       <input
-        className="w-full flex-1 rounded-md bg-white/75 px-4 py-3 pr-10 text-[12px] leading-3"
+        className="w-full flex-1 rounded-md bg-white/75 px-4 py-3 pr-10 text-[12px] leading-3 dark:bg-white/5"
         type="text"
         placeholder={"Search conversations..." || ""}
         value={searchTerm}

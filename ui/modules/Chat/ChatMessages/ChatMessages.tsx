@@ -77,12 +77,9 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
     return <div>Loading</div>;
   }
 
-  // const loadingAnswerMessage = loading ? createChatMessage("assistant", "...") : undefined;
   const incomingAnswerMessage = answerStream
     ? createChatMessage("assistant", answerStream)
     : undefined;
-  // const latestMessage = incomingAnswerMessage || loadingAnswerMessage;
-  const latestMessage = incomingAnswerMessage;
 
   return !selectedConversation || !bot ? (
     <div>Loading</div>
@@ -112,12 +109,12 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
             />
           ),
       )}
-      {latestMessage && (
+      {incomingAnswerMessage && (
         <ChatMessage
           key={selectedConversation.messages.length + 1}
           className={!answerStream && !loading ? "hidden" : ""}
           isTalking={loading || !!answerStream}
-          {...latestMessage}
+          {...incomingAnswerMessage}
           onStop={appActions.cancelStream}
         />
       )}

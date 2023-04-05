@@ -4,7 +4,7 @@ import {
   SUBMISSIONS_REQUEST,
   SUGGESTIONS_REQUEST,
 } from "#/app/chat/lib/constants";
-import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
+import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { GptMessage, OpenAiChatModel, OpenAiModel } from "#/app/chat/lib/types";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
 import { Conversation, StatusChatMessage } from "#/app/chat/lib/types";
@@ -15,10 +15,20 @@ import {
 } from "#/lib/constants/settings";
 import { Bot } from "#/lib/types/cms";
 import { encode } from "gptoken";
+import { ResponseLength } from "#/lib/contexts/SettingsContext";
 
 export const calculateTokens = (prompt: string) => {
   // Will not work on edge runtine
   return encode(prompt).length;
+};
+
+export const calculateMaxTokens = (maxTokens: number, responseLength: ResponseLength) => {
+  if (responseLength === 1) {
+    return maxTokens * 0.33;
+  } else if (responseLength === 2) {
+    return maxTokens * 0.66;
+  }
+  return maxTokens;
 };
 
 export const isChatModel = (model?: OpenAiModel) =>
