@@ -1,0 +1,15 @@
+.collapsible {
+  & > label {
+    cursor: pointer;
+  }
+
+  & > input:checked + label + div {
+    max-height: 100%;
+  }
+
+  & > div {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+}
