@@ -31,3 +31,32 @@
     width: 100%; /* final width */
   }
 }
+
+// Circle Backgrounnd Animation
+// ----------------------------------------------------------------
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circles-top-outer {
+  transform-origin: 73px 69px;
+  animation: rotate 60s linear infinite;
+}
+
+.circles-top-inner {
+  transform-origin: 73px 69px;
+  animation: rotate 40s linear infinite;
+}
+
+.circles-bottom-outer {
+  transform-origin: 134px 222px;
+  animation: rotate 50s linear infinite;
+}
+
+.circles-bottom-inner {
+  transform-origin: 134px 222px;
+  animation: rotate 30s linear infinite;
+}

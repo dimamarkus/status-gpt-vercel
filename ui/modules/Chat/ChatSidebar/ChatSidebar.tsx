@@ -18,9 +18,11 @@ import { FC } from "react";
 type ChatSidebarProps = {
   bots: Bot[];
   selectedBot: Bot;
+  botIsTalking?: boolean;
 };
 
-export const ChatSidebar: FC<ChatSidebarProps> = ({ bots, selectedBot }) => {
+export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
+  const { bots, selectedBot, botIsTalking } = props;
   const { features } = useFeatureToggleContext();
   const botOptions = bots.filter(
     (bot) => (inProdEnv ? bot.is_featured : true) && bot.slug !== selectedBot.slug,
@@ -32,6 +34,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = ({ bots, selectedBot }) => {
         loading={!selectedBot}
         avatarUrl={selectedBot ? getBotAvatar(selectedBot) : undefined}
         role={"assistant"}
+        isTalking={botIsTalking}
       />
       <Duo vertical gap="none">
         <h2 className="mb-1">{selectedBot.name}</h2>
@@ -46,9 +49,9 @@ export const ChatSidebar: FC<ChatSidebarProps> = ({ bots, selectedBot }) => {
         as="header"
         title={sidebarHeader}
         className="mb-4 px-2"
-        titleClassName="flex flex-shrink-0 items-center space-x-4 p-0 mx-2 font-medium"
+        titleClassName="flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 p-0 mx-2 font-medium"
       >
-        <ChatBots bots={botOptions} className="border-b border-blue-200 pb-2" />
+        <ChatBots bots={botOptions} className="rounded-sm bg-blue-200/50 pb-2  dark:bg-black/10" />
       </Collapsible>
 
       <ChatSidebarSection

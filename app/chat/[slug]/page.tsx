@@ -3,6 +3,7 @@ import { getTitlePrefix } from "#/app/metadata";
 import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
 import { fetchBot, fetchBots } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import { Bot } from "#/lib/types/cms";
+import CircleAnimation from "#/ui/atoms/svgs/CircleAnimation";
 import Chat from "#/ui/modules/Chat/Chat";
 
 export type BotPageProps = {
@@ -47,6 +48,11 @@ export default async function BotPage({ params, searchParams }: BotPageProps) {
   const query = searchParams.query;
 
   return (
-    <Chat bots={sortBots(bots)} selectedBot={selectedBot} query={query} startTime={startTime} />
+    <>
+      {selectedBot.slug === "roger" && (
+        <CircleAnimation className="fixed left-0 top-0 z-0 h-[100vh] w-[100vw]" />
+      )}
+      <Chat bots={sortBots(bots)} selectedBot={selectedBot} query={query} startTime={startTime} />
+    </>
   );
 }

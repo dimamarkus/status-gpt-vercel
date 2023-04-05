@@ -140,7 +140,7 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   }, [content, textareaRef]);
 
   const rootStyles =
-    "absolute bottom-0 left-0 w-full border-transparent bg-gradient-to-b from-transparent via-white to-white pt-6 dark:border-white/20 dark:via-[#343541] dark:to-[#343541] md:pt-2 md:pb-0 pb-16";
+    "absolute bottom-0 left-0 w-full border-transparent bg-gradient-to-b from-transparent via-white to-white pt-6 dark:border-white/20 dark:via-base-200 dark:to-base-300 md:pt-2 md:pb-0 pb-16";
 
   const wrapperStyles =
     "stretch  mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl";
@@ -207,7 +207,7 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
             size={isMobile ? "sm" : "md"}
             disabled={appState.loading}
             className={clsx(
-              "shadow-lg shadow-blue-500/40 transition-all duration-300 ease-in-out",
+              "shadow-lg shadow-blue-500/30 transition-all duration-300 ease-in-out dark:shadow-blue-600/30",
               !content || content.length < 55 ? "m-auto" : "mt-auto",
             )}
           />

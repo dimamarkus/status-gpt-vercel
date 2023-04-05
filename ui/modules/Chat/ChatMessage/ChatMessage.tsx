@@ -168,7 +168,10 @@ export const ChatMessage = (props: ChatMessageProps) => {
             <Duo
               gap="full"
               centered
-              className={isHovering || speaking || !!onRegenerate ? "opacity-1" : "opacity-0"}
+              className={clsx(
+                "transition-hover",
+                isHovering || speaking || !!onRegenerate ? "opacity-1" : "opacity-0",
+              )}
             >
               <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
               <div className="flex">

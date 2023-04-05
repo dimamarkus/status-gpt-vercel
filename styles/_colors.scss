@@ -33,3 +33,203 @@
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent; */
 }
+
+:root {
+  /*
+    Please...
+    - Do not use hexidecimal colors anywhere in the app. Use only variables in this file.
+    - Do not add colors to the app or this file arbitrarily.
+    - In 99% of circumstances we should be using one of the colors available here.
+    - If a color really needs to be added, let's discuss it first.
+  */
+
+  /* Brand Colors ---------------------------- */
+  /* --oxford: #495ab9;
+  --coral: #f88484;
+  --merlot: #b06078;
+   */
+
+  /* New Brand Colors ---------------------------- */
+  --coral-900: #a70909;
+  --coral-800: #bb2828;
+  --coral-700: #cf4747;
+  --coral-600: #e46565; /* Default */
+  --coral-500: #f88484;
+  --coral-400: #f99d9d;
+  --coral-300: #fbb5b5;
+  --coral-200: #fccece;
+  --coral-100: #fee6e6;
+
+  --merlot-900: #61303f;
+  --merlot-800: #753c4d;
+  --merlot-700: #88485b;
+  --merlot-600: #9c546a; /* Default */
+  --merlot-500: #b06078;
+  --merlot-400: #c08093;
+  --merlot-300: #d0a0ae;
+  --merlot-200: #dfbfc9;
+  --merlot-100: #efdfe4;
+
+  --oxford-900: #242d5f;
+  --oxford-800: #2d3875;
+  --oxford-700: #36448c;
+  --oxford-600: #404fa2; /* Default */
+  --oxford-500: #495ab9;
+  --oxford-400: #6a78c6;
+  --oxford-300: #9ca5d9;
+  --oxford-200: #cdd2ec;
+  --oxford-100: #eef0f9;
+
+  --action-900: #122958;
+  --action-800: #173775;
+  --action-700: #1d4492;
+  --action-600: #275bc4;
+  --action-500: #3172f5;
+  --action-400: #5a8ef7;
+  --action-300: #82aaf9;
+  --action-200: #dfe9fd;
+  --action-100: #f0f3ff;
+
+  --danger-900: #7a1212;
+  --danger-800: #941e1e;
+  --danger-700: #ae2a2a;
+  --danger-600: #c93636;
+  --danger-500: #e34242;
+  --danger-400: #e96868;
+  --danger-300: #ee8e8e;
+  --danger-200: #f7cbcb;
+  --danger-100: #fceeee;
+
+  --success-900: #224916;
+  --success-800: #2d621e;
+  --success-700: #387a25;
+  --success-600: #44932d;
+  --success-500: #4fab34;
+  --success-400: #72bc5d;
+  --success-300: #b9ddae;
+  --success-200: #d6ebd0;
+  --success-100: #ecf8e8;
+
+  --warning-900: #794e06;
+  --warning-800: #98640d;
+  --warning-700: #b77a14;
+  --warning-600: #d6901c;
+  --warning-500: #f5a623;
+  --warning-400: #f7b64b;
+  --warning-300: #face87;
+  --warning-200: #fce7c3;
+  --warning-100: #fef7eb;
+
+  --yellow-900: #7f6b00;
+  --yellow-800: #9f8600;
+  --yellow-700: #bfa100;
+  --yellow-600: #dfbc00;
+  --yellow-500: #ffd700;
+  --yellow-400: #ffdf33;
+  --yellow-300: #ffe766;
+  --yellow-200: #ffef99;
+  --yellow-100: #fff7cc;
+
+  /* New Brand Colors ---------------------------- */
+  --oxford: var(--oxford-600);
+  --coral: var(--coral-500);
+  --merlot: var(--merlot-500);
+
+  --inactive-oxford: #dbdef0;
+  --inactive-coral: #fde0e0;
+  --inactive-merlot: #ebd7dd;
+
+  --light-oxford: #b7bcd9;
+  --light-coral: #fbbcbc;
+  --light-merlot: #d4a8b5;
+
+  --inactive-light-oxford: #eceef5;
+  --inactive-light-coral: #fdeeee;
+  --inactive-light-merlot: #f4e9ec;
+
+  --dark-grey-blue: #2c325e;
+
+  --cyan-900: #00212d;
+  --cyan-800: #00415a;
+  --cyan-700: #006286;
+  --cyan-600: #0082b3;
+  --cyan-500: #00a3e0;
+  --cyan-400: #33b5e6;
+  --cyan-300: #66c8ec;
+  --cyan-200: #aae3f9;
+  --cyan-100: #e7f8ff;
+
+  /* Primary Colors -------------------------- */
+
+  --danger: #e34242;
+  --warning: #f2a422;
+  --success: #57bd39;
+  --action: #3172f5;
+  --crypto: #00a3e0;
+  --yellow: #ffd700;
+
+  --light-danger: #ecaeae;
+  --light-warning: #fef2de;
+  --light-success: #eff9ec;
+  --light-action: #f4f6fd;
+
+  --dark-danger: #a61919;
+  --dark-warning: #bc7a0b;
+  --dark-success: #45962d;
+  --dark-action: #0943b7;
+
+  /* Secondary Colors ------------------------- */
+
+  --shadow: #0b0014;
+  --shade: #1c2234;
+  --slate: #3c425a;
+  --shale: #4d556c;
+  --stone: #6a7185;
+  --smoke: #8c95a5;
+  --storm: #afbac6;
+  --silver: #ced5df;
+  --satin: #edeff1;
+  --snow: #f5f6f7;
+  --salt: #ffffff;
+
+  --neutral-900: #0b0014;
+  --neutral-800: #1c2234;
+  --neutral-700: #3c425a;
+  --neutral-600: #4d556c; /* Default */
+  --neutral-500: #6a7185;
+  --neutral-400: #8c95a5;
+  --neutral-300: #8c95a5;
+  --neutral-200: #ced5df;
+  --neutral-100: #edeff1;
+  --neutral-50: #f5f6f7;
+
+  --off-white: #fdfdfd;
+
+  /* Theme Colors ------------------------------ */
+
+  --noon: white;
+  --dawn: var(--snow);
+  --dusk: var(--silver);
+  --midnight: var(--shade);
+
+  /* Text Colors ------------------------------ */
+
+  --heading-text-color: var(--slate);
+  --body-text-color: var(--shale);
+  --subdued-text-color: var(--smoke);
+  --light-text-color: var(--salt);
+
+  /* Other Colors ------------------------------ */
+
+  --autofill-color: #fcffdf;
+  --chart-axis: #a5a8ab;
+  --chart-limit: #979797;
+  --header-shadow-color: rgba(0, 0, 0, 0.15);
+  --default-border-color: var(--silver);
+}
+
+:export {
+  headBgColorExternal: var(--salt);
+  headBgColorInternal: var(--shade);
+  headBgColorShrunkSidebar: var(--slate);
+}
