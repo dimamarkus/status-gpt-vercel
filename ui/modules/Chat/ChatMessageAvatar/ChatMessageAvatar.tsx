@@ -49,14 +49,13 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
   }
 
   return (
-    <BaseButton
-      flavor="bare"
+    <button
       className={clsx(rootStyles, className)}
       onClick={handleClick}
       disabled={onClick === undefined}
     >
       {innerAvatar}
-    </BaseButton>
+    </button>
   );
 };
 

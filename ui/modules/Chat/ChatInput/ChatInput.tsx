@@ -4,6 +4,7 @@ import { GPT4_MODEL } from "#/app/chat/lib/constants";
 import { getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
+import { CHAT_BOT_INPUT_MAX_CHARS } from "#/lib/constants/settings";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useIsMobile } from "#/lib/hooks/useIsMobile";
@@ -103,42 +104,45 @@ export const ChatInput: FC = () => {
     }
   }, [content, textareaRef]);
 
-  const wrapperStyles =
-    "absolute bottom-0 left-0 w-full border-transparent bg-gradient-to-b from-transparent via-white to-white pt-6 dark:border-white/20 dark:via-[#343541] dark:to-[#343541] md:pt-2";
-
   const rootStyles =
+    "absolute bottom-0 left-0 w-full border-transparent bg-gradient-to-b from-transparent via-white to-white pt-6 dark:border-white/20 dark:via-[#343541] dark:to-[#343541] md:pt-2 md:pb-0 pb-16";
+
+  const wrapperStyles =
     "stretch  mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl";
 
-  const microphoneButton = (
-    <BaseButton
-      type={features.autoSubmitSpeech ? "submit" : "button"}
-      flavor="icon"
-      icon={<MicrophoneIcon />}
-      onMouseDown={listen}
-      onMouseUp={stop}
-      onMouseOut={stop}
-      size="lg"
-      theme={listening ? "primary" : "secondary"}
-      className={clsx("z-4 absolute right-1 -mt-1", listening && "animate-pulse")}
-      // className={clsx("z-4 ", listening && "animate-pulse")}
-      title="Hold to speak"
-    />
-  );
+  const fieldsetStyles =
+    "relative flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4";
 
   return (
-    <form className={wrapperStyles} onSubmit={submitMessage}>
-      <div className={rootStyles}>
+    <form className={rootStyles} onSubmit={submitMessage}>
+      <div className={wrapperStyles}>
         <ChatRangeInput<ChatFormFields>
           register={register}
           name="max_tokens"
           max={maxTokens}
           currentValue={watch("max_tokens")}
-          className="absolute -top-2 left-0 right-0"
+          className="absolute bottom-0 left-0 right-0 md:-top-2"
         />
-        <div className="relative flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
-          {microphoneButton}
+        <fieldset className={fieldsetStyles}>
+          <BaseButton
+            type={features.autoSubmitSpeech ? "submit" : "button"}
+            flavor="icon"
+            icon={<MicrophoneIcon />}
+            onMouseDown={listen}
+            onMouseUp={stop}
+            onMouseOut={stop}
+            size="lg"
+            theme={listening ? "primary" : "secondary"}
+            className={clsx(
+              "z-4 absolute bottom-2 right-1 hidden md:block",
+              listening && "animate-pulse",
+            )}
+            title="Hold to speak"
+          />
           <textarea
             id={USER_INPUT_FIELD_ID}
+            aria-label="Enter your message to the bot here"
+            maxLength={CHAT_BOT_INPUT_MAX_CHARS}
             {...chatInputProps}
             ref={textareaRef}
             className="m-0 w-full resize-none border-0 bg-transparent p-0 px-3 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
@@ -159,21 +163,26 @@ export const ChatInput: FC = () => {
             onKeyDown={handleKeyDown}
             required
           />
-        </div>
+        </fieldset>
         {!appState.loading ? (
           <BaseButton
+            text="Send"
             title="Send your chat message"
             type="submit"
             size={isMobile ? "sm" : "md"}
             disabled={appState.loading}
-            className="m-auto shadow-lg shadow-blue-500/40"
-            text="Send"
+            className={clsx(
+              "shadow-lg shadow-blue-500/40 transition-all duration-300 ease-in-out",
+              !content || content.length < 55 ? "m-auto" : "mt-auto",
+            )}
           />
         ) : (
           <BaseButton
             text="Cancel"
+            title="Cancel your message and reset"
             type="reset"
             theme="error"
+            size={isMobile ? "sm" : "md"}
             className="mt-auto"
             onClick={cancelStream}
           />

@@ -46,13 +46,15 @@ export const ChatRangeInput = <TFormValues extends Record<string, any>>(
         className,
       )}
     >
-      <small className="font-regular pb-1 text-center text-primary">Response Length</small>
+      <small className="font-regular mb-2 hidden text-center text-slate-400 md:block">
+        Response Length
+      </small>
       <input
         id={name}
         type="range"
         min={min}
         max={max}
-        className="range range-primary range-sm opacity-25 focus:opacity-50"
+        className="range range-secondary range-sm opacity-25"
         step={stepSize}
         {...fieldProps}
       />
@@ -64,7 +66,7 @@ export const ChatRangeInput = <TFormValues extends Record<string, any>>(
           />
         ))}
       </div>
-      <div className="mx-auto -mt-1 hidden self-center text-xs font-medium text-slate-400 md:mt-3 md:block">
+      <div className="mx-auto mt-3 self-center text-xs font-medium text-primary">
         {getStepLabel()}
       </div>
     </label>

@@ -23,7 +23,7 @@ export const ConversationsHeader: FC<{ onAddConversation: () => void }> = (props
         onClick={handleAddConversation}
       >
         <PlusIcon width={18} height={18} />
-        New chat
+        New Conversation
       </BaseButton>
 
       <BaseButton

@@ -18,12 +18,14 @@ import { FC } from "react";
 export const ChatHeader: FC = () => {
   const { features } = useFeatureToggleContext();
   const { isFullScreen, toggleFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
-  const { appState, dataActions } = useConversationsContext();
-  const conversation = appState.selectedConversation;
+  const {
+    appState: { selectedConversation },
+    dataActions: { resetConversation, addConversation },
+  } = useConversationsContext();
 
   const handleResetConversation = () => {
     if (confirm("Are you sure you want to clear all messages?")) {
-      conversation && dataActions.resetConversation(conversation);
+      selectedConversation && resetConversation(selectedConversation);
     }
   };
 
@@ -45,7 +47,14 @@ export const ChatHeader: FC = () => {
     <BaseButton
       className={features.sidebarRight ? "ml-auto" : "mr-auto"}
       flavor="icon"
-      icon={!sidebarIsVisible ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+      icon={
+        (features.sidebarRight && !sidebarIsVisible) ||
+        (!features.sidebarRight && sidebarIsVisible) ? (
+          <ArrowLeftIcon />
+        ) : (
+          <ArrowRightIcon />
+        )
+      }
       onClick={toggleSidebar}
       theme="secondary"
     />
@@ -62,12 +71,12 @@ export const ChatHeader: FC = () => {
         title="Clear all messages"
       />
       <div className="flex max-w-[240px] items-center overflow-hidden text-ellipsis whitespace-nowrap">
-        {conversation ? conversation.name : DEFAULT_CONVERSATION_NAME}
+        {selectedConversation ? selectedConversation.name : DEFAULT_CONVERSATION_NAME}
       </div>
       <BaseButton
         flavor="icon"
         icon={<PlusIcon />}
-        onClick={dataActions.addConversation}
+        onClick={addConversation}
         theme="secondary"
         title="Start new conversation"
       />
