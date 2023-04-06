@@ -1,6 +1,9 @@
 import { GPT4_MODEL } from "#/app/chat/lib/constants";
+import { ConversationsDataState } from "#/app/chat/lib/reducer";
 import { Conversation } from "#/app/chat/lib/types";
 import { currentDate } from "#/lib/helpers/datetime-helpers";
+import { parseJson } from "#/lib/helpers/string-helpers";
+import { Bot } from "#/lib/types/cms";
 
 export const cleanSelectedConversation = (conversation: Conversation) => {
   let updatedConversation = conversation;
@@ -43,29 +46,26 @@ export const cleanConversationHistory = (history: Conversation[]) => {
   }, []);
 };
 
-export const exportConversationData = () => {
-  let history = localStorage.getItem("rootConversations");
-  let folders = localStorage.getItem("folders");
+export const exportConversationData = (bot?: Bot) => {
+  const allConversations = localStorage.getItem("conversations");
 
-  if (history) {
-    history = JSON.parse(history);
+  if (!allConversations) {
+    return;
   }
 
-  if (folders) {
-    folders = JSON.parse(folders);
-  }
+  const parsedConversations = parseJson(allConversations);
 
-  const data = {
-    history,
-    folders,
-  };
+  const conversations = bot ? parsedConversations[bot.slug] : allConversations;
 
-  const blob = new Blob([JSON.stringify(data, null, 2)], {
+  const blob = new Blob([JSON.stringify(conversations, null, 2)], {
     type: "application/json",
   });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.download = `status_aidvisor_history_${currentDate()}.json`;
+  const fileName = bot
+    ? `status_aidvisor_conversations_with_${bot.slug}`
+    : "status_aidvisor_conversations";
+  link.download = `${fileName}_${currentDate()}.json`;
   link.href = url;
   link.style.display = "none";
   document.body.appendChild(link);

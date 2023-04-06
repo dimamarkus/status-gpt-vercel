@@ -26,10 +26,16 @@ export const Import: FC<Props> = ({ onImport }) => {
             let json = JSON.parse(e.target?.result as string);
 
             if (json && !json.folders) {
-              json = { history: cleanConversationHistory(json), folders: [] };
+              json = { rootConversations: cleanConversationHistory(json), folders: [] };
             }
+            const cleanedFolders = json.folders.map((folder: ConversationsFolder) => ({
+              ...folder,
+              conversations: cleanConversationHistory(folder.conversations),
+            }));
 
-            onImport({ rootConversations: json.history, folders: json.folders });
+            const cleanedConversations = cleanConversationHistory(json.rootConversations);
+
+            onImport({ rootConversations: cleanedConversations, folders: cleanedFolders });
           };
           reader.readAsText(file);
         }}

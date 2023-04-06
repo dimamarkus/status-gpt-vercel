@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { FC, useEffect, useRef, useState } from "react";
 import styles from "./ChatMessages.module.scss";
 import { throttle } from "#/lib/functions/throttle";
+import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
 
 type ChatMessagesProps = {
   /**
@@ -81,6 +82,8 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
     ? createChatMessage("assistant", answerStream)
     : undefined;
 
+  const trainingContent = collateBotTraining(bot);
+
   return !selectedConversation || !bot ? (
     <div>Loading</div>
   ) : (
@@ -88,9 +91,17 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
       className={clsx(styles.root, "h-full max-h-full overflow-x-hidden bg-base-100")}
       ref={chatContainerRef}
     >
+      {features.debugMode && (
+        <ChatMessage
+          key="bot-training-message"
+          content={trainingContent}
+          timestamp={0}
+          role="system"
+        />
+      )}
       {selectedConversation.messages.map(
         (message, index) =>
-          !(message.role === "system" && !features.debugMode) && (
+          message.role !== "system" && (
             <ChatMessage
               key={index}
               time={index <= 1 ? startTime : undefined}
@@ -109,6 +120,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
             />
           ),
       )}
+
       {incomingAnswerMessage && (
         <ChatMessage
           key={selectedConversation.messages.length + 1}

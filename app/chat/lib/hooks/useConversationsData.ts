@@ -90,7 +90,7 @@ export const useConversationsData = (bot: Bot | null): UseConversationsDataRetur
     },
     addMessage: (conversation, payload) => dispatch({ type: ADD_MESSAGE, conversation, payload }),
     editMessage: (conversation, payload) => dispatch({ type: EDIT_MESSAGE, conversation, payload }),
-    exportConversations: exportConversationData,
+    exportConversations: () => !!bot && exportConversationData(bot),
   };
 
   return { state: { ...state, bot }, actions };

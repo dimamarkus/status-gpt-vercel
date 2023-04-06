@@ -68,10 +68,8 @@ export const createSubmissionsPrompt = (context: StatusChatMessage[]) => {
 export const getStartingChatLog = (bot?: Bot | null): StatusChatMessage[] | [] => {
   if (!bot) return [];
 
-  const trainingContent = collateBotTraining(bot);
-  const trainingMessage = createChatMessage("system", trainingContent);
   const startingChatLog = [
-    trainingMessage,
+    // trainingMessage // Not exposed on client side
     createChatMessage("assistant", bot.welcome_message || ""),
   ];
 

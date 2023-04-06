@@ -6,18 +6,16 @@ import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import { SidebarButton } from "#/ui/atoms/buttons/SidebarButton/SidebarButton";
 import Clear from "#/ui/modules/Chat/ChatConversations/Clear";
 import { Conversations } from "#/ui/modules/Chat/ChatConversations/Conversations";
+import Folders from "#/ui/modules/Chat/ChatConversations/Folders";
 import Import from "#/ui/modules/Chat/ChatConversations/Import";
 import {
   ArrowDownTrayIcon,
-  ChatBubbleLeftIcon,
-  DocumentArrowUpIcon,
   EyeSlashIcon,
   FolderPlusIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { Search } from "./Search";
-import Folders from "#/ui/modules/Chat/ChatConversations/Folders";
 
 export const ChatConversations = () => {
   const {
@@ -44,6 +42,7 @@ export const ChatConversations = () => {
   };
 
   const handleImportConversations = (data: ConversationsDataState) => {
+    console.log("data", data);
     const rootConversation = data.rootConversations[data.rootConversations.length - 1];
     const nestedConversation = data.folders[0]?.conversations[0];
     setConversations(data);
@@ -67,7 +66,7 @@ export const ChatConversations = () => {
         {hasConversations && (
           <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mx-1 mt-1" />
         )}
-        <div className="mx-1 flex items-center gap-4">
+        <div className="mx-1 flex items-center gap-2">
           <button
             className="link-primary flex flex-grow cursor-pointer select-none items-center gap-3 rounded-md border border-primary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
             onClick={handleAddConversation}
@@ -79,9 +78,7 @@ export const ChatConversations = () => {
           <BaseButton
             size="md"
             flavor="hollow"
-            // theme="secondary"
             icon={<FolderPlusIcon />}
-            // className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-secondary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
             className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-primary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-blue-500/10"
             onClick={() => addFolder("New folder")}
           />
