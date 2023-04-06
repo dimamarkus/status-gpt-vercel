@@ -3,6 +3,7 @@ import { FC, memo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { generateRandomString, programmingLanguages } from "./codeblock-functions";
+import CodeCopyButton from "#/ui/molecules/CodeBlock/CodeCopyButton";
 
 interface Props {
   language: string;
@@ -10,21 +11,6 @@ interface Props {
 }
 
 export const CodeBlock: FC<Props> = memo(({ language, value }) => {
-  const [isCopied, setIsCopied] = useState<Boolean>(false);
-
-  const copyToClipboard = () => {
-    if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      return;
-    }
-
-    navigator.clipboard.writeText(value).then(() => {
-      setIsCopied(true);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    });
-  };
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
@@ -53,17 +39,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
         <span className="text-xs lowercase text-white">{language}</span>
 
         <div className="flex items-center">
-          <button
-            className="flex items-center rounded bg-none py-0.5 px-2 text-xs text-white focus:outline-none"
-            onClick={copyToClipboard}
-          >
-            {isCopied ? (
-              <CheckIcon width={18} height={18} className="mr-1.5" />
-            ) : (
-              <ClipboardIcon width={18} height={18} className="mr-1.5" />
-            )}
-            {isCopied ? "Copied!" : "Copy code"}
-          </button>
+          <CodeCopyButton content={value} />
           <button
             className="flex items-center rounded bg-none py-0.5 pl-2 text-xs text-white focus:outline-none"
             onClick={downloadAsFile}

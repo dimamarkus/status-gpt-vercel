@@ -2,7 +2,14 @@
 
 import { HTTPMethod, makeAsyncRequest } from "#/lib/helpers/request-helpers/makeRequest";
 import { getCmsUrl } from "#/lib/helpers/url-helpers";
-import { Bot, ChatSettings, CmsResource, CmsResourceSlug, CmsResponse } from "#/lib/types/cms";
+import {
+  Bot,
+  ChatSettings,
+  CmsResource,
+  CmsResourceSlug,
+  CmsResponse,
+  LandingPage,
+} from "#/lib/types/cms";
 import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/lib/types/strapi";
 
 // ============================================================================
@@ -86,10 +93,11 @@ export async function filterResourceFromCms<TResource extends CmsResource>(
   param: keyof TResource,
   query: string | number,
   operator?: StrapiOperator,
+  populate?: boolean,
 ): Promise<StrapiArrayResponse<TResource>> {
   const queryParams = "filters[" + param.toString() + "][" + (operator || "$eq") + "]=" + query;
 
-  return await getResourcesFromCms<TResource>(endpoint, queryParams, true);
+  return await getResourcesFromCms<TResource>(endpoint, queryParams, populate);
 }
 
 export async function getResourceFieldsFromCms<TResource extends CmsResource>(
@@ -114,6 +122,19 @@ export async function putResourceToCms<T extends CmsResource>(
 // ============================================================================
 //  RESOURCES
 // ============================================================================
+export async function fetchLandingPage(slug: LandingPage["slug"]): Promise<LandingPage> {
+  const populateString = `&populate[hero_section][populate]=*&populate[sections][populate]=*&populate[seo][populate]=*`;
+  const queryString = slug + populateString;
+  const response = await filterResourceFromCms<LandingPage>(
+    "landing-pages",
+    "slug",
+    queryString,
+    undefined,
+    true,
+  );
+  return await extractResource(response);
+}
+
 export async function fetchBots(): Promise<Bot[]> {
   const populateString = getPopulateString(["avatar"]);
 

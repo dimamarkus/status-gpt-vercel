@@ -1,4 +1,5 @@
 import { Bot, CmsResourceSlug } from "#/lib/types/cms";
+import { StrapiMediaAttribute, StrapiMedia } from "#/lib/types/strapi";
 
 const sanitizeUrl = (str: string) => {
   let url = str;
@@ -40,12 +41,19 @@ export function getMediaUrl(mediaPath?: string) {
   return getStrapiUrl() + mediaPath;
 }
 
-export function getBotAvatar(bot?: Bot, thumbail?: boolean) {
+export function getAvatarUrl(
+  avatar?: StrapiMediaAttribute<StrapiMedia>,
+  thumbail?: boolean,
+): string {
   if (thumbail) {
-    return getMediaUrl(bot?.avatar?.data?.attributes?.formats?.thumbnail?.url);
+    return getMediaUrl(avatar?.data?.attributes?.formats?.thumbnail?.url);
   } else {
-    return getMediaUrl(bot?.avatar?.data?.attributes?.url);
+    return getMediaUrl(avatar?.data?.attributes?.url);
   }
+}
+
+export function getBotAvatar(bot?: Bot, thumbail?: boolean) {
+  return getAvatarUrl(bot?.avatar, thumbail);
 }
 
 export const pluralizeCmsModel = (model: string) =>

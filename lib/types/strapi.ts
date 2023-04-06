@@ -37,6 +37,7 @@ export type SchemaUID = string;
 export type StrapiTimestamps = {
   createdAt: string;
   updatedAt: string;
+  publishedAt: string;
 };
 
 //  Base
