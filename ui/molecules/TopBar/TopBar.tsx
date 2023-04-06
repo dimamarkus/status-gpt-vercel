@@ -1,8 +1,6 @@
-import Link from "next/link";
-import Hamburger from "#/ui/atoms/svgs/Hamburger";
+import Link from "#/ui/atoms/Link/Link";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
-import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
-import styles from "./TopBar.module.scss";
+import Hamburger from "#/ui/atoms/svgs/Hamburger";
 import DarkModeToggle from "#/ui/molecules/actionButtons/DarkModeToggleButton/DarkModeToggleButton";
 
 const navItems = (
@@ -27,9 +25,8 @@ const navItems = (
         type="primary"
         href="https://statusmoney.com/onboarding/register"
         className="text-primary"
-      >
-        Join Status
-      </Link>
+        text="Join Status"
+      />
     </li>
   </>
 );
@@ -55,8 +52,16 @@ const TopBar = () => {
         <Logo />
         <ul className="menu menu-horizontal hidden px-1 lg:visible">{navItems}</ul>
       </div>
-      <AuthButtons className="navbar-end" />
-      <DarkModeToggle />
+      {/* <AuthButtons className="navbar-end" /> */}
+      <DarkModeToggle className="mr-2" />
+      <Link
+        asButton
+        className="btn-sm w-28 px-2 md:btn-md md:w-32"
+        type="secondary"
+        text="Learn More"
+        title="Learn about Status Money's work with AI"
+        href={"/landing/flexie"}
+      />
     </header>
   );
 };
