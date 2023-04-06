@@ -3,6 +3,7 @@ import Hamburger from "#/ui/atoms/svgs/Hamburger";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
 import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
 import styles from "./TopBar.module.scss";
+import DarkModeToggle from "#/ui/molecules/actionButtons/DarkModeToggleButton/DarkModeToggleButton";
 
 const navItems = (
   <>
@@ -55,6 +56,7 @@ const TopBar = () => {
         <ul className="menu menu-horizontal hidden px-1 lg:visible">{navItems}</ul>
       </div>
       <AuthButtons className="navbar-end" />
+      <DarkModeToggle />
     </header>
   );
 };
