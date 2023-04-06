@@ -1,29 +1,40 @@
 import { makeServerRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
 import { useState } from "react";
 
-export const useRequestStream = <TRequestType>(endpoint: string) => {
+type UseRequestStreamReturnType<TRequestType> = {
+  fullValue: string;
+  loading: boolean;
+  stream?: string;
+  error: string;
+  requestWasCancelled?: boolean;
+  cancelStream: (resetState?: boolean) => Promise<void>;
+  startStream: (requestBody: TRequestType) => void;
+};
+
+export const useRequestStream = <TRequestType>(
+  endpoint: string,
+): UseRequestStreamReturnType<TRequestType> => {
   const [controller, setController] = useState<AbortController | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const [requestWasCancelled, setQueryWasCancelled] = useState<boolean>();
   const [fullValue, setFullValue] = useState<string>("");
   const [stream, setStream] = useState<string | undefined>(undefined);
 
-  const cancelStream = async () => {
+  const cancelStream = async (resetState?: boolean) => {
     if (controller) {
       controller.abort();
       setController(null);
       setLoading(false);
-      setStream(undefined);
+      setQueryWasCancelled(true);
+      resetState && setStream(undefined);
     }
   };
 
-  const requestStream = async (requestBody: TRequestType) => {
+  const startStream = async (requestBody: TRequestType) => {
     setLoading(true);
     try {
-      if (controller) {
-        controller.abort();
-        setController(null);
-      }
+      setQueryWasCancelled(false);
       const newController = new AbortController();
       setController(newController);
       const cancelSignal = newController.signal;
@@ -60,5 +71,5 @@ export const useRequestStream = <TRequestType>(endpoint: string) => {
     }
   };
 
-  return { loading, stream, error, cancelStream, requestStream };
+  return { fullValue, loading, stream, error, cancelStream, startStream, requestWasCancelled };
 };

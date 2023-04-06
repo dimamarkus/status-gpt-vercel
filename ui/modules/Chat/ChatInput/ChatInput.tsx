@@ -40,8 +40,7 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   const model = selectedConversation?.model || GPT4_MODEL;
   const [content, setContent] = useState<string>();
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const maxTokens = getBotParam(bot, "max_tokens") as number;
-  const { register, handleSubmit, watch } = formContext;
+  const { register, handleSubmit } = formContext;
   const chatInputProps = register(USER_INPUT_FIELD_ID);
   const submitMessage = handleSubmit(() => handleSend());
   const isMobile = useIsMobile();
@@ -215,7 +214,7 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
             theme="error"
             size={isMobile ? "sm" : "md"}
             className="mt-auto"
-            onClick={cancelStream}
+            onClick={() => cancelStream(true)}
           />
         )}
       </div>

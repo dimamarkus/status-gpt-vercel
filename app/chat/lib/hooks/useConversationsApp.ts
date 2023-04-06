@@ -26,6 +26,7 @@ export type UseConversationsAppReturn = {
     answer?: string;
     answerStream?: string;
     currentQuery?: string;
+    requestWasCancelled?: boolean;
     showSidebar: boolean;
     loading: boolean;
     currentMessage: StatusChatMessage | undefined;
@@ -33,7 +34,7 @@ export type UseConversationsAppReturn = {
     formContext: UseFormReturn<ChatFormFields, any>;
   };
   actions: {
-    cancelStream: () => void;
+    cancelStream: (resetState?: boolean) => void;
     getAnswer: (chatLog: GptMessage[]) => Promise<string>;
     toggleSidebar: () => void;
     setUserInput: (newInput?: string) => void;
@@ -48,9 +49,8 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const [currentMessage, setCurrentMessage] = useState<StatusChatMessage | undefined>();
 
-  const { stream, loading, error, requestStream, cancelStream } = useRequestStream(
-    "/chat/" + bot?.slug,
-  );
+  const { stream, loading, error, startStream, cancelStream, fullValue, requestWasCancelled } =
+    useRequestStream("/chat/" + bot?.slug);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -94,8 +94,8 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
         : (result as unknown as OpenAiCompletionResponse).choices[0].text;
     }
 
-    if (!!result) {
-      setAnswer(result);
+    if (!!fullValue) {
+      setAnswer(fullValue);
       setCurrentQuery(undefined);
     }
     return result;

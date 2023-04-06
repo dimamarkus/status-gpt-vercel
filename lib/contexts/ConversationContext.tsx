@@ -81,7 +81,7 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
   const { state: appState, actions: appActions } = useConversationsApp(bot);
   const { folders, rootConversations } = dataState;
   const { resetConversation, addConversation, updateConversation } = dataActions;
-  const { currentQuery, currentMessage } = appState;
+  const { currentQuery, requestWasCancelled } = appState;
   const { cancelStream, getAnswer, setUserInput, setCurrentMessage } = appActions;
   const currentChatLog = selectedConversation?.messages;
   const firstAvailableConversation = rootConversations[0] || folders[0]?.conversations[0];
@@ -114,6 +114,10 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     );
 
     const answer = await getAnswer(chatMessages.toSend);
+
+    if (requestWasCancelled) {
+      console.log("REQUEST WAS CANCELLLED!", requestWasCancelled);
+    }
     const resultingChatLog = answer
       ? [...chatMessages.all, createChatMessage("assistant", answer)]
       : chatMessages.all;
@@ -171,8 +175,6 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     updateConversation({ ...selectedConversation, messages: updatedMessages });
     handleSubmitQuery(message, updatedMessages);
     setCurrentMessage(message);
-    // console.log("updatedMessages", updatedMessages);
-    // return updatedMessages;
   };
 
   return (
