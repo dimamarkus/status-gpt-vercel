@@ -165,7 +165,7 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
             size="lg"
             theme={listening ? "primary" : "neutral"}
             className={clsx(
-              "z-4 absolute bottom-2 right-1",
+              "z-4 absolute bottom-1 right-1 md:bottom-2",
               listening ? "animate-pulse opacity-100" : "opacity-50",
             )}
             title="Hold to speak"

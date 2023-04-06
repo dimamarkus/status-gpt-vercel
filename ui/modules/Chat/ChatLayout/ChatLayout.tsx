@@ -25,30 +25,42 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   );
 
   const asideStyles = clsx(
-    "flex flex-col flex-grow-0 flex-shrink-0 z-1 justify-start md:justify-end md:pt-4 pt-10",
-    "md:relative absolute h-full",
+    "flex flex-col flex-grow-0 flex-shrink-0 z-2 justify-start md:justify-end md:pt-4 pt-10",
+    "h-full",
     "text-blue-900 dark:text-blue-200/100 border-l border-blue-200/50 dark:border-none",
-    // "dark:bg-base-300",
-    sidebarIsVisible ? "w-[280px] md:w-[30%]" : "",
-    settings.sidebarRight ? "right-0" : "left-0",
+    settings.sidebarRight ? "right-0 order-last" : "left-0",
+    "transform", // Add transform property
+    "transition-transform duration-300", // Add transition
+    "transition",
+    "absolute md:relative",
+    "w-[280px] md:w-[30%]",
+    "z-10",
+    "md:translate-x-none",
+    sidebarIsVisible
+      ? "translate-x-0"
+      : settings.sidebarRight
+      ? "translate-x-full"
+      : "-translate-x-full",
   );
 
-  const mainContentStyles = clsx("relative flex h-full flex-col w-full");
+  const mainContentStyles = clsx(
+    "relative flex h-full flex-col w-full",
+    sidebarIsVisible && "z-[-1]",
+  );
+
+  const shouldRenderAside = isMobile || (!isMobile && sidebarIsVisible);
+  const aside = shouldRenderAside && (
+    <aside className={asideStyles} ref={ref}>
+      {sidebar}
+    </aside>
+  );
 
   return (
     <div className={clsx(styles.root, rootStyles, isFullScreen && styles.fullScreen)}>
-      {sidebarIsVisible && !settings.sidebarRight && (
-        <aside className={asideStyles} ref={ref}>
-          {sidebar}
-        </aside>
-      )}
-      {sidebarIsVisible && isMobile && <Overlay />}
+      {!settings.sidebarRight && aside}
+      {isMobile && <Overlay className={sidebarIsVisible ? "opacity-100" : "opacity-0"} />}
       <section className={mainContentStyles}>{children}</section>
-      {sidebarIsVisible && settings.sidebarRight && (
-        <aside className={asideStyles} ref={ref}>
-          {sidebar}
-        </aside>
-      )}
+      {settings.sidebarRight && aside}
     </div>
   );
 };

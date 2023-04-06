@@ -50,7 +50,7 @@ export default async function BotPage({ params, searchParams }: BotPageProps) {
   return (
     <>
       {selectedBot.slug === "roger" && (
-        <CircleAnimation className="fixed left-0 top-0 z-0 h-[100vh] w-[100vw]" />
+        <CircleAnimation className="fixed left-0 top-0 z-0 hidden h-[100vh] w-[100vw] md:block" />
       )}
       <Chat bots={sortBots(bots)} selectedBot={selectedBot} query={query} startTime={startTime} />
     </>
