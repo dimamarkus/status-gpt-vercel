@@ -46,20 +46,20 @@ export const createChatMessage = (
 });
 
 export const createSuggestionsPrompt = (context: StatusChatMessage[]) => {
-  const messages = context
-    .slice(1)
-    .slice(DEFAULT_SUGGESTIONS_MEMORY)
-    .map(({ role, content }) => ({ role, content }));
+  const recentMessages =
+    context.length > DEFAULT_SUGGESTIONS_MEMORY
+      ? context.slice(DEFAULT_SUGGESTIONS_MEMORY)
+      : context;
+  const messages = recentMessages.map(({ role, content }) => ({ role, content }));
   const messageQuery = [...messages, { role: "user", content: SUGGESTIONS_REQUEST } as GptMessage];
 
   return messageQuery;
 };
 
 export const createSubmissionsPrompt = (context: StatusChatMessage[]) => {
-  const messages = context
-    .slice(1)
-    .slice(SUBMISSIONS_PROMPT_SIZE)
-    .map(({ role, content }) => ({ role, content }));
+  const recentMessages =
+    context.length > SUBMISSIONS_PROMPT_SIZE ? context.slice(SUBMISSIONS_PROMPT_SIZE) : context;
+  const messages = recentMessages.map(({ role, content }) => ({ role, content }));
   const messageQuery = [...messages, { role: "user", content: SUBMISSIONS_REQUEST } as GptMessage];
 
   return messageQuery;

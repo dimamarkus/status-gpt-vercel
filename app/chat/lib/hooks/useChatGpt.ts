@@ -91,7 +91,7 @@ export const useChatGpt = (
   const [messages, setMessages] = useState(startingChatLog);
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const { settings } = useSettingsContext();
-  const { stream, loading, error, requestStream, cancelStream } = useRequestStream(
+  const { stream, loading, error, startStream, cancelStream } = useRequestStream(
     "/chat/" + bot?.slug,
   );
   const max_tokens = getBotParam("max_tokens") as number;
@@ -141,7 +141,7 @@ export const useChatGpt = (
     !inProdEnv && console.log("============================================================");
     !inProdEnv && console.log(`${model} request:`, chatMessages.toSend);
 
-    const response = await requestStream({
+    const response = await startStream({
       messages: chatMessages.toSend,
       stream: settings.useStream,
       max_tokens: getValues("max_tokens"),

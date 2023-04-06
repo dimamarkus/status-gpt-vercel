@@ -79,7 +79,7 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
       label: "Tokens: " + promptTokenCount,
     });
     const max_tokens = calculateMaxTokens(botMaxTokens, settings.responseLength);
-    const response = await requestStream({
+    const response = await startStream({
       messages,
       stream: settings.useStream,
       max_tokens,

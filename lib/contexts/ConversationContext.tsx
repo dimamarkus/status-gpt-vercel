@@ -19,11 +19,7 @@ import { UseSubmissionsReturn, useSubmissions } from "#/app/chat/lib/hooks/useSu
 import { UseSuggestionsReturn, useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
 import { Conversation, StatusChatMessage } from "#/app/chat/lib/types";
-import {
-  DEFAULT_BOT_MEMORY,
-  SUBMISSIONS_PROMPT_SIZE,
-  SUGGESTIONS_PROMPT_SIZE,
-} from "#/lib/constants/settings";
+import { SUBMISSIONS_PROMPT_SIZE, SUGGESTIONS_PROMPT_SIZE } from "#/lib/constants/settings";
 import { AssumptionsContext, useAssumptionsContext } from "#/lib/contexts/AssumptionsContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
@@ -86,7 +82,7 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
   const { folders, rootConversations } = dataState;
   const { resetConversation, addConversation, updateConversation } = dataActions;
   const { currentQuery, currentMessage } = appState;
-  const { cancelStream, getAnswer, resetUserInput, setCurrentMessage } = appActions;
+  const { cancelStream, getAnswer, setUserInput, setCurrentMessage } = appActions;
   const currentChatLog = selectedConversation?.messages;
   const firstAvailableConversation = rootConversations[0] || folders[0]?.conversations[0];
   const inInitialState = folders.length === 0 && rootConversations.length === 1;
@@ -101,15 +97,6 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
   useUpdateEffect(() => {
     if (inInitialState || !selectedConversation) selectConversation(firstAvailableConversation);
   }, [dataState]);
-
-  useUpdateEffect(() => {
-    // If someone edits the message
-    if (currentMessage) {
-      // handleSubmitQuery(currentMessage);
-      // setCurrentMessage(undefined);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMessage]);
 
   const handleSubmitQuery = async (message: StatusChatMessage, chatLog?: StatusChatMessage[]) => {
     let conversation = selectedConversation || addConversation();
@@ -127,8 +114,9 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
     );
 
     const answer = await getAnswer(chatMessages.toSend);
-    const botAnswerMessage = createChatMessage("assistant", answer);
-    const resultingChatLog = [...chatMessages.all, botAnswerMessage];
+    const resultingChatLog = answer
+      ? [...chatMessages.all, createChatMessage("assistant", answer)]
+      : chatMessages.all;
     const isFirstMessageInChat = conversation.messages.length === 2; /* 1 system, 1 welcome */
     if (isFirstMessageInChat) {
       const { content } = message;
@@ -141,20 +129,22 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
 
     updateConversation({ ...conversation, messages: resultingChatLog });
     features.enableSuggestions &&
-      suggestionsActions.getSuggestions(resultingChatLog.slice(-SUGGESTIONS_PROMPT_SIZE));
+      !requestWasCancelled &&
+      suggestionsActions.getSuggestions(resultingChatLog);
     features.enableSubmissions &&
-      submissionsActions.getSubmissions(resultingChatLog.slice(-SUBMISSIONS_PROMPT_SIZE));
+      !requestWasCancelled &&
+      submissionsActions.getSubmissions(resultingChatLog);
   };
 
-  const handleCancelStream = () => {
+  const handleCancelStream = async () => {
     if (!currentChatLog) return;
     console.log("currentQuery", currentQuery);
-    resetUserInput(currentQuery);
+    setUserInput(currentQuery);
     // updateConversation({ ...selectedConversation, messages: currentChatLog.slice(-1) });
     cancelStream();
   };
 
-  const handleAddConversation = () => {
+  const handleAddConversation = async () => {
     const addedConversation = addConversation();
     addedConversation && setSelectedConversation(addedConversation);
     sidebarActions.setSidebarSectionState("conversations", true);
@@ -163,7 +153,7 @@ export function ConversationsContextProvider({ children, bot }: ConversationCont
 
   const handleResetConversation = () => {
     cancelStream();
-    resetUserInput();
+    setUserInput();
     selectedConversation && resetConversation(selectedConversation);
   };
 

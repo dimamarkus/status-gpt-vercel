@@ -44,6 +44,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const { features } = useFeatureToggleContext();
   const {
     dataState: { bot },
+    appState: { loading },
   } = useConversationsContext();
   const speechContext = useSpeechSynthesis();
   const { speaking, cancel } = speechContext;
@@ -108,14 +109,14 @@ export const ChatMessage = (props: ChatMessageProps) => {
     </>
   );
 
-  const stopButton = onStop && (
+  const stopButton = onStop && loading && (
     <>
       <small className="text-xs text-neutral-400">|</small>
       <BaseButton
         flavor="icon"
         icon={<StopIcon />}
         onClick={onStop}
-        text="Stop generating"
+        text="Stop Generating"
         title="Stop generating a response"
         size="sm"
         className="gap-0 text-xs"
