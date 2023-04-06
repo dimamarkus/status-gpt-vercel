@@ -1,4 +1,5 @@
 import {
+  CARDINAL_BOT_RULE,
   CHAT_400_ERROR_RESPONSE,
   CHAT_401_ERROR_RESPONSE,
   CHAT_429_ERROR_RESPONSE,
@@ -46,8 +47,10 @@ export default async function handler(req: NextRequest) {
   const trainingContent = collateBotTraining(bot);
   const trainingMessage = createChatMessage("system", trainingContent);
   let supplementaryTraining = `Respond in less than ${botTokens * 0.75} words`;
-  if (language)
-    supplementaryTraining += ` and in this language: ${language || DEFAULT_BOT_LANGUAGE}.`;
+  if (language) {
+    supplementaryTraining += ` and in the language: ${language || DEFAULT_BOT_LANGUAGE}.`;
+  }
+  supplementaryTraining += CARDINAL_BOT_RULE;
   const supplementaryTrainingMessage = createChatMessage("system", supplementaryTraining);
   const chatLogWithTraining = [trainingMessage, ...chatLog, supplementaryTrainingMessage];
   const sanitizedChatLog = chatLogWithTraining.map(({ role, content }) => ({

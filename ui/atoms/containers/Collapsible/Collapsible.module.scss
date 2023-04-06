@@ -4,10 +4,11 @@
     transition: border-color 0.3s ease-in-out; /* Add a border transition */
   }
 
-  & > label:hover + div {
+  &.peekOnHover > label:hover + div {
     max-height: 15px;
   }
 
+  &.peekOnHover > input:checked + label + div,
   & > input:checked + label + div {
     max-height: 100%;
   }

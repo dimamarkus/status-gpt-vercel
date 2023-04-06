@@ -160,11 +160,13 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
             onMouseDown={listen}
             onMouseUp={stop}
             onMouseOut={stop}
+            onTouchStart={listen}
+            onTouchEnd={stop}
             size="lg"
-            theme={listening ? "primary" : "secondary"}
+            theme={listening ? "primary" : "neutral"}
             className={clsx(
-              "z-4 absolute bottom-2 right-1 hidden md:block",
-              listening && "animate-pulse",
+              "z-4 absolute bottom-2 right-1",
+              listening ? "animate-pulse opacity-100" : "opacity-50",
             )}
             title="Hold to speak"
           />

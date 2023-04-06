@@ -4,7 +4,14 @@ import { ButtonHTMLAttributes, cloneElement, ReactElement } from "react";
 import { iconSizeMap } from "#/lib/constants/maps";
 
 export type ButtonFlavor = "solid" | "link" | "bare" | "icon" | "hollow";
-export type ButtonTheme = "primary" | "secondary" | "accent" | "warning" | "error" | "success";
+export type ButtonTheme =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "warning"
+  | "error"
+  | "success"
+  | "neutral";
 export interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    *
@@ -54,13 +61,12 @@ export const BaseButton = (props: BaseButtonProps) => {
   } = props;
 
   const isLink = flavor === "link";
-  const isBare = flavor === "bare";
-  const isIcon = flavor === "icon";
+  const isBare = flavor === "bare" || flavor === "icon";
   const isHollow = flavor === "hollow";
 
   const getColorClass = () => {
-    if (isLink || isBare || isIcon) {
-      return `bg-transparent hover:bg-transparent link-${theme} border-none p-0 capitalize`;
+    if (isLink || isBare) {
+      return `bg-transparent hover:bg-transparent link-${theme}`;
     } else if (isHollow) {
       return `btn-outline link-${theme}`;
     }
@@ -72,7 +78,8 @@ export const BaseButton = (props: BaseButtonProps) => {
     getColorClass(),
     icon && text && "gap-2",
     icon && !text && "p-1 min-h-fit",
-    (isBare || isIcon) && "w-fit min-h-fit",
+    isBare && "w-fit min-h-fit p-0 capitalize",
+    isBare && !className?.includes("border") && "border-none", // Allow individual borders to be added to bare buttons
     isLink && "btn-link",
     !wrap && "flex-nowrap",
     size ? `btn-${size}` : "",

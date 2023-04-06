@@ -18,11 +18,11 @@ export const Search: FC<Props> = ({ searchTerm, onSearch, className }) => {
   };
 
   return (
-    <form className={clsx("relative flex items-center", className)}>
+    <form className={clsx("search-field relative flex items-center overflow-visible", className)}>
       <input
-        className="w-full flex-1 rounded-md bg-white/75 px-4 py-3 pr-10 text-[12px] leading-3 dark:bg-white/5"
+        className="w-full flex-1 rounded-md border-black/20 bg-white/75 px-4 py-3 pr-10 text-[12px] leading-3 dark:bg-white/5"
         type="text"
-        placeholder={"Search conversations..." || ""}
+        placeholder={"Filter conversations..." || ""}
         value={searchTerm}
         onChange={handleSearchChange}
       />

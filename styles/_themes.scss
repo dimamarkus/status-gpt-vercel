@@ -26,9 +26,6 @@ body[data-theme="dark"] {
 }
 
 [data-theme="light"] {
-  .link-secondary {
-    @apply hover:text-blue-600;
-  }
   .label {
     @apply text-neutral-600;
   }
@@ -42,10 +39,6 @@ body[data-theme="dark"] {
 }
 
 [data-theme="dark"] {
-  .link-secondary {
-    @apply text-slate-400;
-    @apply hover:text-blue-400/100;
-  }
   .label {
     @apply text-neutral-400;
   }
@@ -64,5 +57,13 @@ body[data-theme="dark"] {
   textarea {
     @apply border-slate-600;
     @apply bg-slate-700;
+  }
+  .search-field input {
+    background: linear-gradient(135deg, rgba(35, 45, 55, 1) 0%, rgba(25, 35, 45, 1) 100%);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.15), inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+    border: none;
+    // padding: 10px;
+    // font-size: 16px;
+    color: #f1f2f3;
   }
 }

@@ -2,14 +2,15 @@ import { Conversation } from "#/app/chat/lib/types";
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
-import Loader from "#/ui/atoms/Loader/Loader";
+
 import {
   ChatBubbleLeftIcon,
   CheckIcon,
   PencilIcon,
   TrashIcon,
   XMarkIcon,
-} from "@heroicons/react/24/solid";
+} from "@heroicons/react/24/outline";
+import { ChatBubbleLeftIcon as SolidChatBubbleLeftIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { DragEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 
@@ -74,14 +75,14 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
     "mr-12 pl-2 py-2 -ml-1 w-full flex-1 overflow-hidden overflow-ellipsis border-blue-200 bg-black/5 text-left text-[12.5px] leading-4 outline-none focus:border-blue-300/50";
 
   const isSelected = selectedConversation?.id === conversation.id;
-
+  const BubbleIcon = isSelected ? SolidChatBubbleLeftIcon : ChatBubbleLeftIcon;
   return !selectedConversation ? (
     <li>Loading</li>
   ) : (
     <li className="relative flex items-center" ref={ref}>
       {isRenaming && isSelected ? (
         <div className={clsx(itemStyles, isSelected && "bg-blue-300/50 py-1 dark:bg-blue-700/25")}>
-          {!isRenaming && <ChatBubbleLeftIcon width={18} height={18} className="flex-shrink-0" />}
+          {!isRenaming && <BubbleIcon width={18} height={18} className="flex-shrink-0" />}
           <input
             className={inputStyles}
             type="text"

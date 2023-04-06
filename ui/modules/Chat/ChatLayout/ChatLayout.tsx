@@ -27,7 +27,8 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const asideStyles = clsx(
     "flex flex-col flex-grow-0 flex-shrink-0 z-1 justify-start md:justify-end md:pt-4 pt-10",
     "md:relative absolute h-full",
-    "text-blue-900 dark:text-blue-200/100 border-l border-blue-200/50 dark:border-none dark:bg-base-300",
+    "text-blue-900 dark:text-blue-200/100 border-l border-blue-200/50 dark:border-none",
+    // "dark:bg-base-300",
     sidebarIsVisible ? "w-[280px] md:w-[30%]" : "",
     settings.sidebarRight ? "right-0" : "left-0",
   );

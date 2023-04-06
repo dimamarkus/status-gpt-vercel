@@ -64,9 +64,9 @@ const ChatSettings = (props: SettingsPanelProps) => {
   return (
     <div className={clsx("flex flex-col ", className)}>
       {getOptionCheckbox("darkMode", "Dark Mode")}
-      {getOptionCheckbox("autoSubmitSpeech", "Auto-submit Speech")}
       {getOptionCheckbox("sidebarRight", "Sidebar Right")}
       {getOptionCheckbox("useStream", "Stream Responses")}
+      {getOptionCheckbox("autoSubmitSpeech", "Submit speech on release")}
       <LanguageSelect />
     </div>
   );

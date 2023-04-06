@@ -36,7 +36,7 @@ export type UseConversationsAppReturn = {
     cancelStream: () => void;
     getAnswer: (chatLog: GptMessage[]) => Promise<string>;
     toggleSidebar: () => void;
-    resetUserInput: (newInput?: string) => void;
+    setUserInput: (newInput?: string) => void;
     setCurrentMessage: (message?: StatusChatMessage) => void;
   };
 };
@@ -64,7 +64,7 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
   const model = getBotParam(bot, "model") as OpenAiModel;
   const botMaxTokens = getBotParam(bot, "max_tokens") as number;
 
-  const resetUserInput = (newInput = "") => setValue(USER_INPUT_FIELD_ID, newInput);
+  const setUserInput = (newInput = "") => setValue(USER_INPUT_FIELD_ID, newInput);
 
   const handleGetAnswer = async (messages: GptMessage[]) => {
     const lastMessage = messages[messages.length - 1];
@@ -114,7 +114,7 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
     },
     actions: {
       getAnswer: handleGetAnswer,
-      resetUserInput,
+      setUserInput,
       setCurrentMessage,
       toggleSidebar: () => setShowSidebar(!showSidebar),
       cancelStream,

@@ -15,7 +15,7 @@ export const FONTS: Font[] = ["sans", "serif"];
 export const DEFAULT_SETTINGS: Settings = {
   useStream: true,
   autoSubmitSpeech: false,
-  sidebarRight: true,
+  sidebarRight: false,
   darkMode: false,
   language: "English",
   responseLength: 2, //medium ,

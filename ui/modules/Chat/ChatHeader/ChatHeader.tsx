@@ -37,12 +37,15 @@ export const ChatHeader: FC = () => {
     settings.sidebarRight
       ? "border-r-2 border-l-0 ml-auto mr-1"
       : "border-l-2 border-r-0 ml-1 mr-auto",
-    "rounded-none border-t-0 border-b-0 border-neutral-400 text-neutral-400 py-0 my-auto hover:bg-transparent",
+    "rounded-none border-0 border-secondary hover:border-secondary py-0 my-auto link-secondary opacity-50 hover:opacity-100",
   );
 
   const fullScreenButton = (
     <BaseButton
-      className={settings.sidebarRight ? "mr-auto" : "ml-auto"}
+      className={clsx(
+        "opacity-50 hover:opacity-100",
+        settings.sidebarRight ? "mr-auto" : "ml-auto",
+      )}
       flavor="icon"
       icon={!isFullScreen ? <ArrowsPointingOutIcon /> : <ArrowsPointingInIcon />}
       onClick={() => toggleFullScreen()}
@@ -54,7 +57,7 @@ export const ChatHeader: FC = () => {
   const sidebarTogglebutton = (
     <BaseButton
       className={sidebarToggleStyles}
-      flavor="hollow"
+      flavor="icon"
       icon={
         (settings.sidebarRight && !sidebarIsVisible) ||
         (!settings.sidebarRight && sidebarIsVisible) ? (
@@ -72,6 +75,7 @@ export const ChatHeader: FC = () => {
     <header className={rootStyles}>
       {settings.sidebarRight ? fullScreenButton : sidebarTogglebutton}
       <BaseButton
+        className="mr-2 opacity-50 hover:opacity-100"
         flavor="icon"
         icon={<TrashIcon />}
         onClick={handleResetConversation}
@@ -87,6 +91,7 @@ export const ChatHeader: FC = () => {
         onClick={addConversation}
         theme="secondary"
         title="Start new conversation"
+        className="ml-2 opacity-50 hover:opacity-100"
       />
       {settings.sidebarRight ? sidebarTogglebutton : fullScreenButton}
     </header>

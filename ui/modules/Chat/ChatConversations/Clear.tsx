@@ -1,4 +1,4 @@
-import { CheckIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { FC, useState } from "react";
 import { SidebarButton } from "../../../atoms/buttons/SidebarButton/SidebarButton";
 
@@ -46,7 +46,7 @@ export const Clear: FC<Props> = ({ onClear }) => {
     </div>
   ) : (
     <SidebarButton
-      text="Clear conversations"
+      text="Clear Conversations"
       icon={<TrashIcon width={18} height={18} />}
       onClick={() => setIsConfirming(true)}
     />

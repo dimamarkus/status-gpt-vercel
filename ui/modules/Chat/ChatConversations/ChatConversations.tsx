@@ -9,6 +9,8 @@ import { Conversations } from "#/ui/modules/Chat/ChatConversations/Conversations
 import Import from "#/ui/modules/Chat/ChatConversations/Import";
 import {
   ArrowDownTrayIcon,
+  ChatBubbleLeftIcon,
+  DocumentArrowUpIcon,
   EyeSlashIcon,
   FolderPlusIcon,
   PlusIcon,
@@ -61,29 +63,30 @@ export const ChatConversations = () => {
 
   return (
     <>
-      <header className="flex items-center">
-        <button
-          // flavor="hollow"
-          className="flex flex-grow cursor-pointer select-none items-center gap-3 rounded-md border border-neutral-500/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
-          // size="sm"
-          onClick={handleAddConversation}
-        >
-          <PlusIcon width={18} height={18} />
-          New Conversation
-        </button>
+      <header className="flex flex-col gap-4">
+        {hasConversations && (
+          <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mx-1 mt-1" />
+        )}
+        <div className="mx-1 flex items-center gap-4">
+          <button
+            className="link-primary flex flex-grow cursor-pointer select-none items-center gap-3 rounded-md border border-primary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
+            onClick={handleAddConversation}
+          >
+            <PlusIcon width={18} height={18} />
+            Add Conversation
+          </button>
 
-        <BaseButton
-          size="sm"
-          flavor="hollow"
-          icon={<FolderPlusIcon />}
-          className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-neutral-500/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
-          onClick={() => addFolder("New folder")}
-        />
+          <BaseButton
+            size="md"
+            flavor="hollow"
+            // theme="secondary"
+            icon={<FolderPlusIcon />}
+            // className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-secondary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
+            className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-primary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-blue-500/10"
+            onClick={() => addFolder("New folder")}
+          />
+        </div>
       </header>
-
-      {hasConversations && (
-        <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mt-3" />
-      )}
 
       {folders.length > 0 && (
         <div className="flex border-b border-neutral-500/20">
@@ -101,7 +104,7 @@ export const ChatConversations = () => {
         </div>
       )}
 
-      <footer className="mt-auto flex flex-col items-center space-y-1 border-t border-neutral-500/20 text-sm">
+      <footer className="mt-auto flex flex-col items-center space-y-1 border-t border-neutral-500/20 text-sm ">
         {(rootConversations.length || folders.length) > 0 ? <Clear onClear={resetFolders} /> : null}
         <Import onImport={handleImportConversations} />
         <SidebarButton

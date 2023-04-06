@@ -15,15 +15,16 @@ type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
   children: React.ReactNode;
   className?: string;
   titleClassName?: string;
+  peekOnHover?: boolean
 };
 
 export const Collapsible = (props: CollapsibleProps) => {
-  const { as: Element = "div", title, children, className, titleClassName, slug } = props;
+  const { as: Element = "div", title, children, className, titleClassName, slug, peekOnHover } = props;
 
   const id = `collapsible-${slug}`;
 
   return (
-    <Element className={clsx(styles.collapsible, className)}>
+    <Element className={clsx(styles.collapsible, peekOnHover && styles.peekOnHover, className)}>
       <input type="checkbox" id={id} style={{ display: "none" }} />
       <label htmlFor={id} className={titleClassName}>
         {title}

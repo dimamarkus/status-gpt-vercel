@@ -51,7 +51,7 @@ export const ChatRangeInput = (props: ChatRangeInputProps): JSX.Element => {
         type="range"
         min={1}
         max={3}
-        className="h-2 w-full appearance-none rounded bg-gradient-to-r from-blue-200/50 via-blue-300/50 to-blue-400/50 outline-none"
+        className="h-2 w-full cursor-pointer appearance-none rounded bg-gradient-to-r from-blue-200/50 via-blue-300/50 to-blue-400/50 outline-none"
         step={1}
         value={currentValue}
         onChange={({ target }) => {

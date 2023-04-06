@@ -1,6 +1,6 @@
 import { cleanConversationHistory } from "#/app/chat/lib/helpers/converastion-helpers";
 import { Conversation, ConversationsFolder } from "#/app/chat/lib/types";
-import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
+import { DocumentArrowUpIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
 import { SidebarButton } from "../../../atoms/buttons/SidebarButton/SidebarButton";
 
