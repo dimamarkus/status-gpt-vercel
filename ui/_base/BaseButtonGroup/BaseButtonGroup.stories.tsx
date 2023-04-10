@@ -27,14 +27,14 @@ export const TwoButtons: Story = {
 export const ThreeButtons: Story = {
   args: {
     secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
-    tertiaryButton: <BaseButton text="Tertiary" flavor="link" />,
+    tertiaryButton: <BaseButton text="Tertiary" flavor="textOnly" />,
   },
 };
 
 export const ThreeButtonsReverse: Story = {
   args: {
     secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
-    tertiaryButton: <BaseButton text="Tertiary" flavor="link" />,
+    tertiaryButton: <BaseButton text="Tertiary" flavor="textOnly" />,
     reverseOrder: true,
   },
 };
@@ -61,7 +61,7 @@ export const FromButtonMap: Story = {
 export const Combined: Story = {
   args: {
     secondaryButton: <BaseButton text="Secondary" theme="secondary" />,
-    tertiaryButton: <BaseButton text="Tertiary" flavor="link" />,
+    tertiaryButton: <BaseButton text="Tertiary" flavor="textOnly" />,
     buttonMap: [
       {
         text: "From map 1",

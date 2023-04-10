@@ -1,11 +1,14 @@
 import Link from "#/ui/atoms/Link/Link";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
 import Hamburger from "#/ui/atoms/svgs/Hamburger";
+import Spinner from "#/ui/atoms/svgs/Spinner";
 import DarkModeToggle from "#/ui/molecules/actionButtons/DarkModeToggleButton/DarkModeToggleButton";
+import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
+import { Suspense } from "react";
 
 const navItems = (
   <>
-    <li>
+    {/* <li>
       <a href="https://statusmoney.com/about">About</a>
     </li>
     <li>
@@ -16,16 +19,22 @@ const navItems = (
     </li>
     <li>
       <a href="https://statusmoney.com/card">Card</a>
-    </li>
-    <li>
-      <a href="https://statusmoney.com/login">Login</a>
-    </li>
+    </li> */}
+    {/* <li>
+        <Link
+          type="primary"
+          href="https://statusmoney.com/onboarding/register"
+          className="text-primary"
+          text="Join Status"
+        />
+      </li> */}
     <li>
       <Link
-        type="primary"
-        href="https://statusmoney.com/onboarding/register"
-        className="text-primary"
-        text="Join Status"
+        // className="btn-sm mx-4 w-28 px-2 md:btn-md md:w-32"
+        // type="primary"
+        text="About"
+        title="Learn about Status Money's work with AI"
+        href={"/landing/flexie"}
       />
     </li>
   </>
@@ -50,18 +59,12 @@ const TopBar = () => {
       <div className="navbar-start w-full">
         {mobileMenu}
         <Logo />
-        <ul className="menu menu-horizontal hidden px-1 lg:visible">{navItems}</ul>
+        <ul className="menu menu-horizontal ml-4 px-1">{navItems}</ul>
       </div>
-      {/* <AuthButtons className="navbar-end" /> */}
-      <DarkModeToggle className="mr-2" />
-      <Link
-        asButton
-        className="btn-sm w-28 px-2 md:btn-md md:w-32"
-        type="secondary"
-        text="Learn More"
-        title="Learn about Status Money's work with AI"
-        href={"/landing/flexie"}
-      />
+      <Suspense fallback={<Spinner />}>
+        <AuthButtons className="navbar-end" />
+      </Suspense>
+      <DarkModeToggle className="ml-2" />
     </header>
   );
 };

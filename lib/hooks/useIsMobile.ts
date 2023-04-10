@@ -1,11 +1,19 @@
 import { useWindowSize } from "#/lib/hooks/useWindowSize";
 import { createContext, useContext } from "react";
+import MobileDetect from "mobile-detect";
+import { GetServerSidePropsContext } from "next";
 
-const isMobile = () => {
+export const isMobile = () => {
   const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
   const mobileRegex =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i;
   return mobileRegex.test(userAgent);
+};
+
+export const useIsSsrMobile = (context: GetServerSidePropsContext) => {
+  const md = new MobileDetect(context.req.headers["user-agent"] as string);
+
+  return Boolean(md.mobile());
 };
 
 export const useIsMobile = () => {

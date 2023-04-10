@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import React from "react";
-import styles from "./Card.module.scss";
 
 type CardProps = {
   children?: React.ReactNode;
@@ -12,14 +11,14 @@ type CardProps = {
 
 export const Card = (props: CardProps) => {
   const { title, description, footer, children, className } = props;
-  const tailwindClasses = "card max-w-lg rounded bg-neutral-100";
+  const rootClasses = "card bg-base-100 w-full";
   const titleChild = title ? (
     <h3 className="card-title mb-1 text-2xl font-medium">{title}</h3>
   ) : null;
   const descriptionChild = description ? <p className="text-zinc-300">{description}</p> : null;
 
   return (
-    <div className={clsx(styles.Card, tailwindClasses, className)}>
+    <div className={clsx(rootClasses, className)}>
       <div className="card-body">
         {titleChild}
         {descriptionChild}

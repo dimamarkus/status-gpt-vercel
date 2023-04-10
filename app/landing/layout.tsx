@@ -1,6 +1,5 @@
-import { getTitlePrefix } from "#/app/metadata";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
-import { fetchBot, fetchLandingPage } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { fetchLandingPage } from "#/lib/helpers/request-helpers/makeCmsRequest";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import FeaturesPanelButton from "#/ui/molecules/FeaturesPanel/FeaturesPanelButton";
 

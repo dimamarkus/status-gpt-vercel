@@ -1,6 +1,7 @@
 import clsx from "clsx";
 
 import BaseLink, { BaseLinkProps } from "#/ui/_base/BaseLink/BaseLink";
+import { ButtonFlavor, ButtonTheme } from "#/ui/_base/BaseButton/BaseButton";
 
 export type LinkType = "default" | "primary" | "secondary" | "danger" | "accent";
 
@@ -10,7 +11,11 @@ export interface LinkProps extends Omit<BaseLinkProps, "type"> {
   /**
    * What flavor of link is it?
    */
-  type?: LinkType;
+  flavor?: ButtonFlavor;
+  /**
+   * Themes determine the colors of the link text, background and borders
+   */
+  theme?: ButtonTheme;
   /**
    * Default HTML title attribute. This type is missing in react for some reason
    */
@@ -21,7 +26,7 @@ export interface LinkProps extends Omit<BaseLinkProps, "type"> {
  * Primary UI component for user interaction
  */
 export const Link = (props: LinkProps) => {
-  const { type, className, ...otherProps } = props;
+  const { theme, className, ...otherProps } = props;
 
   const linkProps = {
     ...otherProps,
@@ -33,14 +38,14 @@ export const Link = (props: LinkProps) => {
 
   const asButton = linkProps.asButton;
   const classPrefix = asButton ? "btn" : "link";
-  switch (type) {
+  switch (theme) {
     case "accent":
       return getBaseLinkWClasses(`${classPrefix}-accent`);
 
     case "secondary":
       return getBaseLinkWClasses(asButton ? "btn-outline btn-primary" : "link-neutral");
 
-    case "danger":
+    case "error":
       return getBaseLinkWClasses(`${classPrefix}-error`);
 
     default:

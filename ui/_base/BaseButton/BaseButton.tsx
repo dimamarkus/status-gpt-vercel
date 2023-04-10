@@ -2,8 +2,9 @@ import Image from "next/image";
 import clsx from "clsx";
 import { ButtonHTMLAttributes, cloneElement, ReactElement } from "react";
 import { iconSizeMap } from "#/lib/constants/maps";
+import Link from "next/link";
 
-export type ButtonFlavor = "solid" | "link" | "bare" | "icon" | "hollow";
+export type ButtonFlavor = "solid" | "textOnly" | "bare" | "icon" | "hollow";
 export type ButtonTheme =
   | "primary"
   | "secondary"
@@ -12,7 +13,12 @@ export type ButtonTheme =
   | "error"
   | "success"
   | "neutral";
-export interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BaseButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+  /**
+   *
+   */
+  href?: string;
   /**
    *
    */
@@ -57,15 +63,15 @@ export const BaseButton = (props: BaseButtonProps) => {
     fullWidth,
     className,
     children,
-    ...htmlButtonProps
+    ...elementProps
   } = props;
 
-  const isLink = flavor === "link";
+  const isTextOnly = flavor === "textOnly";
   const isBare = flavor === "bare" || flavor === "icon";
   const isHollow = flavor === "hollow";
 
   const getColorClass = () => {
-    if (isLink || isBare) {
+    if (isTextOnly || isBare) {
       return `bg-transparent hover:bg-transparent link-${theme}`;
     } else if (isHollow) {
       return `btn-outline link-${theme}`;
@@ -80,7 +86,7 @@ export const BaseButton = (props: BaseButtonProps) => {
     icon && !text && "p-1 min-h-fit",
     isBare && "w-fit min-h-fit p-0 capitalize",
     isBare && !className?.includes("border") && "border-none", // Allow individual borders to be added to bare buttons
-    isLink && "btn-link",
+    isTextOnly && "btn-link",
     !wrap && "flex-nowrap",
     size ? `btn-${size}` : "",
     fullWidth ? "w-full" : "",
@@ -96,8 +102,14 @@ export const BaseButton = (props: BaseButtonProps) => {
       !!icon && cloneElement(icon, { className: iconStyles })
     );
 
-  return (
-    <button className={buttonStyles} {...htmlButtonProps}>
+  return !!elementProps.href ? (
+    <Link className={buttonStyles} href={elementProps.href} {...elementProps}>
+      {iconChild}
+      {text}
+      {children}
+    </Link>
+  ) : (
+    <button className={buttonStyles} {...elementProps}>
       {iconChild}
       {text}
       {children}

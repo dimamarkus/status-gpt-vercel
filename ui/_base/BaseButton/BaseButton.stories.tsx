@@ -29,7 +29,7 @@ export const AllFlavors: Story = {
       <ButtonPreview label="WithIcon" {...args} icon={<SpeakerWaveIcon />} />
       <ButtonPreview label="WithIcon" {...args} icon={<SpeakerWaveIcon />} text={undefined} />
       <ButtonPreview label="Hollow" {...args} flavor="hollow" />
-      <ButtonPreview label="Link" {...args} flavor="link" />
+      <ButtonPreview label="Link" {...args} flavor="textOnly" />
       <ButtonPreview
         label="Icon"
         {...args}
