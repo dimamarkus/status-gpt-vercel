@@ -1,4 +1,3 @@
-const { i18n } = require("./next-i18next.config");
 const dns = require("dns");
 
 dns.setDefaultResultOrder("ipv4first");
@@ -8,7 +7,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 /** @type {import('next').NextConfig} */
 const nextConfig = withBundleAnalyzer({
-  // i18n,
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   swcMinify: true,
   experimental: {
