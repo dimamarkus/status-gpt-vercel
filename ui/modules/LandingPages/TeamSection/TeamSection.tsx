@@ -1,5 +1,5 @@
 import { TeamSection as TeamSectionType } from "#/lib/types/cms";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import Image from "next/image";
 import styles from "./TeamSection.module.scss";
 import { getAvatarUrl } from "#/lib/helpers/url-helpers";

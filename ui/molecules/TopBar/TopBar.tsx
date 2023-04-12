@@ -1,4 +1,4 @@
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
 import Hamburger from "#/ui/atoms/svgs/Hamburger";
 import Spinner from "#/ui/atoms/svgs/Spinner";
@@ -8,30 +8,8 @@ import { Suspense } from "react";
 
 const navItems = (
   <>
-    {/* <li>
-      <a href="https://statusmoney.com/about">About</a>
-    </li>
     <li>
-      <a href="https://statusmoney.com/feed">Feed</a>
-    </li>
-    <li>
-      <a href="https://statusmoney.com/coaching">Coaching</a>
-    </li>
-    <li>
-      <a href="https://statusmoney.com/card">Card</a>
-    </li> */}
-    {/* <li>
-        <Link
-          type="primary"
-          href="https://statusmoney.com/onboarding/register"
-          className="text-primary"
-          text="Join Status"
-        />
-      </li> */}
-    <li>
-      <Link
-        // className="btn-sm mx-4 w-28 px-2 md:btn-md md:w-32"
-        // type="primary"
+      <BaseLink
         text="About"
         title="Learn about Status Money's work with AI"
         href={"/landing/flexie"}
@@ -62,6 +40,7 @@ const TopBar = () => {
         <ul className="menu menu-horizontal ml-4 px-1">{navItems}</ul>
       </div>
       <Suspense fallback={<Spinner />}>
+        {/* @ts-expect-error Server Component */}
         <AuthButtons className="navbar-end" />
       </Suspense>
       <DarkModeToggle className="ml-2" />

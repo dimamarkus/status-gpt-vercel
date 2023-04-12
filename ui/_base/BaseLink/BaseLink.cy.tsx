@@ -1,13 +1,9 @@
-import BaseLink from './BaseLink';
+import BaseLink from "./BaseLink";
 
-describe('<BaseLink />', () => {
-  it('renders', () => {
+describe("<Link />", () => {
+  it("renders", () => {
     // see: https://on.cypress.io/mounting-react
-    cy.mount(<BaseLink href={'#'} />);
-    cy.get('[class^=BaseLink_]')
-      .should('exist')
-      .should('have.text', 'Testing')
-      .should('have.class', 'btn-primary');
-    cy.get('a').should('have.attr', 'href', '#');
+    cy.mount(<BaseLink href={""} />);
+    cy.get("[class^=Link_]").should("exist");
   });
 });

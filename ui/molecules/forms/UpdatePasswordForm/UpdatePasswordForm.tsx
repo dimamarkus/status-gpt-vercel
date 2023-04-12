@@ -7,19 +7,25 @@ import { PasswordSchema } from "#/lib/forms/schemas";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
 import browserSupabase from "#/lib/helpers/supabase-helpers/supabase-browser";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 
 export type UpdatePasswordFields = {
   password: string;
+  currentUsername: string;
 };
 
-export const UpdatePasswordForm = () => {
+export type UpdatePasswordFormProps = {
+  currentUsername?: string;
+};
+
+export const UpdatePasswordForm = ({ currentUsername }: UpdatePasswordFormProps) => {
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const { register, handleSubmit, formState } = useForm<UpdatePasswordFields>({
     resolver: yupResolver(PasswordSchema),
     defaultValues: {
       password: "",
+      currentUsername: currentUsername || "", // Hidden. Included for accessisbility/password managers
     },
   });
 
@@ -38,6 +44,12 @@ export const UpdatePasswordForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <TextInput
+        type="hidden"
+        autoComplete="new-password"
+        value={currentUsername}
+        name="username"
+      />
+      <TextInput
         label="Password"
         type="password"
         autoComplete="new-password"
@@ -50,7 +62,7 @@ export const UpdatePasswordForm = () => {
       {successMsg && <div className="text-green-500">{successMsg}</div>}
       <br />
       <BaseButton type="submit" fullWidth text="Submit" />
-      <Link href="/profile" text="Back to profile" />
+      <BaseLink href="/profile" text="Back to profile" />
     </form>
   );
 };

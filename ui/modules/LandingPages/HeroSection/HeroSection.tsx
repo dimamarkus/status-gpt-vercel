@@ -1,5 +1,5 @@
 import { HeroSection as HeroSectionType } from "#/lib/types/cms";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import styles from "./HeroSection.module.scss";
 
 type HeroSectionProps = HeroSectionType & {
@@ -19,7 +19,7 @@ export const HeroSection = (props: HeroSectionProps) => {
       {heading && <h1 className={headingStyles}>{heading}</h1>}
       {subheading && <h2 className={subheadingStyles}>{subheading}</h2>}
       {description && <p className={descriptionStyles}>{description}</p>}
-      {cta && <Link className={linkStyles} href={cta.url} text={cta.text} />}
+      {cta && <BaseLink className={linkStyles} href={cta.url} text={cta.text} />}
     </section>
   );
 };

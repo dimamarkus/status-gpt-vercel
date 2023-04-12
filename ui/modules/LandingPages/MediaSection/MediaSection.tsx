@@ -1,5 +1,5 @@
 import { MediaSection as MediaSectionType } from "#/lib/types/cms";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import styles from "./MediaSection.module.scss";
 import Image from "next/image";
 
@@ -22,7 +22,7 @@ export const MediaSection = (props: MediaSectionProps) => {
       {heading && <h1 className={headingStyles}>{heading}</h1>}
       {subheading && <h2 className={subheadingStyles}>{subheading}</h2>}
       {description && <p className={descriptionStyles}>{description}</p>}
-      {cta && <Link className={linkStyles} href={cta.url} text={cta.text} />}
+      {cta && <BaseLink className={linkStyles} href={cta.url} text={cta.text} />}
       {image && (
         <Image
           src={image.attributes.url}

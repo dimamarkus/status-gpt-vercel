@@ -1,5 +1,5 @@
 import { BlurbSection as BlurbSectionType } from "#/lib/types/cms";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import styles from "./BlurbSection.module.scss";
 
 type BlurbSectionProps = BlurbSectionType & {

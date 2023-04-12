@@ -1,7 +1,7 @@
 "use client";
 
 import { VIEWS, useAuthContext } from "#/lib/contexts/AuthContext";
-import { Link } from "#/ui/atoms/Link/Link";
+import { BaseLink } from "#/ui/_base/BaseLink/BaseLink";
 import Card from "#/ui/atoms/containers/Card/Card";
 import ResetPasswordForm from "#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm";
 import SignInForm from "#/ui/molecules/forms/SignInForm/SignInForm";
@@ -30,22 +30,22 @@ export const Auth = ({ view: initialView }: AuthProps) => {
       return (
         <Card title="Reset Password">
           <ResetPasswordForm />
-          <Link href="/auth/sign-in" text="Try signin in again" />
+          <BaseLink href="/auth/sign-in" text="Try signin in again" />
         </Card>
       );
     case VIEWS.SIGN_UP:
       return (
         <Card title="Create Account">
           <SignUpForm />
-          <Link href="/auth/sign-in" text="Already have an account? Sign In." />
+          <BaseLink href="/auth/sign-in" text="Already have an account? Sign In." />
         </Card>
       );
     default:
       return (
         <Card title="Sign In">
           <SignInForm />
-          <Link href="/auth/reset-password" text="Forgot your password?" />
-          <Link href="/auth/sign-up" text="Don't have an account? Sign up." />
+          <BaseLink href="/auth/reset-password" text="Forgot your password?" />
+          <BaseLink href="/auth/sign-up" text="Don't have an account? Sign up." />
         </Card>
       );
   }

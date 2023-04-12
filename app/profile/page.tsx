@@ -1,7 +1,7 @@
 import { supabaseServerComponent } from "#/lib/helpers/supabase-helpers/supabase-server-component";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import Duo from "#/ui/_base/Duo/Duo";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import SignOutButton from "#/ui/atoms/buttons/SignOutButton/SignOutButton";
 import Card from "#/ui/atoms/containers/Card/Card";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
@@ -33,7 +33,8 @@ export default async function ProfilePage() {
           </Duo>
         )}
         <br />
-        <Link asButton href="/" text="Go Home" />
+        {/* <Link asButton href="/" text="Go Home" /> */}
+        <BaseLink href="/" text="Go Home" />
         <BaseButton flavor="textOnly" href="/auth/update-password" text="Update Password" />
         <SignOutButton flavor="textOnly" />
       </Card>

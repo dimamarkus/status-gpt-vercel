@@ -93,7 +93,7 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
           }
         case EVENTS.PASSWORD_RECOVERY:
           setView(VIEWS.UPDATE_PASSWORD);
-          redirect("/auth/update-password");
+        // redirect("/auth/update-password");
         case EVENTS.SIGNED_OUT:
         case EVENTS.USER_DELETED:
           // delete cookies on sign out
@@ -101,7 +101,7 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
           document.cookie = `my-access-token=; path=/; expires=${expires}; SameSite=Lax; secure`;
           document.cookie = `my-refresh-token=; path=/; expires=${expires}; SameSite=Lax; secure`;
           setView(VIEWS.SIGN_IN);
-          redirect("/auth/sign-in");
+        // redirect("/auth/sign-in");
         // case EVENTS.USER_UPDATED:
         default:
       }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { ButtonHTMLAttributes, cloneElement, ReactElement } from "react";
 import { iconSizeMap } from "#/lib/constants/maps";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 
 export type ButtonFlavor = "solid" | "textOnly" | "bare" | "icon" | "hollow";
 export type ButtonTheme =
@@ -18,7 +18,7 @@ export interface BaseButtonProps
   /**
    *
    */
-  href?: string;
+  href?: LinkProps["href"];
   /**
    *
    */
@@ -43,6 +43,10 @@ export interface BaseButtonProps
    * Stretch the button to fill the width of its container
    */
   fullWidth?: boolean;
+  /**
+   * Usually underline shows on hover. This will make it always visible.
+   */
+  underlined?: boolean;
   /**
    * Allow button content to wrap
    */
@@ -74,19 +78,19 @@ export const BaseButton = (props: BaseButtonProps) => {
     if (isTextOnly || isBare) {
       return `bg-transparent hover:bg-transparent link-${theme}`;
     } else if (isHollow) {
-      return `btn-outline link-${theme}`;
+      return `btn btn-outline link-${theme}`;
     }
-    return `btn-${theme} `;
+    return `btn btn-${theme} `;
   };
 
   const buttonStyles = clsx(
-    "btn h-fit",
+    "h-fit",
     getColorClass(),
     icon && text && "gap-2",
     icon && !text && "p-1 min-h-fit",
     isBare && "w-fit min-h-fit p-0 capitalize",
     isBare && !className?.includes("border") && "border-none", // Allow individual borders to be added to bare buttons
-    isTextOnly && "btn-link",
+    isTextOnly && "btn border-none hover:underline",
     !wrap && "flex-nowrap",
     size ? `btn-${size}` : "",
     fullWidth ? "w-full" : "",

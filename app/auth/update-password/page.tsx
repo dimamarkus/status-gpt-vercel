@@ -1,6 +1,6 @@
 import { supabaseServerComponentWithSession } from "#/lib/helpers/supabase-helpers/supabase-server-component";
 import Card from "#/ui/atoms/containers/Card/Card";
-import UpdatePasswordForm from "#/ui/molecules/forms/UpdatePasswordForm/UpdatePasswordForm";
+import { UpdatePasswordForm } from "#/ui/molecules/forms/UpdatePasswordForm/UpdatePasswordForm";
 import { redirect } from "next/navigation";
 
 async function getData() {
@@ -21,7 +21,7 @@ export default async function UpdatePasswordPage() {
 
   return (
     <Card title="Update Password">
-      <UpdatePasswordForm />
+      <UpdatePasswordForm currentUsername={user.email} />
     </Card>
   );
 }

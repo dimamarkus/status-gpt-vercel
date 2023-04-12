@@ -1,6 +1,5 @@
-import { useAuthContext } from "#/lib/contexts/AuthContext";
 import { supabaseServerComponentWithSession } from "#/lib/helpers/supabase-helpers/supabase-server-component";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import Card from "#/ui/atoms/containers/Card/Card";
 import ResetPasswordForm from "#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm";
 import { redirect } from "next/navigation";
@@ -24,7 +23,7 @@ export default async function ResetPasswordPage() {
   return (
     <Card title="Reset Password">
       <ResetPasswordForm />
-      <Link href="/auth/sign-in" text="Try signing in again" />
+      <BaseLink href="/auth/sign-in" text="Try signing in again" />
     </Card>
   );
 }

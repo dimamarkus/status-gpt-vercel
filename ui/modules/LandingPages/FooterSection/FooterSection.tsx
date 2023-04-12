@@ -1,5 +1,5 @@
 import { FooterSection as BlurbSectionType } from "#/lib/types/cms";
-import Link from "#/ui/atoms/Link/Link";
+import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import styles from "./FooterSection.module.scss";
 
 type BlurbSectionProps = BlurbSectionType & {
@@ -23,14 +23,14 @@ export const FooterSection = (props: BlurbSectionProps) => {
       {primary_links && (
         <ul className={primaryLinksStyles}>
           {primary_links.map((primary_link, index) => (
-            <Link key={index} href={primary_link.url} text={primary_link.text} />
+            <BaseLink key={index} href={primary_link.url} text={primary_link.text} />
           ))}
         </ul>
       )}
       {secondary_links && (
         <ul className={secondaryLinksStyles}>
           {secondary_links.map((secondary_link, index) => (
-            <Link key={index} href={secondary_link.url} text={secondary_link.text} />
+            <BaseLink key={index} href={secondary_link.url} text={secondary_link.text} />
           ))}
         </ul>
       )}
