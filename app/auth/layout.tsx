@@ -5,7 +5,6 @@ type AuthPageLayoutProps = {
 };
 
 export const revalidate = 0;
-export const runtime = "edge";
 
 export default async function AuthPageLayout({ children }: AuthPageLayoutProps) {
   return <LandingLayout>{children}</LandingLayout>;
