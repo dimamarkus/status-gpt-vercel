@@ -38,6 +38,7 @@
     "eventsource-parser": "^1.0.0",
     "gptoken": "0.1.0",
     "mobile-detect": "^1.4.5",
+    "mongodb": "5.2.0",
     "next": "^13.2.4",
     "nextjs-google-analytics": "^2.3.3",
     "react": "^18.2.0",
