@@ -1,5 +1,5 @@
 import { getTitlePrefix } from "#/app/metadata";
-import { fetchLandingPage } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { fetchLandingPage } from "#/lib/databases/cms";
 import { LandingPage, PageSection } from "#/lib/types/cms";
 import BlurbSection from "#/ui/modules/LandingPages/BlurbSection/BlurbSection";
 import FooterSection from "#/ui/modules/LandingPages/FooterSection/FooterSection";

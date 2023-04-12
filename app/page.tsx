@@ -2,7 +2,7 @@ import { BotPageProps } from "#/app/chat/[slug]/page";
 import { sortBots } from "#/app/chat/lib/helpers/bot-helpers";
 import { DEFAULT_CHAT_BOT } from "#/lib/constants/settings";
 import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
-import { fetchBots } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { fetchBots } from "#/lib/databases/cms";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import Chat from "#/ui/modules/Chat/Chat";
 

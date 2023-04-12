@@ -4,7 +4,7 @@ import { AuthError } from "@supabase/supabase-js";
 import { redirect, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 // import { Subscription } from "#/lib/types/stripe";
-import { browserSupabase } from "#/lib/helpers/supabase-helpers/supabase-browser";
+import { browserSupabase } from "#/lib/databases/supabase/supabase-browser";
 
 export const EVENTS = {
   PASSWORD_RECOVERY: "PASSWORD_RECOVERY",

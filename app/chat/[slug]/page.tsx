@@ -1,7 +1,7 @@
 import { sortBots } from "#/app/chat/lib/helpers/bot-helpers";
 import { getTitlePrefix } from "#/app/metadata";
 import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
-import { fetchBot, fetchBots } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { fetchBot, fetchBots } from "#/lib/databases/cms";
 import { Bot } from "#/lib/types/cms";
 import CircleAnimation from "#/ui/atoms/svgs/CircleAnimation";
 import Chat from "#/ui/modules/Chat/Chat";

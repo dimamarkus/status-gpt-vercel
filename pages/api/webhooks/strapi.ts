@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { useSearchParams } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-import { getResourceFromCms } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { getResourceFromCms } from "#/lib/databases/cms";
 import { BotTraining, CmsResource } from "#/lib/types/cms";
 import { pluralizeCmsModel } from "#/lib/helpers/url-helpers";
 

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { EmailSchema } from "#/lib/forms/schemas";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
-import browserSupabase from "#/lib/helpers/supabase-helpers/supabase-browser";
+import browserSupabase from "#/lib/databases/supabase/supabase-browser";
 
 export type ResetPasswordFields = {
   email: string;

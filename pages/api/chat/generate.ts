@@ -8,7 +8,7 @@ import {
   OpenAiRequest,
   OpenAiResponse,
 } from "#/app/chat/lib/types";
-import { makePostRequest } from "#/lib/helpers/request-helpers/makeRequest";
+import { makePostRequest } from "#/lib/helpers/requests/makeRequest";
 import { NextApiResponse } from "next";
 
 export const GENERATE_CHAT_ENDPOINT = "/chat/generate";

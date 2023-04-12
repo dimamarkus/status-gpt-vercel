@@ -1,4 +1,4 @@
-import { supabaseServerComponent } from "#/lib/helpers/supabase-helpers/supabase-server-component";
+import { supabaseServerComponent } from "#/lib/databases/supabase/supabase-server-component";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import Duo from "#/ui/_base/Duo/Duo";
 import BaseLink from "#/ui/_base/BaseLink/BaseLink";

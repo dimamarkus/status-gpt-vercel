@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { SignInSchema } from "#/lib/forms/schemas";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
-import browserSupabase from "#/lib/helpers/supabase-helpers/supabase-browser";
+import browserSupabase from "#/lib/databases/supabase/supabase-browser";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 
 export type SignInFields = {

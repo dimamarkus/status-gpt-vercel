@@ -1,4 +1,4 @@
-import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
+import { makeBaseRequest } from "#/lib/helpers/requests/makeBaseRequest";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 

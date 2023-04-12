@@ -2,7 +2,7 @@ import { AuthContextProvider } from "#/lib/contexts/AuthContext";
 import { FeatureToggleContextProvider } from "#/lib/contexts/FeatureToggleContext";
 import { LayoutContextProvider } from "#/lib/contexts/LayoutContext";
 import { SettingsContextProvider } from "#/lib/contexts/SettingsContext";
-import { supabaseServerComponent } from "#/lib/helpers/supabase-helpers/supabase-server-component";
+import { supabaseServerComponent } from "#/lib/databases/supabase/supabase-server-component";
 import "#/styles/index.scss";
 import GoogleAnalytics from "#/ui/atoms/util/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";

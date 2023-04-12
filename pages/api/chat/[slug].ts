@@ -18,8 +18,8 @@ import {
   StatusChatRequest,
 } from "#/app/chat/lib/types";
 import { DEFAULT_BOT_LANGUAGE, DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
-import { makeBaseRequest } from "#/lib/helpers/request-helpers/makeBaseRequest";
-import { fetchBot } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { makeBaseRequest } from "#/lib/helpers/requests/makeBaseRequest";
+import { fetchBot } from "#/lib/databases/cms";
 import { NextRequest } from "next/server";
 
 export const runtime = "edge";

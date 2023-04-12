@@ -1,4 +1,4 @@
-import supabaseServerComponent from "#/lib/helpers/supabase-helpers/supabase-server-component";
+import supabaseServerComponent from "#/lib/databases/supabase/supabase-server-component";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import BaseButtonGroup, { BaseButtonGroupProps } from "#/ui/_base/BaseButtonGroup/BaseButtonGroup";
 

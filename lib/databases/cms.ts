@@ -1,6 +1,6 @@
 "use server";
 
-import { HTTPMethod, makeAsyncRequest } from "#/lib/helpers/request-helpers/makeRequest";
+import { HTTPMethod, makeAsyncRequest } from "#/lib/helpers/requests/makeRequest";
 import { getCmsUrl } from "#/lib/helpers/url-helpers";
 import {
   Bot,

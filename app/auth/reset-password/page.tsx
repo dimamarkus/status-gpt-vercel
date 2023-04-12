@@ -1,4 +1,4 @@
-import { supabaseServerComponentWithSession } from "#/lib/helpers/supabase-helpers/supabase-server-component";
+import { supabaseServerComponentWithSession } from "#/lib/databases/supabase/supabase-server-component";
 import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import Card from "#/ui/atoms/containers/Card/Card";
 import ResetPasswordForm from "#/ui/molecules/forms/ResetPasswordForm/ResetPasswordForm";

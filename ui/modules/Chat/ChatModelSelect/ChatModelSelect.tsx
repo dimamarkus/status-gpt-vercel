@@ -1,5 +1,5 @@
 import { OpenAiModel } from "#/app/chat/lib/types";
-import { fetchModels } from "#/lib/helpers/request-helpers/makeServerRequest";
+import { fetchModels } from "#/lib/helpers/requests/makeServerRequest";
 import { FC, useEffect, useState } from "react";
 
 interface Props {

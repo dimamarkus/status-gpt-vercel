@@ -7,7 +7,7 @@ import ChatMessage from "#/ui/modules/Chat/ChatMessage/ChatMessage";
 import clsx from "clsx";
 import { FC, useEffect, useRef, useState } from "react";
 import styles from "./ChatMessages.module.scss";
-import { throttle } from "#/lib/functions/throttle";
+import { throttle } from "#/lib/helpers/functions/throttle";
 import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
 
 type ChatMessagesProps = {

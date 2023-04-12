@@ -1,7 +1,7 @@
 "use client";
 
 import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { throttle } from "#/lib/functions/throttle";
+import { throttle } from "#/lib/helpers/functions/throttle";
 import { useEffect, useRef, useState } from "react";
 
 export const useAutoScroll = () => {

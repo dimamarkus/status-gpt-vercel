@@ -1,4 +1,4 @@
-import { makeServerRequest } from "#/lib/helpers/request-helpers/makeServerRequest";
+import { makeServerRequest } from "#/lib/helpers/requests/makeServerRequest";
 import { useState } from "react";
 
 type UseRequestStreamReturnType<TRequestType> = {

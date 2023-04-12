@@ -1,5 +1,5 @@
 import { OpenAiApiStatusResponse } from "#/app/chat/lib/types";
-import { updateChatSettings } from "#/lib/helpers/request-helpers/makeCmsRequest";
+import { updateChatSettings } from "#/lib/databases/cms";
 import { ChatApiHealth } from "#/lib/types/cms";
 import { NextApiRequest, NextApiResponse } from "next";
 

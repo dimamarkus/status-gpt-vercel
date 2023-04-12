@@ -1,5 +1,5 @@
 import { OpenAiModelResponse } from "#/app/chat/lib/types";
-import { makeRequest } from "#/lib/helpers/request-helpers/makeRequest";
+import { makeRequest } from "#/lib/helpers/requests/makeRequest";
 import { MODELS_ENDPOINT } from "#/pages/api/chat/models";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
