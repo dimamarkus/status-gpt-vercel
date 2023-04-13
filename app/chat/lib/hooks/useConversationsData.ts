@@ -19,6 +19,7 @@ import { useLocalStorage } from "#/lib/hooks/useStorage";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";
 import { useEffect } from "react";
+import mongoClientPromise from "#/lib/databases/mongodb";
 
 export interface UseConversationsDataReturn {
   state: ConversationsDataState & {

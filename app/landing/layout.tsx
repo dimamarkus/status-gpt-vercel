@@ -1,5 +1,5 @@
 import { inProdEnv } from "#/lib/helpers/env-helpers";
-import { SITE_TITLE } from "#/lib/constants/settings"
+import { SITE_TITLE } from "#/lib/constants/settings";
 import { fetchLandingPage } from "#/lib/databases/cms";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import FeaturesPanelButton from "#/ui/molecules/FeaturesPanel/FeaturesPanelButton";
