@@ -16,7 +16,7 @@ export type BotPageProps = {
 };
 
 export const revalidate = 0;
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function generateMetadata({ params }: BotPageProps) {
   const bots = await fetchBots();
