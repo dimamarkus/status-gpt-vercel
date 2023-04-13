@@ -4,8 +4,8 @@ import { createSubmissionsPrompt } from "#/app/chat/lib/helpers/chat-helpers";
 import { OpenAiRequest, OpenAiResponse } from "#/app/chat/lib/types";
 import { findArrayInString, findJsonInString } from "#/lib/helpers/string-helpers";
 import { StatusChatMessage } from "#/app/chat/lib/types";
-import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 import { makeServerPostRequest } from "#/lib/helpers/requests/makeServerRequest";
+import { GENERATE_CHAT_ENDPOINT } from "#/pages/api/chat/generate";
 
 export const DEFAULT_SUBMISSIONS_RETURN: UseSubmissionsReturn = {
   loading: false,

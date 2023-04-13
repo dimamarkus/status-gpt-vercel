@@ -19,8 +19,8 @@ export const revalidate = 0;
 export const runtime = "edge";
 
 export async function generateMetadata({ params }: BotPageProps) {
-  // TODO - see if fetches are cached and switch to fetchBots() to save on page call
-  const bot = await fetchBot(params.slug);
+  const bots = await fetchBots();
+  const bot = bots.find((bot) => bot.slug === params.slug);
   const name = bot?.name || "AIdvisor Chat";
   return { title: getTitlePrefix() + name + " | Status AIdvisor" };
 }
@@ -38,12 +38,13 @@ async function getData() {
    * The very first timestamp should come from the server to avoid hydration errors
    * Further timestamps are generated on the client
    */
-  return getCurrentTime();
+  const startTime = getCurrentTime();
+  const bots = await fetchBots();
+  return { startTime, bots };
 }
 
 export default async function BotPage({ params, searchParams }: BotPageProps) {
-  const startTime = await getData();
-  const bots = await fetchBots();
+  const { startTime, bots } = await getData();
   const selectedBot = bots.find((bot) => bot.slug === params.slug) || bots[0];
   const query = searchParams.query;
 

@@ -1,6 +1,6 @@
 import { getTitlePrefix } from "#/app/metadata";
+import { fetchBots } from "#/lib/databases/cms";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
-import { fetchBot } from "#/lib/databases/cms";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import FeaturesPanelButton from "#/ui/molecules/FeaturesPanel/FeaturesPanelButton";
 
@@ -14,7 +14,8 @@ type ChatPageLayoutProps = {
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: ChatPageLayoutProps) {
-  const bot = !!params.slug ? await fetchBot(params.slug) : null;
+  const bots = await fetchBots();
+  const bot = bots.find((bot) => bot.slug === params.slug);
   const name = bot?.name || "AIdvisor Chat";
   return { title: getTitlePrefix() + name + " | Status AIdvisor" };
 }

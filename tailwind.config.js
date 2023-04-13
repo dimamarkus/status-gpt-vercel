@@ -109,7 +109,7 @@ module.exports = {
           // primary: "#3172F5", // OG
           primary: "#1E90FF",
           secondary: "#00716A",
-          accent: "#33B5E6",
+          // accent: "#33B5E6",
           accent: "#C7B400",
           neutral: "#1C1F27",
           info: "#9AA5D1",
