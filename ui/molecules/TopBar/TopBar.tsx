@@ -24,12 +24,12 @@ const TopBar = () => {
       <label tabIndex={0} className="btn-ghost btn lg:hidden">
         <Hamburger />
       </label>
-      <ul
+      {/* <ul
         tabIndex={0}
         className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
       >
         {navItems}
-      </ul>
+      </ul> */}
     </div>
   );
   return (

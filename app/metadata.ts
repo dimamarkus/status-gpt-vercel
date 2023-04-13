@@ -1,3 +1,5 @@
+import { SITE_TITLE } from "#/lib/constants/settings";
+
 export const getTitlePrefix = () => {
   if (process.env.NODE_ENV === "development") {
     return "🔴";
@@ -83,7 +85,7 @@ export const globalMetadata = {
     maximumScale: 3,
   },
   appleWebApp: {
-    title: "Status AIdvisor",
+    title: SITE_TITLE,
     statusBarStyle: "black-translucent",
     startupImage: [
       "favicon/apple-touch-icon.png",

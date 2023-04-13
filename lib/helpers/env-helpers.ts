@@ -15,3 +15,6 @@ if (process) {
 }
 
 export { inDevEnv, inPreviewEnv, inProdEnv };
+
+export const isBrainaics =
+  process.env.STRAPI_CMS_URL === "https://cms.brainaics.com" ? "Brainaics" : "Status AIdvisor";

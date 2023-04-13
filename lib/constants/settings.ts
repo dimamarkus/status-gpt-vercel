@@ -2,8 +2,11 @@ import { ADA_MODEL, GPT3_MODEL, DAVINCI_MODEL } from "#/app/chat/lib/constants";
 import { BaseOpenAiRequest, OpenAiModel, OpenAiRequest } from "#/app/chat/lib/types";
 import { Features, Font, Layout, Theme } from "#/lib/contexts/FeatureToggleContext";
 import { Settings } from "#/lib/contexts/SettingsContext";
+import { isBrainaics } from "#/lib/helpers/env-helpers";
 import { Language } from "#/lib/types";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
+
+export const SITE_TITLE = isBrainaics ? "Brainaics" : "Status AIdvisor";
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
 

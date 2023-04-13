@@ -5,6 +5,7 @@ import { fetchBot, fetchBots } from "#/lib/databases/cms";
 import { Bot } from "#/lib/types/cms";
 import CircleAnimation from "#/ui/atoms/svgs/CircleAnimation";
 import Chat from "#/ui/modules/Chat/Chat";
+import { SITE_TITLE } from "#/lib/constants/settings";
 
 export type BotPageProps = {
   params: {
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: BotPageProps) {
   const bots = await fetchBots();
   const bot = bots.find((bot) => bot.slug === params.slug);
   const name = bot?.name || "AIdvisor Chat";
-  return { title: getTitlePrefix() + name + " | Status AIdvisor" };
+  return { title: getTitlePrefix() + name + ` | ${SITE_TITLE}` };
 }
 
 // export async function generateStaticParams() {

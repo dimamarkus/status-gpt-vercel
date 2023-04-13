@@ -8,6 +8,7 @@ import { MediaSection } from "#/ui/modules/LandingPages/MediaSection/MediaSectio
 import { RichTextSection } from "#/ui/modules/LandingPages/RichTextSection/RichTextSection";
 import { TeamSection } from "#/ui/modules/LandingPages/TeamSection/TeamSection";
 import { TestimonialsSection } from "#/ui/modules/LandingPages/TestimonialsSection/TestimonialsSection";
+import { SITE_TITLE } from "#/lib/constants/settings"
 
 export type LandingPagePageProps = {
   params: {
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: LandingPagePageProps) {
   // TODO - see if fetches are cached and switch to fetchLandingPages() to save on page call
   const landingPage = await fetchLandingPage(params.slug);
   const name = landingPage?.title || "AIdvisor Chat";
-  return { title: getTitlePrefix() + name + " | Status AIdvisor" };
+  return { title: getTitlePrefix() + name + ` | ${SITE_TITLE}` };
 }
 
 // export async function generateStaticParams() {
