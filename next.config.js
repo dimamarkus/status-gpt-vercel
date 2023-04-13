@@ -10,8 +10,8 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   swcMinify: true,
   experimental: {
-    // Required:
-    appDir: true,
+    // experimentalReact: true,
+    appDir: true, // Required:
   },
   images: {
     domains: [
@@ -19,7 +19,9 @@ const nextConfig = withBundleAnalyzer({
       "statusmoney.com",
       "cms.statusmoney.com",
       "ai.statusmoney.com",
-      "statusmoney-cms.s3.us-west-2.amazonaws.com",
+      "brainaics.com",
+      "cms.brainaics.com",
+      process.env.STRAPI_S3_BUCKET_URL,
     ],
   },
   webpack(config, { isServer, dev }) {
