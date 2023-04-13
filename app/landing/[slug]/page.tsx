@@ -20,7 +20,7 @@ export type LandingPagePageProps = {
 };
 
 export const revalidate = 0;
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function generateMetadata({ params }: LandingPagePageProps) {
   // TODO - see if fetches are cached and switch to fetchLandingPages() to save on page call
