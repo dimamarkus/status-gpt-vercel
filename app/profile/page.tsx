@@ -1,4 +1,5 @@
 import { supabaseServerComponent } from "#/lib/databases/supabase/supabase-server-component";
+import { prisma } from "#/lib/databases/prisma";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import Duo from "#/ui/_base/Duo/Duo";
 import BaseLink from "#/ui/_base/BaseLink/BaseLink";
@@ -7,8 +8,15 @@ import Card from "#/ui/atoms/containers/Card/Card";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import { redirect } from "next/navigation";
 
+import { PrismaClient } from "@prisma/client";
+
+async function getData() {
+  return await prisma.bots.findMany();
+}
+
 export default async function ProfilePage() {
   const supabase = supabaseServerComponent();
+  const products = await getData();
   const {
     data: { user },
   } = await supabase.auth.getUser();
