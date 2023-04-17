@@ -5,23 +5,33 @@ import {
   CHAT_429_ERROR_RESPONSE,
   CHAT_500_ERROR_RESPONSE,
   GPT_CHAT_URL,
-  GPT_COMPLETIONS_URL
+  GPT_COMPLETIONS_URL,
 } from "#/app/chat/lib/constants";
-import {collateBotTraining, getBotParam} from "#/app/chat/lib/helpers/bot-helpers";
-import {createChatMessage, isChatModel} from "#/app/chat/lib/helpers/chat-helpers";
-import {createOpenAiStream} from "#/app/chat/lib/helpers/createOpenAiStream";
-import {OpenAiRequest, OpenAiResponse, StatusChatRequest} from "#/app/chat/lib/types";
-import {DEFAULT_BOT_LANGUAGE, DEFAULT_GPT_SETTINGS} from "#/lib/constants/settings";
-import {fetchBot} from "#/lib/databases/cms";
-import {makeBaseRequest} from "#/lib/helpers/requests/makeBaseRequest";
-import {NextResponse} from "next/server";
+import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
+import { createChatMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
+import { createOpenAiStream } from "#/app/chat/lib/helpers/createOpenAiStream";
+import {
+  OpenAiModel,
+  OpenAiRequest,
+  OpenAiResponse,
+  StatusChatRequest,
+} from "#/app/chat/lib/types";
+import { DEFAULT_BOT_LANGUAGE, DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
+import { fetchBot } from "#/lib/databases/cms";
+import { makeBaseRequest } from "#/lib/helpers/requests/makeBaseRequest";
+import { NextResponse } from "next/server";
 
 // export const runtime = "edge";
 
-export async function POST(req: Request) {
+type PostChatBotParams = {
+  params: {
+    slug: string;
+  };
+};
+
+export async function POST(req: Request, { params }: PostChatBotParams) {
   try {
-    const { searchParams } = new URL(req.url);
-    const slug = searchParams.get("slug");
+    const slug = params.slug;
     const request = (await req.json()) as Partial<StatusChatRequest>;
 
     const { messages, stream, language, max_tokens, ...payload } = request;
@@ -31,15 +41,20 @@ export async function POST(req: Request) {
     // 1. Validate Request
     // ============================================================================
     if (!slug || typeof slug !== "string") {
-      return new NextResponse("No bot slug provided", { status: 400 });
+      return new NextResponse("I barely know who I am at the moment. Please try again later.", {
+        status: 400,
+      });
     } else if (!chatLog || !Array.isArray(chatLog) || chatLog.length === 0) {
-      return new NextResponse("No chatLog in the request body", { status: 400 });
+      return new NextResponse("I'm having some trouble at the moment. Please try again later.", {
+        status: 400,
+      });
     }
 
     // 2. Fetch Bot and Create Chat Log
     // ============================================================================
     const bot = await fetchBot(slug);
-    const useChatApi = isChatModel(bot?.model);
+    const botModel = getBotParam(bot, "model") as OpenAiModel;
+    const useChatApi = isChatModel(botModel);
     const botTokens = max_tokens || (getBotParam(bot, "max_tokens") as number);
 
     const trainingContent = collateBotTraining(bot);
@@ -64,9 +79,10 @@ export async function POST(req: Request) {
     // ============================================================================
     const url = useChatApi ? GPT_CHAT_URL : GPT_COMPLETIONS_URL;
     const headers = { Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}` };
+
     const body = {
       ...chatLogToSend,
-      model: getBotParam(bot, "model"),
+      model: botModel,
       temperature: getBotParam(bot, "temperature"),
       top_p: getBotParam(bot, "top_p"),
       frequency_penalty: getBotParam(bot, "frequency_penalty"),
@@ -76,6 +92,7 @@ export async function POST(req: Request) {
       stream,
       ...payload,
     } as OpenAiRequest;
+
     // 4. Make API call
     // ============================================================================
     const response = await makeBaseRequest<OpenAiRequest>(url, "POST", body, headers);

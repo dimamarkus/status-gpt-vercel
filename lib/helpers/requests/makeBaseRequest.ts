@@ -33,12 +33,12 @@ export const makeBaseRequest = async <TRequestBody>(
     const response = await fetch(url, request);
     if (!response.ok) {
       console.warn("\n");
+      // console.warn("  request:", request);
       console.warn("- BASE_REQUEST ERROR -------------------------------------------------------");
       console.warn("  status:", response.status);
       console.warn("  statusText:", response.statusText);
       console.warn("  url:", url);
-      // console.warn("  request:", request);
-      // console.warn("  error:", await response.json());
+      console.error(" error:", await response.json());
       // console.warn("  response.body:", response.body);
     }
 

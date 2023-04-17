@@ -1,5 +1,9 @@
 {
   "typescript.tsdk": "node_modules/.pnpm/typescript@4.9.5/node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "css.customData": [".vscode/tailwindcss.json"]
+  "css.customData": [
+    ".vscode/tailwindcss.json"
+  ],
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
 }

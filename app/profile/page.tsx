@@ -1,14 +1,11 @@
 import { supabaseServerComponent } from "#/lib/databases/supabase/supabase-server-component";
-import { prisma } from "#/lib/databases/prisma";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
-import Duo from "#/ui/_base/Duo/Duo";
 import BaseLink from "#/ui/_base/BaseLink/BaseLink";
+import Duo from "#/ui/_base/Duo/Duo";
 import SignOutButton from "#/ui/atoms/buttons/SignOutButton/SignOutButton";
 import Card from "#/ui/atoms/containers/Card/Card";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import { redirect } from "next/navigation";
-
-import { PrismaClient } from "@prisma/client";
 
 export default async function ProfilePage() {
   const supabase = supabaseServerComponent();
@@ -37,7 +34,6 @@ export default async function ProfilePage() {
           </Duo>
         )}
         <br />
-        {/* <Link asButton href="/" text="Go Home" /> */}
         <BaseLink href="/" text="Go Home" />
         <BaseButton flavor="textOnly" href="/auth/update-password" text="Update Password" />
         <SignOutButton flavor="textOnly" />
