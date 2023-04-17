@@ -41,11 +41,11 @@ export const useSuggestions = (): UseSuggestionsReturn => {
       setSuggestions([]);
       const messages = createSuggestionsPrompt(suggestionContext);
       console.log(`I'm asking ${GPT3_MODEL} for suggestions:`, messages);
-      const result = await makeServerPostRequest<string, OpenAiRequest>(GENERATE_CHAT_ENDPOINT, {
+      const response = await makeServerPostRequest<string, OpenAiRequest>(GENERATE_CHAT_ENDPOINT, {
         model: GPT3_MODEL,
         messages,
       });
-
+      const result = await response.json();
       if (result) {
         const suggestionsArray = findArrayInString(result);
         setSuggestions(suggestionsArray || []);

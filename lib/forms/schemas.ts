@@ -3,8 +3,12 @@ import {
   lastNameValidation,
   passwordValidation,
   validEmailValidation,
-} from '#/lib/forms/validators';
-import * as yup from 'yup';
+} from "#/lib/forms/validators";
+import * as yup from "yup";
+
+// ============================================================================
+//  AUTH
+// ============================================================================
 
 export const EmailSchema = yup.object().shape({
   email: validEmailValidation,
@@ -22,7 +26,7 @@ export const SignInSchema = yup.object().shape({
 export const SignUpSchema = SignInSchema.shape({
   passwordConfirmation: yup
     .string()
-    .oneOf([yup.ref('password'), undefined], 'Passwords must match'),
+    .oneOf([yup.ref("password"), undefined], "Passwords must match"),
 });
 
 export const RegisterSchema = yup.object().shape({
@@ -32,5 +36,14 @@ export const RegisterSchema = yup.object().shape({
   password: passwordValidation,
   passwordConfirmation: yup
     .string()
-    .oneOf([yup.ref('password'), undefined], 'Passwords must match'),
+    .oneOf([yup.ref("password"), undefined], "Passwords must match"),
+});
+
+// ============================================================================
+//  BOTS
+// ============================================================================
+
+export const CreateBotSchema = yup.object().shape({
+  name: yup.string().required(),
+  slug: yup.string().required(),
 });

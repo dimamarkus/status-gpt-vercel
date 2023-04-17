@@ -4,6 +4,11 @@ import { MODELS_ENDPOINT } from "#/pages/api/chat/models";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
+/** This Fetch API interface represents the response to a request. */
+export type ApiResponse<TResponse> = Omit<Response, "json"> & {
+  json(): Promise<TResponse>;
+};
+
 // ============================================================================
 //  BASE
 // ============================================================================
@@ -25,12 +30,13 @@ export const makeAsyncServerRequest = async <TResponse, TRequestBody>(
   endpoint: Request | string,
   method: HTTPMethod = "GET",
   body?: TRequestBody,
-): Promise<TResponse> => {
+): Promise<ApiResponse<TResponse>> => {
   const response = await makeServerRequest(endpoint, method, body);
+  console.log("response HERE", response);
 
-  const responseData = (await response.json()) as TResponse;
+  // const responseData = (await response.json()) as TResponse;
 
-  return responseData;
+  return response;
 };
 
 // ============================================================================
@@ -40,14 +46,14 @@ export const makeAsyncServerRequest = async <TResponse, TRequestBody>(
 export const makeServerGetRequest = async <TResponse, TRequestBody>(
   endpoint: Request | string,
   body?: TRequestBody,
-): Promise<TResponse> => {
+): Promise<ApiResponse<TResponse>> => {
   return makeAsyncServerRequest<TResponse, TRequestBody>(endpoint, "GET", body);
 };
 
 export const makeServerPostRequest = async <TResponse, TRequestBody>(
   endpoint: Request | string,
   body?: TRequestBody,
-): Promise<TResponse> => {
+): Promise<ApiResponse<TResponse>> => {
   return makeAsyncServerRequest<TResponse, TRequestBody>(endpoint, "POST", body);
 };
 

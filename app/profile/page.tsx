@@ -10,13 +10,9 @@ import { redirect } from "next/navigation";
 
 import { PrismaClient } from "@prisma/client";
 
-async function getData() {
-  return await prisma.bots.findMany();
-}
-
 export default async function ProfilePage() {
   const supabase = supabaseServerComponent();
-  const products = await getData();
+
   const {
     data: { user },
   } = await supabase.auth.getUser();

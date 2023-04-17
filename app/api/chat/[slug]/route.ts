@@ -5,16 +5,16 @@ import {
   CHAT_429_ERROR_RESPONSE,
   CHAT_500_ERROR_RESPONSE,
   GPT_CHAT_URL,
-  GPT_COMPLETIONS_URL,
+  GPT_COMPLETIONS_URL
 } from "#/app/chat/lib/constants";
-import { collateBotTraining, getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
-import { createChatMessage, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
-import { createOpenAiStream } from "#/app/chat/lib/helpers/createOpenAiStream";
-import { OpenAiRequest, OpenAiResponse, StatusChatRequest } from "#/app/chat/lib/types";
-import { DEFAULT_BOT_LANGUAGE, DEFAULT_GPT_SETTINGS } from "#/lib/constants/settings";
-import { fetchBot } from "#/lib/databases/cms";
-import { makeBaseRequest } from "#/lib/helpers/requests/makeBaseRequest";
-import { NextResponse } from "next/server";
+import {collateBotTraining, getBotParam} from "#/app/chat/lib/helpers/bot-helpers";
+import {createChatMessage, isChatModel} from "#/app/chat/lib/helpers/chat-helpers";
+import {createOpenAiStream} from "#/app/chat/lib/helpers/createOpenAiStream";
+import {OpenAiRequest, OpenAiResponse, StatusChatRequest} from "#/app/chat/lib/types";
+import {DEFAULT_BOT_LANGUAGE, DEFAULT_GPT_SETTINGS} from "#/lib/constants/settings";
+import {fetchBot} from "#/lib/databases/cms";
+import {makeBaseRequest} from "#/lib/helpers/requests/makeBaseRequest";
+import {NextResponse} from "next/server";
 
 // export const runtime = "edge";
 

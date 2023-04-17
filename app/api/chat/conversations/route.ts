@@ -1,8 +1,4 @@
-import { BotConversations } from "#/lib/contexts/ConversationContext";
 import mongoClientPromise from "#/lib/databases/mongodb";
-import { NextResponse } from "next/server";
-
-export const CONVERSATIONS_ENDPOINT = "/chat/conversations";
 
 export async function GET() {
   const client = await mongoClientPromise;

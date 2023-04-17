@@ -10,9 +10,10 @@ interface Props {
 export const ChatModelSelect: FC<Props> = ({ onModelChange, selectedModel }) => {
   const [models, setModels] = useState<string[]>([]);
   useEffect(() => {
-    fetchModels().then((res) => {
+    fetchModels().then(async (res) => {
       if (res) {
-        const models = res.data.map((model) => model.id);
+        const response = await res.json()
+        const models = response.data.map((model) => model.id);
         const sortedModels = models.sort((a, b) => {
           // sort by model name
           if (a < b) {
