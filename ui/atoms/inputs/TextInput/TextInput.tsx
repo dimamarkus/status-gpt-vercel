@@ -7,6 +7,7 @@ import {
   FieldValues,
   Path,
   RegisterOptions,
+  useFormContext,
   UseFormRegister,
 } from "react-hook-form";
 import { CommonSizes } from "#/lib/types";
@@ -65,8 +66,7 @@ export type TextInputProps<TFormValues extends FieldValues> = Omit<
 export type FormInputProps<TFormValues extends FieldValues> = {
   name: Path<TFormValues>;
   rules?: RegisterOptions;
-  register?: UseFormRegister<TFormValues>;
-  errors?: Partial<DeepMap<TFormValues, FieldError>>;
+  errors?: string;
 } & Omit<TextInputProps<TFormValues>, "name">;
 
 export const TextInput = <TFormValues extends Record<string, unknown>>(
@@ -78,7 +78,6 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     hint,
     label,
     topRight = null,
-    register,
     touched,
     rules,
     size = "md",
@@ -104,18 +103,21 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     lg: "p-4 text-md",
     xl: "p-5 text-lg",
   };
+  const formContext = useFormContext<TFormValues>();
+  const isTouched = !!formContext ? formContext.formState.touchedFields[name] : touched;
+  const formContextErrors = !!formContext ? formContext.formState.errors[name]?.message : null;
 
   const labelChild = !!label && (
     <span className={clsx("label-text", labelSizeMap[size])}>{label}</span>
-  );
+    );
   const isString = typeof topRight === "string";
   const hintChild = !!hint && <small className="label">{hint}</small>;
   const topRightChild = isString ? <div className="label-text-alt">{topRight}</div> : topRight;
-  const errorsArray = Array.isArray(errors) ? errors : [errors];
-  const errorsChild = !!errors && touched && (
+  const errorsArray = Array.isArray(formContextErrors) ? formContextErrors : [formContextErrors];
+  const errorsChild = !!errorsArray && isTouched && (
     <div className="label">
       <span className="label-text-alt text-red-500">
-        {errorsArray.map((error, i) => (
+        {[...errorsArray, errors].map((error, i) => (
           <span key={i}>
             {error}
             <br />
@@ -129,7 +131,6 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
     ...inputProps,
     name,
     id: name,
-    // className: "relative inline-flex w-full rounded border border-gray-300 bg-gray-50 leading-none text-gray-700 placeholder-gray-500 transition-colors ease-in-out hover:border-blue-400 focus:border-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-30",
     className: clsx(sizeMap[size], "input-bordered input h-auto"),
   };
 
@@ -140,8 +141,8 @@ export const TextInput = <TFormValues extends Record<string, unknown>>(
         {topRightChild}
       </label>
       {!compact && hintChild}
-      {!!register ? (
-        <input {...register(name, rules)} {...fieldProps} />
+      {!!formContext ? (
+        <input {...formContext.register(name, rules)} {...fieldProps} />
       ) : (
         <input name={name} {...fieldProps} />
       )}
