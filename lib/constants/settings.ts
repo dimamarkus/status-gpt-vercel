@@ -22,6 +22,7 @@ export const DEFAULT_SETTINGS: Settings = {
   darkMode: false,
   language: "English",
   responseLength: 2, //medium ,
+  enableSuggestions: false,
 };
 
 export const DEFAULT_FEATURES: Features = {
@@ -33,11 +34,9 @@ export const DEFAULT_FEATURES: Features = {
   useStream: true,
   autoSubmitSpeech: false,
   enableAssumptions: false,
-  enableSuggestions: false,
   enableSubmissions: false,
-  showUserAvatar: true,
-  showBotAvatar: true,
-  sidebarRight: true,
+  showUserAvatar: false,
+  showBotAvatar: false,
   darkMode: false,
   showTokens: false,
 };

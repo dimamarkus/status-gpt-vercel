@@ -6,6 +6,7 @@ import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import Spinner from "#/ui/atoms/svgs/Spinner";
 import clsx from "clsx";
 import styles from "./ChatSuggestions.module.scss";
+import {useSettingsContext} from "#/lib/contexts/SettingsContext";
 
 type ChatSuggestionsProps = {
   className?: string;
@@ -16,6 +17,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
     appActions: { submitQuery },
     appState: { selectedConversation, loading, suggestions, suggestionsLoading },
   } = useChatContext();
+  const {settings} = useSettingsContext();
   const chatLog = selectedConversation?.messages;
   const { features } = useFeatureToggleContext();
 
@@ -23,8 +25,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
     ? [...(suggestions || []), ...DEBUG_SUGGESTIONS]
     : suggestions;
 
-  // if (!displaySuggestions || displaySuggestions === null || (chatLog && chatLog.length < 3)) {
-  if (!displaySuggestions || displaySuggestions === null || !features.enableSuggestions) {
+  if (!displaySuggestions || displaySuggestions === null || !settings.enableSuggestions ||(chatLog && chatLog.length < 3)) {
     return null;
   }
 

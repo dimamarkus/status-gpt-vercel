@@ -26,6 +26,7 @@ import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";
 import React, { createContext, useContext, useEffect } from "react";
+import {useSettingsContext} from "#/lib/contexts/SettingsContext";
 
 interface ChatContextType {
   dataState: UseConversationsDataReturn["state"] & {
@@ -62,6 +63,7 @@ export type ConversationContextProps = {
 export function ChatContextProvider({ children, bot }: ConversationContextProps) {
   // This context combines the data and app states
   const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const {
     suggestions,
     loading: suggestionsLoading,
@@ -130,7 +132,7 @@ export function ChatContextProvider({ children, bot }: ConversationContextProps)
     if (answer) {
       const resultingChatLog = [...chatMessages.all, createChatMessage("assistant", answer)]
       !!answer && updateConversation({ ...conversation, messages: resultingChatLog });
-      features.enableSuggestions && suggestionsActions.getSuggestions(resultingChatLog);
+      settings.enableSuggestions && suggestionsActions.getSuggestions(resultingChatLog);
       features.enableSubmissions && submissionsActions.getSubmissions(resultingChatLog);
     }
   };

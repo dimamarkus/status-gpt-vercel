@@ -1,6 +1,7 @@
 "use client";
 
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import {useSettingsContext} from "#/lib/contexts/SettingsContext";
 import { inProdEnv } from "#/lib/helpers/env-helpers";
 import { getBotAvatar } from "#/lib/helpers/url-helpers";
 import { Bot } from "#/lib/types/cms";
@@ -25,6 +26,7 @@ type ChatSidebarProps = {
 export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
   const { bots, selectedBot, botIsTalking } = props;
   const { features } = useFeatureToggleContext();
+  const { settings } = useSettingsContext();
   const botOptions = bots.filter(
     (bot) => (inProdEnv ? bot.is_featured : true) && bot.slug !== selectedBot.slug,
   );
@@ -80,7 +82,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         </ChatSidebarSection>
       )}
 
-      {features.enableSuggestions && (
+      {settings.enableSuggestions && (
         <ChatSidebarSection title="Questions You Can Try" section="suggestions">
           <ChatSuggestions />
         </ChatSidebarSection>

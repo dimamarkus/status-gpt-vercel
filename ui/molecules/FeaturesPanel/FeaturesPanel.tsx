@@ -150,7 +150,6 @@ const FeaturesPanel = (props: FeaturesPanelProps) => {
 
       <h2 className={headingStyles}>Features</h2>
       {getOptionCheckbox("enableAssumptions", "Assumptions")}
-      {getOptionCheckbox("enableSuggestions", "Suggestions")}
       {getOptionCheckbox("enableSubmissions", "Submissions")}
 
       <h2 className={headingStyles}>UI</h2>

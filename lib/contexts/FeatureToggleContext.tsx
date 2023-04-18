@@ -13,9 +13,7 @@ export type BooleanFeatures = {
   useStream: boolean;
   autoSubmitSpeech: boolean;
   enableAssumptions: boolean;
-  enableSuggestions: boolean;
   enableSubmissions: boolean;
-  sidebarRight: boolean;
   showTokens: boolean;
   showUserAvatar: boolean;
   showBotAvatar: boolean;

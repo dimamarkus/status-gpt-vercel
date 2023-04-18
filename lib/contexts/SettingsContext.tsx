@@ -13,6 +13,7 @@ export type BooleanSettings = {
   useStream: boolean;
   autoSubmitSpeech: boolean;
   sidebarRight: boolean;
+  enableSuggestions: boolean;
   darkMode: boolean;
 };
 
