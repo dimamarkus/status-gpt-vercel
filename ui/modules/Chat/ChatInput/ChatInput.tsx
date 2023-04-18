@@ -3,7 +3,6 @@
 import { GPT4_MODEL } from "#/app/chat/lib/constants";
 import { getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
-import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { CHAT_BOT_INPUT_MAX_CHARS } from "#/lib/constants/settings";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
@@ -17,6 +16,8 @@ import { MicrophoneIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { FC, KeyboardEvent, useEffect, useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
+
+export const USER_INPUT_FIELD_ID = "chatInput";
 
 export type ChatFormFields = {
   [USER_INPUT_FIELD_ID]: string;

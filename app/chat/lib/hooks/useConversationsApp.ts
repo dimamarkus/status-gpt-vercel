@@ -4,7 +4,7 @@ import {
   calculateTokens,
   isChatModel,
 } from "#/app/chat/lib/helpers/chat-helpers";
-import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
+
 import {
   GptMessage,
   OpenAiChatResponse,
@@ -16,7 +16,7 @@ import {
 import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { useRequestStream } from "#/lib/hooks/useRequestStream";
 import { Bot } from "#/lib/types/cms";
-import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import { ChatFormFields, USER_INPUT_FIELD_ID } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event as GAEvent } from "nextjs-google-analytics";
 import { RefObject, useRef, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";

@@ -136,14 +136,14 @@ export async function fetchLandingPage(slug: LandingPage["slug"]): Promise<Landi
 }
 
 export async function fetchBots(): Promise<Bot[]> {
-  const populateString = getPopulateString(["avatar"]);
+  const populateString = getPopulateString(["*"]);
 
   const response = await getResourcesFromCms<Bot>("bots", populateString);
   return await extractResources(response);
 }
 
 export async function fetchBot(slug: Bot["slug"]): Promise<Bot> {
-  const response = await filterResourceFromCms<Bot>("bots", "slug", slug);
+  const response = await filterResourceFromCms<Bot>("bots", "slug", slug, undefined, true);
   return await extractResource(response);
 }
 

@@ -32,9 +32,6 @@ export const makeAsyncServerRequest = async <TResponse, TRequestBody>(
   body?: TRequestBody,
 ): Promise<ApiResponse<TResponse>> => {
   const response = await makeServerRequest(endpoint, method, body);
-  console.log("response HERE", response);
-
-  // const responseData = (await response.json()) as TResponse;
 
   return response;
 };

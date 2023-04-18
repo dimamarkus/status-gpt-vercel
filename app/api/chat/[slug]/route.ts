@@ -63,7 +63,7 @@ export async function POST(req: Request, { params }: PostChatBotParams) {
     if (language) {
       supplementaryTraining += ` and in the language: ${language || DEFAULT_BOT_LANGUAGE}.`;
     }
-    supplementaryTraining += CARDINAL_BOT_RULE;
+    supplementaryTraining += (" " + CARDINAL_BOT_RULE);
     const supplementaryTrainingMessage = createChatMessage("system", supplementaryTraining);
     const chatLogWithTraining = [trainingMessage, ...chatLog, supplementaryTrainingMessage];
     const sanitizedChatLog = chatLogWithTraining.map(({ role, content }) => ({
@@ -95,6 +95,7 @@ export async function POST(req: Request, { params }: PostChatBotParams) {
 
     // 4. Make API call
     // ============================================================================
+    // console.log('Making a request to: ', url, 'with body: ', body)
     const response = await makeBaseRequest<OpenAiRequest>(url, "POST", body, headers);
 
     // 5. Handle successs
