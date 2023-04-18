@@ -1,7 +1,7 @@
 "use client";
 
 import { CHAT_COSTS } from "#/app/chat/lib/constants";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { usePrevious } from "#/lib/hooks/usePrevious";
 import Card from "#/ui/atoms/containers/Card/Card";
@@ -28,7 +28,7 @@ export const ChatStats = (props: ChatStatsProps) => {
   const {
     appState: { selectedConversation },
     dataState: { bot },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const chatLog = selectedConversation?.messages;
   const isStart = chatLog && chatLog?.length < 3;

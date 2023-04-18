@@ -1,7 +1,7 @@
 "use client";
 
 import { StatusChatMessage } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { FC, memo, useRef, useState } from "react";
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 export const ChatMessageEdit: FC<Props> = memo((props) => {
   const { message, messageIndex, setEditModeOff } = props;
   const [messageContent, setMessageContent] = useState(message.content);
-  const { dataActions } = useConversationsContext();
+  const { dataActions } = useChatContext();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

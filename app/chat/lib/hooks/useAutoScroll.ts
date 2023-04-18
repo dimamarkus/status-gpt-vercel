@@ -1,11 +1,11 @@
 "use client";
 
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { throttle } from "#/lib/helpers/functions/throttle";
 import { useEffect, useRef, useState } from "react";
 
 export const useAutoScroll = () => {
-  const { appState, appActions } = useConversationsContext();
+  const { appState, appActions } = useChatContext();
   const { selectedConversation, textareaRef } = appState;
   const { setCurrentMessage } = appActions;
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);

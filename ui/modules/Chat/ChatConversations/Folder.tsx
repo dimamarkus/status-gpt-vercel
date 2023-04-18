@@ -1,5 +1,5 @@
 import { ConversationsFolder } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -24,7 +24,7 @@ export const Folder: FC<Props> = ({ searchTerm, currentFolder }) => {
 
   const {
     dataActions: { updateConversation, deleteFolder, updateFolder },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const handleEnterDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {

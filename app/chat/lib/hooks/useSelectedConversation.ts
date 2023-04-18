@@ -1,6 +1,6 @@
 import { ConversationsDataState, useConversationsReducer } from "#/app/chat/lib/reducer";
 import { Conversation, ConversationsFolder, StatusChatMessage } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useLocalStorage } from "#/lib/hooks/useStorage";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { useState, useMemo, useEffect } from "react";

@@ -1,15 +1,11 @@
 "use client";
 import { DEBUG_SUGGESTIONS } from "#/app/chat/lib/constants";
+import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import Spinner from "#/ui/atoms/svgs/Spinner";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { useState } from "react";
 import styles from "./ChatSuggestions.module.scss";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
-import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 
 type ChatSuggestionsProps = {
   className?: string;
@@ -19,7 +15,7 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
   const {
     appActions: { submitQuery },
     appState: { selectedConversation, loading, suggestions, suggestionsLoading },
-  } = useConversationsContext();
+  } = useChatContext();
   const chatLog = selectedConversation?.messages;
   const { features } = useFeatureToggleContext();
 

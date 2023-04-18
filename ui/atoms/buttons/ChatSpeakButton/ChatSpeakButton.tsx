@@ -13,7 +13,9 @@ type ChatSpeakButtonProps = SpeechSynthesisReturnType & {
 
 export const ChatSpeakButton = (props: ChatSpeakButtonProps) => {
   const { speak, cancel, speaking, voices, text, className } = props;
-  const { bot } = useChatContext();
+  const {
+    dataState: { bot },
+  } = useChatContext();
   const voice =
     voices.find(({ voiceURI }) =>
       bot?.voice ? voiceURI === bot?.voice : voiceURI === "Google UK English Male",

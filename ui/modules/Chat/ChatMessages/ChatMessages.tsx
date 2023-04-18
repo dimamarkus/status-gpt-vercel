@@ -1,7 +1,7 @@
 "use client";
 
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import ChatMessage from "#/ui/modules/Chat/ChatMessage/ChatMessage";
 import clsx from "clsx";
@@ -27,7 +27,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
     appActions,
     dataState: { bot },
     dataActions,
-  } = useConversationsContext();
+  } = useChatContext();
   const { answerStream, selectedConversation, loading, textareaRef } = appState;
   const { submitQuery } = appActions;
   const { updateConversation } = dataActions;

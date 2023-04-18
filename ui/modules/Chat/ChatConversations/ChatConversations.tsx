@@ -1,7 +1,7 @@
 "use client";
 import { filterConversationsData } from "#/app/chat/lib/helpers/chat-helpers";
 import { ConversationsDataState } from "#/app/chat/lib/reducer";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import { SidebarButton } from "#/ui/atoms/buttons/SidebarButton/SidebarButton";
 import Clear from "#/ui/modules/Chat/ChatConversations/Clear";
@@ -28,7 +28,7 @@ export const ChatConversations = () => {
       addFolder,
       setConversations,
     },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredData, setFilteredData] = useState<ConversationsDataState>({

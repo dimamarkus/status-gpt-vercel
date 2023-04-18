@@ -1,4 +1,4 @@
-import { ConversationsContextProvider } from "#/lib/contexts/ConversationContext";
+import { ChatContextProvider } from "#/lib/contexts/ChatContext";
 import { Bot } from "#/lib/types/cms";
 import ChatHeader from "#/ui/modules/Chat/ChatHeader/ChatHeader";
 import ChatInput from "#/ui/modules/Chat/ChatInput/ChatInput";
@@ -18,14 +18,14 @@ type ChatSidebarProps = {
 export const Chat = (props: ChatSidebarProps) => {
   const { bots, selectedBot, query, startTime } = props;
   return (
-    <ConversationsContextProvider bot={selectedBot}>
+    <ChatContextProvider bot={selectedBot}>
       <ChatLayout sidebar={<ChatSidebar bots={bots} selectedBot={selectedBot} />}>
         <ChatHeader />
         <ChatMessages startTime={startTime} />
         <ChatSubmissions />
         <ChatInput query={query} />
       </ChatLayout>
-    </ConversationsContextProvider>
+    </ChatContextProvider>
   );
 };
 

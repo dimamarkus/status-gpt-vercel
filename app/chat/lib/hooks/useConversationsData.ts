@@ -14,7 +14,7 @@ import { generateEmptyConversation, getStartingChatLog } from "#/app/chat/lib/he
 import { exportConversationData } from "#/app/chat/lib/helpers/converastion-helpers";
 import { ConversationsDataState, useConversationsReducer } from "#/app/chat/lib/reducer";
 import { Conversation, ConversationsFolder, StatusChatMessage } from "#/app/chat/lib/types";
-import { BotConversations } from "#/lib/contexts/ConversationContext";
+import { BotConversations } from "#/lib/contexts/ChatContext";
 import { useLocalStorage } from "#/lib/hooks/useStorage";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";

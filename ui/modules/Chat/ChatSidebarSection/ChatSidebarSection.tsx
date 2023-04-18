@@ -1,5 +1,5 @@
 import { SidebarState } from "#/app/chat/lib/hooks/useChatSidebar";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { FC } from "react";
@@ -21,7 +21,7 @@ export const ChatSidebarSection: FC<ChatSidebarSectionProps> = (props) => {
   const {
     appState: { sidebar },
     appActions: { toggleSidebarSection },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const isSectionOpen = sidebar[section];
   const inputName = `${section}-input`;

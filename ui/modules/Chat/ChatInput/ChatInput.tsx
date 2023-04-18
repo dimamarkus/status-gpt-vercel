@@ -5,7 +5,7 @@ import { getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
 import { CHAT_BOT_INPUT_MAX_CHARS } from "#/lib/constants/settings";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import { useDebounce } from "#/lib/hooks/useDebounce";
@@ -33,7 +33,7 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
     appState,
     appActions,
     dataState: { bot },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const { answerStream, selectedConversation, textareaRef, formContext } = appState;
   const { setCurrentMessage, submitQuery, cancelStream } = appActions;

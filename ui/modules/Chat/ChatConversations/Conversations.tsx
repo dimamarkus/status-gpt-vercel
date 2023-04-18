@@ -1,5 +1,5 @@
 import { Conversation } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { ConversationItem } from "./Conversation";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Conversations = ({ conversations }: Props) => {
-  const { dataActions } = useConversationsContext();
+  const { dataActions } = useChatContext();
 
   const handleDrop = (e: any) => {
     if (e.dataTransfer) {

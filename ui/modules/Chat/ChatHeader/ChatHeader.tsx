@@ -1,7 +1,7 @@
 "use client";
 
 import { DEFAULT_CONVERSATION_NAME } from "#/app/chat/lib/constants";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useLayoutContext } from "#/lib/contexts/LayoutContext";
 import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
@@ -22,7 +22,7 @@ export const ChatHeader: FC = () => {
   const {
     appState: { selectedConversation },
     dataActions: { resetConversation, addConversation },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const handleResetConversation = () => {
     if (confirm("Are you sure you want to clear all messages?")) {

@@ -1,16 +1,14 @@
 "use client";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
-import styles from "./ChatSubmissions.module.scss";
-import { DEFAULT_SUBMISSIONS } from "#/app/chat/lib/constants";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import Spinner from "#/ui/atoms/svgs/Spinner";
+import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
+import { camelToTitleCase } from "#/lib/helpers/string-helpers";
+import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import TextInput from "#/ui/atoms/inputs/TextInput/TextInput";
-import { camelToTitleCase, capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
+import Spinner from "#/ui/atoms/svgs/Spinner";
+import clsx from "clsx";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import styles from "./ChatSubmissions.module.scss";
 
 type ChatSubmissionsProps = {
   className?: string;
@@ -18,14 +16,8 @@ type ChatSubmissionsProps = {
 
 export const ChatSubmissions = ({ className }: ChatSubmissionsProps) => {
   const {
-    chatLog,
-    submissions,
-    answer,
-    getAnswer,
-    getSubmissions,
-    submissionsLoading,
-    showSubmissions,
-    loading,
+    dataState: { submissions },
+    appState: { submissionsLoading, loading },
   } = useChatContext();
   const useIsTablet = useIsMobile();
   const { register, handleSubmit } = useForm();

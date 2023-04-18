@@ -1,5 +1,5 @@
 import { Conversation } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useOutsideClick } from "#/lib/hooks/useOutsideClick";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 
@@ -32,7 +32,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
     appState: { loading, selectedConversation },
     appActions: { selectConversation },
     dataActions: { updateConversation, deleteConversation },
-  } = useConversationsContext();
+  } = useChatContext();
 
   const handleEnterDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {

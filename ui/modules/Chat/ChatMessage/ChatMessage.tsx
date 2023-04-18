@@ -2,7 +2,7 @@
 
 import { createChatMessage } from "#/app/chat/lib/helpers/chat-helpers";
 import { GptRole, StatusChatMessage } from "#/app/chat/lib/types";
-import { useConversationsContext } from "#/lib/contexts/ConversationContext";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
 import { getMediaUrl } from "#/lib/helpers/url-helpers";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
@@ -45,7 +45,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const {
     dataState: { bot },
     appState: { loading },
-  } = useConversationsContext();
+  } = useChatContext();
   const speechContext = useSpeechSynthesis();
   const { speaking, cancel } = speechContext;
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -147,7 +147,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         />
       )}
       <div className="chat-header flex space-x-1">
-        <Timestamp time={time} className="ml-3.5 mb-1" />
+        <Timestamp time={time} className="mb-1 ml-3.5" />
         {features.showTokens && tokens && (
           <>
             <small className="text-xs text-neutral-400">|</small>
