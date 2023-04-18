@@ -1,20 +1,4 @@
-import { getBotParam } from "#/app/chat/lib/helpers/bot-helpers";
-import { calculateTokens, isChatModel } from "#/app/chat/lib/helpers/chat-helpers";
-import { USER_INPUT_FIELD_ID } from "#/app/chat/lib/hooks/useChatGpt";
-import { event as GAEvent } from "nextjs-google-analytics";
-import {
-  OpenAiChatResponse,
-  OpenAiCompletionResponse,
-  OpenAiModel,
-  OpenAiResponse,
-} from "#/app/chat/lib/types";
-import { StatusChatMessage } from "#/app/chat/lib/types";
-import { useFeatureToggleContext } from "#/lib/contexts/FeatureToggleContext";
-import { useRequestStream } from "#/lib/hooks/useRequestStream";
-import { Bot } from "#/lib/types/cms";
-import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
-import { useForm, UseFormReturn } from "react-hook-form";
-import { ChatFormFields } from "#/ui/modules/Chat/ChatInput/ChatInput";
+import {useState} from "react";
 
 export type UseChatSidebarReturn = {
   sidebarState: SidebarState;

@@ -41,7 +41,7 @@ export interface UseConversationsDataReturn {
   };
 }
 
-export const useConversationsData = (bot: Bot | null): UseConversationsDataReturn => {
+export const useChatData = (bot: Bot | null): UseConversationsDataReturn => {
   const { state, dispatch } = useConversationsReducer();
 
   // Bind local storage to state

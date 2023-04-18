@@ -33,10 +33,11 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   const {
     appState,
     appActions,
+    dataActions,
     dataState: { bot },
   } = useChatContext();
 
-  const { answerStream, selectedConversation, textareaRef, formContext } = appState;
+  const { answerStream, selectedConversation, textareaRef, formContext, loading } = appState;
   const { setCurrentMessage, submitQuery, cancelStream } = appActions;
   const model = selectedConversation?.model || GPT4_MODEL;
   const [content, setContent] = useState<string>();
@@ -100,17 +101,15 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   };
 
   const handleSend = (query?: string) => {
-    if (answerStream) {
+    if (answerStream && loading) {
       return;
     }
     const question = content || query;
-    console.log("hasQuery", !!query);
     if (!question) {
       alert("Please enter a message");
       return;
     }
     const userMessage = createChatMessage("user", question);
-    console.log("userMessage", userMessage);
     setCurrentMessage(userMessage);
     submitQuery(userMessage);
     setContent("");

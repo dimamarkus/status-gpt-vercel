@@ -1,4 +1,4 @@
-import { OpenAiChatModel, OpenAiCompletionModel, OpenAiModel } from "#/app/chat/lib/types";
+import { Conversation, OpenAiChatModel, OpenAiCompletionModel, OpenAiModel } from "#/app/chat/lib/types";
 import { StatusChatMessage } from "#/app/chat/lib/types";
 import { Language } from "#/lib/types";
 
@@ -111,11 +111,10 @@ export const EMPTY_FOLDER = { id: Date.now(), name: "New folder", conversations:
 
 export const DEFAULT_CONVERSATION_NAME = "Untitled conversation";
 export const PLACEHOLDER_CONVERSATION_ID = 0;
-export const EMPTY_CONVERSATION = {
+export const EMPTY_CONVERSATION: Conversation = {
   id: PLACEHOLDER_CONVERSATION_ID,
   name: DEFAULT_CONVERSATION_NAME,
   messages: [],
   model: GPT4_MODEL as OpenAiModel,
-  prompt: DEFAULT_BOT_TRAINING,
   folderId: 0,
 };

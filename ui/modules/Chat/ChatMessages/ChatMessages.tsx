@@ -127,7 +127,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
           className={!answerStream && !loading ? "hidden" : ""}
           isTalking={loading || !!answerStream}
           {...incomingAnswerMessage}
-          onStop={appActions.cancelStream}
+          onStop={() => appActions.cancelStream(false)}
         />
       )}
 

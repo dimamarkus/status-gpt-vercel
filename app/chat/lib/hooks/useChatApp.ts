@@ -14,27 +14,27 @@ import {
   StatusChatMessage,
 } from "#/app/chat/lib/types";
 import { useSettingsContext } from "#/lib/contexts/SettingsContext";
-import { useRequestStream } from "#/lib/hooks/useRequestStream";
+import { UseRequestStreamReturnType, useRequestStream } from "#/lib/hooks/useRequestStream";
 import { Bot } from "#/lib/types/cms";
 import { ChatFormFields, USER_INPUT_FIELD_ID } from "#/ui/modules/Chat/ChatInput/ChatInput";
 import { event as GAEvent } from "nextjs-google-analytics";
 import { RefObject, useRef, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 
-export type UseConversationsAppReturn = {
+export type UseChatAppReturn = {
   state: {
-    answer?: string;
-    answerStream?: string;
     currentQuery?: string;
-    requestWasCancelled?: boolean;
+    streamResult?: UseRequestStreamReturnType<OpenAiChatResponse>["streamResult"];
+    answerStream?: UseRequestStreamReturnType<OpenAiChatResponse>["stream"];
+    loading: UseRequestStreamReturnType<OpenAiChatResponse>["loading"];
     showSidebar: boolean;
-    loading: boolean;
+    requestWasCancelled?: boolean
     currentMessage: StatusChatMessage | undefined;
     textareaRef: RefObject<HTMLTextAreaElement>;
     formContext: UseFormReturn<ChatFormFields, any>;
   };
   actions: {
-    cancelStream: (resetState?: boolean) => void;
+    cancelStream: UseRequestStreamReturnType<OpenAiChatResponse>["cancelStream"]
     getAnswer: (chatLog: GptMessage[]) => Promise<string>;
     toggleSidebar: () => void;
     setUserInput: (newInput?: string) => void;
@@ -42,35 +42,34 @@ export type UseConversationsAppReturn = {
   };
 };
 
-export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn => {
-  const { settings } = useSettingsContext();
-  const [showSidebar, setShowSidebar] = useState<boolean>(true);
-  const [currentQuery, setCurrentQuery] = useState<string | undefined>(undefined);
-  const [answer, setAnswer] = useState<string | undefined>(undefined);
-  const [currentMessage, setCurrentMessage] = useState<StatusChatMessage | undefined>();
+export const useChatApp = (bot: Bot | null): UseChatAppReturn => {
 
-  const { stream, loading, error, startStream, cancelStream, fullValue, requestWasCancelled } =
-    useRequestStream("/chat/" + bot?.slug);
+  const model = getBotParam(bot, "model") as OpenAiModel;
+  const botMaxTokens = getBotParam(bot, "max_tokens") as number;
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const { settings } = useSettingsContext();
+
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [currentQuery, setCurrentQuery] = useState<string | undefined>(undefined);
+  const [currentMessage, setCurrentMessage] = useState<StatusChatMessage | undefined>();
+
+  const { stream, loading, startStream, cancelStream, streamResult } = useRequestStream("/chat/" + bot?.slug);
 
   const formContext = useForm<ChatFormFields>({
     defaultValues: {
       [USER_INPUT_FIELD_ID]: "",
     },
   });
-  const { setValue } = formContext;
 
-  const model = getBotParam(bot, "model") as OpenAiModel;
-  const botMaxTokens = getBotParam(bot, "max_tokens") as number;
-
-  const setUserInput = (newInput = "") => setValue(USER_INPUT_FIELD_ID, newInput);
-
+  // =========================================================================================
+  //  Get Aswer
+  // =========================================================================================
   const handleGetAnswer = async (messages: GptMessage[]) => {
     const lastMessage = messages[messages.length - 1];
 
     setCurrentQuery(lastMessage.content);
-    setAnswer("");
 
     const prompt = messages.map(({ content }) => content).join("\n");
     const promptTokenCount = calculateTokens(prompt);
@@ -94,16 +93,16 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
         : (result as unknown as OpenAiCompletionResponse).choices[0].text;
     }
 
-    if (!!fullValue) {
-      setAnswer(fullValue);
+    if (!!streamResult) {
       setCurrentQuery(undefined);
     }
     return result;
   };
+  // == End Get Answer =====================================================================
 
   return {
     state: {
-      answer,
+      streamResult,
       answerStream: stream,
       currentQuery,
       showSidebar,
@@ -114,8 +113,8 @@ export const useConversationsApp = (bot: Bot | null): UseConversationsAppReturn 
     },
     actions: {
       getAnswer: handleGetAnswer,
-      setUserInput,
       setCurrentMessage,
+      setUserInput: (newInput = "") => formContext.setValue(USER_INPUT_FIELD_ID, newInput),
       toggleSidebar: () => setShowSidebar(!showSidebar),
       cancelStream,
     },

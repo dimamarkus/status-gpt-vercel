@@ -1,13 +1,12 @@
 import { makeServerRequest } from "#/lib/helpers/requests/makeServerRequest";
 import { useState } from "react";
 
-type UseRequestStreamReturnType<TRequestType> = {
-  fullValue: string;
-  loading: boolean;
+export type UseRequestStreamReturnType<TRequestType> = {
   stream?: string;
+  streamResult: string;
+  loading: boolean;
   error: string;
-  requestWasCancelled?: boolean;
-  cancelStream: (resetState?: boolean) => Promise<void>;
+  cancelStream: (resetState?: boolean) => Promise<string | undefined>
   startStream: (requestBody: TRequestType) => void;
 };
 
@@ -17,24 +16,22 @@ export const useRequestStream = <TRequestType>(
   const [controller, setController] = useState<AbortController | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
-  const [requestWasCancelled, setQueryWasCancelled] = useState<boolean>();
-  const [fullValue, setFullValue] = useState<string>("");
+  const [streamResult, setFullAnswer] = useState<string>("");
   const [stream, setStream] = useState<string | undefined>(undefined);
 
-  const cancelStream = async (resetState?: boolean) => {
+  const cancelStream = async () => {
     if (controller) {
-      controller.abort();
       setController(null);
       setLoading(false);
-      setQueryWasCancelled(true);
-      resetState && setStream(undefined);
+      setStream(undefined);
+      controller.abort();
+      return streamResult
     }
   };
 
   const startStream = async (requestBody: TRequestType) => {
     setLoading(true);
     try {
-      setQueryWasCancelled(false);
       const newController = new AbortController();
       setController(newController);
       const cancelSignal = newController.signal;
@@ -52,24 +49,23 @@ export const useRequestStream = <TRequestType>(
       const reader = stream.getReader();
       const decoder = new TextDecoder();
       let done = false;
-      let fullValue = "";
+      let streamResult = "";
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         const chunkValue = decoder.decode(value);
-        fullValue += chunkValue;
-        !!setFullValue && setFullValue(fullValue);
-        !!setStream && setStream(fullValue);
+        streamResult += chunkValue;
+        !!setFullAnswer && setFullAnswer(streamResult);
+        !!setStream && setStream(streamResult);
       }
-      if (done) {
-        setLoading(false);
-        setStream(undefined);
-        return fullValue;
-      }
+
+      setLoading(false);
+      setStream(undefined);
+      return streamResult;
     } catch (err: any) {
       setError(err);
     }
   };
 
-  return { fullValue, loading, stream, error, cancelStream, startStream, requestWasCancelled };
+  return { streamResult, loading, stream, error, cancelStream, startStream };
 };

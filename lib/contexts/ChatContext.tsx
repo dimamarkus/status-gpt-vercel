@@ -7,13 +7,13 @@ import {
   useChatSidebar,
 } from "#/app/chat/lib/hooks/useChatSidebar";
 import {
-  UseConversationsAppReturn,
-  useConversationsApp,
-} from "#/app/chat/lib/hooks/useConversationsApp";
+  UseChatAppReturn,
+  useChatApp,
+} from "#/app/chat/lib/hooks/useChatApp";
 import {
   UseConversationsDataReturn,
-  useConversationsData,
-} from "#/app/chat/lib/hooks/useConversationsData";
+  useChatData,
+} from "#/app/chat/lib/hooks/useChatData";
 import { useSelectedConversation } from "#/app/chat/lib/hooks/useSelectedConversation";
 import { UseSubmissionsReturn, useSubmissions } from "#/app/chat/lib/hooks/useSubmissions";
 import { UseSuggestionsReturn, useSuggestions } from "#/app/chat/lib/hooks/useSuggestions";
@@ -36,14 +36,14 @@ interface ChatContextType {
     addConversation: () => void;
     editMessage: (message: StatusChatMessage, messageIndex: number) => void;
   };
-  appState: UseConversationsAppReturn["state"] & {
+  appState: UseChatAppReturn["state"] & {
     selectedConversation: Conversation | undefined;
     sidebar: SidebarState;
     suggestions: UseSuggestionsReturn["suggestions"];
     suggestionsLoading: UseSuggestionsReturn["loading"];
     submissionsLoading: UseSubmissionsReturn["loading"];
   };
-  appActions: UseConversationsAppReturn["actions"] &
+  appActions: UseChatAppReturn["actions"] &
     Omit<UseChatSidebarReturn, "sidebarState"> & {
       submitQuery: (message: StatusChatMessage, chatLog?: StatusChatMessage[]) => void;
       selectConversation: (conversation: Conversation) => void;
@@ -76,13 +76,13 @@ export function ChatContextProvider({ children, bot }: ConversationContextProps)
   } = useSubmissions();
   const { assumptions, ...assumptionsActions } = useAssumptionsContext();
   const { sidebarState, ...sidebarActions } = useChatSidebar();
-  const { state: dataState, actions: dataActions } = useConversationsData(bot);
+  const { state: dataState, actions: dataActions } = useChatData(bot);
   const { selectedConversation, selectConversation, setSelectedConversation } =
     useSelectedConversation(dataState);
-  const { state: appState, actions: appActions } = useConversationsApp(bot);
+  const { state: appState, actions: appActions } = useChatApp(bot);
   const { folders, rootConversations } = dataState;
   const { resetConversation, addConversation, updateConversation } = dataActions;
-  const { currentQuery, requestWasCancelled } = appState;
+  const { currentQuery, loading, answerStream, requestWasCancelled, streamResult } = appState;
   const { cancelStream, getAnswer, setUserInput, setCurrentMessage } = appActions;
   const currentChatLog = selectedConversation?.messages;
   const firstAvailableConversation = rootConversations[0] || folders[0]?.conversations[0];
@@ -99,32 +99,27 @@ export function ChatContextProvider({ children, bot }: ConversationContextProps)
     if (inInitialState || !selectedConversation) selectConversation(firstAvailableConversation);
   }, [dataState]);
 
-  const handleSubmitQuery = async (message: StatusChatMessage, chatLog?: StatusChatMessage[]) => {
+  const handleSubmitQuery = async (userMessage: StatusChatMessage, chatLog?: StatusChatMessage[]) => {
     let conversation = selectedConversation || addConversation();
+    let messagesSoFar = chatLog || conversation.messages
     if (!selectedConversation) {
       conversation = addConversation();
       setSelectedConversation(conversation);
     } else {
-      dataActions.addMessage(selectedConversation, message);
+      dataActions.addMessage(selectedConversation, userMessage);
     }
 
     const chatMessages = compileChatMessages(
-      chatLog || conversation.messages,
-      message.content,
+      messagesSoFar,
+      userMessage.content,
       bot?.memory,
     );
 
     const answer = await getAnswer(chatMessages.toSend);
 
-    if (requestWasCancelled) {
-      console.log("REQUEST WAS CANCELLLED!", requestWasCancelled);
-    }
-    const resultingChatLog = answer
-      ? [...chatMessages.all, createChatMessage("assistant", answer)]
-      : chatMessages.all;
-    const isFirstMessageInChat = conversation.messages.length === 2; /* 1 system, 1 welcome */
+    const isFirstMessageInChat = chatMessages.all.length === 2; /* 1 system, 1 welcome */
     if (isFirstMessageInChat) {
-      const { content } = message;
+      const content = userMessage.content
       const conversationName = content.length > 30 ? content.substring(0, 30) + "..." : content;
       conversation = {
         ...conversation,
@@ -132,21 +127,25 @@ export function ChatContextProvider({ children, bot }: ConversationContextProps)
       };
     }
 
-    updateConversation({ ...conversation, messages: resultingChatLog });
-    features.enableSuggestions &&
-      !requestWasCancelled &&
-      suggestionsActions.getSuggestions(resultingChatLog);
-    features.enableSubmissions &&
-      !requestWasCancelled &&
-      submissionsActions.getSubmissions(resultingChatLog);
+    if (answer) {
+      const resultingChatLog = [...chatMessages.all, createChatMessage("assistant", answer)]
+      !!answer && updateConversation({ ...conversation, messages: resultingChatLog });
+      features.enableSuggestions && suggestionsActions.getSuggestions(resultingChatLog);
+      features.enableSubmissions && submissionsActions.getSubmissions(resultingChatLog);
+    }
   };
 
-  const handleCancelStream = async () => {
-    if (!currentChatLog) return;
-    console.log("currentQuery", currentQuery);
+  const handleCancelStream = async (alsoRemoveQuestion?: boolean) => {
+    if (!currentChatLog) return undefined;
     setUserInput(currentQuery);
-    // updateConversation({ ...selectedConversation, messages: currentChatLog.slice(-1) });
     cancelStream();
+    const cancelResult = await cancelStream();
+    if (alsoRemoveQuestion) {
+      updateConversation({ ...selectedConversation, messages: selectedConversation.messages.slice(0,-1) });
+    } else if (cancelResult) {
+      const prevResponseMessage = createChatMessage("assistant", cancelResult)
+      dataActions.addMessage(selectedConversation, prevResponseMessage);
+    }
   };
 
   const handleAddConversation = async () => {
