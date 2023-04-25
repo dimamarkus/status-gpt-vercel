@@ -3,6 +3,8 @@
 // Author: Iliya Vereshchagin
 // Date: 20.04.2023
 
+import { waitForElementsCount } from "../../utils/helpers";
+
 class Bot {
   self = 'header[class*="collapsible"]';
 
@@ -139,7 +141,7 @@ class Settings {
   open_menu() {
     this.container.then(($container) => {
       if (!$container.hasClass("open")) {
-        $container.click();
+        cy.wrap($container).click();
         this.menu.should("be.visible");
       }
     });
@@ -148,7 +150,7 @@ class Settings {
   close_menu() {
     this.container.then(($container) => {
       if ($container.hasClass("open")) {
-        $container.click();
+        cy.wrap($container).click();
         this.menu.should("not.be.visible");
       }
     });
@@ -238,22 +240,30 @@ class Assumptions {
 }
 
 class Conversations {
-  self = 'section:has([for*="conversations-input"])';
+  static itemSelector = 'section:has(label[for*="conversations-input"])';
+
+  constructor() {
+    this.self = 'section:has(label[for*="conversations-input"])';
+  }
 
   get container() {
     return cy.get(this.self);
+  }
+
+  get header() {
+    return cy.get(`${this.self} label`);
   }
 
   get menu() {
     return cy.get(`${this.self} .collapse-content`);
   }
 
-  get addConversation() {
+  get addConversationButton() {
     return cy.get(`${this.self} button:contains('Add Conversation')`);
   }
 
   get addConversationIcon() {
-    return cy.get(`${this.self} button:has(svg)`);
+    return cy.get(`${this.self}  button.btn`);
   }
 
   get filterInput() {
@@ -263,7 +273,7 @@ class Conversations {
   open() {
     this.menu.then(($menu) => {
       if ($menu.is(":hidden")) {
-        this.container.click();
+        this.header.click();
         this.menu.should("be.visible");
       }
     });
@@ -272,7 +282,7 @@ class Conversations {
   close() {
     this.menu.then(($menu) => {
       if ($menu.is(":visible")) {
-        this.container.click();
+        this.header.click();
         this.menu.should("not.be.visible");
       }
     });
@@ -286,14 +296,29 @@ class Conversations {
     return new ConversationItem(` button:contains('${name}')`);
   }
 
-  getCount() {
-    return cy.get(`${Conversations.self} ${ConversationItem.self}`).its("length");
+  getAllItems() {
+    return cy.get(this.self, { log: false }).then(($self) => {
+      if ($self) {
+        return $self
+          .find(ConversationItem.itemSelector)
+          .map((index, item) => new ConversationItem(`:nth-child(${index + 1})`))
+          .get();
+      } else {
+        return [];
+      }
+    });
   }
 
-  getAllItems() {
-    return cy.get(`${Conversations.self} ${ConversationItem.self}`).then(($items) => {
-      return $items.map((index, item) => new ConversationItem(`:nth-child(${index + 1})`)).get();
-    });
+  addConversation(method = "icon") {
+    if (method == "icon") {
+      this.addConversationIcon.click();
+    } else {
+      this.addConversationButton.click();
+    }
+  }
+
+  waitForElementsCount(expectedCount) {
+    this.getAllItems().should("have.length", expectedCount);
   }
 
   get clearButton() {
@@ -307,27 +332,33 @@ class Conversations {
   get exportButton() {
     return cy.get(`${this.self} button:contains("Export conversations")`);
   }
+
+  get zeroState() {
+    return cy.get('span:contains("No conversations.")');
+  }
 }
 
 class ConversationItem {
   constructor(selector) {
-    this.self = `${Conversations.self} li.relative.flex.items-center${selector}`;
+    this.self = `${Conversations.itemSelector} li.relative.flex.items-center${selector}`;
   }
+
+  static itemSelector = "li.relative.flex.items-center";
 
   get container() {
     return cy.get(this.self);
   }
 
   get caption() {
-    return cy.get(`${this.self} div:nth-child(1)`);
+    return cy.get(`${this.self} div`);
   }
 
   get editButton() {
-    return cy.get(`${this.self} .visible .flex button:nth-child(1)`);
+    return cy.get(`${this.self} .visible button:nth-child(1)`);
   }
 
   get deleteButton() {
-    return cy.get(`${this.self} .visible .flex button:nth-child(2)`);
+    return cy.get(`${this.self} .visible button:nth-child(2)`);
   }
 
   get editInput() {
@@ -335,11 +366,11 @@ class ConversationItem {
   }
 
   get confirmButton() {
-    return cy.get(`${this.self} .visible .flex button.text-green-400`);
+    return cy.get(`${this.self} .visible button.text-green-400`);
   }
 
   get cancelButton() {
-    return cy.get(`${this.self} .visible .flex button.text-red-300`);
+    return cy.get(`${this.self} .visible button.text-red-300`);
   }
 
   rename(newName) {

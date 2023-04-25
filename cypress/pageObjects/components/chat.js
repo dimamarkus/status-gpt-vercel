@@ -117,7 +117,7 @@ class Chat {
   }
 
   constructor() {
-    this.topBar.self = `${this.self} ${this.chatTopBar.self}`;
+    this.topBar.self = `${this.self} ${this.topBar.self}`;
   }
 
   get responseLengthSlider() {
