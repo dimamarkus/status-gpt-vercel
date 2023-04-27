@@ -32,18 +32,18 @@ const TopBar = () => {
       <label tabIndex={0} className="btn-ghost btn lg:hidden">
         <Hamburger />
       </label>
-      {/* <ul
+      <ul
         tabIndex={0}
         className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
       >
         {navItems}
-      </ul> */}
+      </ul>
     </div>
   );
   return (
     <header className="z-1 navbar relative md:px-0 md:py-4">
-      <div className="navbar-start w-full">
-        {mobileMenu}
+      <div className="navbar-start w-full md:pl-0 pl-1">
+        {/* {mobileMenu} */}
         <Logo />
         {/* {navItems} */}
       </div>

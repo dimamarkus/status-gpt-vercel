@@ -15,14 +15,20 @@ import {
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { FC } from "react";
+import ChatMessageAvatar from "../ChatMessageAvatar/ChatMessageAvatar";
+import { getBotAvatar } from "#/lib/helpers/url-helpers";
+import { useIsMobile } from "#/lib/hooks/useIsMobile";
 
 export const ChatHeader: FC = () => {
   const { settings } = useSettingsContext();
+  const isMobile = useIsMobile();
   const { isFullScreen, toggleFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
   const {
     appState: { selectedConversation },
     dataActions: { resetConversation, addConversation },
+    dataState: { bot }
   } = useChatContext();
+  const showAvatarInsteadOfArrow = isMobile && bot && !sidebarIsVisible;
 
   const handleResetConversation = () => {
     if (confirm("Are you sure you want to clear all messages?")) {
@@ -31,13 +37,15 @@ export const ChatHeader: FC = () => {
   };
 
   const rootStyles =
-    "flex justify-center overflow-hidden py-1 px-2 border-b border-neutral-300 text-sm text-neutral-500 dark:border-none dark:text-neutral-200 z-[1] bg-neutral-200 dark:bg-base-300 shadow-sm";
+    "flex justify-center overflow-hidden py-1 sm:px-2 px-3 border-b border-neutral-300 text-sm text-neutral-500 dark:border-none dark:text-neutral-200 z-[1] bg-neutral-200 dark:bg-base-300 shadow-sm";
 
   const sidebarToggleStyles = clsx(
     settings.sidebarRight
       ? "border-r-2 border-l-0 ml-auto mr-1"
       : "border-l-2 border-r-0 ml-1 mr-auto",
-    "rounded-none border-0 border-secondary hover:border-secondary py-0 my-auto link-secondary opacity-50 hover:opacity-100",
+    !showAvatarInsteadOfArrow
+        ? "rounded-none border-0 border-secondary hover:border-secondary py-0 my-auto link-secondary opacity-50 hover:opacity-100"
+        : "ml-0 p-0",
   );
 
   const fullScreenButton = (
@@ -54,16 +62,23 @@ export const ChatHeader: FC = () => {
     />
   );
 
-  const sidebarTogglebutton = (
+  const sidebarTogglebutton = showAvatarInsteadOfArrow ? (
+    <ChatMessageAvatar
+      avatarUrl={getBotAvatar(bot, true)}
+      className={clsx("p-0 w-[1.5rem] h-[1.5rem] my-auto", settings.sidebarRight ? "ml-auto" : "mr-auto")}
+      onClick={toggleSidebar}
+      size="sm"
+    />
+  ) : (
     <BaseButton
       className={sidebarToggleStyles}
-      flavor="icon"
+      flavor="bare"
       icon={
         (settings.sidebarRight && !sidebarIsVisible) ||
         (!settings.sidebarRight && sidebarIsVisible) ? (
-          <ArrowLeftIcon />
-        ) : (
-          <ArrowRightIcon />
+            <ArrowLeftIcon />
+          ) : (
+            <ArrowRightIcon />
         )
       }
       onClick={toggleSidebar}

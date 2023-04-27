@@ -31,7 +31,7 @@ export const ChatBots = ({ bots, className }: ChatBots) => {
         >
           <ChatMessageAvatar avatarUrl={getBotAvatar(botOption, true)} />
           <div className="ml-2 flex flex-col">
-            <span className="text-sm font-medium">{botOption.name}</span>
+            <span className="font-medium">{botOption.name}</span>
             <span className="text-xs text-slate-500">{botOption.description}</span>
           </div>
         </Link>

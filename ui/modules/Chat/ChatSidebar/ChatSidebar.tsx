@@ -39,8 +39,8 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         role={"assistant"}
         isTalking={botIsTalking}
       />
-      <Duo vertical gap="none">
-        <h2 className="mb-1 dark:text-white">{selectedBot.name}</h2>
+      <Duo vertical gap="none" className="pr-2">
+        <h2 className="mb-1 sm:text-md text-md dark:text-white">{selectedBot.name}</h2>
         <small className="font-normal text-slate-600 dark:text-slate-400">
           {selectedBot.description}
         </small>

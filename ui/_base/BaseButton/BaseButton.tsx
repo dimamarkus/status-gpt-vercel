@@ -71,6 +71,7 @@ export const BaseButton = (props: BaseButtonProps) => {
   } = props;
 
   const isTextOnly = flavor === "textOnly";
+  const isIcon = flavor === "icon";
   const isBare = flavor === "bare" || flavor === "icon";
   const isHollow = flavor === "hollow";
 
@@ -86,8 +87,8 @@ export const BaseButton = (props: BaseButtonProps) => {
   const buttonStyles = clsx(
     "h-fit",
     getColorClass(),
-    icon && text && "gap-2",
-    icon && !text && "p-1 min-h-fit",
+    isIcon && text && "gap-2",
+    isIcon && !text && "p-1 min-h-fit",
     isBare && "w-fit min-h-fit p-0 capitalize",
     isBare && !className?.includes("border") && "border-none", // Allow individual borders to be added to bare buttons
     isTextOnly && "btn border-none hover:underline",

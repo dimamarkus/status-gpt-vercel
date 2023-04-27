@@ -14,15 +14,17 @@ type ChatMessageAvatarProps = {
   className?: string;
   loading?: boolean;
   onClick?: () => void;
+  size?: "sm" | "lg";
 };
 
 export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
-  const { avatarUrl, isTalking, role, className, onClick, loading } = props;
+  const { avatarUrl, isTalking, role, className, onClick, loading, size = "lg" } = props;
 
   const disableClick = onClick === undefined;
 
   const rootStyles = clsx(
-    "chat-image h-16 w-16 text-center self-auto rounded-xl overflow-hidden flex-shrink-0",
+    "chat-image h-16 w-16 text-center self-auto overflow-hidden flex-shrink-0",
+    size === "sm" ? "rounded-lg" : "rounded-xl",
     disableClick && " pointer-events-none",
   );
 
