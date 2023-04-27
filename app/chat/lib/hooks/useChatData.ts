@@ -65,7 +65,7 @@ export const useChatData = (bot: Bot | null): UseConversationsDataReturn => {
   // Create a conversation if none exists
   useUpdateEffect(() => {
     const availableConversation = state.rootConversations[0] || state.folders[0]?.conversations[0];
-    if (!availableConversation && !storedData) actions.addConversation();
+    if (!availableConversation) actions.addConversation();
   }, [state, localStorage]);
 
   // Compile all state-related actions into shortcut functions
