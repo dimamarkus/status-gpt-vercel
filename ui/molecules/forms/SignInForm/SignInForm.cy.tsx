@@ -1,9 +1,9 @@
-import SignInForm from "./SignInForm";
+import SignInForm from './SignInForm';
 
-describe("<SignInForm />", () => {
-  it("renders", () => {
+describe('<SignInForm />', () => {
+  it('renders', () => {
     // see: https://on.cypress.io/mounting-react
     cy.mount(<SignInForm />);
-    cy.get("[class^=SignInForm_]").should("exist");
+    cy.get('[class^=SignInForm_]').should('exist');
   });
 });
