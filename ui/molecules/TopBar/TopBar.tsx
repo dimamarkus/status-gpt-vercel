@@ -47,10 +47,10 @@ const TopBar = () => {
         <Logo />
         {/* {navItems} */}
       </div>
-      {/* <Suspense fallback={<Spinner />}> */}
+      <Suspense fallback={ <Spinner /> }> 
         {/* @ts-expect-error Server Component */}
-        {/* <AuthButtons className="navbar-end" /> */}
-      {/* </Suspense> */}
+        <AuthButtons className="navbar-end hidden" />
+      </Suspense>
       <DarkModeToggle className="ml-2" />
     </header>
   );
