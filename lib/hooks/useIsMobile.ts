@@ -21,7 +21,7 @@ export const useIsMobile = () => {
   const { width: windowWidth } = useWindowSize();
   const isBrowserMobile = !!windowWidth && windowWidth < 768;
 
-  return isSsrMobile || isBrowserMobile;
+  return isSsrMobile || isBrowserMobile || isMobile();
 };
 
 export const useIsTablet = () => {

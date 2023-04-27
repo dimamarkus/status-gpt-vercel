@@ -11,9 +11,10 @@
     @apply flex;
     @apply max-h-full;
     @apply flex-col;
-    height: calc(100vh - var(--header-height));
+    height: 100vh;
+    // height: calc(100vh - var(--header-height));
     @media screen and (max-width: 1024px) {
-      height: calc(100% - var(--mobile-header-height));
+      // height: calc(100% - var(--mobile-header-height));
     }
   }
 }

@@ -27,7 +27,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   );
 
   const asideStyles = clsx(
-    "flex flex-col flex-grow-0 flex-shrink-0 z-2 justify-start md:justify-end pt-4",
+    "flex flex-col flex-grow-0 flex-shrink-0 z-10 justify-start md:justify-end pt-4",
     "h-full",
     "text-blue-900 dark:text-blue-200/100 border-l border-blue-200/50 dark:border-none",
     settings.sidebarRight ? "right-0 order-last" : "left-0",
@@ -58,7 +58,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   return (
     <div className={clsx(styles.root, rootStyles, isFullScreen && styles.fullScreen)}>
       {!settings.sidebarRight && aside}
-      {isMobile && <Overlay className={sidebarIsVisible ? "opacity-100" : "opacity-0"} />}
+      {isMobile && <Overlay className={sidebarIsVisible ? "opacity-100" : "opacity-0 top-24"} />}
       <section className={mainContentStyles}>{children}</section>
       {settings.sidebarRight && aside}
     </div>
