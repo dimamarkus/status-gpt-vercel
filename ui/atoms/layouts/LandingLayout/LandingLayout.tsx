@@ -18,9 +18,9 @@ export const LandingLayout = ({ children, ssr, className }: LandingLayoutProps) 
     <Component>
       <div className={clsx(styles.root, className)}>
         <main role="main">
-        <TopBar />
-
-          {children}</main>
+          <TopBar />
+          {children}
+        </main>
       </div>
     </Component>
   );
