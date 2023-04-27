@@ -6,6 +6,7 @@ import Spinner from "#/ui/atoms/svgs/Spinner";
 import DarkModeToggle from "#/ui/molecules/actionButtons/DarkModeToggleButton/DarkModeToggleButton";
 import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
 import { Suspense } from "react";
+import NewChatButton from "../actionButtons/NewChatButton/NewChatButton";
 
 const navItems = (
   <ul className="menu menu-horizontal items-center space-x-8 px-8">
@@ -25,6 +26,12 @@ const navItems = (
     </li>
   </ul>
 );
+
+// TODO
+// <Suspense fallback={ <Spinner /> }>
+// {/* @ts-expect-error Server Component */}
+// <AuthButtons className="navbar-end" />
+// </Suspense>
 
 const TopBar = () => {
   const mobileMenu = (
@@ -47,11 +54,7 @@ const TopBar = () => {
         <Logo />
         {/* {navItems} */}
       </div>
-      <Suspense fallback={ <Spinner /> }> 
-        {/* @ts-expect-error Server Component */}
-        <AuthButtons className="navbar-end hidden" />
-      </Suspense>
-      <DarkModeToggle className="ml-2" />
+      <NewChatButton className="navbar-end" />
     </header>
   );
 };

@@ -101,6 +101,12 @@ export function ChatContextProvider({ children, bot }: ConversationContextProps)
     if (inInitialState || !selectedConversation) selectConversation(firstAvailableConversation);
   }, [dataState]);
 
+  // Create a conversation if none exists
+  useUpdateEffect(() => {
+    const availableConversation = rootConversations[0] || folders[0]?.conversations[0];
+    if (inInitialState && !availableConversation) addConversation();
+  }, [rootConversations, folders, localStorage]);
+
   const handleSubmitQuery = async (userMessage: StatusChatMessage, chatLog?: StatusChatMessage[]) => {
     let conversation = selectedConversation || addConversation();
     let messagesSoFar = chatLog || conversation.messages

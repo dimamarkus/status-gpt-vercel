@@ -5,6 +5,7 @@ import { getCurrentTime } from "#/lib/helpers/datetime-helpers";
 import { fetchBots } from "#/lib/databases/cms";
 import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 import Chat from "#/ui/modules/Chat/Chat";
+import { ChatContextProvider } from "#/lib/contexts/ChatContext";
 
 export const revalidate = 0;
 export const runtime = "edge";
@@ -24,8 +25,10 @@ export default async function HomePage({ searchParams }: BotPageProps) {
   const selectedBot = bots.find((bot) => bot.slug === DEFAULT_CHAT_BOT) || bots[0];
 
   return (
-    <LandingLayout>
-      <Chat bots={sortBots(bots)} selectedBot={selectedBot} startTime={startTime} query={query} />
-    </LandingLayout>
+    <ChatContextProvider bot={selectedBot}>
+      <LandingLayout>
+        <Chat bots={sortBots(bots)} selectedBot={selectedBot} startTime={startTime} query={query} />
+      </LandingLayout>
+    </ChatContextProvider>
   );
 }

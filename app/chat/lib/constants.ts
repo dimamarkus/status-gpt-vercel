@@ -109,6 +109,7 @@ export const CHAT_500_ERROR_RESPONSE =
 
 export const EMPTY_FOLDER = { id: Date.now(), name: "New folder", conversations: [] };
 
+export const STARTING_CONVERSATION_LENGTH = 1
 export const DEFAULT_CONVERSATION_NAME = "Untitled conversation";
 export const PLACEHOLDER_CONVERSATION_ID = 0;
 export const EMPTY_CONVERSATION: Conversation = {

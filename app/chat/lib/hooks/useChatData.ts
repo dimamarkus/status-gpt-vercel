@@ -20,6 +20,7 @@ import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import { Bot } from "#/lib/types/cms";
 import { useEffect } from "react";
 import mongoClientPromise from "#/lib/databases/mongodb";
+import { STARTING_CONVERSATION_LENGTH } from "#/app/chat/lib/constants";
 
 export interface UseConversationsDataReturn {
   state: ConversationsDataState & {
@@ -61,12 +62,6 @@ export const useChatData = (bot: Bot | null): UseConversationsDataReturn => {
   useUpdateEffect(() => {
     setLocalStorage({ ...localStorage, [botKey]: state });
   }, [state]);
-
-  // Create a conversation if none exists
-  useUpdateEffect(() => {
-    const availableConversation = state.rootConversations[0] || state.folders[0]?.conversations[0];
-    if (!availableConversation) actions.addConversation();
-  }, [state, localStorage]);
 
   // Compile all state-related actions into shortcut functions
   const actions: UseConversationsDataReturn["actions"] = {

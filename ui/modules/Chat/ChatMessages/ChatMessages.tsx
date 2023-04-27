@@ -81,7 +81,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
       className={clsx(styles.root, "h-full max-h-full overflow-x-hidden bg-base-100")}
       ref={chatContainerRef}
     >
-      <div className="flex align-center relative top-8 left-8">
+      <div className="flex align-center relative top-8 md:left-8 left-4">
         <Spinner />
         Loading Conversation
       </div>
