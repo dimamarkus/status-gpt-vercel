@@ -55,6 +55,7 @@ const TopBar = () => {
         {/* {navItems} */}
       </div>
       <NewChatButton className="navbar-end" />
+      <DarkModeToggle className="ml-2" />
     </header>
   );
 };

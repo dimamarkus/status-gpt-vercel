@@ -105,7 +105,7 @@ export function ChatContextProvider({ children, bot }: ConversationContextProps)
   useUpdateEffect(() => {
     const availableConversation = rootConversations[0] || folders[0]?.conversations[0];
     if (inInitialState && !availableConversation) addConversation();
-  }, [rootConversations, folders, localStorage]);
+  }, [rootConversations, folders, inInitialState, addConversation]);
 
   const handleSubmitQuery = async (userMessage: StatusChatMessage, chatLog?: StatusChatMessage[]) => {
     let conversation = selectedConversation || addConversation();

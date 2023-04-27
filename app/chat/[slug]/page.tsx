@@ -6,6 +6,8 @@ import { Bot } from "#/lib/types/cms";
 import CircleAnimation from "#/ui/atoms/svgs/CircleAnimation";
 import Chat from "#/ui/modules/Chat/Chat";
 import { SITE_TITLE } from "#/lib/constants/settings";
+import { ChatContextProvider } from "#/lib/contexts/ChatContext";
+import LandingLayout from "#/ui/atoms/layouts/LandingLayout/LandingLayout";
 
 export type BotPageProps = {
   params: {

@@ -15,17 +15,17 @@ type ChatPageLayoutProps = {
 
 export const revalidate = 0;
 
-export async function generateMetadata({ params }: ChatPageLayoutProps) {
+
+async function getData() {
   const bots = await fetchBots();
-  const bot = bots.find((bot) => bot.slug === params.slug);
-  const name = bot?.name || "AIdvisor Chat";
-  return { title: getTitlePrefix() + name + ` | ${SITE_TITLE}` };
+  return bots
 }
 
-export default async function ChatPageLayout({ children }: ChatPageLayoutProps) {
-  const bots = await fetchBots();
-  const selectedBot = bots.find((bot) => bot.slug === DEFAULT_CHAT_BOT) || bots[0];
 
+export default async function ChatPageLayout({ children, params }: ChatPageLayoutProps) {
+  const bots = await getData();
+  const selectedBot = bots.find((bot) => bot.slug === params.slug) || bots[0];
+  console.log('params',params)
   return (
     <ChatContextProvider bot={selectedBot}>
       <LandingLayout>
