@@ -96,10 +96,9 @@ export const ChatConversations = () => {
         <Conversations conversations={filteredData.rootConversations} />
       )}
       {!rootConversations.length && !folders.length && (
-        <div className="my-8 px-4 select-none text-center flex align-center justify-center opacity-50">
-          <Spinner/>
-          {/* <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} /> */}
-          <span className="text-[12.5px] leading-3">Loading conversations.</span>
+        <div className="my-8 px-4 select-none text-center  align-center justify-center opacity-50">
+          <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} />
+          <span className="text-[12.5px] leading-3">No conversations. Add one to begin.</span>
         </div>
       )}
 

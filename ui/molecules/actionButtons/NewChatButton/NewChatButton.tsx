@@ -1,10 +1,10 @@
 "use client"
 
 import { useChatContext } from "#/lib/contexts/ChatContext";
-import BaseButton from "#/ui/_base/BaseButton/BaseButton";
+import BaseButton, { BaseButtonProps } from "#/ui/_base/BaseButton/BaseButton";
 import clsx from "clsx";
 
-export const NewChatButton = ({ className }: { className?: string }) => {
+export const NewChatButton = ({ className, ...buttonProps }: BaseButtonProps) => {
   const { dataActions } = useChatContext();
 
   return (
@@ -16,6 +16,7 @@ export const NewChatButton = ({ className }: { className?: string }) => {
       title="Start a new conversationt"
       size="sm"
       text="New Chat"
+      { ...buttonProps }
     />
   );
 };

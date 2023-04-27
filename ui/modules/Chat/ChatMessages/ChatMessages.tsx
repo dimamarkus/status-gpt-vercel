@@ -10,6 +10,7 @@ import styles from "./ChatMessages.module.scss";
 import { throttle } from "#/lib/helpers/functions/throttle";
 import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
 import Spinner from "#/ui/atoms/svgs/Spinner";
+import NewChatButton from "#/ui/molecules/actionButtons/NewChatButton/NewChatButton";
 
 type ChatMessagesProps = {
   /**
@@ -78,12 +79,14 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
   if (!selectedConversation || !bot) {
     return (
         <ul
-      className={clsx(styles.root, "h-full max-h-full overflow-x-hidden bg-base-100")}
+      className={clsx(styles.root, "h-full w-full max-h-full overflow-x-hidden bg-base-100 flex align-center flex-col align-center")}
       ref={chatContainerRef}
     >
-      <div className="flex align-center relative top-8 md:left-8 left-4">
-        <Spinner />
-        Loading Conversation
+      <div className="flex text-center flex-col relative top-16">
+        Start a new conversation to begin
+        <NewChatButton text="New Conversation" size="lg" theme="primary" flavor="solid" className="m-auto mt-2"/>
+        {/* <Spinner />
+        Loading Conversation */}
       </div>
     </ul>)
   }
