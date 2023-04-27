@@ -7,6 +7,7 @@ import Overlay from "#/ui/atoms/Overlay/Overlay";
 import clsx from "clsx";
 import React from "react";
 import styles from "./ChatLayout.module.scss";
+import { useChatContext } from "#/lib/contexts/ChatContext";
 
 type ChatLayoutProps = {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ type ChatLayoutProps = {
 const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const { settings } = useSettingsContext();
   const { isFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
+  const { dataState, appState } = useChatContext()
   const isMobile = useIsMobile();
   const ref = useOutsideClick<HTMLDivElement>(() => isMobile && sidebarIsVisible && toggleSidebar());
 
@@ -29,13 +31,11 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
     "h-full",
     "text-blue-900 dark:text-blue-200/100 border-l border-blue-200/50 dark:border-none",
     settings.sidebarRight ? "right-0 order-last" : "left-0",
-    "transform", // Add transform property
-    "transition-transform duration-300", // Add transition
-    "transition",
-    "absolute md:relative",
+    "transition transform transition-transform duration-300", // Add transition
+    "absolute md:relative top-0",
     "w-[280px] md:w-[30%]",
-    "z-10",
     "md:translate-x-none",
+    sidebarIsVisible ? "opacity-1" : "opacity-0",
     sidebarIsVisible
       ? "translate-x-0"
       : settings.sidebarRight
@@ -45,7 +45,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
 
   const mainContentStyles = clsx(
     "relative flex h-full flex-col w-full",
-    sidebarIsVisible && "z-[-1]",
+    sidebarIsVisible && "z-[-1] sm:pointer-events-auto pointer-events-none",
   );
 
   const shouldRenderAside = isMobile || (!isMobile && sidebarIsVisible);

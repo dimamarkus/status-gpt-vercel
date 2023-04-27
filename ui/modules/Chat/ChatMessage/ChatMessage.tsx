@@ -171,7 +171,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
               centered
               className={clsx(
                 "transition-hover",
-                isHovering || speaking || !!onRegenerate ? "opacity-1" : "opacity-0",
+                isHovering || speaking || !!onRegenerate ? "opacity-1" : "sm:opacity-0",
               )}
             >
               <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />

@@ -15,17 +15,15 @@ type ChatPageLayoutProps = {
 
 export const revalidate = 0;
 
-
 async function getData() {
   const bots = await fetchBots();
   return bots
 }
 
-
 export default async function ChatPageLayout({ children, params }: ChatPageLayoutProps) {
   const bots = await getData();
   const selectedBot = bots.find((bot) => bot.slug === params.slug) || bots[0];
-  console.log('params',params)
+
   return (
     <ChatContextProvider bot={selectedBot}>
       <LandingLayout>
