@@ -9,6 +9,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import styles from "./ChatMessages.module.scss";
 import { throttle } from "#/lib/helpers/functions/throttle";
 import { collateBotTraining } from "#/app/chat/lib/helpers/bot-helpers";
+import Spinner from "#/ui/atoms/svgs/Spinner";
 
 type ChatMessagesProps = {
   /**
@@ -74,8 +75,17 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
     };
   }, [messagesEndRef, textareaRef]);
 
-  if (!selectedConversation) {
-    return <div>Loading</div>;
+  if (!selectedConversation || !bot) {
+    return (
+        <ul
+      className={clsx(styles.root, "h-full max-h-full overflow-x-hidden bg-base-100")}
+      ref={chatContainerRef}
+    >
+      <div className="flex align-center relative top-8 left-8">
+        <Spinner />
+        Loading Conversation
+      </div>
+    </ul>)
   }
 
   const incomingAnswerMessage = answerStream
@@ -84,9 +94,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
 
   const trainingContent = collateBotTraining(bot);
 
-  return !selectedConversation || !bot ? (
-    <div>Loading</div>
-  ) : (
+  return (
     <ul
       className={clsx(styles.root, "h-full max-h-full overflow-x-hidden bg-base-100")}
       ref={chatContainerRef}

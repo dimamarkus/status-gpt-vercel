@@ -53,12 +53,12 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
       <Collapsible
         as="header"
         title={sidebarHeader}
-        className="mb-4 px-2"
-        titleClassName="flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 p-0 mx-2 font-medium"
+        className="mb-4"
+        titleClassName="flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 px-2 mx-2 font-medium hover:bg-white/50 dark:hover:bg-black/10"
         slug="botSelect"
         peekOnHover
       >
-        <ChatBots bots={botOptions} className="rounded-sm bg-white/50 pb-2 dark:bg-black/10" />
+        <ChatBots bots={botOptions} className="rounded-sm bg-white/50 mx-2 p-0 dark:bg-black/10" />
       </Collapsible>
 
       <ChatSidebarSection

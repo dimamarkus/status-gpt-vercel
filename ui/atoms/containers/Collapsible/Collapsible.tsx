@@ -2,6 +2,7 @@ import { ElementProps } from "#/lib/types";
 import clsx from "clsx";
 import React, { ElementType, HTMLAttributes } from "react";
 import styles from "./Collapsible.module.scss";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
   /**
@@ -25,11 +26,16 @@ export const Collapsible = (props: CollapsibleProps) => {
 
   return (
     <Element className={clsx(styles.collapsible, peekOnHover && styles.peekOnHover, className)}>
-      <input type="checkbox" id={id} style={{ display: "none" }} />
+      <input type="checkbox" id={id} style={{ display: "none" }} className="peer"  />
       <label htmlFor={id} className={titleClassName}>
         {title}
       </label>
-      <div>{children}</div>
+      <div className={styles.collapsibleContent}>{children}</div>
+      <ChevronRightIcon
+        width={12}
+        height={12}
+        className="animate-rotate ml-auto peer-checked:rotate-90 absolute top-8 right-4 transform transition-transform duration-300"
+      />
     </Element>
   );
 };

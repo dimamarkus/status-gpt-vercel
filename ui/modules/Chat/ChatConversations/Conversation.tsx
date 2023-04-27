@@ -64,7 +64,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
   const conversationColorStyles = "hover:bg-blue-200/50 dark:hover:bg-slate-700/25";
 
   const itemStyles = clsx(
-    "flex w-full cursor-pointer items-center gap-3 rounded-lg p-3 text-sm transition-colors duration-200 ",
+    "flex w-full cursor-pointer items-center gap-3 rounded-lg py-3 px-2 text-sm transition-colors duration-200 ",
     loading && "disabled:cursor-not-allowed",
     conversationColorStyles,
   );
@@ -77,7 +77,7 @@ export const ConversationItem: FC<Props> = ({ conversation }) => {
   const isSelected = selectedConversation?.id === conversation.id;
   const BubbleIcon = isSelected ? SolidChatBubbleLeftIcon : ChatBubbleLeftIcon;
   return !selectedConversation ? (
-    <li>Loading</li>
+    <li>Add a conversation to start</li>
   ) : (
     <li className="relative flex items-center" ref={ref}>
       {isRenaming && isSelected ? (

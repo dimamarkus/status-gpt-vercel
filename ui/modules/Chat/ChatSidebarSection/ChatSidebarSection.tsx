@@ -25,10 +25,10 @@ export const ChatSidebarSection: FC<ChatSidebarSectionProps> = (props) => {
 
   const isSectionOpen = sidebar[section];
   const inputName = `${section}-input`;
-  const titleStyles = "collapse-title flex items-center text-xs pb-4 p-0 min-h-0";
-  const contentStyles = "collapse-content flex h-full flex-col p-0";
+  const titleStyles = "collapse-title flex items-center text-xs p-2 min-h-0 hover:bg-white/50 rounded rounded-b-none";
+  const contentStyles = "collapse-content flex h-full flex-col p-0 px-2";
   const rootStyles = clsx(
-    "collapse flex flex-col px-4 font-normal",
+    "collapse flex flex-col px-2 font-normal",
     shrinkable ? "flex-shrink" : "flex-shrink-0",
     className,
   );

@@ -26,7 +26,7 @@ export const ChatBots = ({ bots, className }: ChatBots) => {
           href={`/chat/${botOption.slug}`}
           title={botOption.name}
           className={clsx(
-            "flex cursor-pointer items-center rounded-md p-2 hover:bg-blue-200 dark:hover:bg-slate-800",
+            "flex cursor-pointer items-center p-2 hover:bg-slate-200 dark:hover:bg-slate-800",
           )}
         >
           <ChatMessageAvatar avatarUrl={getBotAvatar(botOption, true)} />

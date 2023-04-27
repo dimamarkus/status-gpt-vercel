@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { Search } from "./Search";
+import Spinner from "#/ui/atoms/svgs/Spinner";
 
 export const ChatConversations = () => {
   const {
@@ -64,9 +65,9 @@ export const ChatConversations = () => {
     <>
       <header className="flex flex-col gap-4">
         {hasConversations && (
-          <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mx-1 mt-1" />
+          <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mt-1" />
         )}
-        <div className="mx-1 flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <button
             className="link-primary flex flex-grow cursor-pointer select-none items-center gap-3 rounded-md border border-primary/20 p-3 text-[12.5px] leading-3 transition-colors duration-200 hover:bg-gray-500/10"
             onClick={handleAddConversation}
@@ -95,9 +96,10 @@ export const ChatConversations = () => {
         <Conversations conversations={filteredData.rootConversations} />
       )}
       {!rootConversations.length && !folders.length && (
-        <div className="mt-8 select-none text-center opacity-50">
-          <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} />
-          <span className="text-[12.5px] leading-3">No conversations.</span>
+        <div className="my-8 px-4 select-none text-center flex align-center justify-center opacity-50">
+          <Spinner/>
+          {/* <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} /> */}
+          <span className="text-[12.5px] leading-3">Loading conversations.</span>
         </div>
       )}
 
