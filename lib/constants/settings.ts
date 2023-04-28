@@ -41,7 +41,7 @@ export const DEFAULT_FEATURES: Features = {
   showTokens: false,
 };
 
-export const DEFAULT_CHAT_BOT: Bot["slug"] = "stat";
+export const DEFAULT_CHAT_BOT: Bot["slug"] = "omni";
 
 export const CHAT_BOT_INPUT_MAX_CHARS = 1000;
 
