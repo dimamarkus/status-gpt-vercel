@@ -6,7 +6,7 @@ import { isBrainaics } from "#/lib/helpers/env-helpers";
 import { Language } from "#/lib/types";
 import { Bot, BotTrainingMap } from "#/lib/types/cms";
 
-export const SITE_TITLE = isBrainaics ? "Brainaics" : "Status AIdvisor";
+export const SITE_TITLE = "aBLT Chat"
 
 export const DEFAULT_SIDEBAR = "sidebar-pane";
 

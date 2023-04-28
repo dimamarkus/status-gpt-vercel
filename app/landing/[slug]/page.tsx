@@ -25,7 +25,7 @@ export const revalidate = 0;
 export async function generateMetadata({ params }: LandingPagePageProps) {
   // TODO - see if fetches are cached and switch to fetchLandingPages() to save on page call
   const landingPage = await fetchLandingPage(params.slug);
-  const name = landingPage?.title || "AIdvisor Chat";
+  const name = landingPage?.title || "aBLT Chat";
   return { title: getTitlePrefix() + name + ` | ${SITE_TITLE}` };
 }
 

@@ -3,13 +3,13 @@ import { StatusChatMessage } from "#/app/chat/lib/types";
 import { Language } from "#/lib/types";
 
 export const LANGUAGES: Language[] = [
-  "English",
   "Arabic",
+  "Chinese",
+  "English",
   "French",
-  "Russian",
+  "Greek",
   "Spanish",
-  "Klingon",
-  "Pig Latin",
+  "Russian",
 ];
 
 //  AI MODELS

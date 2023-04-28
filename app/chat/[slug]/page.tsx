@@ -24,7 +24,7 @@ export const revalidate = 0;
 export async function generateMetadata({ params }: BotPageProps) {
   const bots = await fetchBots();
   const bot = bots.find((bot) => bot.slug === params.slug);
-  const name = bot?.name || "AIdvisor Chat";
+  const name = bot?.name || "aBLT Chat";
   return { title: getTitlePrefix() + name + ` | ${SITE_TITLE}` };
 }
 

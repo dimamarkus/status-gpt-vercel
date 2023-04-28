@@ -1,6 +1,6 @@
 {
-  "name": "StatusMoney AIdvisor",
-  "short_name": "AIvisor",
+  "name": "aBLT Chat",
+  "short_name": "aBLT",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000030",

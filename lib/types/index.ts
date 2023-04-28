@@ -13,10 +13,10 @@ export type CommonSizes = "xs" | "sm" | "md" | "lg" | "xl";
 export type CommonSpacings = CommonSizes | "none" | "full";
 
 export type Language =
-  | "English"
   | "Arabic"
-  | "Spanish"
+  | "Chinese"
+  | "English"
   | "French"
+  | "Greek"
+  | "Spanish"
   | "Russian"
-  | "Klingon"
-  | "Pig Latin";
