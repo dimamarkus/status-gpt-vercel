@@ -33,7 +33,11 @@ const navItems = (
 // <AuthButtons className="navbar-end" />
 // </Suspense>
 
-const TopBar = () => {
+type TopBarProps = {
+  logo?: string;
+};
+
+const TopBar = ({ logo }: TopBarProps) => {
   const mobileMenu = (
     <div className="dropdown">
       <label tabIndex={0} className="btn-ghost btn lg:hidden">
@@ -51,7 +55,7 @@ const TopBar = () => {
     <header className="z-1 navbar relative md:px-0 md:py-4">
       <div className="navbar-start w-full md:pl-0 pl-1">
         {/* {mobileMenu} */}
-        <Logo />
+        <Logo src={ logo }/>
         {/* {navItems} */}
       </div>
       <NewChatButton className="navbar-end" />

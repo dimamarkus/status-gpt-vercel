@@ -8,9 +8,10 @@ import {
   CmsResource,
   CmsResourceSlug,
   CmsResponse,
+  GlobalSettings,
   LandingPage,
 } from "#/lib/types/cms";
-import { StrapiArrayResponse, StrapiOperator, StrapiSingleResponse } from "#/lib/types/strapi";
+import { StrapiArrayResponse, StrapiBasicResponse, StrapiOperator, StrapiSingleResponse } from "#/lib/types/strapi";
 
 // ============================================================================
 //  BASE
@@ -77,13 +78,22 @@ export async function getResourcesFromCms<T extends CmsResource>(
   return await makeCmsRequest<StrapiArrayResponse<T>, {}>(url, "GET");
 }
 
+export async function getFromCms<T extends CmsResource>(
+  endpoint: CmsResourceSlug,
+  populate?: boolean,
+): Promise<StrapiBasicResponse<T>> {
+  const url = endpoint + (populate ? "?populate=*" : "");
+
+  return await makeCmsRequest<StrapiBasicResponse<T>, {}>(url, "GET");
+}
+
 export async function getResourceFromCms<T extends CmsResource>(
   endpoint: CmsResourceSlug,
   id?: string,
   populate?: boolean,
 ): Promise<StrapiSingleResponse<T>> {
   const resourcePath = id ? `${endpoint}/${id}` : endpoint;
-  const url = resourcePath + (populate ? "?populate=$" : "");
+  const url = resourcePath + (populate ? "?populate=*" : "");
 
   return await makeCmsRequest<StrapiSingleResponse<T>, {}>(url, "GET");
 }
@@ -148,8 +158,13 @@ export async function fetchBot(slug: Bot["slug"]): Promise<Bot> {
 }
 
 export async function fetchChatSettings(): Promise<ChatSettings> {
-  const response = await getResourcesFromCms<ChatSettings>("chat-setting");
-  return await extractResource(response);
+  const response = await getFromCms<ChatSettings>("chat-setting", true);
+  return response?.data?.attributes
+}
+
+export async function fetchGlobalSettings(): Promise<GlobalSettings> {
+  const response = await getFromCms<GlobalSettings>("branding", true);
+  return response?.data?.attributes
 }
 
 export async function updateChatSettings(settings: ChatSettings): Promise<ChatSettings> {

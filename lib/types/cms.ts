@@ -21,13 +21,32 @@ export type CmsMultiRelation<Type extends CmsResource> = StrapiArrayResponse<Typ
 export type CmsRelation<T extends CmsResource> = CmsSingleRelation<T> | CmsMultiRelation<T>;
 
 // ================================================================================================
+//  RESOURCES - Global Settings
+// ================================================================================================
+export type GlobalSettings = {
+  logo?: StrapiMediaAttribute<StrapiMedia>;
+  site_title?: string
+  site_description?: string
+  primary_color?: string
+  // siteName?: string
+  // siteDescription?: string
+  // defaultSeo: {
+  //   metaTitle?: string
+  //   metaDescription?: string
+  //   shareImage?: StrapiMediaAttribute<StrapiMedia>
+  // }
+}
+
+// ================================================================================================
 //  RESOURCES - BOT
 // ================================================================================================
-export type CmsResource = Bot | BotTraining | ChatSettings | LandingPage;
+export type CmsResource = Bot | BotTraining | ChatSettings | LandingPage | GlobalSettings;
 export type CmsResourceSlug =
   | "bots"
   | "chat-setting"
+  | "global"
   | "landing-pages"
+  | "branding"
   | "promotions" // BotTraining
   | "chat-contents" // BotTraining
   | "chat-styles" // BotTraining

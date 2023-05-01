@@ -19,9 +19,9 @@ const getFavicon = () => {
 };
 
 export const globalMetadata = {
-  title: getTitlePrefix() + "AI Financial Coach | StatusMoney",
+  title: getTitlePrefix() + "aBLT",
   // template: "%s | Next.js App Router",
-  description: "Your personal financial advisor powered by AI",
+  description: "Your personal AI",
   favicon: getFavicon(),
   icons: {
     favicon: getFavicon(),

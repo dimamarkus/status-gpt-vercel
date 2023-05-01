@@ -21,6 +21,8 @@ const nextConfig = withBundleAnalyzer({
       "ai.statusmoney.com",
       "brainaics.com",
       "cms.brainaics.com",
+      "strapi-acrew.s3.amazonaws.com",
+      "strapi-harvard.s3.amazonaws.com",
       process.env.STRAPI_S3_BUCKET_URL,
     ],
   },

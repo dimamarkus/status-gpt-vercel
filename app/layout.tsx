@@ -7,11 +7,22 @@ import "#/styles/index.scss";
 import GoogleAnalytics from "#/ui/atoms/util/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 import { globalMetadata } from "./metadata";
+import { fetchGlobalSettings } from "#/lib/databases/cms";
 
 // This will ensure that every time a new route is loaded, our session data in RootLayout will always be up-to-date.
 export const revalidate = 0;
 
-export const metadata = globalMetadata;
+export async function generateMetadata() {
+  const globalSettings = await fetchGlobalSettings();
+  console.log('globalSettings', globalSettings)
+  if (globalSettings) {
+    return {
+      ...globalMetadata,
+      title: globalSettings.site_title,
+    }
+  }
+  return globalMetadata
+}
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 

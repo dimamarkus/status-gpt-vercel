@@ -61,6 +61,12 @@ export type BaseStrapiResource<Type extends Record<string, unknown>> = {
 
 //  API Response
 // ============================================================================
+export type StrapiBasicResponse<T extends CmsResource> = Response & {
+  id: SchemaUID;
+  data: BaseStrapiResource<T> & StrapiTimestamps;
+  meta: {};
+};
+
 export type StrapiSingleResponse<T extends CmsResource> = Response & {
   data: BaseStrapiResource<T>;
   meta: {}; // Pagination state, locaels, publication state, etc
@@ -73,6 +79,7 @@ export type StrapiArrayResponse<T extends CmsResource> = StrapiSingleResponse<T>
   };
 
 export type StrapiResponse<T extends CmsResource> =
+  | StrapiBasicResponse<T>
   | StrapiSingleResponse<T>
   | StrapiArrayResponse<T>;
 

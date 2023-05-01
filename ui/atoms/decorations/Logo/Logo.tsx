@@ -2,14 +2,18 @@ import StatusLogo from "#/ui/atoms/svgs/StatusLogo";
 import ABLTLogo from "#/ui/atoms/svgs/ABLTLogo";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { isBrainaics } from "#/lib/helpers/env-helpers"
 
 type LogoProps = {
   children?: React.ReactNode;
+  src?: string
 };
 
 export const Logo = (props: LogoProps) => {
+  const { src } = props;
+
+
   const companyName = isBrainaics ? (
     <>
       aBLT<span className="cyan-gradient-animation font-light">.ai</span>
@@ -26,11 +30,15 @@ export const Logo = (props: LogoProps) => {
       href="/"
     >
       {/* { !isBrainaics && <StatusLogo className="text-slate-700 dark:text-slate-100" /> } */}
-      <ABLTLogo className="text-slate-700 dark:text-slate-100 w-8" />
-      <h1 className="logo m-0 text-2xl font-bold leading-6">
-        {companyName}
-        {/* <small className="display-block font-sans text-xs font-normal text-slate-400 "> BETA</small> */}
-      </h1>
+      { !!src ? <Image src={src} width={128} height={32} alt={"Logo"} /> : (
+        <>
+          <ABLTLogo className="text-slate-700 dark:text-slate-100 w-8" />
+          <h1 className="logo m-0 text-2xl font-bold leading-6">
+            {companyName}
+            {/* <small className="display-block font-sans text-xs font-normal text-slate-400 "> BETA</small> */}
+          </h1>
+        </>
+      ) }
     </Link>
   );
 };
