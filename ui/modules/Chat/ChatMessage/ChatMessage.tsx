@@ -18,8 +18,11 @@ import clsx from "clsx";
 import { useState } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 import styles from "./ChatMessage.module.scss";
+import Spinner from "#/ui/atoms/svgs/Spinner";
+import LoadingDots from "#/ui/atoms/decorations/LoadingDots/LoadingDots";
 
-type ChatMessageProps = Omit<StatusChatMessage, "role"> & {
+type ChatMessageProps = Omit<StatusChatMessage, "role" | "content"> & {
+  content?: string;
   role?: GptRole;
   avatarUrl?: string;
   /**
@@ -50,10 +53,6 @@ export const ChatMessage = (props: ChatMessageProps) => {
   const { speaking, cancel } = speechContext;
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isHovering, setIsHovering] = useState<boolean>(false);
-
-  if (!props.content) {
-    return null;
-  }
 
   const avatarUrl = !!bot?.avatar?.data ? getMediaUrl(bot.avatar.data.attributes.url) : undefined;
 
@@ -119,7 +118,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         text="Stop Generating"
         title="Stop generating a response"
         size="sm"
-        className="gap-0 text-xs"
+        className="gap-0 text-xs flex"
       />
     </>
   );
@@ -128,6 +127,34 @@ export const ChatMessage = (props: ChatMessageProps) => {
     speaking && cancel();
     speaking && onStop && onStop();
   };
+
+  const innerMessage = !content ? <LoadingDots className="relative top-2" /> : (
+    isEditing && messageIndex ? (
+      <ChatMessageEdit
+        message={createChatMessage("user", content)}
+        messageIndex={messageIndex}
+        setEditModeOff={() => setIsEditing(false)}
+      />
+    ) : (
+      <>
+        <ParsedMarkdown2 content={content} className={contentStyles} />
+        <Duo
+          gap="full"
+          centered
+          className={clsx(
+            "transition-hover",
+            isHovering || speaking || !!onRegenerate ? "opacity-1" : "sm:opacity-0",
+          )}
+        >
+          <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
+          <div className="flex">
+            {editButton || regenerateButton}
+            <CopyButton content={content} className={buttonStyles} />
+          </div>
+        </Duo>
+      </>
+    )
+  )
 
   return (
     <li
@@ -157,31 +184,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
         {stopButton}
       </div>
       <div className={bubbleStyles}>
-        {isEditing && messageIndex ? (
-          <ChatMessageEdit
-            message={createChatMessage("user", content)}
-            messageIndex={messageIndex}
-            setEditModeOff={() => setIsEditing(false)}
-          />
-        ) : (
-          <>
-            <ParsedMarkdown2 content={content} className={contentStyles} />
-            <Duo
-              gap="full"
-              centered
-              className={clsx(
-                "transition-hover",
-                isHovering || speaking || !!onRegenerate ? "opacity-1" : "sm:opacity-0",
-              )}
-            >
-              <ChatSpeakButton text={content} {...speechContext} className="-ml-1" />
-              <div className="flex">
-                {editButton || regenerateButton}
-                <CopyButton content={content} className={buttonStyles} />
-              </div>
-            </Duo>
-          </>
-        )}
+        {innerMessage}
       </div>
     </li>
   );

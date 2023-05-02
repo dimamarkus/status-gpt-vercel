@@ -87,7 +87,7 @@ export const BaseButton = (props: BaseButtonProps) => {
   const buttonStyles = clsx(
     "h-fit",
     getColorClass(),
-    isIcon && text && "gap-2",
+    isIcon && text && (size === "sm" ? "gap-1" : "gap-2"),
     isIcon && !text && "p-1 min-h-fit",
     isBare && "w-fit min-h-fit p-0",
     isBare && !className?.includes("border") && "border-none", // Allow individual borders to be added to bare buttons

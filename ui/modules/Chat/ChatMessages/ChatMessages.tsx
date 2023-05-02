@@ -91,9 +91,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
     </ul>)
   }
 
-  const incomingAnswerMessage = answerStream
-    ? createChatMessage("assistant", answerStream)
-    : undefined;
+  const incomingAnswerMessage = createChatMessage("assistant", "")
 
   const trainingContent = collateBotTraining(bot);
 
@@ -132,15 +130,14 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
           ),
       )}
 
-      {incomingAnswerMessage && (
-        <ChatMessage
-          key={selectedConversation.messages.length + 1}
-          className={!answerStream && !loading ? "hidden" : ""}
-          isTalking={loading || !!answerStream}
-          {...incomingAnswerMessage}
-          onStop={() => appActions.cancelStream(false)}
-        />
-      )}
+      <ChatMessage
+        key={selectedConversation.messages.length + 1}
+        className={!answerStream && !loading ? "hidden" : ""}
+        isTalking={loading || !!answerStream}
+        {...incomingAnswerMessage}
+        content={answerStream}
+        onStop={() => appActions.cancelStream(false)}
+      />
 
       <div className="h-[162px]" ref={messagesEndRef} />
     </ul>
