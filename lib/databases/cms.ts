@@ -163,7 +163,7 @@ export async function fetchChatSettings(): Promise<ChatSettings> {
 }
 
 export async function fetchGlobalSettings(): Promise<GlobalSettings> {
-  const response = await getFromCms<GlobalSettings>("branding", true);
+  const response = await getFromCms<GlobalSettings>("global-setting", true);
   return response?.data?.attributes
 }
 

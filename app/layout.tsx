@@ -14,14 +14,32 @@ export const revalidate = 0;
 
 export async function generateMetadata() {
   const globalSettings = await fetchGlobalSettings();
-  console.log('globalSettings', globalSettings)
   if (globalSettings) {
+    const shareImage = globalSettings?.default_meta_image?.data?.attributes?.url
+    const socialMetadata = {
+      title: globalSettings.default_meta_title,
+      description: globalSettings.default_meta_description,
+      images: [{
+        url: shareImage,
+        width: 800,
+        height: 600,
+      }],
+    }
     return {
       ...globalMetadata,
-      title: globalSettings.site_title,
+      title: globalSettings.default_meta_title,
+      description: globalSettings.default_meta_description,
+      openGraph: {
+        ...socialMetadata,
+        url: process.env.APP_URL,
+        title: globalSettings.site_name,
+      },
+      twitter: socialMetadata,
+      appleWebApp: {
+        title: globalSettings.default_meta_title,
+      }
     }
   }
-  return globalMetadata
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

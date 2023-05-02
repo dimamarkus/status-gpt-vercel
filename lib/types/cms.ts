@@ -24,17 +24,14 @@ export type CmsRelation<T extends CmsResource> = CmsSingleRelation<T> | CmsMulti
 //  RESOURCES - Global Settings
 // ================================================================================================
 export type GlobalSettings = {
-  logo?: StrapiMediaAttribute<StrapiMedia>;
-  site_title?: string
+  site_name?: string
   site_description?: string
   primary_color?: string
-  // siteName?: string
-  // siteDescription?: string
-  // defaultSeo: {
-  //   metaTitle?: string
-  //   metaDescription?: string
-  //   shareImage?: StrapiMediaAttribute<StrapiMedia>
-  // }
+  favicon?: StrapiMediaAttribute<StrapiMedia>;
+  logo?: StrapiMediaAttribute<StrapiMedia>;
+  default_meta_title?: string
+  default_meta_description?: string
+  default_meta_image?: StrapiMediaAttribute<StrapiMedia>
 }
 
 // ================================================================================================
@@ -44,9 +41,8 @@ export type CmsResource = Bot | BotTraining | ChatSettings | LandingPage | Globa
 export type CmsResourceSlug =
   | "bots"
   | "chat-setting"
-  | "global"
+  | "global-setting"
   | "landing-pages"
-  | "branding"
   | "promotions" // BotTraining
   | "chat-contents" // BotTraining
   | "chat-styles" // BotTraining
