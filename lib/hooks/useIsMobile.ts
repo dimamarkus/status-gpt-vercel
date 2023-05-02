@@ -4,6 +4,7 @@ import MobileDetect from "mobile-detect";
 import { GetServerSidePropsContext } from "next";
 
 export const isMobile = () => {
+  if (typeof window === "undefined") return false;
   const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
   const mobileRegex =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i;
