@@ -89,7 +89,7 @@ export const BaseButton = (props: BaseButtonProps) => {
     getColorClass(),
     isIcon && text && "gap-2",
     isIcon && !text && "p-1 min-h-fit",
-    isBare && "w-fit min-h-fit p-0 capitalize",
+    isBare && "w-fit min-h-fit p-0",
     isBare && !className?.includes("border") && "border-none", // Allow individual borders to be added to bare buttons
     isTextOnly && "btn border-none hover:underline",
     !wrap && "flex-nowrap",

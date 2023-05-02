@@ -6,6 +6,7 @@ import React from "react";
 import styles from "./LandingLayout.module.scss";
 import { GlobalSettings } from "#/lib/types/cms";
 import { getAvatarUrl } from "#/lib/helpers/url-helpers";
+import Footer from "#/ui/molecules/Footer/Footer";
 
 type LandingLayoutProps = {
   ssr?: boolean;
@@ -24,9 +25,11 @@ export const LandingLayout = ({ children, ssr, globalSettings, className }: Land
         <main role="main">
           <TopBar logo={ logoUrl }/>
           {children}
+          <Footer />
         </main>
       </div>
     </Component>
   );
 };
+
 export default LandingLayout;

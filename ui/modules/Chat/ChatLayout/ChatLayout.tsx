@@ -22,7 +22,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const ref = useOutsideClick<HTMLDivElement>(() => isMobile && sidebarIsVisible && toggleSidebar());
 
   const rootStyles = clsx(
-    "statusChat flex h-full max-h-full overflow-hidden md:rounded drop-shadow-lg lg:flex-row dark:border-none md:mb-8",
+    "statusChat flex h-full max-h-full overflow-hidden md:rounded drop-shadow-lg lg:flex-row dark:border-none md:mb-4",
     isFullScreen && "absolute left-0 top-0 w-full h-full",
   );
 
