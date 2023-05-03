@@ -8,7 +8,7 @@ type FooterProps = {
 export const Footer = ({children}: FooterProps) => {
 
   return (
-    <footer className="flex w-full text-center justify-center mb-4 text-neutral-500 text-xs opacity-75 hover:opacity-100 transition">
+    <footer className="flex w-full text-center justify-center mb-4 text-neutral-500 text-xs opacity-75 hover:opacity-100 transition relative z-0">
       Powered by&nbsp;
       <BaseButton href="https://ablt.ai" text="aBLT.ai" flavor="bare" />
     </footer>

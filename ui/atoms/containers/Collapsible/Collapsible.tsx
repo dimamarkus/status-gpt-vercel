@@ -17,10 +17,11 @@ type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
   className?: string;
   titleClassName?: string;
   peekOnHover?: boolean
+  disabled?: boolean
 };
 
 export const Collapsible = (props: CollapsibleProps) => {
-  const { as: Element = "div", title, children, className, titleClassName, slug, peekOnHover } = props;
+  const { as: Element = "div", title, children, className, titleClassName, slug, peekOnHover, disabled } = props;
 
   const id = `collapsible-${slug}`;
 
@@ -31,11 +32,13 @@ export const Collapsible = (props: CollapsibleProps) => {
         {title}
       </label>
       <div className={styles.collapsibleContent}>{children}</div>
-      <ChevronRightIcon
-        width={12}
-        height={12}
-        className="animate-rotate ml-auto peer-checked:rotate-90 absolute sm:top-8 top-9 right-4 transform transition-transform duration-300"
-      />
+      {
+        !disabled && <ChevronRightIcon
+          width={12}
+          height={12}
+          className="animate-rotate ml-auto peer-checked:rotate-90 absolute sm:top-8 top-9 right-4 transform transition-transform duration-300"
+        />
+      }
     </Element>
   );
 };

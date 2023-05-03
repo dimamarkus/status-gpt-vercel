@@ -11,7 +11,8 @@ type BaseLayoutProps = {
   onKeyDown?: (e: React.KeyboardEvent) => void;
 };
 
-export const BaseLayout = ({ children, theme, onKeyDown, className = "" }: BaseLayoutProps) => {
+export const BaseLayout = (props: BaseLayoutProps) => {
+  const { children, theme, onKeyDown, className = "" } = props;
   return (
     <body
       className={clsx(styles.root, className)}

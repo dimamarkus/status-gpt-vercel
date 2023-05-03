@@ -15,6 +15,7 @@ import ChatSettings from "#/ui/modules/Chat/ChatSettings/ChatSettings";
 import ChatSidebarSection from "#/ui/modules/Chat/ChatSidebarSection/ChatSidebarSection";
 import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
+import clsx from "clsx";
 import { FC } from "react";
 
 type ChatSidebarProps = {
@@ -30,6 +31,12 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
   const botOptions = bots.filter(
     (bot) => (inProdEnv ? bot.is_featured : true) && bot.slug !== selectedBot.slug,
   );
+
+  const disableBotMenu = botOptions?.length <= 1
+  const headerStyles = clsx(
+    "flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 px-2 mx-2 font-medium",
+    !disableBotMenu && " hover:bg-white/50 dark:hover:bg-black/10"
+  )
 
   const sidebarHeader = (
     <>
@@ -54,9 +61,10 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         as="header"
         title={sidebarHeader}
         className="mb-4"
-        titleClassName="flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 px-2 mx-2 font-medium hover:bg-white/50 dark:hover:bg-black/10"
+        titleClassName={headerStyles}
         slug="botSelect"
         peekOnHover
+        disabled={ disableBotMenu }
       >
         <ChatBots bots={botOptions} className="rounded-sm bg-white/50 mx-2 p-0 dark:bg-black/10" />
       </Collapsible>

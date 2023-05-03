@@ -17,13 +17,12 @@ type ChatLayoutProps = {
 const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   const { settings } = useSettingsContext();
   const { isFullScreen, sidebarIsVisible, toggleSidebar } = useLayoutContext();
-  const { dataState, appState } = useChatContext()
   const isMobile = useIsMobile();
   const ref = useOutsideClick<HTMLDivElement>(() => isMobile && sidebarIsVisible && toggleSidebar());
 
   const rootStyles = clsx(
     "statusChat flex h-full max-h-full overflow-hidden md:rounded drop-shadow-lg lg:flex-row dark:border-none md:mb-4",
-    isFullScreen && "absolute left-0 top-0 w-full h-full",
+    isFullScreen && "absolute left-0 top-0 w-full h-full z-[1]",
   );
 
   const asideStyles = clsx(
