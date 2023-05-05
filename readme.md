@@ -25,11 +25,11 @@ pnpm dev
 
 ## Documentation
 
-https://beta.nextjs.org/docs
+<https://beta.nextjs.org/docs>
 
 ## Leave Feedback
 
-https://github.com/vercel/next.js/discussions/41745
+<https://github.com/vercel/next.js/discussions/41745>
 
 # Next.js Subscription Payments Starter
 
@@ -56,7 +56,7 @@ The all-in-one starter kit for high-performance SaaS applications.
 
 The Vercel deployment will guide you through creating a Supabase account and project. After installing the Supabase integration, you'll need to configure Stripe with a few simple steps.
 
-**Note:** We're working on our Stripe integration. We've documented the required steps below under "Configure Stripe" until the integration is ready.
+**Note:** We're working on our Stripe integration. We've documented the required steps below under "Configure Stripe" until the integration is ready..
 
 To get started, click the "Deploy with Vercel" button below.
 
