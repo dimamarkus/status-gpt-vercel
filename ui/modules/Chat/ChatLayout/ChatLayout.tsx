@@ -57,7 +57,7 @@ const ChatLayout = ({ children, sidebar }: ChatLayoutProps) => {
   return (
     <div className={clsx(styles.root, rootStyles, isFullScreen && styles.fullScreen)}>
       {!settings.sidebarRight && aside}
-      {isMobile && <Overlay className={sidebarIsVisible ? "opacity-100" : "opacity-0 top-24"} />}
+      {/* <Overlay className={sidebarIsVisible ? "opacity-100" : "md:opacity-100 opacity-0 top-24"} /> */}
       <section className={mainContentStyles}>{children}</section>
       {settings.sidebarRight && aside}
     </div>
