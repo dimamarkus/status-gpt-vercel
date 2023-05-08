@@ -11,6 +11,7 @@ const nextConfig = withBundleAnalyzer({
   swcMinify: true,
   experimental: {
     // experimentalReact: true,
+    serverActions: true,
     appDir: true, // Required:
   },
   images: {
@@ -21,6 +22,7 @@ const nextConfig = withBundleAnalyzer({
       "ai.statusmoney.com",
       "brainaics.com",
       "cms.brainaics.com",
+      "strapi-jfh.s3.amazonaws.com",
       "strapi-acrew.s3.amazonaws.com",
       "strapi-harvard.s3.amazonaws.com",
       process.env.STRAPI_S3_BUCKET_URL,

@@ -30,7 +30,7 @@ export const Logo = (props: LogoProps) => {
       href="/"
     >
       {/* { !isBrainaics && <StatusLogo className="text-slate-700 dark:text-slate-100" /> } */}
-      { !!src ? <Image src={src} width={100} height={24} alt={"Logo"} /> : (
+      { !!src ? <Image src={src} width={100} height={24} alt="Logo" priority className="w-auto h-auto"/> : (
         <>
           <ABLTLogo className="text-slate-700 dark:text-slate-100 w-8" />
           <h1 className="logo m-0 text-2xl font-bold leading-6">
