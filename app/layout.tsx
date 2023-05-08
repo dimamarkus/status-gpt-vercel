@@ -20,7 +20,7 @@ export async function generateMetadata() {
       title: globalSettings.default_meta_title,
       description: globalSettings.default_meta_description,
       images: [{
-        url: shareImage,
+        url: shareImage || "",
         width: 800,
         height: 600,
       }],
@@ -40,6 +40,7 @@ export async function generateMetadata() {
       }
     }
   }
+  return globalMetadata
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

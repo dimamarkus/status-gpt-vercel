@@ -1,4 +1,5 @@
 import { SITE_TITLE } from "#/lib/constants/settings";
+import { Metadata } from "next";
 
 export const getTitlePrefix = () => {
   if (process.env.NODE_ENV === "development") {
@@ -18,13 +19,11 @@ const getFavicon = () => {
   return "/favicon/favicon.ico";
 };
 
-export const globalMetadata = {
+export const globalMetadata: Metadata = {
   title: getTitlePrefix() + "aBLT",
   // template: "%s | Next.js App Router",
   description: "Your personal AI",
-  favicon: getFavicon(),
   icons: {
-    favicon: getFavicon(),
     other: [
       {
         rel: "apple-touch-icon",
@@ -36,20 +35,20 @@ export const globalMetadata = {
         type: "image/x-icon",
       },
     ],
-    appleIcon: "/favicon/apple-touch-icon.png",
-    appleIcon120: "/favicon/apple-touch-icon-120x120.png",
-    appleIcon152: "/favicon/apple-touch-icon-152x152.png",
-    appleIcon180: "/favicon/apple-touch-icon-180x180.png",
-    appleIcon167: "/favicon/apple-touch-icon-167x167.png",
-    appleIcon60: "/favicon/apple-touch-icon-60x60.png",
-    appleIcon76: "/favicon/apple-touch-icon-76x76.png",
-    appleIconPrecomposed: "/favicon/apple-touch-icon-precomposed.png",
-    appleStartup: "/favicon/apple-touch-startup-image-640x920.png",
-    favicon16: "/favicon/favicon-16x16.png",
-    favicon32: "/favicon/favicon-32x32.png",
-    favicon96: "/favicon/favicon-96x96.png",
-    msTileImage: "/favicon/mstile-144x144.png",
-    msTileColor: "#000030",
+    // appleIcon: "/favicon/apple-touch-icon.png",
+    // appleIcon120: "/favicon/apple-touch-icon-120x120.png",
+    // appleIcon152: "/favicon/apple-touch-icon-152x152.png",
+    // appleIcon180: "/favicon/apple-touch-icon-180x180.png",
+    // appleIcon167: "/favicon/apple-touch-icon-167x167.png",
+    // appleIcon60: "/favicon/apple-touch-icon-60x60.png",
+    // appleIcon76: "/favicon/apple-touch-icon-76x76.png",
+    // appleIconPrecomposed: "/favicon/apple-touch-icon-precomposed.png",
+    // appleStartup: "/favicon/apple-touch-startup-image-640x920.png",
+    // favicon16: "/favicon/favicon-16x16.png",
+    // favicon32: "/favicon/favicon-32x32.png",
+    // favicon96: "/favicon/favicon-96x96.png",
+    // msTileImage: "/favicon/mstile-144x144.png",
+    // msTileColor: "#000030",
   },
   manifest: "/manifest.json",
   themeColor: "#000030",

@@ -16,7 +16,7 @@ export const revalidate = 0;
 export async function generateMetadata({ params }: LandingPageLayoutProps) {
   const landing = !!params.slug ? await fetchLandingPage(params.slug) : null;
   if (!landing) {
-    return;
+    return {};
   }
   const { metaTitle, metaDescription } = landing.seo;
   return {

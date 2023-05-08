@@ -15,6 +15,7 @@ const nextConfig = withBundleAnalyzer({
     appDir: true, // Required:
   },
   images: {
+    dangerouslyAllowSVG: true,
     domains: [
       "localhost",
       "statusmoney.com",
@@ -25,6 +26,7 @@ const nextConfig = withBundleAnalyzer({
       "strapi-jfh.s3.amazonaws.com",
       "strapi-acrew.s3.amazonaws.com",
       "strapi-harvard.s3.amazonaws.com",
+      "img.shields.io",
       process.env.STRAPI_S3_BUCKET_URL,
     ],
   },

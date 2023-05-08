@@ -12,7 +12,7 @@ import { useIsMobile } from "#/lib/hooks/useIsMobile";
 import useUpdateEffect from "#/lib/hooks/useUpdateEffect";
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import ChatRangeInput from "#/ui/atoms/inputs/ChatRangeInput/ChatRangeInput";
-import { MicrophoneIcon } from "@heroicons/react/20/solid";
+import { MicrophoneIcon, StopIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { FC, KeyboardEvent, useEffect, useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
@@ -152,10 +152,23 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
     settings.autoSubmitSpeech && submitMessage();
   }
 
+  const stopButton = (
+    <BaseButton
+      flavor="icon"
+      icon={<StopIcon />}
+      onClick={() => appActions.cancelStream(false)}
+      text="Stop Generating"
+      title="Stop generating a response"
+      size="sm"
+      className="gap-0 text-xs flex"
+    />
+  );
+
   return (
     <form className={rootStyles} onSubmit={submitMessage}>
       <div className={wrapperStyles}>
         <ChatRangeInput className="absolute bottom-0 left-0 right-0 md:-top-2" />
+        { loading? stopButton : <ChatRangeInput className="absolute bottom-0 left-0 right-0 md:-top-2" /> }
         <fieldset className={fieldsetStyles}>
           <BaseButton
             type={settings.autoSubmitSpeech ? "submit" : "button"}
