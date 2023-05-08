@@ -262,7 +262,7 @@ class Conversations {
     return cy.get(`${this.self} button:contains('Add Conversation')`);
   }
 
-  get addConversationIcon() {
+  get addFolderButton() {
     return cy.get(`${this.self}  button.btn`);
   }
 
@@ -309,12 +309,8 @@ class Conversations {
     });
   }
 
-  addConversation(method = "icon") {
-    if (method == "icon") {
-      this.addConversationIcon.click();
-    } else {
-      this.addConversationButton.click();
-    }
+  addConversation() {
+    this.addConversationButton.click();
   }
 
   waitForElementsCount(expectedCount) {
@@ -336,6 +332,14 @@ class Conversations {
   get zeroState() {
     return cy.get('span:contains("No conversations.")');
   }
+
+  get confirmButton() {
+    return cy.get(`${this.self} svg.text-neutral-400`);
+  }
+
+  get cancelButton() {
+    return cy.get(`${this.self} svg.text-red-400`);
+  }
 }
 
 class ConversationItem {
@@ -344,6 +348,56 @@ class ConversationItem {
   }
 
   static itemSelector = "li.relative.flex.items-center";
+
+  get container() {
+    return cy.get(this.self);
+  }
+
+  get caption() {
+    return cy.get(`${this.self} div`);
+  }
+
+  get editButton() {
+    return cy.get(`${this.self} .visible button:nth-child(1)`);
+  }
+
+  get deleteButton() {
+    return cy.get(`${this.self} .visible button:nth-child(2)`);
+  }
+
+  get editInput() {
+    return cy.get(`${this.self} input`);
+  }
+
+  get confirmButton() {
+    return cy.get(`${this.self} .visible button.text-green-400`);
+  }
+
+  get cancelButton() {
+    return cy.get(`${this.self} .visible button.text-red-300`);
+  }
+
+  rename(newName) {
+    this.editButton.click();
+    this.editInput.clear().type(newName);
+    this.confirmButton.click();
+    this.caption.should("contain", newName);
+    this.editInput.should("not.exist");
+  }
+
+  delete() {
+    this.deleteButton.click();
+    this.confirmButton.click();
+    this.container.should("not.exist");
+  }
+}
+
+class folderItem {
+  constructor(selector) {
+    this.self = `${Conversations.itemSelector} li:not([class])${selector}`;
+  }
+
+  static itemSelector = "li:not([class])";
 
   get container() {
     return cy.get(this.self);

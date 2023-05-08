@@ -4,16 +4,18 @@
 // Date: 20.04.2023
 
 import GlobalHeader from "./components/globalHeader";
+import GlobalFooter from "./components/globalFooter";
 import Sidebar from "./components/chatSidebar";
 import Chat from "./components/chat";
 
 class ChatPage {
-  self = 'head title:contains("Brainaics")';
+  self = 'head title:contains("aBLT")';
   url = "/chat";
 
   // Initialize components
   constructor() {
     this.header = new GlobalHeader();
+    this.footer = new GlobalFooter();
     this.sidebar = new Sidebar();
     this.chat = new Chat();
   }

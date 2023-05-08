@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
 
 import ChatPage from "../pageObjects/chatPage";
+import RandomString from "../utils/helpers";
 
 describe("Testing Conversations", () => {
   let chatPage = new ChatPage();
   let conversations = chatPage.sidebar.conversations;
-  const add_methods = ["button", "icon"];
   function closedConversations() {
     conversations.close();
   }
@@ -18,7 +18,7 @@ describe("Testing Conversations", () => {
     conversations.container.should("be.visible");
     conversations.menu.should("be.visible");
     conversations.addConversationButton.should("be.visible");
-    conversations.addConversationIcon.should("be.visible");
+    conversations.addFolderButton.should("be.visible");
     conversations.filterInput.should("be.hidden");
     conversations.clearButton.should("not.exist");
     conversations.importButton.should("be.visible");
@@ -42,43 +42,71 @@ describe("Testing Conversations", () => {
     conversations.menu.should("not.be.visible");
   });
 
-  add_methods.forEach((param) => {
-    it(`Add conversation via ${param}`, () => {
-      openedConversations();
-      conversations.addConversation(param);
-      conversations.getAllItems().then((conversation_items) => {
-        conversation_items[0].container.should("be.visible");
-        conversation_items[0].caption.invoke("text").should("equal", "Untitled conversation");
-        conversation_items[0].editButton.should("be.visible");
-        conversation_items[0].deleteButton.should("be.visible");
-        conversation_items[0].editInput.should("not.exist");
-        conversation_items[0].confirmButton.should("not.exist");
-        conversation_items[0].cancelButton.should("not.exist");
-        conversations.clearButton.should("be.visible");
-        conversations.zeroState.should("not.exist");
-      });
-    });
-
-    it("Clear conversations [cancel]", () => {
-      // TODO: 1) rewrite with API 2) make test pass
-      openedConversations();
-      conversations.addConversation([Math.floor(Math.random() * add_methods.length)]);
-      conversations.zeroState.should("not.exist");
+  it(`Add conversation`, () => {
+    openedConversations();
+    conversations.addConversation();
+    conversations.getAllItems().then((conversation_items) => {
+      conversation_items[0].container.should("be.visible");
+      conversation_items[0].caption.invoke("text").should("equal", "Untitled conversation");
+      conversation_items[0].editButton.should("be.visible");
+      conversation_items[0].deleteButton.should("be.visible");
+      conversation_items[0].editInput.should("not.exist");
+      conversation_items[0].confirmButton.should("not.exist");
+      conversation_items[0].cancelButton.should("not.exist");
       conversations.clearButton.should("be.visible");
-      conversations.clearButton.click();
-      conversations.getAllItems().then((conversationItems) => {
-        expect(conversationItems.length).to.equal(0);
-        conversations.zeroState.should("be.visible");
-      });
+      conversations.zeroState.should("not.exist");
+    });
+  });
+
+  it("Clear conversations [cancel]", () => {
+    openedConversations();
+    conversations.addConversation();
+    conversations.zeroState.should("not.exist");
+    conversations.clearButton.should("be.visible");
+    conversations.clearButton.click();
+    conversations.cancelButton.should("be.visible");
+    conversations.cancelButton.click();
+    conversations.getAllItems().then((conversationItems) => {
+      expect(conversationItems.length).to.equal(1);
     });
   });
 
   it("Clear conversations [submit]", () => {
-    // TBD
+    openedConversations();
+    conversations.addConversation();
+    conversations.zeroState.should("not.exist");
+    conversations.clearButton.should("be.visible");
+    conversations.clearButton.click();
+    conversations.confirmButton.should("be.visible");
+    conversations.confirmButton.click();
+    conversations.addConversationButton.should("be.visible");
+    conversations.addFolderButton.should("be.visible");
+    conversations.filterInput.should("be.hidden");
+    conversations.clearButton.should("not.exist");
+    conversations.importButton.should("be.visible");
+    conversations.exportButton.should("be.visible");
+    conversations.zeroState.should("be.visible");
   });
 
-  it("Rename conversation", () => {
-    // TBD
+  it("Rename conversation [cancel]", () => {
+    // TODO: make test pass
+    openedConversations();
+    conversations.addConversation();
+    let conversation = conversations.getAllItems()[0];
+    conversation.editButton.should("be.visible");
+    conversation.editButton.click();
+    conversation.editInput.should("be.visible");
+    const old_name = conversation.caption.invoke("text");
+    const new_name = RandomString();
+    conversation.editInput.type(new_name);
+    conversation.cancelButton.should("be.visible");
+    conversation.cancelButton.click();
+    conversation.cancelButton.should("not.exist");
+    conversation.editInput.should("not.exist");
+    conversation.caption.then((text) => {
+      expect(new_text).not.to.equal(text);
+      expect(old_text).to.equal(text);
+    });
   });
 
   it("Add several conversations", () => {

@@ -16,36 +16,17 @@ class GlobalHeader {
     return cy.get(`${this.self} .logo`);
   }
 
-  // About link locator
-  get aboutLink() {
-    return cy.get(`${this.self} a:contains("About")`);
-  }
-
-  // Create link locator
-  get createLink() {
-    return cy.get(`${this.self} a:contains("Create")`);
-  }
-
-  // Sign In link locator
-  get signInLink() {
-    return cy.get(`${this.self} a:contains("Sign In")`);
-  }
-
-  // Sign Up link locator
-  get signUpLink() {
-    return cy.get(`${this.self} a:contains("Sign Up")`);
-  }
-
   // Theme toggle button locator
   get themeToggleButton() {
     return cy.get(`${this.self} button[title="Toggle dark mode"]`);
   }
 
+  get newChatButton() {
+    return cy.get(`${this.self} button`).contains("New Chat");
+  }
+
   // Hints for the links
-  aboutLinkHint = "Learn about Status Money's work with AI";
-  createLinkHint = "Learn about Status Money's work with AI";
-  signInLinkHint = "Sign in to your Status Money account.";
-  signUpLinkHint = "Sign up and create your own bots";
+  newChat = "Start a new conversation";
 }
 
 export default GlobalHeader;
