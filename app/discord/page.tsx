@@ -19,12 +19,7 @@ async function getData() {
 }
 
 export default async function DiscordPage() {
-  // const { user } = useAuthContext();
   const data = await getData()
-
-  // if (!!user) {
-  //   redirect("/profile");
-  // }
 
   return (
     <div>
@@ -40,11 +35,11 @@ export default async function DiscordPage() {
             height="200"
           />
         </a>
-        <a href="https://discord.gg/NmXuqGgkb3">Try it out on this Discord server</a>
+        {/* <a href="https://discord.gg/NmXuqGgkb3">Try it out on this Discord server</a> */}
         <p>or</p>
         <a
           style={{ display: "block" }}
-          href="https://discord.com/api/oauth2/authorize?client_id=837427503059435530&permissions=2147483648&scope=bot%20applications.commands"
+          href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_APP_ID}&permissions=2147483648&scope=bot%20applications.commands`}
         >
           Add NextBot to your server!
         </a>
