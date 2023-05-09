@@ -15,6 +15,7 @@ import ChatSettings from "#/ui/modules/Chat/ChatSettings/ChatSettings";
 import ChatSidebarSection from "#/ui/modules/Chat/ChatSidebarSection/ChatSidebarSection";
 import ChatStats from "#/ui/modules/Chat/ChatStats/ChatStats";
 import ChatSuggestions from "#/ui/modules/Chat/ChatSuggestions/ChatSuggestions";
+import Footer from "#/ui/molecules/Footer/Footer";
 import clsx from "clsx";
 import { FC } from "react";
 
@@ -99,6 +100,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
       <ChatSidebarSection title="Settings" section="settings">
         <ChatSettings />
       </ChatSidebarSection>
+      <Footer className="ml-4 mt-2"/>
     </>
   );
 };
