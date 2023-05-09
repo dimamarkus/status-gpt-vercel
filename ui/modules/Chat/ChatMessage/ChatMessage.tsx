@@ -40,14 +40,12 @@ type ChatMessageProps = Omit<StatusChatMessage, "role" | "content"> & {
   messageIndex?: number;
   className?: string;
   onRegenerate?: () => void;
-  onStop?: () => void;
 };
 
 export const ChatMessage = (props: ChatMessageProps) => {
   const { features } = useFeatureToggleContext();
   const {
     dataState: { bot },
-    appState: { loading },
   } = useChatContext();
   const speechContext = useSpeechSynthesis();
   const { speaking, cancel } = speechContext;
@@ -56,15 +54,14 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
   const avatarUrl = !!bot?.avatar?.data ? getMediaUrl(bot.avatar.data.attributes.url) : undefined;
 
-  const { content, role, tokens, isTalking, time, className, messageIndex, onRegenerate, onStop } =
-    props;
+  const { content, role, tokens, isTalking, time, className, messageIndex, onRegenerate } = props;
 
   const isUser = role === "user";
   const isSystem = role === "system";
 
   const rootStyles = clsx(
     styles.root,
-    "chat m-0 p-4 pb-0",
+    "chat m-0 sm:p-4 py-4 pl-1 pr-2 pb-0",
     isUser ? [styles.alignRight, "chat-end"] : "chat-start",
     className,
   );
@@ -108,24 +105,8 @@ export const ChatMessage = (props: ChatMessageProps) => {
     </>
   );
 
-  const stopButton = onStop && loading && (
-    <>
-      <small className="text-xs text-neutral-400">|</small>
-      <BaseButton
-        flavor="icon"
-        icon={<StopIcon />}
-        onClick={onStop}
-        text="Stop Generating"
-        title="Stop generating a response"
-        size="sm"
-        className="gap-0 text-xs flex"
-      />
-    </>
-  );
-
   const handleAvatarClick = () => {
     speaking && cancel();
-    speaking && onStop && onStop();
   };
 
   const innerMessage = !content ? <LoadingDots className="relative top-2" /> : (
@@ -169,7 +150,7 @@ export const ChatMessage = (props: ChatMessageProps) => {
           avatarUrl={avatarUrl}
           isTalking={isTalking || speaking}
           role={role}
-          className={clsx("mt-5 hidden md:block", speaking && "cursor-pointer")}
+          className={clsx("mt-5 hidden md:block w-16 h-16", speaking && "cursor-pointer")}
           onClick={speaking ? handleAvatarClick : undefined}
         />
       )}
@@ -181,7 +162,6 @@ export const ChatMessage = (props: ChatMessageProps) => {
             <small className="text-xs text-orange-500">{tokens} Tokens</small>
           </>
         )}
-        {stopButton}
       </div>
       <div className={bubbleStyles}>
         {innerMessage}
