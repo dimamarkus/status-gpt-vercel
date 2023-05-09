@@ -20,10 +20,12 @@ export const LanguageSelect = ({ className }: LanguageSelectProps) => {
   };
 
   return (
-    <label className="label flex flex-col items-start">
-      <span className="label-text mb-2">Bot Language</span>
+    <label className={ clsx("label flex flex-col items-start", className) }>
+      <span className="label-text mb-2 text-[12.5px] font-light text-neutral-content">
+        Bot Language
+      </span>
       <select
-        className={clsx("select w-full max-w-xs dark:text-white")}
+        className={"select select-sm w-full max-w-xs dark:text-white leading-none"}
         onChange={handleChange}
         value={settings.language}
       >
