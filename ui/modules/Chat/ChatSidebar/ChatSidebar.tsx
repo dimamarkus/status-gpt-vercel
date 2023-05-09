@@ -35,8 +35,8 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
 
   const disableBotMenu = botOptions?.length <= 1
   const headerStyles = clsx(
-    "flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 px-2 mx-2 font-medium",
-    !disableBotMenu && " hover:bg-white/50 dark:hover:bg-black/10"
+    "flex dark:border-slate-800/75 flex-shrink-0 items-center space-x-4 p-4 font-medium",
+    !disableBotMenu && "hover:bg-white/50 dark:hover:bg-black/10"
   )
 
   const sidebarHeader = (
@@ -49,7 +49,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
       />
       <Duo vertical gap="none" className="pr-2">
         <h2 className="mb-1 sm:text-md text-md dark:text-white">{selectedBot.name}</h2>
-        <small className="font-normal text-slate-600 dark:text-slate-400">
+        <small className="font-normal text-secondary-content/75 dark:text-primary-content leading-normal">
           {selectedBot.description}
         </small>
       </Duo>
@@ -61,13 +61,12 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
       <Collapsible
         as="header"
         title={sidebarHeader}
-        className="mb-4"
         titleClassName={headerStyles}
         slug="botSelect"
         peekOnHover
         disabled={ disableBotMenu }
       >
-        <ChatBots bots={botOptions} className="rounded-sm bg-white/50 mx-2 p-0 dark:bg-black/10" />
+        <ChatBots bots={botOptions} className="rounded-sm bg-white/50 p-0 dark:bg-black/10" />
       </Collapsible>
 
       <ChatSidebarSection

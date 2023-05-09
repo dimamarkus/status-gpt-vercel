@@ -26,13 +26,13 @@ export const ChatBots = ({ bots, className }: ChatBots) => {
           href={`/chat/${botOption.slug}`}
           title={botOption.name}
           className={clsx(
-            "flex cursor-pointer items-center p-2 hover:bg-slate-200 dark:hover:bg-slate-800",
+            "flex cursor-pointer sm:items-center items-start p-2 hover:bg-slate-200 dark:hover:bg-slate-800 md:pl-4",
           )}
         >
-          <ChatMessageAvatar avatarUrl={getBotAvatar(botOption, true)} />
+          <ChatMessageAvatar avatarUrl={getBotAvatar(botOption, true)} size="sm" className="md:w-16 md:h-16 w-8 h-8 p-0 sm:mt-0 mt-1" />
           <div className="ml-2 flex flex-col">
-            <span className="font-medium">{botOption.name}</span>
-            <span className="text-xs text-slate-500">{botOption.description}</span>
+            <span className="sm:text-md text-sm text-primary font-medium">{botOption.name}</span>
+            <span className="text-xs text-secondary-content/75 dark:text-primary-content leading-normal">{botOption.description}</span>
           </div>
         </Link>
       ))}

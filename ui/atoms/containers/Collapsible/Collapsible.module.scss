@@ -25,11 +25,6 @@
     flex-shrink: 1;
   }
 
-  & > input:checked + label {
-    border-bottom-color: transparent; /* Change border color when the content is visible */
-  }
-
-
   &:has(> input:checked) > .collapsibleContent {
     // flex-shrink: 1;
     overflow-y: auto;
@@ -44,8 +39,42 @@
   }
 
   & > label {
-    border-bottom: 1px solid; /* Add a border at the bottom of the label */
-    @apply border-blue-200;
     padding-bottom: 1rem;
+  }
+}
+
+.collapsibleContent::-webkit-scrollbar {
+  padding: 0 2px;
+  width: 12px;
+  margin: 0 2px;
+  /* width of the entire scrollbar */
+}
+
+.collapsibleContent::-webkit-scrollbar-track {
+  padding: 0 2px;
+  margin: 0 2px;
+  @apply bg-base-100;
+}
+
+.collapsibleContent::-webkit-scrollbar-thumb {
+  padding: 0 2px;
+  margin: 0 2px;
+
+  border-radius: 16px;
+  border: 2px solid;
+  @apply border-base-100;
+  @apply bg-neutral-200;
+}
+
+
+body[data-theme="dark"] {
+  .collapsibleContent::-webkit-scrollbar-track {
+    @apply bg-black/10;
+    // background: transparent;
+  }
+
+  .collapsibleContent::-webkit-scrollbar-thumb {
+    @apply bg-black/10;
+    @apply bg-base-200;
   }
 }

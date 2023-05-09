@@ -36,7 +36,7 @@ export const Collapsible = (props: CollapsibleProps) => {
         !disabled && <ChevronRightIcon
           width={12}
           height={12}
-          className="animate-rotate ml-auto peer-checked:rotate-90 absolute sm:top-8 top-9 right-4 transform transition-transform duration-300"
+          className="animate-rotate ml-auto peer-checked:rotate-90 absolute sm:top-[22px] top-6 right-4 transform transition-transform duration-300"
         />
       }
     </Element>
