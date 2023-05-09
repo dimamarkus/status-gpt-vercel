@@ -267,7 +267,7 @@ class Conversations {
   }
 
   get filterInput() {
-    return cy.get(`${this.self} input`);
+    return cy.get(`${this.self} input[type="text"]`);
   }
 
   open() {
@@ -307,6 +307,10 @@ class Conversations {
         return [];
       }
     });
+  }
+
+  getCount() {
+    return this.getAllItems().then((items) => items.length);
   }
 
   addConversation() {
@@ -378,11 +382,14 @@ class ConversationItem {
   }
 
   rename(newName) {
-    this.editButton.click();
-    this.editInput.clear().type(newName);
-    this.confirmButton.click();
-    this.caption.should("contain", newName);
-    this.editInput.should("not.exist");
+    this.container.scrollIntoView().then(() => {
+      this.container.click();
+      this.editButton.click();
+      this.editInput.clear().type(newName);
+      this.confirmButton.click();
+      this.caption.should("contain", newName);
+      this.editInput.should("not.exist");
+    });
   }
 
   delete() {

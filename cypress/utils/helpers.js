@@ -11,8 +11,8 @@ export function waitForElementsCount(selector, count = 1) {
   );
 }
 
-function randomString(
-  options = { randomLength: [1, 50], letters: true, punctuation: true, digits: true },
+export default function randomString(
+  options = { randomLength: [1, 50], letters: true, punctuation: false, digits: true },
 ) {
   const { randomLength, letters, punctuation, digits } = options;
   let output = "";

@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import ChatPage from "../pageObjects/chatPage";
-import RandomString from "../utils/helpers";
+import randomString from "../utils/helpers";
 
 describe("Testing Conversations", () => {
   let chatPage = new ChatPage();
@@ -19,7 +19,7 @@ describe("Testing Conversations", () => {
     conversations.menu.should("be.visible");
     conversations.addConversationButton.should("be.visible");
     conversations.addFolderButton.should("be.visible");
-    conversations.filterInput.should("be.hidden");
+    conversations.filterInput.should("not.exist");
     conversations.clearButton.should("not.exist");
     conversations.importButton.should("be.visible");
     conversations.exportButton.should("be.visible");
@@ -81,7 +81,7 @@ describe("Testing Conversations", () => {
     conversations.confirmButton.click();
     conversations.addConversationButton.should("be.visible");
     conversations.addFolderButton.should("be.visible");
-    conversations.filterInput.should("be.hidden");
+    conversations.filterInput.should("not.exist");
     conversations.clearButton.should("not.exist");
     conversations.importButton.should("be.visible");
     conversations.exportButton.should("be.visible");
@@ -89,32 +89,81 @@ describe("Testing Conversations", () => {
   });
 
   it("Rename conversation [cancel]", () => {
-    // TODO: make test pass
     openedConversations();
     conversations.addConversation();
-    let conversation = conversations.getAllItems()[0];
-    conversation.editButton.should("be.visible");
-    conversation.editButton.click();
-    conversation.editInput.should("be.visible");
-    const old_name = conversation.caption.invoke("text");
-    const new_name = RandomString();
-    conversation.editInput.type(new_name);
-    conversation.cancelButton.should("be.visible");
-    conversation.cancelButton.click();
-    conversation.cancelButton.should("not.exist");
-    conversation.editInput.should("not.exist");
-    conversation.caption.then((text) => {
-      expect(new_text).not.to.equal(text);
-      expect(old_text).to.equal(text);
+    conversations.getAllItems().then((conversation_items) => {
+      conversation_items[0].caption.invoke("text").then((old_text) => {
+        conversation_items[0].editButton.should("be.visible");
+        conversation_items[0].editButton.click();
+        const new_text = randomString();
+        conversation_items[0].editInput.type(new_text);
+        conversation_items[0].cancelButton.click();
+        conversation_items[0].cancelButton.should("not.exist");
+        conversation_items[0].editInput.should("not.exist");
+        conversation_items[0].caption.invoke("text").then((updated_text) => {
+          expect(new_text).not.to.equal(updated_text);
+          expect(old_text).to.equal(updated_text);
+        });
+      });
+    });
+  });
+
+  it("Rename conversation [submit]", () => {
+    openedConversations();
+    conversations.addConversation();
+    conversations.getAllItems().then((conversation_items) => {
+      conversation_items[0].caption.invoke("text").then((old_text) => {
+        const new_text = randomString();
+        conversation_items[0].rename(new_text);
+        conversation_items[0].caption.invoke("text").then((updated_text) => {
+          expect(new_text).to.equal(updated_text);
+        });
+      });
     });
   });
 
   it("Add several conversations", () => {
-    // TBD
+    openedConversations();
+    const conversationsCount = Math.floor(Math.random() * 5) + 1;
+    for (let i = 0; i < conversationsCount; i++) {
+      conversations.addConversation();
+    }
+    conversations.getAllItems().then((conversationItems) => {
+      expect(conversationItems.length).to.equal(conversationsCount);
+      conversations.filterInput.should("be.visible");
+    });
   });
 
-  it("Conversations filtering", () => {
-    // TBD
+  const testCases = [
+    ["PATTERN", Math.floor(Math.random() * 4) + 2],
+    [`_${Cypress._.random(1, Math.floor(Math.random() * 4) + 2)}`, 1],
+    [randomString(), 0],
+  ];
+
+  Cypress._.each(testCases, ([pattern, expectedCount]) => {
+    it("Conversations filtering", () => {
+      openedConversations();
+      let conversationsCount;
+      if (expectedCount < 2) {
+        conversationsCount = Math.floor(Math.random() * 4) + 2;
+      } else {
+        conversationsCount = expectedCount;
+      }
+      for (let i = 0; i < conversationsCount; i++) {
+        conversations.addConversation();
+      }
+      conversations.getAllItems().then((conversation_items) => {
+        conversation_items[0].caption.invoke("text").then((old_text) => {
+          for (let i = 0; i < conversationsCount; i++) {
+            conversation_items[i].rename(`PATTERN_${i}`);
+          }
+        });
+      });
+      conversations.filterInput.clear().type(pattern);
+      conversations.getCount().then((conversationsActualCount) => {
+        expect(conversationsActualCount).to.equal(expectedCount);
+      });
+    });
   });
 
   it("Delete conversation [cancel]", () => {
