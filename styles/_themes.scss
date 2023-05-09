@@ -40,10 +40,10 @@ body[data-theme="dark"] {
 
 [data-theme="dark"] {
   .label {
-    @apply text-neutral-400;
+    @apply text-neutral-content;
   }
   .label-text {
-    @apply text-neutral-400;
+    @apply text-neutral-content;
   }
   .input,
   textarea {

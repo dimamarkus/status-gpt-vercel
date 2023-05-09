@@ -153,22 +153,23 @@ export const ChatInput: FC<ChatInputProps> = ({ query }) => {
   }
 
   const stopButton = (
-    <BaseButton
-      flavor="icon"
-      icon={<StopIcon />}
-      onClick={() => appActions.cancelStream(false)}
-      text="Stop Generating"
-      title="Stop generating a response"
-      size="sm"
-      className="gap-0 text-xs flex"
-    />
+    <div className="flex absolute bottom-[16px] left-0 right-0 md:top-[13px] w-full">
+      <BaseButton
+        flavor="icon"
+        icon={<StopIcon />}
+        onClick={() => appActions.cancelStream(false)}
+        text="Stop Generating"
+        title="Stop generating a response"
+        size="sm"
+        className="gap-0 text-xs font-medium text-center mx-auto flex items-center flex-col"
+      />
+    </div>
   );
 
   return (
     <form className={rootStyles} onSubmit={submitMessage}>
       <div className={wrapperStyles}>
-        <ChatRangeInput className="absolute bottom-0 left-0 right-0 md:-top-2" />
-        { loading? stopButton : <ChatRangeInput className="absolute bottom-0 left-0 right-0 md:-top-2" /> }
+        { loading ? stopButton : <ChatRangeInput className="absolute bottom-0 left-0 right-0 md:-top-2" /> }
         <fieldset className={fieldsetStyles}>
           <BaseButton
             type={settings.autoSubmitSpeech ? "submit" : "button"}

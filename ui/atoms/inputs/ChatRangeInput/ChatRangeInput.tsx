@@ -30,6 +30,12 @@ export const ChatRangeInput = (props: ChatRangeInputProps): JSX.Element => {
       setSettings({ ...settings, responseLength: 1 });
     }
   };
+
+  const inputClasses = clsx(
+    "h-2 w-full cursor-pointer appearance-none rounded bg-gradient-to-r from-blue-200/50 via-blue-300/50 to-blue-400/50  outline-none",
+    "dark:from-slate-700 dark:via-slate-800 dark:to-slate-900"
+  )
+
   return (
     <label
       htmlFor="responseLength"
@@ -51,7 +57,7 @@ export const ChatRangeInput = (props: ChatRangeInputProps): JSX.Element => {
         type="range"
         min={1}
         max={3}
-        className="h-2 w-full cursor-pointer appearance-none rounded bg-gradient-to-r from-blue-200/50 via-blue-300/50 to-blue-400/50 outline-none"
+        className={inputClasses}
         step={1}
         value={currentValue}
         onChange={({ target }) => {

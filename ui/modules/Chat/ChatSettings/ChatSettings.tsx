@@ -30,11 +30,11 @@ const ChatSettings = (props: SettingsPanelProps) => {
           id={name}
           name={name}
           type="checkbox"
-          className="checkbox-primary checkbox"
+          className="checkbox-primary checkbox scale-75 dark:bg-base-300 border-secondary"
           checked={currentState}
           onChange={(event) => handleSetFeature(name, !currentState)}
         />
-        <span className="label-text ml-4 text-left font-medium text-base-100 dark:text-white">
+        <span className="label-text ml-4 text-left text-[12.5px] leading-3 font-light text-neutral-content">
           {title}
         </span>
       </label>
@@ -62,11 +62,11 @@ const ChatSettings = (props: SettingsPanelProps) => {
   );
 
   return (
-    <div className={clsx("flex flex-col ", className)}>
-      {getOptionCheckbox("darkMode", "Dark Mode")}
-      {getOptionCheckbox("sidebarRight", "Sidebar Right")}
+    <div className={clsx("flex flex-col pl-1 ", className)}>
+      {/* {getOptionCheckbox("darkMode", "Dark Mode")} */}
+      {/* {getOptionCheckbox("sidebarRight", "Sidebar Right")} */}
       {getOptionCheckbox("enableSuggestions", "Suggest questions")}
-      {getOptionCheckbox("useStream", "Stream Responses")}
+      {/* {getOptionCheckbox("useStream", "Stream Responses")} */}
       {getOptionCheckbox("autoSubmitSpeech", "Submit speech on release")}
       <LanguageSelect />
     </div>
