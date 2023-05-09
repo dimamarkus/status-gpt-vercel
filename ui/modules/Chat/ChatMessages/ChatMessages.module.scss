@@ -32,9 +32,19 @@
   margin: 0 2px;
   /* width of the entire scrollbar */
 
-  /* background-color: blue;    color of the scroll thumb */
   border-radius: 16px;
   border: 2px solid;
   @apply border-base-100;
-  @apply bg-neutral-200;
+  @apply bg-base-200;
+}
+
+body[data-theme="dark"] {
+  .root::-webkit-scrollbar-track {
+    @apply bg-base-100;
+  }
+
+  .root::-webkit-scrollbar-thumb {
+    @apply border-base-200;
+    @apply bg-base-200;
+  }
 }

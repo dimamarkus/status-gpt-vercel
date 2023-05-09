@@ -23,7 +23,7 @@ export const ChatMessageAvatar = (props: ChatMessageAvatarProps) => {
   const disableClick = onClick === undefined;
 
   const rootStyles = clsx(
-    "chat-image h-16 w-16 text-center self-auto overflow-hidden flex-shrink-0",
+    "chat-image text-center self-auto overflow-hidden flex-shrink-0",
     size === "sm" ? "rounded-lg" : "rounded-xl",
     disableClick && " pointer-events-none",
   );

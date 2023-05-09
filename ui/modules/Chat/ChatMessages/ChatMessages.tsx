@@ -78,17 +78,18 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
 
   if (!selectedConversation || !bot) {
     return (
-        <ul
-      className={clsx(styles.root, "h-full w-full max-h-full overflow-x-hidden bg-base-100 flex align-center flex-col align-center")}
-      ref={chatContainerRef}
-    >
-      <div className="flex text-center flex-col relative top-16">
-        Start a new conversation to begin
-        <NewChatButton text="New Conversation" size="lg" theme="primary" flavor="solid" className="m-auto mt-2"/>
-        {/* <Spinner />
-        Loading Conversation */}
-      </div>
-    </ul>)
+      <ul
+        className={clsx(styles.root, "main-scrollable h-full w-full max-h-full overflow-x-hidden bg-base-100 flex align-center flex-col align-center")}
+        ref={chatContainerRef}
+      >
+        <div className="flex text-center flex-col relative top-16">
+          Start a new conversation to begin
+          <NewChatButton text="New Conversation" size="lg" theme="primary" flavor="solid" className="m-auto mt-2"/>
+          {/* <Spinner />
+          Loading Conversation */}
+        </div>
+      </ul>
+    )
   }
 
   const incomingAnswerMessage = createChatMessage("assistant", "")
@@ -136,7 +137,6 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
         isTalking={loading || !!answerStream}
         {...incomingAnswerMessage}
         content={answerStream}
-        onStop={() => appActions.cancelStream(false)}
       />
 
       <div className="h-[162px]" ref={messagesEndRef} />
