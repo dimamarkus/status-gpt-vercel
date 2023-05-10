@@ -1,3 +1,5 @@
+"use client"
+
 import BaseButton from "#/ui/_base/BaseButton/BaseButton";
 import BaseLink from "#/ui/_base/BaseLink/BaseLink";
 import Logo from "#/ui/atoms/decorations/Logo/Logo";
@@ -7,6 +9,7 @@ import DarkModeToggle from "#/ui/molecules/actionButtons/DarkModeToggleButton/Da
 import AuthButtons from "#/ui/molecules/buttonGroups/AuthButtons/AuthButtons";
 import { Suspense } from "react";
 import NewChatButton from "../actionButtons/NewChatButton/NewChatButton";
+import { useSettingsContext } from "#/lib/contexts/SettingsContext";
 
 const navItems = (
   <ul className="menu menu-horizontal items-center space-x-8 px-8">
@@ -35,9 +38,12 @@ const navItems = (
 
 type TopBarProps = {
   logo?: string;
+  logoDark?: string;
 };
 
-const TopBar = ({ logo }: TopBarProps) => {
+const TopBar = ({ logo, logoDark }: TopBarProps) => {
+  const { settings } = useSettingsContext();
+
   const mobileMenu = (
     <div className="dropdown">
       <label tabIndex={0} className="btn-ghost btn lg:hidden">
@@ -55,7 +61,7 @@ const TopBar = ({ logo }: TopBarProps) => {
     <header className="z-1 navbar relative md:px-0 md:py-4">
       <div className="navbar-start w-full md:pl-0 pl-1">
         {/* {mobileMenu} */}
-        <Logo src={ logo }/>
+        <Logo src={ settings.darkMode && logoDark ? logoDark : logo }/>
         {/* {navItems} */}
       </div>
       <NewChatButton className="navbar-end" />

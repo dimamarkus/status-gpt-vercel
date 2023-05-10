@@ -13,7 +13,6 @@ type LogoProps = {
 export const Logo = (props: LogoProps) => {
   const { src } = props;
 
-
   const companyName = isBrainaics ? (
     <>
       aBLT<span className="cyan-gradient-animation font-light">.ai</span>

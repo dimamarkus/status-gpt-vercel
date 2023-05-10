@@ -42,13 +42,13 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
           <li><Spinner /></li>
         </ul>
       ) : (
-        <ul className="space-y-2 p-0 peer-checked:text-secondary-content">
+        <ul className="space-y-3 p-0 peer-checked:text-secondary-content">
           {displaySuggestions !== null &&
             displaySuggestions.map((prompt, index) => (
               <li key={index} className="w-full">
                 <button
                   type="submit"
-                  className="text-left text-blue-600"
+                  className="text-left text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-600 w-full text-xs"
                   title={"Ask: '" + prompt + "'"}
                   onClick={(e) => submitQuery(createChatMessage("user", prompt))}
                 >
@@ -58,8 +58,6 @@ export const ChatSuggestions = ({ className }: ChatSuggestionsProps) => {
             ))}
         </ul>
       )}
-  
-
     </div>
   );
 };

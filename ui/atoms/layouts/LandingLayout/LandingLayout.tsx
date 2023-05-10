@@ -16,13 +16,14 @@ type LandingLayoutProps = {
 
 export const LandingLayout = ({ children, ssr, globalSettings, className }: LandingLayoutProps) => {
   const logoUrl = getAvatarUrl(globalSettings?.logo, true);
+  const logoDarkUrl = getAvatarUrl(globalSettings?.logo_dark, true);
   const Component = ssr ? BaseLayout : BaseSpaLayout;
 
   return (
     <Component>
       <div className={clsx(styles.root, className)}>
         <main role="main">
-          <TopBar logo={ logoUrl }/>
+          <TopBar logo={ logoUrl } logoDark={ logoDarkUrl } />
           {children}
         </main>
       </div>

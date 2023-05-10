@@ -29,6 +29,7 @@ export type GlobalSettings = {
   primary_color?: string
   favicon?: StrapiMediaAttribute<StrapiMedia>;
   logo?: StrapiMediaAttribute<StrapiMedia>;
+  logo_dark?: StrapiMediaAttribute<StrapiMedia>;
   default_meta_title?: string
   default_meta_description?: string
   default_meta_image?: StrapiMediaAttribute<StrapiMedia>

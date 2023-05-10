@@ -56,7 +56,7 @@ const ChatSettings = (props: SettingsPanelProps) => {
           checked={currentState}
           onChange={(event) => handleSetFeature(name, !currentState)}
         />
-        <span className="label-text ml-4 text-left text-[12.5px] leading-3 font-light text-neutral-content">
+        <span className="label-text ml-2 text-left text-[12.5px] leading-3 font-light text-neutral-content">
           {title}
         </span>
       </label>
