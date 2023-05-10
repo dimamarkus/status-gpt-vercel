@@ -1,4 +1,5 @@
 import { ResponseLength, useSettingsContext } from "#/lib/contexts/SettingsContext";
+import { isMobile } from "#/lib/hooks/useIsMobile";
 import clsx from "clsx";
 import React from "react";
 
@@ -75,7 +76,7 @@ export const ChatRangeInput = (props: ChatRangeInputProps): JSX.Element => {
           />
         ))}
       </div>
-      <div className="mx-auto mt-3 self-center text-xs font-medium text-primary">
+      <div className="mx-auto mt-3 self-center text-xs font-medium text-primary" onClick={ isMobile() ? cycleThroughValues : undefined}>
         {getStepLabel()}
       </div>
     </label>

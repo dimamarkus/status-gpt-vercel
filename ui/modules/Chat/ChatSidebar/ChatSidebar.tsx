@@ -63,7 +63,6 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         title={sidebarHeader}
         titleClassName={headerStyles}
         slug="botSelect"
-        peekOnHover
         disabled={ disableBotMenu }
       >
         <ChatBots bots={botOptions} className="rounded-sm bg-white/50 p-0 dark:bg-black/10" />
@@ -74,6 +73,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
         section="conversations"
         className="mb-auto"
         shrinkable
+        fillHeight
       >
         <ChatConversations />
       </ChatSidebarSection>
@@ -91,7 +91,7 @@ export const ChatSidebar: FC<ChatSidebarProps> = (props) => {
       )}
 
       {settings.enableSuggestions && (
-        <ChatSidebarSection title="Questions You Can Try" section="suggestions">
+        <ChatSidebarSection title="Suggested Questions" section="suggestions">
           <ChatSuggestions />
         </ChatSidebarSection>
       )}

@@ -69,7 +69,7 @@ const Avatar = ({ isUserMessage, onClick }: AvatarProps) => {
     <div
       className={clsx(
         styles.Avatar,
-        "align-center avatar justify-center",
+        "items-center avatar justify-center",
         !isLoading && "cursor-pointer",
       )}
       onClick={handleClick}

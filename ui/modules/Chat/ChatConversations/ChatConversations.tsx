@@ -65,7 +65,7 @@ export const ChatConversations = () => {
     <>
       <header className="flex flex-col gap-4">
         {hasConversations && (
-          <Search searchTerm={searchTerm} onSearch={setSearchTerm} className="mt-1" />
+          <Search searchTerm={searchTerm} onSearch={setSearchTerm} />
         )}
         <div className="flex items-center gap-2">
           <button
@@ -96,21 +96,11 @@ export const ChatConversations = () => {
         <Conversations conversations={filteredData.rootConversations} />
       )}
       {!rootConversations.length && !folders.length && (
-        <div className="my-8 px-4 select-none text-center  align-center justify-center opacity-50">
+        <div className="my-8 px-4 select-none text-center  items-center justify-center opacity-50">
           <EyeSlashIcon className="mx-auto mb-3" width={18} height={18} />
           <span className="text-[12.5px] leading-3">No conversations. Add one to begin.</span>
         </div>
       )}
-
-      <footer className="mt-auto flex flex-col items-center space-y-1 border-t border-neutral-500/20 text-sm ">
-        {(rootConversations.length || folders.length) > 0 ? <Clear onClear={resetFolders} /> : null}
-        <Import onImport={handleImportConversations} />
-        <SidebarButton
-          text="Export conversations"
-          icon={<ArrowDownTrayIcon width={18} height={18} />}
-          onClick={exportConversations}
-        />
-      </footer>
     </>
   );
 };

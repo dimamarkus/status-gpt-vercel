@@ -79,7 +79,7 @@ export const ChatMessages: FC<ChatMessagesProps> = (props) => {
   if (!selectedConversation || !bot) {
     return (
       <ul
-        className={clsx(styles.root, "main-scrollable h-full w-full max-h-full overflow-x-hidden bg-base-100 flex align-center flex-col align-center")}
+        className={clsx(styles.root, "main-scrollable h-full w-full max-h-full overflow-x-hidden bg-base-100 flex items-center flex-col items-center")}
         ref={chatContainerRef}
       >
         <div className="flex text-center flex-col relative top-16">

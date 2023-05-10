@@ -97,7 +97,7 @@ export const BaseButtonGroup = (props: BaseButtonGroupProps) => {
     styles.BaseButtonGroup,
     "flex items-center space-x-4",
     vertical ? `space-y-${sizeMap[gap]}` : `space-x-${sizeMap[gap]}`,
-    vertical ? "justify-center" : "align-center",
+    vertical ? "justify-center" : "items-center",
     vertical && "flex-col",
     reverseOrder && vertical ? "flex-row-reverse" : reverseOrder && "flex-column-reverse",
     className,

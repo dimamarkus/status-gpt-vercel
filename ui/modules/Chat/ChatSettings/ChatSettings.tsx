@@ -5,8 +5,14 @@ import {
   useSettingsContext,
 } from "#/lib/contexts/SettingsContext";
 import { capitalizeFirstLetter } from "#/lib/helpers/string-helpers";
+import SidebarButton from "#/ui/atoms/buttons/SidebarButton/SidebarButton";
 import LanguageSelect from "#/ui/atoms/inputs/LanguageSelect/LanguageSelect";
 import clsx from "clsx";
+import Import from "../ChatConversations/Import";
+import Clear from "../ChatConversations/Clear";
+import { ArrowDownTrayIcon } from "@heroicons/react/20/solid";
+import { useChatContext } from "#/lib/contexts/ChatContext";
+import { ConversationsDataState } from "#/app/chat/lib/reducer";
 
 type SettingsPanelProps = {
   forceShow?: boolean;
@@ -16,6 +22,22 @@ type SettingsPanelProps = {
 const ChatSettings = (props: SettingsPanelProps) => {
   const { forceShow, className } = props;
   const { settings, setSettings } = useSettingsContext();
+  const {
+    appActions: { selectConversation },
+    dataState: { folders, rootConversations },
+    dataActions: {
+      resetFolders,
+      exportConversations,
+      setConversations,
+    },
+  } = useChatContext();
+
+  const handleImportConversations = (data: ConversationsDataState) => {
+    const rootConversation = data.rootConversations[data.rootConversations.length - 1];
+    const nestedConversation = data.folders[0]?.conversations[0];
+    setConversations(data);
+    selectConversation(rootConversation || nestedConversation);
+  };
 
   const handleSetFeature = (key: string, value: string | boolean) => {
     const newSettings = { ...settings, [key]: value };
@@ -62,14 +84,23 @@ const ChatSettings = (props: SettingsPanelProps) => {
   );
 
   return (
-    <div className={clsx("flex flex-col pl-1 ", className)}>
+    <footer className={clsx("flex flex-col pl-1 ", className)}>
       {/* {getOptionCheckbox("darkMode", "Dark Mode")} */}
       {/* {getOptionCheckbox("sidebarRight", "Sidebar Right")} */}
       {getOptionCheckbox("enableSuggestions", "Suggest questions")}
       {/* {getOptionCheckbox("useStream", "Stream Responses")} */}
       {getOptionCheckbox("autoSubmitSpeech", "Submit speech on release")}
+      <div className="mt-auto mb-4 flex flex-col space-y-1 border-y border-neutral-500/20 text-sm ">
+        {(rootConversations.length || folders.length) > 0 ? <Clear onClear={resetFolders} /> : null}
+        <Import onImport={handleImportConversations} />
+        <SidebarButton
+          text="Export conversations"
+          icon={<ArrowDownTrayIcon width={18} height={18} />}
+          onClick={exportConversations}
+        />
+      </div>
       <LanguageSelect />
-    </div>
+    </footer>
   );
 };
 
