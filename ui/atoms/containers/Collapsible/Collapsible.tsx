@@ -18,17 +18,21 @@ type CollapsibleProps = Omit<HTMLAttributes<ElementType>, "title"> & {
   titleClassName?: string;
   peekOnHover?: boolean
   disabled?: boolean
+  onClick?: () => void
 };
 
+/**
+ * @deprecated The method should not be used
+ */
 export const Collapsible = (props: CollapsibleProps) => {
-  const { as: Element = "div", title, children, className, titleClassName, slug, peekOnHover, disabled } = props;
+  const { as: Element = "div", title, children, className, titleClassName, slug, peekOnHover, disabled, onClick } = props;
 
   const id = `collapsible-${slug}`;
 
   return (
     <Element className={clsx(styles.collapsible, peekOnHover && styles.peekOnHover, className)}>
       <input type="checkbox" id={id} style={{ display: "none" }} className="peer"  />
-      <label htmlFor={id} className={titleClassName}>
+      <label htmlFor={id} className={titleClassName} onClick={ onClick }>
         {title}
       </label>
       <div className={styles.collapsibleContent}>{children}</div>

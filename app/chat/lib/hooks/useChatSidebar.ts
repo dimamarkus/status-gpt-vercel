@@ -8,6 +8,7 @@ export type UseChatSidebarReturn = {
 };
 
 export type SidebarState = {
+  bots: boolean;
   suggestions: boolean;
   settings: boolean;
   conversations: boolean;
@@ -18,6 +19,7 @@ export type SidebarState = {
 };
 
 export const INITIAL_SIDEBAR_STATE: SidebarState = {
+  bots: false,
   conversations: true,
   suggestions: false,
   settings: false,
@@ -31,8 +33,11 @@ export const useChatSidebar = (): UseChatSidebarReturn => {
   const [sidebarState, setSidebarState] = useState<SidebarState>(INITIAL_SIDEBAR_STATE);
 
   const toggleSidebarSection = (section: keyof SidebarState) => {
+    const isOpeningBotMenu = section === "bots" && !sidebarState.bots
+
     setSidebarState((state) => ({
       ...state,
+      conversations: isOpeningBotMenu ? false : state.conversations,
       [section]: !state[section],
     }));
   };
@@ -45,7 +50,7 @@ export const useChatSidebar = (): UseChatSidebarReturn => {
   };
 
   const closeAllSections = () => {
-    setSidebarState(INITIAL_SIDEBAR_STATE);
+    setSidebarState({ ...INITIAL_SIDEBAR_STATE, conversations: false });
   };
 
   return {
