@@ -1,4 +1,4 @@
-# Next.js App Router Playground
+# aBLT Chat App
 
 Next.js introduced the App Router (beta). This is the result of the [Layouts RFC](https://nextjs.org/blog/layouts-rfc) previously published for community feedback. This includes support for:
 
