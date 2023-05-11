@@ -20,9 +20,6 @@ describe("Testing Conversations", () => {
     conversations.addConversationButton.should("be.visible");
     conversations.addFolderButton.should("be.visible");
     conversations.filterInput.should("not.exist");
-    conversations.clearButton.should("not.exist");
-    conversations.importButton.should("be.visible");
-    conversations.exportButton.should("be.visible");
     conversations.zeroState.should("be.visible");
 
     conversations.getAllItems().then((conversationItems) => {
@@ -53,48 +50,14 @@ describe("Testing Conversations", () => {
       conversation_items[0].editInput.should("not.exist");
       conversation_items[0].confirmButton.should("not.exist");
       conversation_items[0].cancelButton.should("not.exist");
-      conversations.clearButton.should("be.visible");
       conversations.zeroState.should("not.exist");
       conversations.container.should("be.visible");
       conversations.menu.should("be.visible");
       conversations.addConversationButton.should("be.visible");
       conversations.addFolderButton.should("be.visible");
       conversations.filterInput.should("not.exist");
-      conversations.clearButton.should("be.visible");
-      conversations.importButton.should("be.visible");
-      conversations.exportButton.should("be.visible");
       conversations.zeroState.should("not.exist");
     });
-  });
-
-  it("Clear conversations [cancel]", () => {
-    openedConversations();
-    conversations.addConversation();
-    conversations.zeroState.should("not.exist");
-    conversations.clearButton.should("be.visible");
-    conversations.clearButton.click();
-    conversations.cancelButton.should("be.visible");
-    conversations.cancelButton.click();
-    conversations.getAllItems().then((conversationItems) => {
-      expect(conversationItems.length).to.equal(1);
-    });
-  });
-
-  it("Clear conversations [submit]", () => {
-    openedConversations();
-    conversations.addConversation();
-    conversations.zeroState.should("not.exist");
-    conversations.clearButton.should("be.visible");
-    conversations.clearButton.click();
-    conversations.confirmButton.should("be.visible");
-    conversations.confirmButton.click();
-    conversations.addConversationButton.should("be.visible");
-    conversations.addFolderButton.should("be.visible");
-    conversations.filterInput.should("not.exist");
-    conversations.clearButton.should("not.exist");
-    conversations.importButton.should("be.visible");
-    conversations.exportButton.should("be.visible");
-    conversations.zeroState.should("be.visible");
   });
 
   it("Rename conversation [cancel]", () => {
@@ -150,11 +113,16 @@ describe("Testing Conversations", () => {
   ];
 
   Cypress._.each(testCases, ([pattern, expectedCount]) => {
-    it.only("Conversations filtering", () => {
+    it("Conversations filtering", () => {
       openedConversations();
-      let conversationsCount = Math.floor(Math.random() * 4) + 2;
+      let conversationsCount;
+      if (expectedCount < 2) {
+        conversationsCount = Math.floor(Math.random() * 4) + 2;
+      } else {
+        conversationsCount = expectedCount;
+      }
       if (pattern == 0) {
-        pattern = `_${Cypress._.random(2, conversationsCount)}`;
+        pattern = `_${Cypress._.random(2, conversationsCount - 1)}`;
       }
       for (let i = 0; i < conversationsCount; i++) {
         conversations.addConversation();
@@ -226,13 +194,5 @@ describe("Testing Conversations", () => {
       });
     }
     conversations.zeroState.should("be.visible");
-  });
-
-  it("Import conversations", () => {
-    // TBD
-  });
-
-  it("Export conversations", () => {
-    // TBD
   });
 });

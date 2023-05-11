@@ -5,7 +5,7 @@ const path = require("path");
 export default defineConfig({
   projectId: process.env.CYPRESS_PROJECT_ID,
   e2e: {
-    baseUrl: "https://dev.ai.statusmoney.com/",
+    baseUrl: "https://status.ablt.ai/",
     viewportWidth: 1024,
     viewportHeight: 768,
     video: true,
